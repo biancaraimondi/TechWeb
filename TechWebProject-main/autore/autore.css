@@ -62,7 +62,7 @@ h4 {
 	box-shadow: 2px 2px 2px black;
 }
 
-@media (max-width: 320px){
+@media (max-width: 320px) and (max-width: 375px){
 	#titolo1, #messageerrorfunction, #formattivita, #formmodifica {
 		padding: 20px 5px;
 	}
@@ -77,21 +77,10 @@ h4 {
 	{
 		display:none;
 	}
-	#finestraqr, #finestraeliminaSA, #finestraeliminaSP, #finestraeliminamis, #finestraeliminaatt {
-		width: 320px;
-		height: 320px;
-		padding: 30px 5px;
-	}
-	
-	#finestranuovaattivita {
-		width: 320px;
-		height: 720px;
-		padding: 30px 5px;
-	}
 }
 
 
-@media (min-width: 321px) and (max-width: 375px){
+@media (min-width: 375px) and (max-width: 425px){
 	
 	#titolo1, #messageerrorfunction, #formattivita, #formmodifica {
 		padding: 30px 5px;
@@ -107,47 +96,12 @@ h4 {
 	{
 		display:none;
 	}
-	#finestraqr, #finestraeliminaSA, #finestraeliminaSP, #finestraeliminamis, #finestraeliminaatt {
-		width: 380px;
-		height: 320px;
-		padding: 30px 5px;
-	}
 	
-	#finestranuovaattivita {
-		width: 380px;
-		height: 720px;
-		padding: 30px 5px;
-	}
+	
+	
 }
 
-@media (min-width: 376px) and (max-width: 425px){
-	
-	#titolo1, #messageerrorfunction, #formattivita, #formmodifica {
-		padding: 30px 5px;
-	}
-	#logoprogetto{
-		width: 70px;
-		height: 70px;
-	}
-	#titolopagina{
-		font-size: 29px;
-	}
-	.lineaverticale
-	{
-		display:none;
-	}
-	#finestraqr, #finestraeliminaSA, #finestraeliminaSP, #finestraeliminamis, #finestraeliminaatt {
-		width: 420px;
-		height: 320px;
-		padding: 30px 5px;
-	}
-	
-	#finestranuovaattivita {
-		width: 420px;
-		height: 720px;
-		padding: 30px 5px;
-	}
-}
+
 @media (min-width: 426px) and (max-width: 768px){
 	
 	
@@ -159,17 +113,27 @@ h4 {
 		font-size: 29px;
 	}
 	
-	#finestraqr, #finestraeliminaSA, #finestraeliminaSP, #finestraeliminamis, #finestraeliminaatt {
-		width: 420px;
-		height: 320px;
-		padding: 30px 5px;
+	
+	
+	#azionepubblico, #crea, #azionearchivio {
+		padding: 5px 5px;
 	}
 	
-	#finestranuovaattivita {
-		width: 420px;
-		height: 720px;
-		padding: 30px 5px;
+	#azioneattivita, #azionemissioni, #nuovamissione, #incollamissione, #nuovaattivita, #incollaattivita {
+		padding: 5px 5px;
 	}
+}
+@media (min-width: 769px){
+	
+	
+	#logoprogetto{
+		width: 70px;
+		height: 70px;
+	}
+	#titolopagina{
+		font-size: 29px;
+	}
+	
 	#azionepubblico, #crea, #azionearchivio {
 		padding: 5px 5px;
 	}
