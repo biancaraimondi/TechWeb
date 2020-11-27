@@ -1,0 +1,17 @@
+{
+  "name": "newstory",
+  "version": "1.0.0",
+  "description": "my first required post",
+  "main": "autore1.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "fs": "^0.0.1-security"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
