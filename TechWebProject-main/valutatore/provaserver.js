@@ -2,66 +2,36 @@ var express = require('express');
 var app = express();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
-var fs = require("fs");
-var utenti = [];
+//var fs = require("fs");
+var utenti = [];//lista dei nomi e dei socket dei players
 var nomeDisconnesso = '';
 var inserisci = true;
 
 app.use(express.static(__dirname));//utilizzato per includere css e js
 
+app.get('/', function (req, res) {
+	res.sendFile(__dirname + '/primaPagina.html');
+});
+
 app.get('/valutatore', function (req, res) {
-  res.sendFile(__dirname + '/ambienteValutatore.html');
+	res.sendFile(__dirname + '/ambienteValutatore.html');
+});
+
+app.get('/autore', function (req, res) {
+	res.sendFile(__dirname + '/autore.html');
 });
 
 app.get('/player', function (req, res) {
 	res.sendFile(__dirname + '/NewFile.html');
 });
 
-app.get('/utenti', function (req, res) {
-	/*fs.readFile( __dirname + "/utenti.json", function (err, data) {
-		console.log( data );
-		res.end( data );
-	});*/
-	
-	var json = fs.readFileSync("utenti.json");
-	obj = JSON.parse(json);
-	console.log("nome: ", obj.nome);
-	console.log("storia: ", obj.storia);
-	
-	/*fs.readFile('utenti.json', function (err, data){
-		
-		var obj2 = {nome : "Mario", storia :"storia2"};
-		
-		if (err){
-			console.log(err);
-		} else {
-			obj = JSON.parse(data);
-			console.log(obj);
-			obj.utenti.push(obj2);
-			var json = JSON.stringify(obj, null, 2);
-			fs.writeFile('utenti.json', json);
-		}
-	});*/
-	
-	
-	/*{
-		"utenti" : [
-			{
-				"nome" : "Giacomo",
-				"storia" : "storia1"
-			},
-			{
-				"nome" : "Sara",
-				"storia" : "storia2"
-			},
-			{
-				"nome" : "Marco",
-				"storia" : "storia1"
-			}
-		]
-	}*/
+app.get("/server/utenti", function(req,res){
+	var loadUtenti = JSON.stringify(utenti); 
+	res.setHeader('Content-Type', 'application/json; charset=UTF-8'); //header risposta
+	res.end(loadUtenti); //invio risposta array utenti
 });
 
+//gestisce la chat tra valutatore e player
 io.on('connection', function (socket) {
 	console.log('SERVER: user ' + socket.id + ' connected');
 	socket.on('chat message', function (msg, trasmittente, ricevente) {//'chat message' deve essere uguale nel file ambienteValutatore.js come parametro di socket.emit
@@ -70,18 +40,24 @@ io.on('connection', function (socket) {
 		inserisci = true;
 		for (i=0;i<utenti.length;i++){
 			if(utenti[i].nome == trasmittente){
-				if(trasmittente == 'valutatore'){
+				/*if(trasmittente == 'valutatore'){
 					utenti[i].socket = socket.id;
-				}
+				}*/
 				inserisci = false;
 			}
 		}
 		if (inserisci){
 			utenti.push({nome : trasmittente, socket : socket.id});
-			console.log('SERVER: utenti: ' + utenti);//mostra gli utenti connessi
+			//mostra gli utenti connessi
+			console.log('SERVER: utenti: ');
+			for(i=0;i<utenti.length;i++){
+				console.log('nome: ' + utenti[i].nome + ' socket: ' + utenti[i].socket);//mostra gli utenti connessi
+			}
 		}
+		
 		console.log('SERVER: message from ' + trasmittente + ' to ' + ricevente + ': ' + msg);
 		
+		//invia il messaggio al destinatario 'ricevente'
 		var socketUtente = '';
 		inserisci = true;
 		for (i=0;i<utenti.length;i++){
@@ -92,6 +68,8 @@ io.on('connection', function (socket) {
 		}
 		
 	});
+	
+	//se un utente si disconnette
 	socket.on('disconnect', function () {
 		nomeDisconnesso = '';
 		for (i=0;i<utenti.length;i++){
@@ -99,13 +77,20 @@ io.on('connection', function (socket) {
 				nomeDisconnesso = utenti[i].nome;
 			}
 		}
-		//TODO se il valutatore si disconnette mandare un messaggio ai giocatori
-		/*if(nomeDisconnesso == 'valutatore'){
-			msg='il valutatore si è disconnesso, riprova a mandare i messaggi';
-			trasmittente='valutatore';
-			socket.broadcast.emit('chat message', msg, trasmittente, '');
-		}*/
 		console.log('SERVER: user ' + socket.id + ' disconnected. (' + nomeDisconnesso + ')');
+		var msg='Mi sono disconnesso, non riuscirò più a ricevere i tuoi messaggi';
+		//invia un messaggio al valutatore se il disconnesso è un player
+		if (nomeDisconnesso != 'valutatore'){
+			var socketValutatore='';
+			for (i=0;i<utenti.length;i++){
+				if (utenti[i].nome == 'valutatore'){
+					socketValutatore = utenti[i].socket;
+				}
+			}
+			socket.to(socketValutatore).emit('chat message', msg, nomeDisconnesso, 'valutatore');
+		} else {//invia un messaggio ai players se il disconnesso è il valutatore
+			socket.broadcast.emit('chat message', msg, nomeDisconnesso, '');
+		}
 	});
 	
 });

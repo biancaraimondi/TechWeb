@@ -27,9 +27,42 @@ function modificaAvanzamento(domandeCompletate) {
 
 $(document).ready( function(){
 	//nomeValutatore = prompt("inserisci qui il tuo nome: ", "");
+
+	//carica i player già connessi nell'array 'utenti'
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			var obj = JSON.parse(this.responseText);
+			for (i=0;i<obj.length;i++){
+				utenti.push({nome : obj[i].nome});
+				document.getElementById('giocatore').innerHTML += "<div class='form-check'><input name='giocatore' type='radio' value='" + obj[i].nome + "' id='" + obj[i].nome + "'><label for=" + obj[i].nome + ">" + obj[i].nome + "</label></div>";
+			}
+			//mostra i player connessi
+			console.log('VALUTATORE: players: ');
+			for(i=0;i<utenti.length;i++){
+				console.log('nome: ' + utenti[i].nome);
+			}
+		}
+	};
+	xmlhttp.open("GET", "/server/utenti", true);
+	xmlhttp.send();
 	
-	//setta idGiocatore al valore che ha la label
+	/*$.get( "/server/utenti", function(data) {
+		var obj = JSON.parse(data);
+		for (i=0;i<obj.length;i++){
+			utenti.push({nome : obj[i].nome});
+			document.getElementById('giocatore').innerHTML += "<div class='form-check'><input name='giocatore' type='radio' value='" + obj[i].nome + "' id='" + obj[i].nome + "'><label for=" + obj[i].nome + ">" + obj[i].nome + "</label></div>";
+		}
+		//mostra i player connessi
+		console.log('VALUTATORE: players: ');
+		for(i=0;i<utenti.length;i++){
+			console.log('nome: ' + utenti[i].nome);
+		}
+	});*/
+	
 	$("#giocatore").click(function() {
+		
+		//setta idGiocatore al valore che ha la label
 		idGiocatorePrecendente = idGiocatore;
 		playersList = document.getElementsByTagName("input");
 		for (i = 0; i < playersList.length; i++) {
@@ -39,8 +72,10 @@ $(document).ready( function(){
 		}
 		console.log('VALUTATORE: giocatore attuale: ' + idGiocatore);
 		
-		//se cambia il giocatore a cui inviare messaggi allora inseriamo nella chat i messaggi corrispondenti
+		//se cambia il giocatore selezionato
 		if (idGiocatorePrecendente != idGiocatore) {
+			
+			//inseriamo nella chat i messaggi corrispondenti al nuovo giocatore selezionato
 			document.getElementById("messaggiChat").innerHTML = "";
 			for (i = 0; i < messaggi.length; i++) {
 				if (messaggi[i].nomeTrasmittente == idGiocatore){//se il messaggio arriva dal player
@@ -49,6 +84,8 @@ $(document).ready( function(){
 					document.getElementById("messaggiChat").innerHTML += "<div class='message message-right'> <div class='message-text-wrapper'> <div class='message-text'>" + messaggi[i].messaggio + "</div></div></div>";
 				}
 			}
+			
+			//TODO visualizzare l'avanzamento e le risposte del nuovo giocatore selezionato
 		}
 	});
 	
@@ -62,7 +99,7 @@ $(document).ready( function(){
 		modificaAvanzamento(7);
 	});
 
-	var socket = io();
+	var socket = io();//utilizzato per gestire la chat
 	
 	//appena il valutatore si connette crea il relativo utente all'interno del server
 	messaggioValutatore = nomeValutatore + " connesso";
@@ -91,7 +128,7 @@ $(document).ready( function(){
 		}
 		if (inserisci){
 			utenti.push({nome : player});
-			document.getElementById('giocatore').innerHTML += "<div class='form-check'><input name='giocatore' type='radio' value='" + player + "'><label>" + player + "</label></div>";
+			document.getElementById('giocatore').innerHTML += "<div class='form-check'><input name='giocatore' type='radio' value='" + player + "' id='" + player + "'><label for=" + player + ">" + player + "</label></div>";
 		}
 		
 		//aggiunge il messaggio direttamente in chat se corrisponde all'idGiocatore attualmente cliccato
@@ -100,20 +137,4 @@ $(document).ready( function(){
 		}
 		messaggi.push({nomeTrasmittente : player, nomeRicevente: valutatore, messaggio : msg});
 	});
-	
-	
-	/*$.ajax(
-		{
-			'url': 'https://localhost:3000/utenti.json',
-			'method': 'GET',
-			'success': function(risposta){	
-				obj = JSON.parse(risposta);
-				console.log('VALUTATORE: ' + obj);
-			},
-			'error':function(){
-				alert('errore!');
-			}
-		}
-	);*/
-
 });
