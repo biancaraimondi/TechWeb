@@ -1,0 +1,43 @@
+{
+    "missione1": {
+		"nome": "porta napoleone all'isola d'elba",
+		"attivita1": {
+			"domanda": "intro missione",
+			"immaginesfondo": "chsbuv.jpg",
+			"avanti" : "Avanti"
+		},
+		"attivita2": {
+			"domanda": "di che colore è il cavallo di napoleone?",
+			"immaginesfondo": "chsbuv.jpg",
+			"rispostebottoni" : {
+				"sbagliata1" : "giallo",
+				"giusta" : "bianco", //if(radiobutton.value==storia.missione1.attivita2.giusta){chiamare funzione cambio domanda} else{cout<<missione1.attivita2.incitamento}
+				"sbagliata2" : "neroeheheheheh",
+				"sbagliata3" : "blu",
+				"incitamento":"messaggio di incitamento"
+			}
+		},
+		"attivita3": {
+			"domanda": "che pianeta è questo?",
+			"immaginesfondo": "chsbuv.jpg",
+			"immaginedomanda" : "saturno.jpg",
+			"rispostebottoni" : {
+				"sbagliata1" : "giallo",
+				"giusta" : "bianco", //if(radiobutton.value==storia.missione1.attivita2.giusta){chiamare funzione cambio domanda} else{cout<<missione1.attivita2.incitamento}
+				"sbagliata2" : "neroeheheheheh",
+				"sbagliata3" : "blu",
+				"incitamento":"messaggio di incitamento"
+			},
+			"immaginerisposta" : "immagine dalla fotocamera del cellulare"
+		}
+    },
+	
+    "missione2": {
+		"nome": "uccidi napoleone",
+		"attivita1": {
+			"domanda": "intro missione",
+			"immaginesfondo": "chsbuv.jpg",
+			"avanti" : "Avanti"
+		},
+    }
+}
