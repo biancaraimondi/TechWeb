@@ -190,15 +190,7 @@
 			&nbsp;
 			<button type="button" class="btn btn-primary btn-sm" style= "background-color: #8b0000; color: white; " data-target="#finestranuovaattivita" data-toggle="modal" alt="pulsante crea nuova attività" id="nuovaattivita">Crea nuova attività</button>&nbsp;
 			<button type="button" class="btn btn-primary btn-sm" style= "background-color: #8b0000; color: white;" alt="pulsante incolla attività" id="incollaattivita"><img src="icon/paste.png"  width="18" height="17" alt="immagine incolla attività"/></button> &nbsp;
-			<div class="dropdown azioneattivita" >
-				<button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="azioneattivita" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" alt="pulsante azione attività">
-				Azioni
-				</button>
-					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-					<a class="dropdown-item" href="#" data-target="#finestraeliminaatt" data-toggle="modal" alt="pulsante elimina attività">Elimina Attività</a>
-					<a class="dropdown-item" href="#" id="copiaattivita" alt="pulsante copia attività">Copia Attività</a>
-					</div>
-				</div>
+				<button type="button" data-target="#finestraeliminaatt" data-toggle="modal" class="btn btn-primary btn-sm" style= "background-color: #8b0000; color: white;" alt="pulsante elimina attività" id="eliminaattivita" ><img src="icon/delete.png"  width="18" height="17" alt="immagine elimina attività"/></button> &nbsp;
 			</div>
 			<br>
 			<br>
@@ -220,17 +212,10 @@
 			<br>
 			<div class="row" id="pulsantimissioni">
 			&nbsp;
-			<button type="button" class="btn btn-primary btn-sm" style= "background-color: #8b0000; color: white;" alt="pulsante crea nuova missione" id="nuovamissione">Crea nuova missione</button>&nbsp;
+			<button type="button" class="btn btn-primary btn-sm" style= "background-color: #8b0000; color: white;" alt="pulsante crea nuova missione" id="nuovamissione" data-target="#finestranuovamissione" data-toggle="modal">Crea nuova missione</button>&nbsp;
 			<button type="button" class="btn btn-primary btn-sm" style= "background-color: #8b0000; color: white; " alt="pulsante incolla missione" id="incollamissione"><img src="icon/paste.png"  width="18" height="17" alt="immagine incolla missione"/></button>&nbsp;
-			<div class="dropdown azionemissioni" >
-				<button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="azionemissioni" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" alt="pulsante azione missioni">
-				Azioni
-				</button>
-					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-					<a class="dropdown-item" href="#" data-target="#finestraeliminamis" data-toggle="modal" alt="pulsante elimina missione">Elimina Missione</a>
-					<a class="dropdown-item" href="#" id="copiamissione" alt="pulsante copia missione">Copia Missione</a>
-					</div>
-				</div>
+				<button type="button" class="btn btn-primary btn-sm" style= "background-color: #8b0000; color: white; " alt="pulsante elimina missione" id="eliminamissione" data-target="#finestraeliminamis" data-toggle="modal"><img src="icon/delete.png"  width="18" height="17" alt="immagine elimina missione"/></button>&nbsp;
+			
 			</div>
 			<br>
 			<br>
@@ -254,65 +239,96 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<form>
-						<h5 style="color: #8b0000" alt="titolo nuova attività">Titolo Attività: </h5> <input class="form-control" type="text" placeholder="Titolo Attività" alt="barra inserimento titolo nuova arrività">
+						<h5 style="color: #8b0000" alt="titolo nuova attività">Titolo Attività: </h5> <input class="form-control" type="text" placeholder="Titolo Attività" alt="barra inserimento titolo nuova arrività" required>
 						<br>
-						<h5 style="color: #8b0000" alt="titolo allega elementi">Allega: </h5>
 						<div class="btn-group" role="group" aria-label="Basic example" style="background-color: #8b0000">
-							<button type="button" id="testo" class="btn btn-secondary" style="background-color: #8b0000" alt="pulsante allega testo">Testo </button>
-							<button type="button" id="immagine" class="btn btn-secondary" style="background-color: #8b0000"  alt="pulsante allega immagine">Immagine</button>
-							<button type="button" id="video" class="btn btn-secondary" style="background-color: #8b0000" alt="pulsante allega video">Video</button>		
+							<button type="button" id="immaginesfondo" class="btn btn-secondary" style="background-color: #8b0000"  alt="pulsante allega immagine">Allega Immagine Sfondo</button>
+									
 						</div>
 
 						<!-- contenitore allegato foto -->
 
-						<div class="allegatofoto" id="allegatofoto" hidden alt="contenitore allega foto">
+						<div class="allegatosfondo" id="allegatosfondo" hidden alt="contenitore allega foto">
 							<br>
 							<div class="custom-file">
-								<input type="file" class="custom-file-input" id="sceglifoto" alt="testo foto selezionata">
-								<label class="custom-file-label" for="customFile" data-browse="Scegli la foto" alt="pulsante allega foto">Scegli la foto</label>
+								<input type="file" class="custom-file-input" id="sceglifotosfondo" alt="testo foto selezionata">
+								<label class="custom-file-label" for="customFile" data-browse="Scegli lo sfondo" alt="pulsante allega foto">Seleziona lo sfondo per la tua storia</label>
 							</div>
-							<label for="exampleFormControlTextarea1" style="color:#8b0000"><br>Descrizione: </label>
-							<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" alt="box testo descrizione foto"></textarea>
 						</div>
-
-						<!-- contenitore allegato video -->	
-						<div class="allegatovideo" id="allegatovideo" hidden alt="contenitore allega video">
-							<br>
-							<div class="custom-file">
-								<input type="file" class="custom-file-input" id="sceglivideo" alt="testo video selezionato">
-								<label class="custom-file-label" for="customFile" data-browse="Scegli il video" alt="pulsante allega video">Scegli il video</label>
+					<hr>
+					<h6 style="color: #8b0000" alt="domanda nuova attività">Domanda: </h6>
+					<input class="form-control" type="text" placeholder="Domanda Attività" alt="barra inserimento domanda nuova arrività" id="domandaattivita" required>
+					<br>
+					<h6 style="color: #8b0000" alt="domanda nuova attività con immagine">Domanda con immagine: </h6>
+					<div class="input-group mb-3">
+  						<div class="input-group-prepend">
+    						<div class="input-group-text">
+      							<input type="checkbox" aria-label="Checkbox selezionare domanda con immagine">
+    						</div>
+  						</div>
+  						<div class="custom-file">
+								<input type="file" class="custom-file-input" id="sceglifotodomanda" alt="testo foto selezionata">
+								<label class="custom-file-label" for="customFile" data-browse="Scegli l'immagine" alt="pulsante allega foto">Seleziona l'immagine</label>
 							</div>
-							<label for="exampleFormControlTextarea1" style="color:#8b0000"><br>Descrizione: </label>
-							<textarea class="form-control" id="descrizionevideo" rows="3" alt="box testo descrizione video"></textarea>
+					</div>
+					
+					<br>
+					<h6 style="color: #8b0000" alt="domanda nuova attività">Risposte: </h6>
+					<div class="form-row">
+    					<div class="col">
+      						<input type="text" class="form-control" placeholder="Risposta Corretta" id="rispostacorretta" required>
+    					</div>
+    					<div class="col">
+      						<input type="text" class="form-control" placeholder="Risposta Sbagliata 1" id="rispostasbagliata1" required>
+    					</div>					
+  					</div>
+					<div class="form-row">
+    					<div class="col">
+      						<input type="text" class="form-control" placeholder="Risposta Sbagliata 2" id="rispostasbagliata2" required>
+    					</div>
+    					<div class="col">
+      						<input type="text" class="form-control" placeholder="Risposta Sbagliata 3" id="rispostasbagliata3" required>
+    					</div>					
+  					</div>
+				<label for="exampleFormControlTextarea1" style="color:#8b0000"><br>In caso di risposta sbagliata: </label>
+							<textarea class="form-control" id="messaggiorispostasbagliata" rows="3" alt="box messaggio risposta sbagliata" placeholder="Messaggio risposta sbagliata"></textarea>	
 						</div>
-
-						<!-- contenitore allegato testo -->	
-						<div class="testo" id="areatesto" hidden alt="contenitore allega testo">		
-							<label for="exampleFormControlTextarea1" style="color:#8b0000"><br>Testo: </label>
-							<textarea class="form-control" id="areatesto1" rows="3" alt="box testo"></textarea>
-						</div>		
-
-	<br>
-	<br>
-
-						<!-- contenitore widget per risposte -->
-
-						<h5 style="color: #8b0000" >Widget: </h5>
-						<br> inserimento widget per dare le risposte
-					</form>
-				</div>
-
 				<div class="modal-footer">
-					<form>
-						<button type="reset" class="btn btn-secondary" data-dismiss="modal" id="annullaat" alt="pulsante annulla attività">Annulla</button>
-						<button type="submit" class="btn btn-primary" id="salvaat" alt="pulsante salva attività">Salva</button>
-					</form>
+						<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annullaat" alt="pulsante annulla attività">Annulla</button>
+						<button type="button" class="btn btn-primary" id="salvaat" alt="pulsante salva attività">Salva</button>
 				</div>
-			</div>
+			
 		</div>
 	</div>
+</div>
+	
+<!-- contenitore crea nuova missione -->
+<div class="modal fade bd-example-modal-xl" id="finestranuovamissione" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" alt="finestra creazione nuova attività">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3 class="modal-title" id="creanuovamis" style="color: #8b0000" alt="titolo crea nuova missione">Creazione nuova missione</h3>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close" alt="pulsante chiusura finestra creazione nuova missione">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+						<h5 style="color: #8b0000" alt="titolo nuova attività">Titolo Missione: </h5> <input class="form-control" type="text" placeholder="Titolo Missione" alt="barra inserimento titolo nuova missione" required>
+					
+</div>
+				<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annullamis" alt="pulsante annulla missione">Annulla</button>
+						<button type="button" class="btn btn-primary" id="salvamis" alt="pulsante salva missione">Salva</button>
+					
+				</div>
 
+			
+		</div>
+	</div>
+</div>	
+	
+	
+	
 	<!-- finestra conferma eliminazione attività -->
 	<div class="modal fade" id="finestraeliminaatt" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" alt="contenitore conferma eliminazione attività">
 		<div class="modal-dialog" role="document">
@@ -327,10 +343,8 @@
 					Sei sicuro di voler eliminare l'attività?
 				</div>
 				<div class="modal-footer">
-					<form>
 						<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annullaatt" alt="pulsante annulla eliminazione attività">Annulla</button>
-						<button type="button" class="btn btn-primary" id="confermaatt" alt="pulsante conferma eliminazione attività">Conferma</button>
-					</form>
+						<button type="button" class="btn btn-primary" id="confermaeliminaatt" alt="pulsante conferma eliminazione attività">Conferma</button>
 				</div>
 			</div>
 		</div>
@@ -351,8 +365,8 @@
 				</div>
 				<div class="modal-footer">
 					<form>
-						<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annullamis" alt="pulsante annulla eliminazione missione">Annulla</button>
-						<button type="button" class="btn btn-primary" id="confermamis" alt="pulsante conferma eliminazione missione">Conferma</button>
+						<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annullaeliminamis" alt="pulsante annulla eliminazione missione">Annulla</button>
+						<button type="button" class="btn btn-primary" id="confermaeliminamis" alt="pulsante conferma eliminazione missione">Conferma</button>
 					</form>
 				</div>
 			</div>
@@ -418,7 +432,6 @@
 		</div>
 	</div>
 </div>
-	
 <br>
 	
 <!-- navbar inferiore -->	
