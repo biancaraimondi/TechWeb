@@ -34,8 +34,10 @@ $(document).ready( function(){
 		if (this.readyState == 4 && this.status == 200) {
 			var obj = JSON.parse(this.responseText);
 			for (i=0;i<obj.length;i++){
-				utenti.push({nome : obj[i].nome});
-				document.getElementById('giocatore').innerHTML += "<div class='form-check'><input name='giocatore' type='radio' value='" + obj[i].nome + "' id='" + obj[i].nome + "'><label for=" + obj[i].nome + ">" + obj[i].nome + "</label></div>";
+				if (obj[i].nome != 'valutatore'){//non carico anche il nome di un eventuale altro valutatore
+					utenti.push({nome : obj[i].nome});
+					document.getElementById('giocatore').innerHTML += "<div class='form-check'><input name='giocatore' type='radio' value='" + obj[i].nome + "' id='" + obj[i].nome + "'><label for=" + obj[i].nome + ">" + obj[i].nome + "</label></div>";
+				}
 			}
 			//mostra i player connessi
 			console.log('VALUTATORE: players: ');
@@ -44,7 +46,7 @@ $(document).ready( function(){
 			}
 		}
 	};
-	xmlhttp.open("GET", "/server/utenti", true);
+	xmlhttp.open("GET", "/valutatore/utenti", true);
 	xmlhttp.send();
 	
 	/*$.get( "/server/utenti", function(data) {
