@@ -1,0 +1,8 @@
+modificare inclusione libreria socket.io prima della consegna
+
+creare storie ed inserirle nel file storie.json
+
+creare QRcode
+
+modificare css primaPagina.html
+
