@@ -36,83 +36,68 @@
 		<span class="navbar-text"><img src="logow.png" width="80" height="80" alt="logo progetto"/></span>
 		<span class="navbar-text">
 		<font color ="white"><h2>Home</h2></font>
-    </span> 
+		</span> 
 	</nav>
 </header>
 
 
-	<div class="container-fluid" >
-	
-	
-<div class="row" id="row1">
+<div class="container-fluid" >
+	<div class="row" id="row1">
+		<br>
+		<div id="autore">
+			<button type="button" class="btn btn-lg" onclick="cambiaPagina('autore.html')">Gestisci e crea nuove storie</button>
+			<br><br><br>
+			<div id="eta">
+				<h5 id="t1">oppure indica la tua eta' per scegliere una storia:</h5><br>
+				<div id="radio1">
+					<div class="form-check">
+						<input name="eta" type="radio" id="eta1">
+						<label for="eta1">dai 7 ai 10 anni</label>
+					</div>
+					<div class="form-check">
+						<input name="eta" type="radio" id="eta2">
+						<label for="eta2">dagli 11 ai 14 anni</label>
+					</div>
+					<div class="form-check">
+						<input name="eta" type="radio" id="eta3">
+						<label for="eta3">dai 15 ai 18 anni</label>
+					</div>
+				</div>
+			</div>
+		</div>
 
+		<div id="storie" hidden>
+			<br>
+			<h5 id="t2">Ecco le storie disponibili per la tua eta':</h5>
+			<br>
+			<div id="nomiStorie">
+				<!-- <div class="form-check">
+					<input name="storia" type="radio" id="storia1">
+						<label for="storia1">impostazioneJsonStorie</label>
+				</div>
+				<div class="form-check">
+					<input name="storia" type="radio" id="storia2">
+						<label for="storia2">storia 2</label>
+				</div>
+				<div class="form-check">
+					<input name="storia" type="radio" id="storia3">
+						<label for="storia3">storia 3</label>
+				</div> -->
+			</div>
+			<br>
+			<button id="buttonQRcode" type="button" class="btn btn-lg" disabled>Genera il tuo QR code!</button>
+		</div>
 
-	<br>
-	<div id="autore">
-<button type="button" class="btn btn-lg" onclick="cambiaPagina('autore.html')">Gestisci e crea nuove storie</button>
-	<br><br><br>
-	
-
-<div id="eta">
-	<h5 id="t1">oppure indica la tua eta' per scegliere una storia:</h5><br>
-	<div id="radio1">
-		<div class="form-check">
-			<input name="eta" type="radio" id="eta1">
-				<label for="eta1">dai 7 ai 10 anni</label>
-		</div>
-		<div class="form-check">
-			<input name="eta" type="radio" id="eta2">
-				<label for="eta2">dagli 11 ai 14 anni</label>
-		</div>
-		<div class="form-check">
-			<input name="eta" type="radio" id="eta3">
-				<label for="eta3">dai 15 ai 18 anni</label>
+		<div id="imageQRcode" hidden>
+			<h5 id="idt">Inquadra il Qr code con il tuo smartphone</h5>
+			<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/QR_URL_itmwiki_Main_Page.png/220px-QR_URL_itmwiki_Main_Page.png"  alt="Qrcode" class="immm" id="qr">
+			<p><a href="player.html" id="qrlink">oppure se stai utilizzando un PC clicca qui</a></p>
+			<!-- https://it.qr-code-generator.com/qr-code-api/ -->
+			<br>
+			<button id="valutatore" type="button" class="btn btn-lg" onclick="cambiaPagina('ambienteValutatore.html')" style="position: absolute">valuta le risposte</button>
 		</div>
 	</div>
-	</div>
-	</div>
-	
-	
-	
-	
-<div id="storie" hidden>
-	<br>
-	<h5 id="t2">Ecco le storie disponibili per la tua eta':</h5><br>
-	<div id="nomiStorie">
-		<!-- <div class="form-check">
-			<input name="storia" type="radio" id="storia1">
-				<label for="storia1">impostazioneJsonStorie</label>
-		</div>
-		<div class="form-check">
-			<input name="storia" type="radio" id="storia2">
-				<label for="storia2">storia 2</label>
-		</div>
-		<div class="form-check">
-			<input name="storia" type="radio" id="storia3">
-				<label for="storia3">storia 3</label>
-		</div> -->
-	</div>
-	<br>
-	<button id="buttonQRcode" type="button" class="btn btn-lg" disabled>Genera il tuo QR code!</button>
 </div>
-	
-	
-<div id="imageQRcode" hidden>
-	<h5 id="idt">Inquadra il Qr code con il tuo smartphone</h5>
-	
-	<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/QR_URL_itmwiki_Main_Page.png/220px-QR_URL_itmwiki_Main_Page.png"  alt="Qrcode" class="immm" id="qr">
-	<p><a href="player.html" id="qrlink">oppure se stai utilizzando un PC clicca qui</a></p>
-
-	<br>
-	
-	<button id="valutatore" type="button" class="btn btn-lg" onclick="cambiaPagina('ambienteValutatore.html')" style="position: absolute">valuta le risposte</button>
-	
-	
-	</div>
-	
-	
-		</div>
-		</div>
 	
 <footer>
 	<nav class="navbar fixed-bottom">
