@@ -28,18 +28,16 @@ $(document).ready( function(){
 				eta = etaList[i].value;
 			}
 		}
-		console.log('PRIMA PAGINA: eta attuale: ' + eta);*/
-	});
-	
-	$("#nomiStorie").click(function() {
+		console.log('PRIMA PAGINA: eta attuale: ' + eta);
 		for (var i=0;i<storie.length;i++){
 			if (eta == storie[i].storie.eta){
 				document.getElementById("nomiStorie").innerHTML += "<div class='form-check'><input name='storia' type='radio' id='" + storie[i].storie.nome + "'><label for='" + storie[i].storie.nome + "'>" + storie[i].storie.nome + "</label></div>";
 			}
 		}
+		*/
 	});
 	
-	$("#storie").click(function() {
+	$("#nomiStorie").click(function() {
 		document.getElementById("buttonQRcode").disabled = false;
 		var storiesList = document.getElementsByTagName("input");
 		for (i = 0; i < storiesList.length; i++) {
