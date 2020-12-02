@@ -4,6 +4,7 @@ var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 var fs = require("fs");
 var utenti = [];//lista dei nomi e dei socket dei players
+var messaggi = [];//lista dei messaggi (messaggio, trasmittente, ricevente)
 var nomeDisconnesso = '';
 var inserisci = true;
 var storiaDaCaricare = "";
@@ -30,6 +31,12 @@ app.get("/valutatore/utenti", function(req,res){
 	var loadUtenti = JSON.stringify(utenti); 
 	res.setHeader('Content-Type', 'application/json; charset=UTF-8'); //header risposta
 	res.end(loadUtenti); //invio risposta array utenti
+});
+
+app.get("/valutatore/messaggi", function(req,res){
+	var loadMessaggi = JSON.stringify(messaggi); 
+	res.setHeader('Content-Type', 'application/json; charset=UTF-8'); //header risposta
+	res.end(loadMessaggi); //invio risposta array messaggi
 });
 
 app.get("/primaPagina/ottieniStorie", function(req,res){
@@ -90,6 +97,8 @@ io.on('connection', function (socket) {
 		}
 		
 		console.log('SERVER: message from ' + trasmittente + ' to ' + ricevente + ': ' + msg);
+		
+		messaggi.push({messaggio : msg, trasmittente : trasmittente, ricevente : ricevente});
 		
 		//invia il messaggio al destinatario 'ricevente'
 		var socketUtente = '';
