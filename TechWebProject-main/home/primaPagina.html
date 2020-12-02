@@ -81,13 +81,19 @@
 			<h5 id="idt">Inquadra il Qr code con il tuo smartphone</h5>
 			<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/QR_URL_itmwiki_Main_Page.png/220px-QR_URL_itmwiki_Main_Page.png"  alt="Qrcode" class="immm" id="qr">
 			<p><a href="player.html" id="qrlink">oppure se stai utilizzando un PC clicca qui</a></p>
-			<!-- https://it.qr-code-generator.com/qr-code-api/ -->
+			<!--
+			https://it.qr-code-generator.com/qr-code-api/ 
+			<div id="qrcode"></div>
+			<script type="text/javascript">
+				new QRCode(document.getElementById("qrcode"), "http://localhost:3000/player");
+			</script>
+			-->
 			<br>
 			<button id="valutatore" type="button" class="btn btn-lg" onclick="cambiaPagina('ambienteValutatore.html')" style="position: absolute">valuta le risposte</button>
 		</div>
 	</div>
 </div>
-	
+
 <footer>
 	<nav class="navbar fixed-bottom">
 		<button class="navbar-toggler" type="button" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
