@@ -40,9 +40,9 @@ unire file server nell'unico file provaserver.js di Bianca caricato nella pagine
 
 file json unico di nome 'storie'
 
-invertire colonne nell'autore.html 'attività' con 'missioni'
+invertire colonne nell'autore.html 'attività' con 'missioni' ✔
 
-in autore eliminare bottone 'genera QRCode'
+in autore eliminare bottone 'genera QRCode' ✔
 
 unica finestra tra crea e modifica attività
 
