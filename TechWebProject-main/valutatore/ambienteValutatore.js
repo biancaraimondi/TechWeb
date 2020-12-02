@@ -49,6 +49,20 @@ $(document).ready( function(){
 	xmlhttp.open("GET", "/valutatore/utenti", true);
 	xmlhttp.send();
 	
+	var xmlhttp2 = new XMLHttpRequest();
+	xmlhttp2.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			var obj = JSON.parse(this.responseText);
+			for (i=0;i<obj.length;i++){
+				if (obj[i].ricevente == 'valutatore'){
+					messaggi.push({nomeTrasmittente : obj[i].trasmittente, nomeRicevente: obj[i].ricevente, messaggio : obj[i].messaggio});
+				}
+			}
+		}
+	};
+	xmlhttp2.open("GET", "/valutatore/messaggi", true);
+	xmlhttp2.send();
+	
 	/*$.get( "/server/utenti", function(data) {
 		var obj = JSON.parse(data);
 		for (i=0;i<obj.length;i++){
