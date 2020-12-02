@@ -1,0 +1,16 @@
+{
+	"storie" : [
+		{
+			"nome" : "interrail",
+			"eta" : "eta3"
+		},
+		{
+			"nome" : "storiaMarti",
+			"eta" : "eta2"
+		},
+		{
+			"nome" : "storiaCri",
+			"eta" : "eta1"
+		}
+	]
+}

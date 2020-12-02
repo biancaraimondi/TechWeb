@@ -10,21 +10,11 @@ creare QRcode
 
 rendere accessibili tutte le pagine 
 
-prima della consegna progetto inserire il logo progetto nelle pagine (favicon)
-
 BIANCA:
-
-caricare nomi storie nella prima pagina
 
 modificare css primaPagina.html (media query)
 
 ambiente valutatore: risolvere problema campo invia chat nascosto dal footer
-
-da guardare riga 42 file primaPagina.js
-
-inserire in età l'età cliccata nell'html (primaPagina.js)
-
-riga 40 file primaPagina.js -> controllare se la funzione va
 
 MARTI:
 
@@ -32,20 +22,20 @@ campo inserimento nome player prima del caricamento pagina
 
 campi non sempre presenti (esempio freccia avanti, immagini aiuto, etc..) in file json inseriti in js e non html
 
-creare funzione che carica il contenuto di quell'attività (player.js)
+creare funzione che carica il contenuto di quell'attivit� (player.js)
 
 CRI: 
 
-aggiungere campo età nel crea nuova storia file autore
+aggiungere campo et� nel crea nuova storia file autore
 
 unire file server nell'unico file provaserver.js di Bianca caricato nella pagine principale GitHub
 
 file json unico di nome 'storie'
 
-invertire colonne nell'autore.html 'attività' con 'missioni' ✔
+invertire colonne nell'autore.html 'attivit�' con 'missioni'
 
-in autore eliminare bottone 'genera QRCode' ✔
+in autore eliminare bottone 'genera QRCode'
 
-unica finestra tra crea e modifica attività
+unica finestra tra crea e modifica attivit�
 
 invertire titoli di nome Storie P con Storie A con relativa modifica di azioni

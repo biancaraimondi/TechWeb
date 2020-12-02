@@ -40,7 +40,7 @@ app.get("/valutatore/messaggi", function(req,res){
 });
 
 app.get("/primaPagina/ottieniStorie", function(req,res){
-	fs.readFile("storiaP.json",function(err,storie) {
+	fs.readFile("storie.json",function(err,storie) {
 		if (err){
 			console.log(err);
 			res.status(500).send('Internal server error');
@@ -53,7 +53,6 @@ app.get("/primaPagina/ottieniStorie", function(req,res){
 });
 
 app.get("/player/ottienistoria", function(req,res){
-	console.log("nome della storia cliccata : " + storiaDaCaricare + ".json");
 	fs.readFile(storiaDaCaricare + ".json",function(err,storia) {
 		if (err){
 			console.log(err);
@@ -62,7 +61,6 @@ app.get("/player/ottienistoria", function(req,res){
 		else {
 			res.setHeader('Content-Type', 'application/json; charset=UTF-8'); //header risposta
 			res.end(storia); //invio risposta file storia
-			console.log("storia spedita al player");
 		}
 	});	
 });
