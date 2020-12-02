@@ -40,7 +40,7 @@ app.get("/valutatore/messaggi", function(req,res){
 });
 
 app.get("/primaPagina/ottieniStorie", function(req,res){
-	fs.readFile("storie.json",function(err,storie) {
+	fs.readFile("storiaP.json",function(err,storie) {
 		if (err){
 			console.log(err);
 			res.status(500).send('Internal server error');
