@@ -10,6 +10,8 @@ creare QRcode
 
 rendere accessibili tutte le pagine 
 
+prima della consegna progetto inserire il logo progetto nelle pagine (favicon)
+
 BIANCA:
 
 caricare nomi storie nella prima pagina
