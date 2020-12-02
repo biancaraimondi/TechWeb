@@ -6,3 +6,5 @@ creare QRcode
 
 modificare css primaPagina.html
 
+caricare nomi storie nella prima pagina
+
