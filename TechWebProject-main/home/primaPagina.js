@@ -16,16 +16,26 @@ function cambiaPagina(url) {
 $(document).ready( function(){
 	var socket = io();
 	var nomeStoria = "";
-
+	var eta = "";
+	
 	$("#eta").click(function() {
 		document.getElementById("autore").hidden = true;
 		document.getElementById("storie").hidden = false;
+		//TODO inserire in eta l'età cliccata nell'html
+		/*var etaList = document.getElementsByTagName("input");
+		for (i = 0; i < etaList.length; i++) {
+			if (etaList[i].checked) {
+				eta = etaList[i].value;
+			}
+		}
+		console.log('PRIMA PAGINA: eta attuale: ' + eta);*/
 	});
 	
 	$("#nomiStorie").click(function() {
-		//TODO aggiungere storie in base all'età cliccata
 		for (var i=0;i<storie.length;i++){
-			document.getElementById("nomiStorie").innerHTML += "<div class='form-check'><input name='storia' type='radio' id='" + storie[i].nome + "'><label for='" + storie[i].nome + "'>" + storie[i].nome + "</label></div>"
+			if (eta == storie[i].storie.eta){
+				document.getElementById("nomiStorie").innerHTML += "<div class='form-check'><input name='storia' type='radio' id='" + storie[i].storie.nome + "'><label for='" + storie[i].storie.nome + "'>" + storie[i].storie.nome + "</label></div>";
+			}
 		}
 	});
 	
