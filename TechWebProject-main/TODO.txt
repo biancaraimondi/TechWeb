@@ -12,8 +12,6 @@ rendere accessibili tutte le pagine
 
 BIANCA:
 
-modificare css primaPagina.html (media query)
-
 finire storia interrail
 
 MARTI:
@@ -22,10 +20,10 @@ campo inserimento nome player prima del caricamento pagina
 
 campi non sempre presenti (esempio freccia avanti, immagini aiuto, etc..) in file json inseriti in js e non html
 
-creare funzione che carica il contenuto di quell'attivit√† (player.js)
+creare funzione che carica il contenuto di quell'attivit‡ (player.js)
 
 CRI: 
 
 unire file server nell'unico file provaserver.js di Bianca caricato nella pagine principale GitHub
 
-unica finestra tra crea e modifica attivit√†
+unica finestra tra crea e modifica attivit‡
