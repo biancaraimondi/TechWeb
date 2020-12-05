@@ -14,7 +14,7 @@ BIANCA:
 
 modificare css primaPagina.html (media query)
 
-ambiente valutatore: risolvere problema campo invia chat nascosto dal footer
+finire storia interrail
 
 MARTI:
 
@@ -22,16 +22,16 @@ campo inserimento nome player prima del caricamento pagina
 
 campi non sempre presenti (esempio freccia avanti, immagini aiuto, etc..) in file json inseriti in js e non html
 
-creare funzione che carica il contenuto di quell'attivit√† (player.js)
+creare funzione che carica il contenuto di quell'attivit‡ (player.js)
 
 CRI: 
 
-aggiungere campo et√† nel crea nuova storia file autore
+aggiungere campo et‡ nel crea nuova storia file autore
 
 unire file server nell'unico file provaserver.js di Bianca caricato nella pagine principale GitHub
 
 file json unico di nome 'storie'
 
-unica finestra tra crea e modifica attivit√†
+unica finestra tra crea e modifica attivit‡
 
 invertire titoli di nome Storie P con Storie A con relativa modifica di azioni
