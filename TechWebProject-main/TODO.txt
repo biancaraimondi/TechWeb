@@ -12,8 +12,6 @@ rendere accessibili tutte le pagine
 
 BIANCA:
 
-finire storia interrail
-
 MARTI:
 
 campo inserimento nome player prima del caricamento pagina 
