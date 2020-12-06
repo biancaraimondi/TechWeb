@@ -1,1 +1,7 @@
-{"storie":[{"id":0,"nome":"StoriaMarty","accessibile":false,"eta":"eta2","stato":"archiviata"},{"id":1,"nome":"Interrail","accessibile":true,"eta":"eta3","stato":"archiviata"},{"id":2,"nome":"StoriaCri","accessibile":false,"eta":"eta1","stato":"archiviata"}]}
+{"storie":
+ [
+   {"id":0,"nome":"StoriaMarty","accessibile":false,"eta":"eta2","stato":"archiviata"},
+   {"id":1,"nome":"Interrail","accessibile":true,"eta":"eta3","stato":"archiviata"},
+   {"id":2,"nome":"StoriaCri","accessibile":false,"eta":"eta1","stato":"archiviata"}
+ ]
+}
