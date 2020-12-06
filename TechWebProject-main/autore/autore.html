@@ -10,211 +10,167 @@
 
 <title>Ambiente Autore</title>
 	
-	<!-- inclusione librerie bootstrap, jquery e qr jquery -->
+<!-- inclusione librerie bootstrap, jquery e qr jquery -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">	
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
 
-	
 <!-- inclusione funzioni js -->
-
 <script type="text/javascript" src="autore.js"></script>
-
 	
 <!-- inclusione foglio di stile -->
 <link rel="stylesheet" href="autore.css">
 	
 <!-- inclusione icona pagina-->
 <link rel="icon" type="image/png" sizes="16x16" href="...">
-	
 		
 </head>
-
 <body>
 	
 <!-- intestazione pagina ambiente autore -->
-	
-<nav class="navbar navbar-light" style="background-color: #8b0000;">
+<nav class="navbar navbar-light">
 	<span class="navbar-text">
-	<img src="icon/logow.png" width="80" height="80" alt="logo progetto" id="logoprogetto"/>
+	<img src="icon/logow.png" alt="logo progetto" id="logoprogetto"/>
 	</span>
 	<span class="navbar-text">
-	<font color ="white"><h2 id="titolopagina" alt="titolo pagina ambiente autore">Ambiente Autore</h2></font>
+	<h2 id="titolopagina" alt="titolo pagina ambiente autore">Ambiente Autore</h2>
 	</span> 
 </nav>
 	<br>
 	
 <!-- contenitore contenuto pagina -->	
 <div class="container-fluid" >
-	
 	<div class="row" id="row1">
-	
-		<!-- contenitore storie pubbliche -->
-	
-		<div class="col-sm-4 col-md-4 col-lg-4" id="storiapub">
 		
-			<h2 style="color: #8b0000" alt="titolo storie pubblicate"><center> Storie Pubblicate </center></h2>
+		<!-- contenitore storie pubbliche -->
+		<div class="col-sm-4 col-md-4 col-lg-4" id="storiaarc">
+			<h2 alt="titolo storie archiviate"><center> Storie Archiviate </center></h2>
 			<br>
-			<div class="row" id="pulsantisp">
+			<div class="row" id="pulsantisa">
 				&nbsp;
-				<button type="button" id="crea" class="btn" style= "background-color: #8b0000; color: white;" alt="pulsante crea una nuova storia">Crea una nuova storia</button>
+				<button type="button" id="crea" class="btn" alt="pulsante crea una nuova storia">Crea una nuova storia</button>
 				&nbsp; 
-	
-					<div class="dropdown azionepubblico">
-  						<button class="btn btn-secondary dropdown-toggle" type="button" id="azionepubblico" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" alt="pulsante azioni storie pubblicate">
+					<div class="dropdown azionearchiviate">
+  						<button class="btn btn-secondary dropdown-toggle" type="button" id="azionearchivio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" alt="pulsante azioni storie archiviate">
     						Azioni
   						</button>
- 						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton"><a class="dropdown-item" href="#" id="modificastoriapub" alt="pulsante modifica storia pubblicata">Modifica Storia</a>
-    						<a class="dropdown-item" href="#" data-target="#finestraeliminaSP" data-toggle="modal" alt="pulsante elimina storia pubblicata">Elimina Storia</a>
-    						<a class="dropdown-item" href="#" id="duplicastoriapub" alt="pulsante duplica storia pubblicata">Duplica Storia</a>
-   							<a class="dropdown-item" href="#" id="archiviastoria" alt="pulsante archivia storia pubblicata">Archivia Storia</a>
-	  						<a class="dropdown-item" href="#" data-target="#finestraqr" data-toggle="modal" id="pulsanteqr" alt="pulsante genera QR code storia pubblicata">Genera QR della Storia</a>
+ 						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton"><a class="dropdown-item" href="#" id="modificastoria" alt="pulsante modifica storia archiviata">Modifica Storia</a>
+    						<a class="dropdown-item" href="#" data-target="#finestraeliminaS" data-toggle="modal" alt="pulsante elimina storia ">Elimina Storia</a>
+    						<a class="dropdown-item" href="#" id="duplicastoria" alt="pulsante duplica storia archiviata">Duplica Storia</a>
+   							<a class="dropdown-item" href="#" id="pubblicastoria" alt="pulsante pubblica storia archiviata">Pubblica Storia</a>
   						</div>
 					</div>
 			</div> 
-		
-<br>
+			<br>
 	
-			<!-- Elenco storie pubblicate -->
-
-			<div id="storiepubblicate" class="history" alt="elenco storie pubblicate">
+			<!-- Elenco storie archiviate -->
+			<div id="storiearchiviate" class="history" alt="elenco storie archiviate">
 				<!-- storie inserite dinamicamente -->
 			</div>
-
-
-
 		</div>
 
+		<br><br><br><br>
 
-<br><br><br><br>
-
-
-
-<!-- linea rossa separazione -->	
-<div class="lineaverticale">
-</div>
-
+		<!-- linea rossa separazione -->	
+		<div class="lineaverticale">
+		</div>
 
 		<!-- contenitore crea storia nascosto -->
 		<label id="titolo1" alt="titolo seleziona una storia"><h4>&nbsp;&nbsp; Seleziona una storia </h4></label>
 		<div id="messageerrorfunction">
-					</div>
+		</div>
 		<div class="col-sm col-md col-lg" id="formattivita" hidden>
-
 			<div id="form-row" >
 				<div class="form-group col" >
-					<label id="titolo2" style="color:#8b0000">
 						<h2 alt="titolo crea una nuova storia">Creazione nuova storia</h2>
 						<br>
-						<h3>Titolo Storia:</h3></label><br />
-					<input type="text" class="form-control" id="titolostoriacrea" placeholder="Titolo Storia" name="titolostoria" value="" required minlength="1" alt="barra inserimento titolo storia da creare"> <br>
-						<div id="messageerror">
+						<h3>Titolo Storia:</h3><br>
+					<input type="text" class="form-control" id="titolostoriacrea" placeholder="Titolo Storia" name="titolostoria" value="" required minlength="1" alt="barra inserimento titolo storia da creare"> 
+					<br>
+					<h6>Accessibile? &nbsp; <input type="checkbox" id="accessibile" name="accessibile" alt="pulsante crea storia accessibile"></h6>
+					<br>
+					<h6>Fascia età storia: &nbsp;</h6>
+					<div class="input-group mb-3">
+				  		<select class="custom-select" id="creaetastoria">
+							<option value="eta1">7-10 anni</option>
+							<option value="eta2">11-14 anni</option>
+							<option value="eta3">15-18 anni</option>
+				  		</select>
 					</div>
 					<br>
-					<h6 style="color: #8b0000 ">Accessibile? &nbsp; <input type="checkbox" id="accessibile" name="accessibile" alt="pulsante crea storia accessibile"></h6>
-
+					<div id="messageerror">
+					</div>
 					<br>
-					<button type="button" id="salva" class="btn" style= "background-color: #8b0000; color: white;" alt="pulsante salva la nuova storia">Salva</button> 
-
-						<button type="button" id="annullacrea" class="btn" style= "background-color: #8b0000; color: white;" alt="pulsante annulla creazione nuova storia">Annulla</button>
-					
+					<button type="button" id="salva" class="btn" alt="pulsante salva la nuova storia">Salva</button> 
+					<button type="button" id="annullacrea" class="btn" alt="pulsante annulla creazione nuova storia">Annulla</button>
 				</div>
 			</div>
 		</div>
 		
 		<!-- contenitore modifica storia nascosto -->
 		<div class="col-sm col-md col-lg" id="formmodifica" hidden>
-
 			<div id="form-row1" >
 				<div class="form-group col" >
-					<label id="titolo3" style="color:#8b0000">
 						<h2>Modifica storia</h2>
 						<br>
-						<h3>Titolo Storia:</h3></label><br />
+						<h3>Titolo Storia:</h3><br>
 					<input type="text" class="form-control" id="titolostoriamod" placeholder="Titolo Storia" value="" alt="barra inserimento titolo storia da modificare"> <br>
-					<div id="messageerrormod"> </div><br>
-					<h6 style="color: #8b0000 ">Accessibile? &nbsp; <input type="checkbox" id="accessibilemodifica" alt="pulsante modifica storia accessibile"></h6>
-
+					
+					<h6>Accessibile? &nbsp; <input type="checkbox" id="accessibilemodifica" alt="pulsante modifica storia accessibile"></h6>
 					<br>
-					<button type="button" id="salvamodifica" class="btn" style= "background-color: #8b0000; color: white;" alt="pulsante salva modifica" >Salva Modifica</button> 
+					<h6>Fascia età storia: &nbsp;</h6>
+					<div class="input-group mb-3">
+				  		<select class="custom-select" id="modificaetastoria">
+							<option value="eta1">7-10 anni</option>
+							<option value="eta2">11-14 anni</option>
+							<option value="eta3">15-18 anni</option>
+				  		</select>
+					</div><br>
+					<div id="messageerrormod"> </div><br>
+					<br>
+					<button type="button" id="salvamodifica" class="btn" alt="pulsante salva modifica" >Salva Modifica</button> 
 
-					<button type="button" id="annullamod" class="btn" style= "background-color: #8b0000; color: white;" alt="pulsante annulla modifica">Annulla</button>
+					<button type="button" id="annullamod" class="btn" alt="pulsante annulla modifica">Annulla</button>
 				</div>
 			</div>
 		</div>
 	</div>
 
 	<div class="row" id="row2">
-
-		<!-- contenitore storia archiviate -->
 		
-		<div class="col-sm-4 col-md-4 col-lg-4" id="storiaarc">
+		<!-- contenitore storia pubblicate -->
+		<div class="col-sm-4 col-md-4 col-lg-4" id="storiapub">
 		<br>	
-		<h2 style="color: #8b0000 " alt="titolo storie archiviate"><center> Storie Archiviate </center></h2>
-		<br>	
-
-			<!-- Elenco storie pubblicate con lato azioni -->
-
-			<div class="row" id="pulsantisa">
-			&nbsp;
-				<div class="dropdown azionearchivio" >
-				<button class="btn btn-secondary dropdown-toggle" type="button" id="azionearchivio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" alt="pulsante azioni storie archiviate">
-				Azioni
-				</button>
-					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-					<a class="dropdown-item" href="#" data-target="#finestraeliminaSA" data-toggle="modal" alt="pulsante elimina storia archiviata">Elimina Storia</a>
-					<a class="dropdown-item" href="#" id="duplicastoriaarc" alt="pulsante duplica storia archiviata">Duplica Storia</a>
-					<a class="dropdown-item" href="#" id="pubblicastoria" alt="pulsante pubblica storia archiviata">Pubblica Storia</a>
-					<a class="dropdown-item" href="#" alt="pulsante genera QR code storia archiviata">Genera QR della Storia</a>
-					</div>
-				</div>
-			</div>
+		<h2 alt="titolo storie pubblicate"><center> Storie Pubblicate </center></h2>
 		<br>
-		<div id="storiearchiviate" class="historya">
-				<!-- storie inserite dinamicamente -->
-
+			
+			<!-- Elenco storie pubblicate con lato azioni -->
+			<div class="row" id="pulsantisp">
+				&nbsp;
+				<button type="button" class="btn btn-secondary" id="archiviastoria">Archivia Storia</button>
+			</div>
+			<br>
+			<div id="storiepubblicate" class="historya">
+			<!-- storie inserite dinamicamente -->
 			</div>
 		</div>
 
-<!-- linea rossa separazione -->		
-<div class="lineaverticale">
-</div>
-
-		<!-- contenitore attività -->
-		<div class="col-sm col-md col-lg" id="attivita">	
-			<br>     
-			<h2 style="color: #8b0000 " alt="titolo attività"><center> Attività </center></h2><br>
-			
-			<div class="row" id="pulsantiattivita">
-			&nbsp;
-			<button type="button" class="btn btn-primary btn-sm" style= "background-color: #8b0000; color: white; " data-target="#finestranuovaattivita" data-toggle="modal" alt="pulsante crea nuova attività" id="nuovaattivita">Crea nuova attività</button>&nbsp;
-			<button type="button" class="btn btn-primary btn-sm" style= "background-color: #8b0000; color: white;" alt="pulsante incolla attività" id="incollaattivita"><img src="icon/paste.png"  width="18" height="17" alt="immagine incolla attività"/></button> &nbsp;
-				<button type="button" data-target="#finestraeliminaatt" data-toggle="modal" class="btn btn-primary btn-sm" style= "background-color: #8b0000; color: white;" alt="pulsante elimina attività" id="eliminaattivita" ><img src="icon/delete.png"  width="18" height="17" alt="immagine elimina attività"/></button> &nbsp;
-			</div>
-			<br>
-			<br>
-			
-			<!-- contenitore singole attività -->
-			<div id="attivitastoria">
-				<!-- create in modo dinamico -->
-			</div>	
+		<!-- linea rossa separazione -->		
+		<div class="lineaverticale">
 		</div>
-
-<!-- linea rossa separazione -->		
-<div class="lineaverticale">
-</div>
-
 		<!-- contenitore missioni -->
 		<div class="col-sm col-md col-lg" id="missioni">	
 			<br>
-			<h2 style="color: #8b0000 "><center> Missioni </center></h2>
+			<h2><center> Missioni </center></h2>
 			<br>
 			<div class="row" id="pulsantimissioni">
 			&nbsp;
-			<button type="button" class="btn btn-primary btn-sm" style= "background-color: #8b0000; color: white;" alt="pulsante crea nuova missione" id="nuovamissione" data-target="#finestranuovamissione" data-toggle="modal">Crea nuova missione</button>&nbsp;
-			<button type="button" class="btn btn-primary btn-sm" style= "background-color: #8b0000; color: white; " alt="pulsante incolla missione" id="incollamissione"><img src="icon/paste.png"  width="18" height="17" alt="immagine incolla missione"/></button>&nbsp;
-				<button type="button" class="btn btn-primary btn-sm" style= "background-color: #8b0000; color: white; " alt="pulsante elimina missione" id="eliminamissione" data-target="#finestraeliminamis" data-toggle="modal"><img src="icon/delete.png"  width="18" height="17" alt="immagine elimina missione"/></button>&nbsp;
+			<button type="button" class="btn btn-primary btn-sm" alt="pulsante crea nuova missione" id="nuovamissione" data-target="#finestranuovamissione" data-toggle="modal">Crea nuova missione</button>&nbsp;
+			<button type="button" class="btn btn-primary btn-sm" alt="pulsante modifica missione" id="modificamissione" data-target="#finestramodificamissione" data-toggle="modal"><img src="icon/modify.png"  width="18" height="17" alt="immagine modifica missione"/></button>&nbsp;
+			<button type="button" class="btn btn-primary btn-sm" alt="pulsante duplica missione" id="duplicamissione"><img src="icon/paste.png"  width="18" height="17" alt="immagine duplica missione"/></button>&nbsp;
+			<button type="button" class="btn btn-primary btn-sm" alt="pulsante elimina missione" id="eliminamissione" data-target="#finestraeliminamis" data-toggle="modal"><img src="icon/delete.png"  width="18" height="17" alt="immagine elimina missione"/></button>&nbsp;
+			
 			
 			</div>
 			<br>
@@ -222,6 +178,32 @@
 
 			<!-- contenitore singole missioni -->	
 			<div id="elencomissioni">
+				<!-- create in modo dinamico -->
+			</div>	
+		</div>
+		
+
+		<!-- linea rossa separazione -->		
+		<div class="lineaverticale">
+		</div>
+
+		<!-- contenitore attività -->
+		<div class="col-sm col-md col-lg" id="attivita">	
+			<br>     
+			<h2 alt="titolo attività"><center> Attività </center></h2><br>
+			
+			<div class="row" id="pulsantiattivita">
+			&nbsp;
+			<button type="button" class="btn btn-primary btn-sm" data-target="#finestranuovaattivita" data-toggle="modal" alt="pulsante crea nuova attività" id="nuovaattivita">Crea nuova attività</button>&nbsp;
+			<button type="button" class="btn btn-primary btn-sm" alt="pulsante modifica attivita" id="modificaattivita" data-target="#finestramodificaattivita" data-toggle="modal"><img src="icon/modify.png"  width="18" height="17" alt="immagine modifica attivita"/></button>&nbsp;
+			<button type="button" class="btn btn-primary btn-sm" alt="pulsante duplica attività" id="duplicaattivita"><img src="icon/paste.png"  width="18" height="17" alt="immagine duplica attività"/></button> &nbsp;
+			<button type="button" data-target="#finestraeliminaatt" data-toggle="modal" class="btn btn-primary btn-sm" alt="pulsante elimina attività" id="eliminaattivita" ><img src="icon/delete.png"  width="18" height="17" alt="immagine elimina attività"/></button> &nbsp;
+			
+			</div>
+			<br>
+			<div id="erroreattivita"></div>
+			<!-- contenitore singole attività -->
+			<div id="attivitastoria">
 				<!-- create in modo dinamico -->
 			</div>	
 		</div>
@@ -233,101 +215,201 @@
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h3 class="modal-title" id="creanuovaatt" style="color: #8b0000" alt="titolo crea nuova missione">Creazione nuova attività</h3>
+					<h3 class="modal-title" id="creanuovaatt" alt="titolo crea nuova missione">Creazione nuova attività</h3>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close" alt="pulsante chiusura finestra creazione nuova attività">
 					<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
 				<div class="modal-body">
-						<h5 style="color: #8b0000" alt="titolo nuova attività">Titolo Attività: </h5> <input class="form-control" type="text" placeholder="Titolo Attività" alt="barra inserimento titolo nuova arrività" required>
-						<br>
-						<div class="btn-group" role="group" aria-label="Basic example" style="background-color: #8b0000">
-							<button type="button" id="immaginesfondo" class="btn btn-secondary" style="background-color: #8b0000"  alt="pulsante allega immagine">Allega Immagine Sfondo</button>
-									
-						</div>
-
-						<!-- contenitore allegato foto -->
-
-						<div class="allegatosfondo" id="allegatosfondo" hidden alt="contenitore allega foto">
-							<br>
-							<div class="custom-file">
-								<input type="file" class="custom-file-input" id="sceglifotosfondo" alt="testo foto selezionata">
-								<label class="custom-file-label" for="customFile" data-browse="Scegli lo sfondo" alt="pulsante allega foto">Seleziona lo sfondo per la tua storia</label>
-							</div>
-						</div>
-					<hr>
-					<h6 style="color: #8b0000" alt="domanda nuova attività">Domanda: </h6>
-					<input class="form-control" type="text" placeholder="Domanda Attività" alt="barra inserimento domanda nuova arrività" id="domandaattivita" required>
-					<br>
-					<h6 style="color: #8b0000" alt="domanda nuova attività con immagine">Domanda con immagine: </h6>
+					<h6 alt="domanda nuova attività">Sfondo: </h6>
 					<div class="input-group mb-3">
   						<div class="input-group-prepend">
     						<div class="input-group-text">
-      							<input type="checkbox" aria-label="Checkbox selezionare domanda con immagine">
+      							<input type="checkbox" aria-label="Checkbox selezionare domanda con immagine" id="checkboxsfondo">
     						</div>
   						</div>
   						<div class="custom-file">
-								<input type="file" class="custom-file-input" id="sceglifotodomanda" alt="testo foto selezionata">
-								<label class="custom-file-label" for="customFile" data-browse="Scegli l'immagine" alt="pulsante allega foto">Seleziona l'immagine</label>
+							<input type="file" class="custom-file-input" id="fotosfondo" alt="testo foto selezionata" accept=".jpg,.png">
+							<label class="custom-file-label" for="customFile" data-browse="Scegli lo sfondo" alt="pulsante allega foto">Sfondo per la tua storia .jpg/.png</label>
 							</div>
+					</div>
+						
+					<hr>
+					<h6 alt="domanda nuova attività">Domanda: </h6>
+					<input class="form-control" type="text" placeholder="Domanda Attività" alt="barra inserimento domanda nuova arrività" id="domandaattivita">
+					<br>
+					<h6 alt="domanda nuova attività con immagine">Domanda con immagine: </h6>
+					<div class="input-group mb-3">
+  						<div class="input-group-prepend">
+    						<div class="input-group-text">
+      							<input type="checkbox" aria-label="Checkbox selezionare domanda con immagine" id="checkboximmagine">
+    						</div>
+  						</div>
+  						<div class="custom-file">
+							<input type="file" class="custom-file-input" id="sceglifotodomanda" alt="testo foto selezionata" accept=".jpg,.png">
+							<label class="custom-file-label" for="customFile" data-browse="Scegli l'immagine" alt="pulsante allega foto">Seleziona l'immagine .jpg/.png</label>
+						</div>
 					</div>
 					
 					<br>
-					<h6 style="color: #8b0000" alt="domanda nuova attività">Risposte: </h6>
+					<h6 alt="domanda nuova attività">Risposte: </h6>
 					<div class="form-row">
     					<div class="col">
-      						<input type="text" class="form-control" placeholder="Risposta Corretta" id="rispostacorretta" required>
+      						<input type="text" class="form-control" placeholder="Risposta Corretta" id="rispostacorretta" >
     					</div>
     					<div class="col">
-      						<input type="text" class="form-control" placeholder="Risposta Sbagliata 1" id="rispostasbagliata1" required>
+      						<input type="text" class="form-control" placeholder="Risposta Sbagliata 1" id="rispostasbagliata1" >
     					</div>					
   					</div>
 					<div class="form-row">
     					<div class="col">
-      						<input type="text" class="form-control" placeholder="Risposta Sbagliata 2" id="rispostasbagliata2" required>
+      						<input type="text" class="form-control" placeholder="Risposta Sbagliata 2" id="rispostasbagliata2" >
     					</div>
     					<div class="col">
-      						<input type="text" class="form-control" placeholder="Risposta Sbagliata 3" id="rispostasbagliata3" required>
+      						<input type="text" class="form-control" placeholder="Risposta Sbagliata 3" id="rispostasbagliata3" >
     					</div>					
   					</div>
-				<label for="exampleFormControlTextarea1" style="color:#8b0000"><br>In caso di risposta sbagliata: </label>
-							<textarea class="form-control" id="messaggiorispostasbagliata" rows="3" alt="box messaggio risposta sbagliata" placeholder="Messaggio risposta sbagliata"></textarea>	
-						</div>
+					<br>
+					<h6 alt="aiuto">Aiuto: </h6>
+					<input class="form-control" type="text" placeholder="Aiuto Risposta" alt="barra inserimento aiuto risposta" id="aiutorisposta" ><br>
+					<h6 alt="aiuto">In caso di risposta sbagliata: </h6>
+					<textarea class="form-control" id="messaggiorispostasbagliata" rows="3" alt="box messaggio risposta sbagliata" placeholder="Messaggio risposta sbagliata"></textarea>	
+				</div>
+				<br>
+				<div id="messageerrattivita"></div>
+				<br>
 				<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annullaat" alt="pulsante annulla attività">Annulla</button>
 						<button type="button" class="btn btn-primary" id="salvaat" alt="pulsante salva attività">Salva</button>
 				</div>
-			
+			</div>
 		</div>
 	</div>
-</div>
 	
-<!-- contenitore crea nuova missione -->
-<div class="modal fade bd-example-modal-xl" id="finestranuovamissione" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" alt="finestra creazione nuova attività">
+	
+	<!-- finestra modifica attività -->
+
+	<div class="modal fade bd-example-modal-xl" id="finestramodificaattivita" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" alt="finestra creazione modifica attività">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h3 class="modal-title" id="creanuovamis" style="color: #8b0000" alt="titolo crea nuova missione">Creazione nuova missione</h3>
+					<h3 class="modal-title" id="modificaatt" alt="titolo modifica missione">Modifica attività</h3>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close" alt="pulsante chiusura finestra modifica attività">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<h6 alt="domanda nuova attività">Sfondo: </h6>
+					<div class="input-group mb-3">
+  						<div class="input-group-prepend">
+    						<div class="input-group-text">
+      							<input type="checkbox" aria-label="Checkbox selezionare domanda con immagine" id="modcheckboxsfondo">
+    						</div>
+  						</div>
+  						<div class="custom-file">
+							<input type="file" class="custom-file-input" id="modfotosfondo" alt="testo foto selezionata" accept=".jpg,.png">
+							<label class="custom-file-label" for="customFile" data-browse="Scegli lo sfondo" alt="pulsante allega foto">Sfondo per la tua storia .jpg/.png</label>
+						</div>
+					</div>
+					<hr>
+					<h6 alt="domanda nuova attività">Domanda: </h6>
+					<input class="form-control" type="text" placeholder="Domanda Attività" alt="barra inserimento domanda nuova arrività" id="moddomandaattivita">
+					<br>
+					<h6 alt="domanda modifica attività con immagine">Domanda con immagine:</h6>
+					<div class="input-group mb-3">
+  						<div class="input-group-prepend">
+    						<div class="input-group-text">
+      							<input type="checkbox" aria-label="Checkbox selezionare domanda con immagine" id="modcheckboximmagine">
+    						</div>
+  						</div>
+  						<div class="custom-file">
+							<input type="file" class="custom-file-input" id="modsceglifotodomanda" alt="testo foto selezionata" accept=".jpg,.png">
+							<label class="custom-file-label" for="customFile" data-browse="Scegli l'immagine" alt="pulsante allega foto">Seleziona l'immagine .jpg/.png</label>
+						</div>
+					</div>
+					<br>
+					<h6 alt="domanda nuova attività">Risposte: </h6>
+					<div class="form-row">
+    					<div class="col">
+      						<input type="text" class="form-control" placeholder="Risposta Corretta" id="modrispostacorretta" >
+    					</div>
+    					<div class="col">
+      						<input type="text" class="form-control" placeholder="Risposta Sbagliata 1" id="modrispostasbagliata1">
+    					</div>					
+  					</div>
+					<div class="form-row">
+    					<div class="col">
+      						<input type="text" class="form-control" placeholder="Risposta Sbagliata 2" id="modrispostasbagliata2" >
+    					</div>
+    					<div class="col">
+      						<input type="text" class="form-control" placeholder="Risposta Sbagliata 3" id="modrispostasbagliata3">
+    					</div>					
+  					</div>
+					<br>
+					<h6 alt="aiuto">Aiuto: </h6>
+					<input class="form-control" type="text" placeholder="Aiuto Risposta" alt="barra inserimento aiuto risposta" id="modaiutorisposta" ><br>
+					<h6 alt="aiuto">In caso di risposta sbagliata: </h6>
+					<textarea class="form-control" id="modmessrispostasbagliata" rows="3" alt="box messaggio risposta sbagliata" placeholder="Messaggio risposta sbagliata"></textarea>	
+				</div>
+				<br>
+				<div id="modmessageerrattivita"></div><br>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annullamodat" alt="pulsante annulla modifica attività">Annulla</button>
+					<button type="button" class="btn btn-primary" id="salvamodat" alt="pulsante salva modifica attività">Salva Modifica</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+<!-- contenitore crea nuova missione -->
+	<div class="modal fade bd-example-modal-xl" id="finestranuovamissione" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" alt="finestra creazione nuova missione">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3 class="modal-title" id="creanuovamis" alt="titolo crea nuova missione">Creazione nuova missione</h3>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close" alt="pulsante chiusura finestra creazione nuova missione">
 					<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
 				<div class="modal-body">
-						<h5 style="color: #8b0000" alt="titolo nuova attività">Titolo Missione: </h5> <input class="form-control" type="text" placeholder="Titolo Missione" alt="barra inserimento titolo nuova missione" required>
-					
-</div>
-				<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annullamis" alt="pulsante annulla missione">Annulla</button>
-						<button type="button" class="btn btn-primary" id="salvamis" alt="pulsante salva missione">Salva</button>
-					
+					<h5 alt="titolo nuova missione">Titolo Missione: </h5> 
+					<input class="form-control" type="text" placeholder="Titolo Missione" alt="barra inserimento titolo nuova missione" id="titolonuovamissione">
+					<br>
+					<h5 alt="elenco attività disponibili">Elenco Attività Disponibili: </h5>
+					<div id="attivitadisponibili"></div><br>
+					<div id="messageerrormissione"></div>
 				</div>
-
-			
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annullamis" alt="pulsante annulla missione">Annulla</button>
+					<button type="button" class="btn btn-primary" id="salvamis" alt="pulsante salva missione">Salva</button>
+				</div>
+			</div>
 		</div>
-	</div>
-</div>	
+	</div>	
 	
-	
+	<!-- contenitore modifica missione -->
+	<div class="modal fade bd-example-modal-xl" id="finestramodificamissione" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" alt="finestra modifica attività">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3 class="modal-title" id="modificamis" alt="titolo crea nuova missione">Modifica missione</h3>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close" alt="pulsante chiusura finestra modifica missione">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<h5 alt="titolo modifica missione">Titolo Missione: </h5> <input class="form-control" type="text" placeholder="Titolo Missione" alt="barra inserimento titolo modifica missione" id="modtitolomissione" ><br>
+					<h5 alt="elenco attività disponibili">Elenco Attività Disponibili: </h5>
+					<div id="elencoattivitadisponibili"></div><br>
+					<div id="modmessageerrormissione"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annullamodmis" alt="pulsante annulla modifica missione">Annulla</button>
+					<button type="button" class="btn btn-primary" id="salvamodmis" alt="pulsante salva modifica missione">Salva Modifica</button>	
+				</div>
+			</div>
+		</div>
+	</div>	
 	
 	<!-- finestra conferma eliminazione attività -->
 	<div class="modal fade" id="finestraeliminaatt" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" alt="contenitore conferma eliminazione attività">
@@ -343,8 +425,8 @@
 					Sei sicuro di voler eliminare l'attività?
 				</div>
 				<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annullaatt" alt="pulsante annulla eliminazione attività">Annulla</button>
-						<button type="button" class="btn btn-primary" id="confermaeliminaatt" alt="pulsante conferma eliminazione attività">Conferma</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annullaatt" alt="pulsante annulla eliminazione attività">Annulla</button>
+					<button type="button" class="btn btn-primary" id="confermaeliminaatt" alt="pulsante conferma eliminazione attività">Conferma</button>
 				</div>
 			</div>
 		</div>
@@ -364,87 +446,47 @@
 					Sei sicuro di voler eliminare la missione?
 				</div>
 				<div class="modal-footer">
-					<form>
 						<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annullaeliminamis" alt="pulsante annulla eliminazione missione">Annulla</button>
 						<button type="button" class="btn btn-primary" id="confermaeliminamis" alt="pulsante conferma eliminazione missione">Conferma</button>
-					</form>
 				</div>
 			</div>
 		</div>
 	</div>	
 
-	<!-- finestra conferma eliminazione storia pubblica -->
-	<div class="modal fade" id="finestraeliminaSP" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" alt="contenitore conferma eliminazione storia pubblica">
+	<!-- finestra conferma eliminazione storia -->
+	<div class="modal fade" id="finestraeliminaS" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" alt="contenitore conferma eliminazione storia ">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Elimina Storia Pubblicata</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close" alt="pulsante chiusura contenitore conferma eliminazione storia pubblicata">
+					<h5 class="modal-title" id="exampleModalLabel">Elimina Storia</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close" alt="pulsante chiusura contenitore conferma eliminazione storia">
 					<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
 				<div class="modal-body">
-					Sei sicuro di voler eliminare la storia pubblicata?
+					Sei sicuro di voler eliminare la storia?
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annulla" alt="pulsante annulla eliminazione storia pubblicata">Annulla</button>
-					<button type="button" class="btn btn-primary" id="confermaelimina" data-dismiss="modal" alt="pulsante conferma eliminazione storia pubblicata">Conferma</button>
+					<button type="button" class="btn btn-primary" id="confermaelimina" data-dismiss="modal" alt="pulsante conferma eliminazione storia ">Conferma</button>
 				</div>
 			</div>
 		</div>
 	</div>	
 	
-	<!-- finestra conferma eliminazione storia archiviata -->
-	<div class="modal fade" id="finestraeliminaSA" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" alt="contenitore conferma eliminazione storia archiviata">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel2">Elimina Storia Archiviata</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close" alt="pulsante chiusura contenitore conferma eliminazione storia archiviata">
-					<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					Sei sicuro di voler eliminare la storia archiviata?
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annullaa" alt="pulsante annulla eliminazione storia archiviata">Annulla</button>
-					<button type="button" class="btn btn-primary" id="confermaa" data-dismiss="modal" style= "background-color: #8b0000; color: white;" alt="pulsante conferma eliminazione storia archiviata">Conferma</button>
-				</div>
-			</div>
-		</div>
-	</div>
 
-	<!-- finestra QR storia pubblica -->
-	<div class="modal fade" id="finestraqr" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" alt="contenitore QR code storia pubblicata">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel4">QR Storia</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true" alt="pulsante chiusura contenitore QR code storia pubblicata">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body" id="qrcodeimg">
-					Immagine QR Code
-				</div>
-			</div>
-		</div>
-	</div>
+
 </div>
 <br>
 	
 <!-- navbar inferiore -->	
 <footer>
 	<nav class="navbar  navbar-fixed-bottom">
-		<button class="navbar-toggler" type="button" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" alt="pulsante torna alla pagina principale">
+		<button class="navbar-toggler" type="button" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" alt="pulsante torna alla pagina principale" id="backhome">
 		Torna alla pagina principale
 		</button>
 	</nav>
 </footer>
-	
 
-	
-	
 </body>
 </html>

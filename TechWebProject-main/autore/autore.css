@@ -29,24 +29,38 @@ input[type='radio']:checked:before {
   border-left: 2px solid #8b0000;
 	opacity: 0.6;
 }
-
-#titolo {color: #8b0000;}
-
-.dropdown-item:active {
-  color: white;
-	background-color: #8b0000;
+#titolopagina{
+	color: white;
 }
 
-#confermaelimina, #salvaat, #confermaeliminaatt, #confermaeliminamis, #salvamis {
+#titolo {
+	color: #8b0000;
+}
+
+#logoprogetto{
+	width: "80";
+	height: "80";
+}
+
+#crea, #salva, #annullacrea, #salvamodifica, #annullamod, #nuovamissione, #modificamissione, #duplicamissione, #eliminamissione, #nuovaattivita, #modificaattivita, #duplicaattivita, #eliminaattivita, #confermaelimina, #salvaat, #confermaeliminaatt, #confermaeliminamis, #salvamis, #salvamodat, #salvamodmis, #backhome {
+	background-color: #8b0000; 
+	color: white;
+}
+
+h6, h5 {
+	color: #8b0000;
+}
+.dropdown-item:active {
   color: white;
 	background-color: #8b0000;
 }
 
 h2,h3 {
 	 text-shadow:   1px  2px 3px black;
+	color: #8b0000;
 }
 
-.navbar, button{
+.navbar{
 	color: white;
 	background-color: #8b0000; 
 }
@@ -56,6 +70,7 @@ h4 {
 	color: #8b0000;
 	opacity: 0.7;
 }
+
 .navbar-toggler{
 	
 	border-radius: 5px;
@@ -119,7 +134,7 @@ h4 {
 		padding: 5px 5px;
 	}
 	
-	#eliminaattivita, #eliminamissione, #nuovamissione, #incollamissione, #nuovaattivita, #incollaattivita {
+	#eliminaattivita, #eliminamissione, #nuovamissione, #incollamissione, #nuovaattivita, #incollaattivita, #modificaattivita, #modificamissione {
 		padding: 5px 5px;
 	}
 }
@@ -138,7 +153,7 @@ h4 {
 		padding: 5px 5px;
 	}
 	
-	#eliminaattivita, #eliminamissione, #nuovamissione, #incollamissione, #nuovaattivita, #incollaattivita {
+	#eliminaattivita, #eliminamissione, #nuovamissione, #incollamissione, #nuovaattivita, #incollaattivita, #modificaattivita, #modificamissione {
 		padding: 5px 5px;
 	}
 }
