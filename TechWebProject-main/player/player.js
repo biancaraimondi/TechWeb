@@ -9,6 +9,8 @@ xhr.onreadystatechange = function() {
 };
 xhr.send();
 
+
+
 $(document).ready(function () {
 	var nomeGiocatore = "";
 	var messaggioPlayer = "";
@@ -20,9 +22,11 @@ $(document).ready(function () {
 	$('#nome').click(function(){
 		nomeGiocatore = document.getElementById('nomeGiocatore').value;
 		document.getElementById('nomeGiocatore').value = "";
-		//document.getElementById("nomeGiocatore").hidden = true;
-		//document.getElementById("nome").hidden = true;
-		//document.getElementById("chat").hidden = false;
+		document.getElementById('campoNomeGiocatore').hidden = true;
+        document.getElementById('row1').hidden = false;
+		document.getElementById('campoRisposte').hidden = false;
+		document.getElementById('campoChat').hidden = false;
+        document.getElementById('footer').hidden = false;
 		
 		messaggioPlayer = "Sono " + nomeGiocatore + ". Mi sono connesso";
 		socket.emit('chat message', messaggioPlayer, nomeGiocatore, valutatore);
