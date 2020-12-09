@@ -16,14 +16,13 @@ div#row1{
     position: absolute;
     }
 
-div#row2{               /* centrano orizzontalmente il contenuto del div */
-   /*width: 200px;*/
-   height: 200px;
-   margin: 0 auto;
-}
-
-div#row3{
-    float: right;
+div#row2{
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -100px 0 0 -100px;
 }
 
 .panel-default > .panel-heading {
@@ -55,6 +54,7 @@ div#row3{
 
 .navbar-toggler{
     border-radius: 5px;
+    border-color: #8b0000;
     box-shadow: 2px 2px 2px black;
     background-color: #8b0000;
     color: white;

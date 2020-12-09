@@ -30,43 +30,46 @@
     
     <body>
         <!-- contenitore contenuto pagina -->
-        <div class="container-fluid" >
+        <div class="container-fluid">
             
-            <div class="row" id="row1">
+            <div class="row" id="row1" hidden>
                 <p id="domanda"> Prova prova prova. <!-- Testo spiegazione storia --> </p>  
             </div>
             
             <br>
             
             <div class="row" id="row2">
-                <!-- colonna inserimento nome giocatore -->
-                <div class="col-sm-4 col-md-4 col-lg-4">
+                <!-- <p> Ciao, benvenuto su M&M - Mistero al museo! Inserisci il tuo nome per giocare alla storia selezionata. Buon divertimento! </p> -->
+                <!-- campo inserimento nome giocatore -->
+                <div id="campoNomeGiocatore">
                     <input type="text" placeholder="Inserisci il tuo nome" class="form-control-sm" id="nomeGiocatore">
                     <span class="input-group-btn">
                         <button class="btn btn-dark btn-sm" type="button" id="nome">OK</button>
                     </span>
                 </div>
+            </div>
+            
+            <div class="row" id="row3">
                 <!-- colonna bottoni risposte -->
-                <div class="col-sm-4 col-md-4 col-lg-4" >
+                <div class="col-sm-6 col-md-6 col-lg-6" id="campoRisposte" hidden>
                     <div class="button-answer">
-                        <button type="button" class="btn btn-dark btn-sm"> A </button>
+                        <button type="button" class="btn btn-dark btn-sm"> RISPOSTA A </button>
                     </div>
                     <br>
                     <div class="button-answer">
-                        <button type="button" class="btn btn-dark btn-sm"> B </button>
+                        <button type="button" class="btn btn-dark btn-sm"> RISPOSTA B </button>
                     </div>
                     <br>
                     <div class="button-answer">
-                        <button type="button" class="btn btn-dark btn-sm"> C </button>
+                        <button type="button" class="btn btn-dark btn-sm"> RISPOSTA C </button>
                     </div>
                     <br>
                     <div class="button-answer">
-                        <button type="button" class="btn btn-dark btn-sm"> D </button>
+                        <button type="button" class="btn btn-dark btn-sm"> RISPOSTA D </button>
                     </div>
-                      <!--Bottoni risposte-->
                 </div>
                 <!-- colonna chat -->
-                <div class="col-sm-4 col-md-4 col-lg-4" id="chat">
+                <div class="col-sm-6 col-md-6 col-lg-6" id="campoChat" hidden>
                     <div class="panel panel-default chat-widget ">
                         <div class="panel-heading">
                             <h3 class="panel-title"><i class="fa fa-comments"></i> Chat</h3>
@@ -85,32 +88,19 @@
                         </div>
                     </div>
                 </div>
-              <!-- <div class="col-6 col-md-3">
-                  <button type="button" class="btn btn-outline-dark"> A </button>
-              </div>
-              <div class="col-6 col-md-3">
-                  <button type="button" class="btn btn-outline-dark"> B </button>
-              </div>
-              <div class="w-100"></div> <!-- forza le colonne successive a passare a una nuova riga
-              <div class="col-6 col-md-3">
-                  <button type="button" class="btn btn-outline-dark"> C </button>
-              </div>
-              <div class="col-6 col-md-3">
-                  <button type="button" class="btn btn-outline-dark"> D </button>
-              </div>
-              -->
             </div>
-            <!-- <div class="row" id="row3">
-                <img src="frecciadx.png" alt="Vai Avanti" style="width:80px;height:80px;" id="freccia">
-            </div> -->
+            
         </div>
     
                 
         <br>
+        <br>
+        <br>
+        
         
         <!-- navbar inferiore -->
         <footer>
-            <nav class="navbar  navbar-fixed-bottom">
+            <nav class="navbar  navbar-fixed-bottom" id="footer" hidden>
                 <button class="navbar-toggler" type="button" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 Torna alla pagina principale
                 </button>
