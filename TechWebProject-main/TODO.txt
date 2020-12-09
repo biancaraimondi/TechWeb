@@ -14,8 +14,6 @@ BIANCA:
 
 MARTI:
 
-campo inserimento nome player prima del caricamento pagina 
-
 campi non sempre presenti (esempio freccia avanti, immagini aiuto, etc..) in file json inseriti in js e non html
 
 creare funzione che carica il contenuto di quell'attività (player.js)
