@@ -2,7 +2,7 @@
   "storie": [
               {
                 "id":0,
-                "nome":"StoriaMarty",
+                "nome":"ilSistemaSolare",
                 "accessibile":false,
                 "eta":"eta2",
                 "stato":"archiviata"
