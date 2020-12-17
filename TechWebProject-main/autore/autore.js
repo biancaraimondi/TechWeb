@@ -1,4 +1,4 @@
-var xhr, retrievedObjectStory, objStorageStory, indexOfCheckedRadio, labels, objAttività;
+var xhr, retrievedObjectStory, objStorageStory, indexOfCheckedRadio, labels, retrievedObjectMission, objStorageMission, idOfCheckedRadio;
 
 //funzioni inerenti alla storie archiviate
 $(document).ready(function(){
@@ -209,6 +209,133 @@ $(document).ready(function(){
 
 //funzioni relative alle missioni e attività
 $(document).ready(function(){
+	viewMission();
+	
+	//crea missione 
+	$("#salvamissione").click(function(){
+		indexOfCheckedRadio = getCheckedRadioId('radioSA'); //trovo l'indice del checkbutton della storia selezionata
+		if(indexOfCheckedRadio !== -1){
+			var titoloMissione = document.getElementById('titolomissione').value; //nome missione
+			if (titoloMissione === "" || titoloMissione === undefined) {
+    			document.getElementById("messageerrormissione").innerHTML = ('Titolo missione errato, inserire un nuovo titolo.');
+  			}
+			else{
+				xhr = getCreaMissioneHTTPReq();
+				retrievedObjectStory = localStorage.getItem('storie'); //ottengo elenco storie dalla local storage
+				objStorageStory = JSON.parse(retrievedObjectStory);
+				var titleStory = objStorageStory.storie[indexOfCheckedRadio].nome; //nome storia
+				retrievedObjectMission = localStorage.getItem('missioni'); //ottengo elenco storie dalla local storage
+				objStorageMission = JSON.parse(retrievedObjectMission);
+				var missione = {
+					id: "missione" + objStorageMission.missioni.length,
+					titolostoria: titleStory,
+					nome: titoloMissione
+				};
+				var objMissione = JSON.stringify(missione);
+				
+				//richiesta post
+				xhr.open('POST', '/autore/newMission', true); //apro connessione tipo POST
+				xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8'); //header richiesta
+				xhr.send(objMissione); //invio stringa JSON
+			}
+		}
+		else{
+			document.getElementById("messageerrormissione").innerHTML = ('&nbspNon è stata selezionata alcuna storia archiviata.');
+		}
+	});
+	
+	//riempie i campi del form modifica missione 
+	$("#modificamissione").click(function(){
+		var radioButtons = Array.from(document.getElementsByName('elencoMissioni')); //converto ListNode in array
+		var checkedRadio = radioButtons.find(radio => radio.checked);
+		if (checkedRadio !== undefined){
+			var idOfCheckedRadio = checkedRadio.id;
+			retrievedObjectMission = localStorage.getItem('missioni'); //ottengo elenco missioni dalla local storage
+			objStorageMission = JSON.parse(retrievedObjectMission);
+			var selectedMission= objStorageMission.missioni.find(mission => mission.id === idOfCheckedRadio);//seleziono l'oggetto della missione che ha l'id = indice checkbutton selezionato
+				
+				//prendo i valori relativi alla missione selezionata e li inserisco nella input text
+			if(selectedMission !== undefined){
+				document.getElementById('titolomissione').value = selectedMission.nome;
+			}
+		}
+		else{
+			document.getElementById("messageerrormissione").innerHTML = ('&nbspNon è stata selezionata alcuna missione.');
+		}
+	});
+	
+	//modifica missione
+	$("#salvamissione").click(function(){
+		var radioButtons = Array.from(document.getElementsByName('elencoMissioni'));
+		var checkedRadio = radioButtons.find(radio => radio.checked);
+		if (checkedRadio !== undefined){
+			var titoloMissione = document.getElementById('titolomissione').value;
+			if (titoloMissione === "" || titoloMissione === undefined) {
+    			document.getElementById("messageerrormissione").innerHTML = ('Titolo missione errato, inserire un nuovo titolo.');
+  			}
+			else{
+				modifyMission();
+				}
+		}
+		else{
+			document.getElementById("messageerrormissione").innerHTML = ('&nbspNon è stata selezionata alcuna missione.');
+		}
+	});
+	
+	//duplica missione
+	$("#duplicamissione").click(function(){
+		xhr = getDuplicaMissioneHTTPReq();
+		var radioButtons = Array.from(document.getElementsByName('elencoMissioni')); //converto ListNode in array
+		var checkedRadio = radioButtons.find(radio => radio.checked);
+		retrievedObjectMission = localStorage.getItem('missioni'); //ottengo elenco missioni dalla local storage
+		objStorageMission = JSON.parse(retrievedObjectMission);
+		if (checkedRadio !== undefined){
+			idOfCheckedRadio = checkedRadio.id;
+			var selectedMission = objStorageMission.missioni.find(mission => mission.id === idOfCheckedRadio);
+			var missioneClone = {
+				id: "missione" + objStorageMission.missioni.length,
+				nome: selectedMission.nome,
+				nomestoria: selectedMission.nomestoria
+			};
+			var objDuplicateMission = JSON.stringify(missioneClone); //trasformo oggetto JS in stringa JSON
+				
+			//richiesta post
+			xhr.open('POST', '/autore/duplicateMission', true); //apro connessione tipo POST
+			xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8'); //header richiesta
+			xhr.send(objDuplicateMission); //invio stringa JSON	
+		}
+		else {
+			document.getElementById("messageerrormissione").innerHTML = ('&nbspNon è stata selezionata alcuna missione.');
+		}
+	});
+	
+	//elimina missione
+	$("#confermaeliminamis").click(function(){
+		xhr = getEliminaMissioneHTTPReq();
+		retrievedObjectMission = localStorage.getItem('missioni'); //ottengo elenco storie dalla local storage
+		objStorageMission = JSON.parse(retrievedObjectMission);
+		var radioButtons = Array.from(document.getElementsByName('elencoMissioni')); 
+		var checkedRadio = radioButtons.find(radio => radio.checked); //cerco l'indice delle radiobutton 'checked' 
+		if (checkedRadio !== undefined){ //se trova il radio button 'checked' fa...
+			idOfCheckedRadio = checkedRadio.id;
+			var idMission = { 
+				id: idOfCheckedRadio //id della storia selezionata
+			};
+			var objdeleteMission = JSON.stringify(idMission);
+			xhr.open('POST', '/autore/deleteMission', true); 
+			xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+			xhr.send(objdeleteMission);
+		}
+		else {
+			document.getElementById("messageerrormissione").innerHTML = ('&nbspNon è stata selezionata alcuna missione.');
+		}
+	});
+	
+	//crea attività
+	$("#salvaat").click(function(){
+		
+	});
+	
 	
 });
 
@@ -223,9 +350,61 @@ $(document).ready(function(){
 	});
 });
 
+function getCreaMissioneHTTPReq(){
+	xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() {
+		if(xhr.readyState===4 && xhr.status===200){ //se il server risponde con ok, ricarico la pagina per visualizzare tutte le missioni comprese quelle nuove
+			document.getElementById("messageerrormissione").innerHTML = ('La missione è stata creata.');
+			location.reload();
+			return;
+		}
+		else{
+			document.getElementById("messageerrormissione").innerHTML = ('La missione non è stata creata, riprova.');
+			return;
+		}
+	};
+	return xhr;
+}
+
+function getModificaMissioneHTTPReq(){
+	xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() {
+    	if (xhr.readyState === 4 && xhr.status === 200) {
+			location.reload(); //aggiorno la pagina in modo da vedere le modifiche apportate alle storie dopo l'ok dal server
+		}
+	};
+	return xhr;
+}
+
+function getDuplicaMissioneHTTPReq(){
+	xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === 4 && xhr.status === 200) {
+			document.getElementById("messageerrormissione").innerHTML = ('&nbspLa missione è stata duplicata.');
+			location.reload();
+			return;
+		}
+		else{
+			document.getElementById("messageerrormissione").innerHTML = ('&nbspLa missione non è stata duplicata.');
+			return;
+		}
+	};
+	return xhr;
+}
+
+function getEliminaMissioneHTTPReq(){
+	xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function() {
+    		if (xhr.readyState === 4 && xhr.status === 200) {
+				location.reload(); //aggiorno la pagina in modo da vedere le nuove storie dopo l'eliminazione dopo l'ok dal server
+			}
+		};
+	return xhr;
+}
+
 function getCreaStoriaHTTPReq(){
 	xhr = new XMLHttpRequest();
-	xhr.onreadystatechange = () => {
+	xhr.onreadystatechange = function() {
 		if(xhr.readyState===4 && xhr.status===200){ //se il server risponde con ok, ricarico la pagina per visualizzare tutte le storie comprese quelle nuove
 			document.getElementById("messageerror").innerHTML = ('La storia è stata creata.');
 			location.reload();
@@ -331,6 +510,29 @@ function getCheckedRadioId(radioButtonClass){
 	return(checkedRadio === undefined ? -1: parseInt(checkedRadio.id)); //ritorno l'indice del radiobutton checked se != da undefined
 }
 
+function modifyMission(){
+	var xhr = getModificaMissioneHTTPReq();
+	var radioButtons = Array.from(document.getElementsByName('elencoMissioni'));
+	var checkedRadio = radioButtons.find(radio => radio.checked);
+	retrievedObjectMission = localStorage.getItem('missioni'); //ottengo elenco missioni dalla local storage
+	objStorageMission = JSON.parse(retrievedObjectMission);
+	if (checkedRadio !== undefined){
+		var titoloMissione = document.getElementById('titolomissione').value;
+		var idOfCheckedRadio = checkedRadio.id;
+		var mission = objStorageMission.missioni.find(mission => mission.id === idOfCheckedRadio);
+		var missione = {
+			id: idOfCheckedRadio,
+			nome: titoloMissione,
+			oldNome: mission.nome
+		};
+		var objModifyMission = JSON.stringify(missione); //trasformo oggetto JS in stringa JSON
+		//richiesta post
+		xhr.open('POST', '/autore/modifiedMission', true); //apro connessione tipo POST
+		xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8'); //header richiesta
+		xhr.send(objModifyMission); //invio stringa JSON
+	}
+}
+
 function modifyStory(){
 	var xhr, storia, objModifyStory;
 	xhr = getModificaStoriaHTTPReq();
@@ -389,6 +591,25 @@ function viewStoryA(){
 	};
 	xhr.send();
 }
+
+function viewMission(){
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", '/autore/newMission', true);
+	xhr.onreadystatechange = () => {
+		if (xhr.readyState === 4 && xhr.status === 200){
+			var strMission = xhr.responseText; //ottengo elenco storie in formato stringa
+			localStorage.setItem('missioni', strMission); // Inserisco nella storage l'oggetto
+			var objMission = JSON.parse(strMission); //ottengo oggetto JS
+			
+			for (var i = 0; i < objMission.missioni.length; i++){
+			//crea tutti i radio button delle storie archiviate
+				document.getElementById('elencomissioni').innerHTML += "<div class='form-check elencoMissioni'><input name='elencoMissioni' type='radio' id= " + objMission.missioni[i].id + " value= "+ objMission.missioni[i].nome + ">&nbsp<label class='labelMissioni' for= " + objMission.missioni[i].id + ">" + objMission.missioni[i].nome + "</label></div>";
+			}
+		}
+	};
+	xhr.send();
+}
+
 /*
 function viewActivities(){
 	var retrievedObjectActivities = localStorage.getItem('objAttivita'); //ottengo elenco attività dalla local storage

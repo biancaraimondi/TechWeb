@@ -42,12 +42,12 @@ input[type='radio']:checked:before {
 	height: "80";
 }
 
-#crea, #salva, #annullacrea, #salvamodifica, #annullamod, #nuovamissione, #modificamissione, #duplicamissione, #eliminamissione, #nuovaattivita, #modificaattivita, #duplicaattivita, #eliminaattivita, #confermaelimina, #salvaat, #confermaeliminaatt, #confermaeliminamis, #salvamis, #salvamodat, #salvamodmis, #backhome {
+#crea, #salva, #annullacrea, #salvamodifica, #annullamod, #nuovamissione, #modificamissione, #duplicamissione, #eliminamissione, #nuovaattivita, #modificaattivita, #duplicaattivita, #eliminaattivita, #confermaelimina, #salvaat, #confermaeliminaatt, #confermaeliminamis, #salvamissione, #salvamodat, #salvamodmis, #backhome {
 	background-color: #8b0000; 
 	color: white;
 }
 
-h6, h5 {
+h6, h5, .form-check-label {
 	color: #8b0000;
 }
 .dropdown-item:active {
