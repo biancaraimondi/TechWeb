@@ -10,16 +10,19 @@ creare QRcode
 
 rendere accessibili tutte le pagine 
 
+installare multer (npm install --save multer)
+
 BIANCA:
 
 MARTI:
 
 campi non sempre presenti (esempio freccia avanti, immagini aiuto, etc..) in file json inseriti in js e non html
 
-creare funzione che carica il contenuto di quell'attivit‡ (player.js)
+creare funzione che carica il contenuto di quell'attivit√† (player.js)
 
 CRI: 
 
 unire file server nell'unico file provaserver.js di Bianca caricato nella pagine principale GitHub
 
-unica finestra tra crea e modifica attivit‡
+unica finestra tra crea e modifica attivit√†
+
