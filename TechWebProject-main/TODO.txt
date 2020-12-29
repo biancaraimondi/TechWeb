@@ -12,6 +12,8 @@ rendere accessibili tutte le pagine
 
 installare multer (npm install --save multer)
 
+prima della consegna del progetto, eliminare nel codice che viene caricato sul server unibo, tutti i commenti lasciare solo quelli importanti
+
 BIANCA:
 
 MARTI:
