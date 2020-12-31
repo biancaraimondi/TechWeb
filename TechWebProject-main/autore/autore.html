@@ -35,7 +35,7 @@
 	</span>
 	<span class="navbar-text">
 	<h2 id="titolopagina" alt="titolo pagina ambiente autore">Ambiente Autore</h2>
-	</span> 
+	</span>
 </nav>
 	<br>
 	
@@ -167,14 +167,15 @@
 			<div class="row" id="pulsantimissioni">
 			&nbsp;
 			<button type="button" class="btn btn-primary btn-sm" alt="pulsante crea nuova missione" id="nuovamissione" data-target="#finestramissione" data-toggle="modal">Crea nuova missione</button>&nbsp;
-			<button type="button" class="btn btn-primary btn-sm" alt="pulsante modifica missione" id="modificamissione" data-target="#finestramissione" data-toggle="modal"><img src="icon/modify.png"  width="18" height="17" alt="immagine modifica missione"/></button>&nbsp;
+			<button type="button" class="btn btn-primary btn-sm" alt="pulsante modifica missione" id="modificamissione" data-target="#finestramodificamissione" data-toggle="modal"><img src="icon/modify.png"  width="18" height="17" alt="immagine modifica missione"/></button>&nbsp;
 			<button type="button" class="btn btn-primary btn-sm" alt="pulsante duplica missione" id="duplicamissione"><img src="icon/paste.png"  width="18" height="17" alt="immagine duplica missione"/></button>&nbsp;
 			<button type="button" class="btn btn-primary btn-sm" alt="pulsante elimina missione" id="eliminamissione" data-target="#finestraeliminamis" data-toggle="modal"><img src="icon/delete.png"  width="18" height="17" alt="immagine elimina missione"/></button>&nbsp;
 			
 			
 			</div>
 			<br>
-			
+			<div id="errormission"></div>
+			<br>
 			<!-- contenitore singole missioni -->	
 			<div id="elencomissioni">
 				<!-- create in modo dinamico -->
@@ -194,15 +195,16 @@
 			<div class="row" id="pulsantiattivita">
 			&nbsp;
 			<button type="button" class="btn btn-primary btn-sm" data-target="#finestraattivita" data-toggle="modal" alt="pulsante crea nuova attività" id="nuovaattivita">Crea nuova attività</button>&nbsp;
-			<button type="button" class="btn btn-primary btn-sm" alt="pulsante modifica attivita" id="modificaattivita" data-target="#finestraattivita" data-toggle="modal"><img src="icon/modify.png"  width="18" height="17" alt="immagine modifica attivita"/></button>&nbsp;
+			<button type="button" class="btn btn-primary btn-sm" alt="pulsante modifica attivita" id="modificaattivita" data-target="#finestramodificaattivita" data-toggle="modal"><img src="icon/modify.png"  width="18" height="17" alt="immagine modifica attivita"/></button>&nbsp;
 			<button type="button" class="btn btn-primary btn-sm" alt="pulsante duplica attività" id="duplicaattivita"><img src="icon/paste.png"  width="18" height="17" alt="immagine duplica attività"/></button> &nbsp;
 			<button type="button" data-target="#finestraeliminaatt" data-toggle="modal" class="btn btn-primary btn-sm" alt="pulsante elimina attività" id="eliminaattivita" ><img src="icon/delete.png"  width="18" height="17" alt="immagine elimina attività"/></button> &nbsp;
 			
 			</div>
 			<br>
 			<div id="erroreattivita"></div>
+			<br>
 			<!-- contenitore singole attività -->
-			<div id="attivitastoria">
+			<div id="elencoattivita">
 				<!-- create in modo dinamico -->
 			</div>	
 		</div>
@@ -213,82 +215,68 @@
 	<div class="modal fade bd-example-modal-xl" id="finestraattivita" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" alt="finestra creazione nuova attività">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
-				<div class="modal-header">
-					<h3 class="modal-title" id="creanuovaatt" alt="titolo crea nuova missione">Attività</h3>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close" alt="pulsante chiusura finestra creazione nuova attività">
-					<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<h6 alt="domanda nuova attività">Sfondo: </h6>
-					<div class="input-group mb-3">
-  						<div class="input-group-prepend">
-    						<div class="input-group-text">
-      							<input type="checkbox" aria-label="Checkbox selezionare domanda con immagine" id="checkboxsfondo">
-    						</div>
-  						</div>
-  						<div class="custom-file">
-							<input type="file" class="custom-file-input" id="fotosfondo" alt="testo foto selezionata" accept=".jpg,.png">
-							<label class="custom-file-label" for="customFile" data-browse="Scegli lo sfondo" alt="pulsante allega foto">Sfondo per la tua storia .jpg/.png</label>
-							</div>
+				<form id="newActivityForm" method="post" enctype="multipart/form-data" name="formAttivita" onsubmit="validateForm(event)">
+					<div class="modal-header">
+						<h3 class="modal-title" id="creanuovaatt" alt="titolo crea nuova missione">Attività</h3>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close" alt="pulsante chiusura finestra creazione nuova attività">
+						<span aria-hidden="true">&times;</span>
+						</button>
 					</div>
-						
-					<hr>
-					<h6 alt="domanda nuova attività">Domanda: </h6>
-					<input class="form-control" type="text" placeholder="Domanda Attività" alt="barra inserimento domanda nuova arrività" id="domandaattivita">
-					<br>
-					<h6 alt="domanda nuova attività con immagine">Domanda con immagine: </h6>
-					<div class="input-group mb-3">
-  						<div class="input-group-prepend">
-    						<div class="input-group-text">
-      							<input type="checkbox" aria-label="Checkbox selezionare domanda con immagine" id="checkboximmagine">
-    						</div>
-  						</div>
-  						<div class="custom-file">
-							<input type="file" class="custom-file-input" id="sceglifotodomanda" alt="testo foto selezionata" accept=".jpg,.png">
-							<label class="custom-file-label" for="customFile" data-browse="Scegli l'immagine" alt="pulsante allega foto">Seleziona l'immagine .jpg/.png</label>
+					<div class="modal-body">
+						<h6 alt="domanda nuova attività">Sfondo: </h6>
+
+						<div>
+							<input type="file" id="sfondo" name="background" accept=".jpg">
 						</div>
+						<hr>
+						<h6 alt="domanda nuova attività">Domanda: </h6>
+						<input class="form-control" type="text" placeholder="Domanda Attività" alt="barra inserimento domanda nuova arrività" id="domandaattivita">
+						<br>
+						
+						<div class="form-check form-check-inline">
+  							<input class="form-check-input" type="checkbox" id="checkboxrisposte" value="option1" onclick="check()">
+  							<label class="form-check-label" for="inlineCheckbox1">Selezionami, se vuoi inserire le risposte.</label>
+							
+						</div>
+						<hr>
+						<h6 alt="domanda nuova attività">Risposte: </h6>
+						
+						<div class="form-row">
+							<div class="col">
+								<input type="text" class="form-control" placeholder="Risposta Corretta" id="rispostacorretta"  disabled>
+							</div>
+							<div class="col">
+								<input type="text" class="form-control" placeholder="Risposta Sbagliata 1" id="rispostasbagliata1" disabled>
+							</div>					
+						</div>
+						<div class="form-row">
+							<div class="col">
+								<input type="text" class="form-control" placeholder="Risposta Sbagliata 2" id="rispostasbagliata2" disabled>
+							</div>
+							<div class="col">
+								<input type="text" class="form-control" placeholder="Risposta Sbagliata 3" id="rispostasbagliata3" disabled>
+							</div>					
+						</div>
+						<br>
+						<h6 alt="aiuto">Aiuto: </h6>
+						<input class="form-control" type="text" placeholder="Aiuto Risposta" alt="barra inserimento aiuto risposta" id="aiutorisposta" disabled><br>
+						<h6 alt="aiuto con immagine">Aiuto con immagine: </h6>
+						<div>
+							<input type="file" id="aiutoimmagine" name="helpimage" accept=".jpg" disabled>
+						</div>
+						<br>
+						<h6 alt="aiuto">In caso di risposta sbagliata: </h6>
+						<textarea class="form-control" id="messaggiorispostasbagliata" rows="3" alt="box messaggio risposta sbagliata" placeholder="Messaggio risposta sbagliata" disabled></textarea>
+						<br>
 					</div>
-					
 					<br>
-					<h6 alt="domanda nuova attività">Risposte: </h6>
-					<div class="form-row">
-    					<div class="col">
-      						<input type="text" class="form-control" placeholder="Risposta Corretta" id="rispostacorretta" >
-    					</div>
-    					<div class="col">
-      						<input type="text" class="form-control" placeholder="Risposta Sbagliata 1" id="rispostasbagliata1" >
-    					</div>					
-  					</div>
-					<div class="form-row">
-    					<div class="col">
-      						<input type="text" class="form-control" placeholder="Risposta Sbagliata 2" id="rispostasbagliata2" >
-    					</div>
-    					<div class="col">
-      						<input type="text" class="form-control" placeholder="Risposta Sbagliata 3" id="rispostasbagliata3" >
-    					</div>					
-  					</div>
+					<div id="messageerrattivita"></div>
 					<br>
-					<h6 alt="aiuto">Aiuto: </h6>
-					<input class="form-control" type="text" placeholder="Aiuto Risposta" alt="barra inserimento aiuto risposta" id="aiutorisposta" ><br>
-					<h6 alt="aiuto">In caso di risposta sbagliata: </h6>
-					<textarea class="form-control" id="messaggiorispostasbagliata" rows="3" alt="box messaggio risposta sbagliata" placeholder="Messaggio risposta sbagliata"></textarea>
-					<br>
-					<div class="form-check form-check-inline">
-  						<input class="form-check-input" type="checkbox" id="checkboxavanti" value="usopulsanteavanti">
-  						<label class="form-check-label" for="checkboxavanti"> Utilizzare pulsante "Avanti"</label>
+					<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annullaat" alt="pulsante annulla attività">Annulla</button>
+							<button type="submit" class="btn btn-primary" alt="pulsante salva attività" id="salvaat">Salva</button>
 					</div>
-				</div>
-				
-				
-				
-				<br>
-				<div id="messageerrattivita"></div>
-				<br>
-				<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annullaat" alt="pulsante annulla attività">Annulla</button>
-						<button type="button" class="btn btn-primary" id="salvaat" alt="pulsante salva attività">Salva</button>
-				</div>
+				</form>
 			</div>
 		</div>
 	</div>
@@ -296,77 +284,78 @@
 	
 	<!-- finestra modifica attività -->
 
-	<!--<div class="modal fade bd-example-modal-xl" id="finestramodificaattivita" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" alt="finestra creazione modifica attività">
+	<div class="modal fade bd-example-modal-xl" id="finestramodificaattivita" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" alt="finestra creazione modifica attività">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
-				<div class="modal-header">
-					<h3 class="modal-title" id="modificaatt" alt="titolo modifica missione">Modifica attività</h3>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close" alt="pulsante chiusura finestra modifica attività">
-					<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<h6 alt="domanda nuova attività">Sfondo: </h6>
-					<div class="input-group mb-3">
-  						<div class="input-group-prepend">
-    						<div class="input-group-text">
-      							<input type="checkbox" aria-label="Checkbox selezionare domanda con immagine" id="modcheckboxsfondo">
-    						</div>
-  						</div>
-  						<div class="custom-file">
-							<input type="file" class="custom-file-input" id="modfotosfondo" alt="testo foto selezionata" accept=".jpg,.png">
-							<label class="custom-file-label" for="customFile" data-browse="Scegli lo sfondo" alt="pulsante allega foto">Sfondo per la tua storia .jpg/.png</label>
-						</div>
+				<form id="modifyActivityForm" method="post" enctype="multipart/form-data" name="formModificaAttivita" onsubmit="validateModifyForm(event)">
+					<div class="modal-header">
+						<h3 class="modal-title" id="modificanuovaatt" alt="titolo modifica nuova missione">Modifica Attività</h3>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close" alt="pulsante chiusura finestra modifica nuova attività">
+						<span aria-hidden="true">&times;</span>
+						</button>
 					</div>
-					<hr>
-					<h6 alt="domanda nuova attività">Domanda: </h6>
-					<input class="form-control" type="text" placeholder="Domanda Attività" alt="barra inserimento domanda nuova arrività" id="moddomandaattivita">
-					<br>
-					<h6 alt="domanda modifica attività con immagine">Domanda con immagine:</h6>
-					<div class="input-group mb-3">
-  						<div class="input-group-prepend">
-    						<div class="input-group-text">
-      							<input type="checkbox" aria-label="Checkbox selezionare domanda con immagine" id="modcheckboximmagine">
-    						</div>
-  						</div>
-  						<div class="custom-file">
-							<input type="file" class="custom-file-input" id="modsceglifotodomanda" alt="testo foto selezionata" accept=".jpg,.png">
-							<label class="custom-file-label" for="customFile" data-browse="Scegli l'immagine" alt="pulsante allega foto">Seleziona l'immagine .jpg/.png</label>
+					<div class="modal-body">
+						<h6 alt="sfondo modifica attività">Sfondo: </h6>
+
+						<div>
+							<input type="file" id="modificasfondo" name="background" accept=".jpg">
 						</div>
+						<br>
+						<div id="sfondocaricato"></div>
+						<hr>
+						<h6 alt=" modifica domanda attività">Domanda: </h6>
+						<input class="form-control" type="text" placeholder="Domanda Attività" alt="barra inserimento domanda nuova arrività" id="moddomandaattivita">
+						<br>
+						
+						<div class="form-check form-check-inline">
+  							<input class="form-check-input" type="checkbox" id="modcheckboxrisposte" value="option1" onclick="check()">
+  							<label class="form-check-label" for="inlineCheckbox1">Selezionami, se vuoi inserire le risposte.</label>
+							
+						</div>
+						<hr>
+						<h6 alt="risposte attività">Risposte: </h6>
+						
+						<div class="form-row">
+							<div class="col">
+								<input type="text" class="form-control" placeholder="Risposta Corretta" id="modrispostacorretta"  disabled>
+							</div>
+							<div class="col">
+								<input type="text" class="form-control" placeholder="Risposta Sbagliata 1" id="modrispostasbagliata1" disabled>
+							</div>					
+						</div>
+						<div class="form-row">
+							<div class="col">
+								<input type="text" class="form-control" placeholder="Risposta Sbagliata 2" id="modrispostasbagliata2" disabled>
+							</div>
+							<div class="col">
+								<input type="text" class="form-control" placeholder="Risposta Sbagliata 3" id="modrispostasbagliata3" disabled>
+							</div>					
+						</div>
+						<br>
+						<h6 alt="aiuto">Aiuto: </h6>
+						<input class="form-control" type="text" placeholder="Aiuto Risposta" alt="barra inserimento aiuto risposta" id="modaiutorisposta" disabled><br>
+						<h6 alt="aiuto con immagine">Aiuto con immagine: </h6>
+						<div>
+							<input type="file" id="modificaaiutoimmagine" name="helpimage" accept=".jpg" disabled>
+							<br>
+						</div>
+						<br>
+						<div id="imgaiutocaricato"></div>
+						<br>
+						<h6 alt="aiuto">In caso di risposta sbagliata: </h6>
+						<textarea class="form-control" id="modmessaggiorispostasbagliata" rows="3" alt="box messaggio risposta sbagliata" placeholder="Messaggio risposta sbagliata" disabled></textarea>
+						<br>
 					</div>
+					<div id="messageerrmodattivita"></div>
 					<br>
-					<h6 alt="domanda nuova attività">Risposte: </h6>
-					<div class="form-row">
-    					<div class="col">
-      						<input type="text" class="form-control" placeholder="Risposta Corretta" id="modrispostacorretta" >
-    					</div>
-    					<div class="col">
-      						<input type="text" class="form-control" placeholder="Risposta Sbagliata 1" id="modrispostasbagliata1">
-    					</div>					
-  					</div>
-					<div class="form-row">
-    					<div class="col">
-      						<input type="text" class="form-control" placeholder="Risposta Sbagliata 2" id="modrispostasbagliata2" >
-    					</div>
-    					<div class="col">
-      						<input type="text" class="form-control" placeholder="Risposta Sbagliata 3" id="modrispostasbagliata3">
-    					</div>					
-  					</div>
-					<br>
-					<h6 alt="aiuto">Aiuto: </h6>
-					<input class="form-control" type="text" placeholder="Aiuto Risposta" alt="barra inserimento aiuto risposta" id="modaiutorisposta" ><br>
-					<h6 alt="aiuto">In caso di risposta sbagliata: </h6>
-					<textarea class="form-control" id="modmessrispostasbagliata" rows="3" alt="box messaggio risposta sbagliata" placeholder="Messaggio risposta sbagliata"></textarea>	
-				</div>
-				<br>
-				<div id="modmessageerrattivita"></div><br>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annullamodat" alt="pulsante annulla modifica attività">Annulla</button>
-					<button type="button" class="btn btn-primary" id="salvamodat" alt="pulsante salva modifica attività">Salva Modifica</button>
-				</div>
+					<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annullamodat" alt="pulsante annulla attività">Annulla</button>
+							<button type="submit" class="btn btn-primary" alt="pulsante salva attività" id="salvamodat">Salva</button>
+					</div>
+				</form>
 			</div>
 		</div>
-	</div>-->
+	</div>
 	
 <!-- contenitore crea nuova missione -->
 	<div class="modal fade bd-example-modal-xl" id="finestramissione" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" alt="finestra creazione nuova missione">
@@ -396,7 +385,7 @@
 	
 	
 	<!-- contenitore modifica missione -->
-	<!--<div class="modal fade bd-example-modal-xl" id="finestramodificamissione" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" alt="finestra modifica attività">
+	<div class="modal fade bd-example-modal-xl" id="finestramodificamissione" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" alt="finestra modifica attività">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -407,17 +396,15 @@
 				</div>
 				<div class="modal-body">
 					<h5 alt="titolo modifica missione">Titolo Missione: </h5> <input class="form-control" type="text" placeholder="Titolo Missione" alt="barra inserimento titolo modifica missione" id="modtitolomissione" ><br>
-					<h5 alt="elenco attività disponibili">Elenco Attività Disponibili: </h5>
-					<div id="elencoattivitadisponibili"></div><br>
 					<div id="modmessageerrormissione"></div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annullamodmis" alt="pulsante annulla modifica missione">Annulla</button>
-					<button type="button" class="btn btn-primary" id="salvamodmis" alt="pulsante salva modifica missione">Salva Modifica</button>	
+					<button type="button" class="btn btn-primary" id="salvamodmis" alt="pulsante salva modifica missione">Salva Modifica</button>
 				</div>
 			</div>
 		</div>
-	</div>	-->
+	</div>
 	
 	<!-- finestra conferma eliminazione attività -->
 	<div class="modal fade" id="finestraeliminaatt" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" alt="contenitore conferma eliminazione attività">
@@ -432,6 +419,7 @@
 				<div class="modal-body">
 					Sei sicuro di voler eliminare l'attività?
 				</div>
+				<div id="messageerroractivitydelete"></div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annullaatt" alt="pulsante annulla eliminazione attività">Annulla</button>
 					<button type="button" class="btn btn-primary" id="confermaeliminaatt" alt="pulsante conferma eliminazione attività">Conferma</button>
@@ -453,6 +441,7 @@
 				<div class="modal-body">
 					Sei sicuro di voler eliminare la missione?
 				</div>
+				<div id="messageerrormissiondelete"></div>
 				<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annullaeliminamis" alt="pulsante annulla eliminazione missione">Annulla</button>
 						<button type="button" class="btn btn-primary" id="confermaeliminamis" alt="pulsante conferma eliminazione missione">Conferma</button>
@@ -474,6 +463,7 @@
 				<div class="modal-body">
 					Sei sicuro di voler eliminare la storia?
 				</div>
+				<div id="messageerrorstorydelete"></div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annulla" alt="pulsante annulla eliminazione storia pubblicata">Annulla</button>
 					<button type="button" class="btn btn-primary" id="confermaelimina" data-dismiss="modal" alt="pulsante conferma eliminazione storia ">Conferma</button>

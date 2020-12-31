@@ -25,6 +25,7 @@ input[type='radio']:checked:before {
     background:#8b0000;
 }
 
+
 .lineaverticale {
   border-left: 2px solid #8b0000;
 	opacity: 0.6;
@@ -45,6 +46,12 @@ input[type='radio']:checked:before {
 #crea, #salva, #annullacrea, #salvamodifica, #annullamod, #nuovamissione, #modificamissione, #duplicamissione, #eliminamissione, #nuovaattivita, #modificaattivita, #duplicaattivita, #eliminaattivita, #confermaelimina, #salvaat, #confermaeliminaatt, #confermaeliminamis, #salvamissione, #salvamodat, #salvamodmis, #backhome {
 	background-color: #8b0000; 
 	color: white;
+}
+
+#inviadomandaimg, #inviasfondo {
+	background-color: #8b0000; 
+	color: white;
+	float: right;
 }
 
 h6, h5, .form-check-label {
