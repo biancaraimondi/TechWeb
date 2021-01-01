@@ -1,4 +1,4 @@
-var xhr, retrievedObjectStory, objStorageStory, indexOfCheckedRadio, labels, retrievedObjectMission, objStorageMission, idOfCheckedRadio, retrievedObjectActivities, objStorageActivities;
+var xhr, retrievedObjectStory, objStorageStory, indexOfCheckedRadio,retrievedObjectMission, objStorageMission, idOfCheckedRadio, retrievedObjectActivities, objStorageActivities,radioButtons,checkedRadio, selectedMission,selectedStory,titoloStoria,titoloMissione,selectedActivity;
 
 $(document).ready(function(){
 	viewStoryP();
@@ -15,28 +15,27 @@ $(document).ready(function(){
 		
 	$("#salva").click(function(){
 		xhr = getCreaStoriaHTTPReq();
-		var titolostoriavalore = document.getElementById("titolostoriacrea").value;
+		titoloStoria = document.getElementById("titolostoriacrea").value;
 		var accessibile = document.getElementById('accessibile').checked;
 		var eta = document.getElementById("creaetastoria").value;
 		retrievedObjectStory = localStorage.getItem('storie'); //ottengo elenco storie dalla local storage
-		objStorageStory = JSON.parse(retrievedObjectStory);
-		//var lengthStory = objStorageStory.storie.length;
-		if (titolostoriavalore === "" || titolostoriavalore === undefined) {
+		objStorageStory = JSON.parse(retrievedObjectStory); //trasformo stringa JSON in oggetto JS
+		if (titoloStoria === "" || titoloStoria === undefined) {
     		document.getElementById("messageerror").innerHTML = ('<i>Titolo storia errato, inserire un nuovo titolo.</i>');
   		} 
 		else {
 			var storiaP = { //oggetto JS dati nuova storia
 				id: objStorageStory.storie.length,
-				nome: titolostoriavalore,
+				nome: titoloStoria,
 				accessibile: accessibile,
 				eta: eta,
 				stato: "archiviata"
 			};
-			var objnewStory = JSON.stringify(storiaP); //trasformo oggetto JS in stringa JSON
+			var objNewStory = JSON.stringify(storiaP); //trasformo oggetto JS in stringa JSON
 			//richiesta post
 			xhr.open('POST', '/autore/newStory', true); //apro connessione tipo POST
 			xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8'); //header richiesta
-			xhr.send(objnewStory); //invio stringa JSON
+			xhr.send(objNewStory); //invio stringa JSON
 		}
 	});	
 	
@@ -50,18 +49,18 @@ $(document).ready(function(){
 
 	$("#confermaelimina").click(function(){
 		xhr = getEliminaStoriaHTTPReq();
-		retrievedObjectStory = localStorage.getItem('storie'); //ottengo elenco storie dalla local storage
+		retrievedObjectStory = localStorage.getItem('storie');
 		objStorageStory = JSON.parse(retrievedObjectStory);
 		indexOfCheckedRadio = getCheckedRadioId('radioSA'); //cerco l'indice delle radiobutton 'checked' 
 		if(indexOfCheckedRadio!==-1){ //se trova il radio button 'checked' fa...
-			var idStory = { 
-			id: indexOfCheckedRadio //id della storia selezionata
+			var story = { 
+			id: indexOfCheckedRadio, //id della storia selezionata
+			nomestoria: objStorageStory.storie[indexOfCheckedRadio].nome //nome storia necessario per eliminare il file della singola storia dal pc
 			};
-			var objdeleteStory = JSON.stringify(idStory);
+			var objDeleteStory = JSON.stringify(story);
 			xhr.open('POST', '/autore/deleteStory', true); 
 			xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-			xhr.send(objdeleteStory);
-			
+			xhr.send(objDeleteStory);
 		}
 		else {
 			document.getElementById("messageerrorstorydelete").innerHTML=('<i>&nbsp &nbspNon è stata selezionata nessuna storia.</i>');
@@ -72,22 +71,21 @@ $(document).ready(function(){
 	//ottengo i dati dalla local storage inserendoli in 'modifica storia'
 	$("#modificastoria").click(function(){
 		retrievedObjectStory = localStorage.getItem('storie'); //ottengo elenco storie dalla local storage
-		if(retrievedObjectStory === null){
-			document.getElementById('messageerrorfunction').innerHTML = ('Impossibile modificare la storia.');
+		if(retrievedObjectStory === null){ //controllo se oggetto storie nella localstorage è nullo
+			document.getElementById('messageerrorfunction').innerHTML = ('<i>Impossibile modificare la storia.</i>');
 			document.getElementById("titolo1").hidden = true;
 			document.getElementById("formmodifica").hidden = true;
 			document.getElementById("formattivita").hidden = true;
 		}
 		else{
 			objStorageStory = JSON.parse(retrievedObjectStory);
-			labels = Array.from(document.getElementsByClassName('labelStoriaA'));
 			indexOfCheckedRadio = getCheckedRadioId('radioSA'); //cerco l'indice delle radiobutton 'checked' 
 			if(indexOfCheckedRadio!==-1){ //se trova il radio button 'checked' fa..
 				document.getElementById("formmodifica").hidden = false;
 				document.getElementById("formattivita").hidden = true;
 				document.getElementById("titolo1").hidden = true;
 				document.getElementById('messageerrorfunction').hidden = true;
-				var selectedStory= objStorageStory.storie.find(story => story.id === indexOfCheckedRadio);
+				selectedStory = objStorageStory.storie.find(story => story.id === indexOfCheckedRadio);
 				//prendo i valori relativi alla storia selezionata e li inserisco nella input text e nel checkbox
 				if(selectedStory !== undefined){
 					document.getElementById('titolostoriamod').value = selectedStory.nome; 
@@ -106,8 +104,8 @@ $(document).ready(function(){
 	
 	//funzione modifica storie
 	$("#salvamodifica").click(function(){
-		var titolostoriavalore = document.getElementById("titolostoriamod").value;
-		if (titolostoriavalore === "" || titolostoriavalore === undefined) { //controllo se il titolo è vuoto o undefined
+		titoloStoria = document.getElementById("titolostoriamod").value;
+		if (titoloStoria === "" || titoloStoria === undefined) { //controllo se il titolo è vuoto o undefined
     		document.getElementById("messageerrormod").innerHTML = ('<i>Titolo storia errato, inserire un nuovo titolo.</i>');
   		} 
 		else{
@@ -127,7 +125,7 @@ $(document).ready(function(){
 		xhr = getArchiviaStoriaHTTPReq();
 		retrievedObjectStory = localStorage.getItem('storie'); //ottengo elenco storie dalla local storage
 		objStorageStory = JSON.parse(retrievedObjectStory);
-		var indexOfCheckedRadio = getCheckedRadioId('radioSP');
+		indexOfCheckedRadio = getCheckedRadioId('radioSP');
 		if (indexOfCheckedRadio !== -1){ //memorizzo in un oggetto l'id della storia pubblicata
 			var req = { 
 				id: indexOfCheckedRadio
@@ -139,7 +137,7 @@ $(document).ready(function(){
 			xhr.send(objArchiveStory); //invio stringa JSON
 		}
 		else {
-			document.getElementById("messageerrorfunction").innerHTML = ('<i>&nbspNon è stata selezionata nessuna storia.</i>');
+			document.getElementById("messageerrorfunction").innerHTML = ('<i>&nbspNon è stata selezionata nessuna storia pubblicata.</i>');
 			document.getElementById("titolo1").hidden = true;
 			document.getElementById("formmodifica").hidden = true;
 			document.getElementById("formattivita").hidden = true;
@@ -157,14 +155,13 @@ $(document).ready(function(){
 				id: indexOfCheckedRadio
 			};
 			var objPubblicStory = JSON.stringify(req); //trasformo oggetto JS in stringa JSON
-			
 			//richiesta post
 			xhr.open('POST', '/autore/pubblicStory', true); //apro connessione tipo POST
 			xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8'); //header richiesta
 			xhr.send(objPubblicStory); //invio stringa JSON
 		}
 		else {
-			document.getElementById("messageerrorfunction").innerHTML = ('<i>&nbspNon è stata selezionata nessuna storia.</i>');
+			document.getElementById("messageerrorfunction").innerHTML = ('<i>&nbspNon è stata selezionata nessuna storia archiviata.</i>');
 			document.getElementById("titolo1").hidden = true;
 			document.getElementById("formmodifica").hidden = true;
 			document.getElementById("formattivita").hidden = true;
@@ -177,7 +174,7 @@ $(document).ready(function(){
 		objStorageStory = JSON.parse(retrievedObjectStory);
 		indexOfCheckedRadio = getCheckedRadioId('radioSA');
 		if (indexOfCheckedRadio !== -1){
-			var selectedStory = objStorageStory.storie.find(story => story.id === indexOfCheckedRadio);
+			selectedStory = objStorageStory.storie.find(story => story.id === indexOfCheckedRadio);
 			if(selectedStory !== undefined){
 				var accessibileStory = selectedStory.accessibile;
 				var titleStory = selectedStory.nome; 
@@ -185,7 +182,7 @@ $(document).ready(function(){
 				var statusStory = selectedStory.stato;
 				var storiaClone = { //creo oggetto storia da duplicare
 					id: objStorageStory.storie.length, //id = lunghezza array storie
-					nome: titleStory,
+					nome: titleStory + " duplicata",
 					accessibile: accessibileStory,
 					eta: etaStory,
 					stato: statusStory
@@ -204,14 +201,14 @@ $(document).ready(function(){
 			document.getElementById("formattivita").hidden = true;
 		}
 	});
-
+	
 	//crea missione 
 	$("#salvamissione").click(function(){
 		indexOfCheckedRadio = getCheckedRadioId('radioSA'); //trovo l'indice del checkbutton della storia selezionata
 		if(indexOfCheckedRadio !== -1){
-			var titoloMissione = document.getElementById('titolomissione').value; //nome missione
+			titoloMissione = document.getElementById('titolomissione').value; //nome missione
 			if (titoloMissione === "" || titoloMissione === undefined) {
-    			document.getElementById("messageerrormissione").innerHTML = ('Titolo missione errato, inserire un nuovo titolo.');
+    			document.getElementById("messageerrormissione").innerHTML = ('<i>Titolo missione errato, inserire un nuovo titolo.</i>');
   			}
 			else{
 				xhr = getCreaMissioneHTTPReq();
@@ -221,50 +218,49 @@ $(document).ready(function(){
 				var idStory = objStorageStory.storie[indexOfCheckedRadio].id; //nome storia
 				retrievedObjectMission = localStorage.getItem('missioni'); //ottengo elenco storie dalla local storage
 				objStorageMission = JSON.parse(retrievedObjectMission);
-				var missione = {
+				var mission = {
 					id: "missione" + objStorageMission.missioni.length,
 					titolostoria: titleStory,
 					idstoria: idStory,
 					nome: titoloMissione
 				};
-				var objMissione = JSON.stringify(missione);
+				var objMission = JSON.stringify(mission);
 				//richiesta post
 				xhr.open('POST', '/autore/newMission', true); //apro connessione tipo POST
 				xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8'); //header richiesta
-				xhr.send(objMissione); //invio stringa JSON
+				xhr.send(objMission); //invio stringa JSON
 			}
 		}
 		else{
-			document.getElementById("messageerrormissione").innerHTML = ('&nbspNon è stata selezionata alcuna storia archiviata.');
+			document.getElementById("messageerrormissione").innerHTML = ('<i>&nbspNon è stata selezionata nessuna storia archiviata.</i>');
 		}
 	});
 	
 	//riempie i campi del form modifica missione 
 	$("#modificamissione").click(function(){
-		var radioButtons = Array.from(document.getElementsByName('elencoMissioni')); //converto ListNode in array
-		var checkedRadio = radioButtons.find(radio => radio.checked);
+		radioButtons = Array.from(document.getElementsByName('elencoMissioni')); //converto ListNode in array
+		checkedRadio = radioButtons.find(radio => radio.checked);
 		if (checkedRadio !== undefined){
-			var idOfCheckedRadio = checkedRadio.id;
+			idOfCheckedRadio = checkedRadio.id;
 			retrievedObjectMission = localStorage.getItem('missioni'); //ottengo elenco missioni dalla local storage
 			objStorageMission = JSON.parse(retrievedObjectMission);
-			var selectedMission= objStorageMission.missioni.find(mission => mission.id === idOfCheckedRadio);//seleziono l'oggetto della missione che ha l'id = indice checkbutton selezionato
-				
-				//prendo i valori relativi alla missione selezionata e li inserisco nella input text
+			selectedMission = objStorageMission.missioni.find(mission => mission.id === idOfCheckedRadio);//seleziono l'oggetto della missione che ha l'id = indice checkbutton selezionato
+			//prendo i valori relativi alla missione selezionata e li inserisco nella input text
 			if(selectedMission !== undefined){
 				document.getElementById('modtitolomissione').value = selectedMission.nome;
 			}
 		}
 		else{
-			document.getElementById("modmessageerrormissione").innerHTML = ('<i>&nbspNon è stata selezionata alcuna missione.</i>');
+			document.getElementById("modmessageerrormissione").innerHTML = ('<i>&nbspNon è stata selezionata nessuna missione.</i>');
 		}
 	});
 	
 	//modifica missione
 	$("#salvamodmis").click(function(){
-		var radioButtons = Array.from(document.getElementsByName('elencoMissioni'));
-		var checkedRadio = radioButtons.find(radio => radio.checked);
+		radioButtons = Array.from(document.getElementsByName('elencoMissioni'));
+		checkedRadio = radioButtons.find(radio => radio.checked);
 		if (checkedRadio !== undefined){
-			var titoloMissione = document.getElementById('modtitolomissione').value;
+			titoloMissione = document.getElementById('modtitolomissione').value;
 			if (titoloMissione === "" || titoloMissione === undefined) {
     			document.getElementById("modmessageerrormissione").innerHTML = ('<i>Titolo missione errato, inserire un nuovo titolo.</i>');
   			}
@@ -280,20 +276,21 @@ $(document).ready(function(){
 	//duplica missione
 	$("#duplicamissione").click(function(){
 		xhr = getDuplicaMissioneHTTPReq();
-		var radioButtons = Array.from(document.getElementsByName('elencoMissioni')); //converto ListNode in array
-		var checkedRadio = radioButtons.find(radio => radio.checked);
+		radioButtons = Array.from(document.getElementsByName('elencoMissioni')); //converto ListNode in array
+		checkedRadio = radioButtons.find(radio => radio.checked);
 		retrievedObjectMission = localStorage.getItem('missioni'); //ottengo elenco missioni dalla local storage
 		objStorageMission = JSON.parse(retrievedObjectMission);
 		if (checkedRadio !== undefined){
 			idOfCheckedRadio = checkedRadio.id;
-			var selectedMission = objStorageMission.missioni.find(mission => mission.id === idOfCheckedRadio);
+			selectedMission = objStorageMission.missioni.find(mission => mission.id === idOfCheckedRadio);
 			var missioneClone = {
 				id: "missione" + objStorageMission.missioni.length,
+				idlast:idOfCheckedRadio,
 				nome: selectedMission.nome,
+				idstoria: selectedMission.idstoria,
 				nomestoria: selectedMission.nomestoria
 			};
 			var objDuplicateMission = JSON.stringify(missioneClone); //trasformo oggetto JS in stringa JSON
-				
 			//richiesta post
 			xhr.open('POST', '/autore/duplicateMission', true); //apro connessione tipo POST
 			xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8'); //header richiesta
@@ -309,17 +306,17 @@ $(document).ready(function(){
 		xhr = getEliminaMissioneHTTPReq();
 		retrievedObjectMission = localStorage.getItem('missioni'); //ottengo elenco storie dalla local storage
 		objStorageMission = JSON.parse(retrievedObjectMission);
-		var radioButtons = Array.from(document.getElementsByName('elencoMissioni')); 
-		var checkedRadio = radioButtons.find(radio => radio.checked); //cerco l'indice delle radiobutton 'checked' 
+		radioButtons = Array.from(document.getElementsByName('elencoMissioni')); 
+		checkedRadio = radioButtons.find(radio => radio.checked); //cerco l'indice delle radiobutton 'checked' 
 		if (checkedRadio !== undefined){ //se trova il radio button 'checked' fa...
 			idOfCheckedRadio = checkedRadio.id;
 			var idMission = { 
 				id: idOfCheckedRadio //id della storia selezionata
 			};
-			var objdeleteMission = JSON.stringify(idMission);
+			var objDeleteMission = JSON.stringify(idMission);
 			xhr.open('POST', '/autore/deleteMission', true); 
 			xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-			xhr.send(objdeleteMission);
+			xhr.send(objDeleteMission);
 		}
 		else {
 			document.getElementById("messageerrormissiondelete").innerHTML = ('&nbsp&nbsp<i>Non è stata selezionata alcuna missione.</i>');
@@ -330,18 +327,17 @@ $(document).ready(function(){
 		xhr = getEliminaAttivitaHTTPReq();
 		retrievedObjectActivities = localStorage.getItem('attivita'); //ottengo elenco storie dalla local storage
 		objStorageActivities = JSON.parse(retrievedObjectActivities);
-		var radioButtons = Array.from(document.getElementsByName('elencoAttivita')); 
-		var checkedRadio = radioButtons.find(radio => radio.checked); //cerco l'indice delle radiobutton 'checked' 
+		radioButtons = Array.from(document.getElementsByName('elencoAttivita')); 
+		checkedRadio = radioButtons.find(radio => radio.checked); //cerco l'indice delle radiobutton 'checked' 
 		if (checkedRadio !== undefined){ //se trova il radio button 'checked' fa...
 			idOfCheckedRadio = checkedRadio.id;
-			console.log(idOfCheckedRadio);
 			var idAttivita = { 
 				id: idOfCheckedRadio
 			};
-			var objdeleteActivity = JSON.stringify(idAttivita);
+			var objDeleteActivity = JSON.stringify(idAttivita);
 			xhr.open('POST', '/autore/deleteActivity', true); 
 			xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-			xhr.send(objdeleteActivity);
+			xhr.send(objDeleteActivity);
 		}
 		else {
 			document.getElementById("messageerroractivitydelete").innerHTML = ('&nbsp&nbsp<i>Non è stata selezionata alcuna attività.</i>');
@@ -352,13 +348,12 @@ $(document).ready(function(){
 		xhr = getDuplicaAttivitaHTTPReq();
 		retrievedObjectActivities = localStorage.getItem('attivita');
 		objStorageActivities = JSON.parse(retrievedObjectActivities);
-		var radioButtons = Array.from(document.getElementsByName('elencoAttivita')); 
-		var checkedRadio = radioButtons.find(radio => radio.checked);
+		radioButtons = Array.from(document.getElementsByName('elencoAttivita')); 
+		checkedRadio = radioButtons.find(radio => radio.checked);
 		var attivitaClone;
 		if (checkedRadio !== undefined){
 			idOfCheckedRadio = checkedRadio.id;
-			var selectedActivity = objStorageActivities.attivita.find(activity => activity.id === idOfCheckedRadio);
-			console.log(selectedActivity);
+			selectedActivity = objStorageActivities.attivita.find(activity => activity.id === idOfCheckedRadio);
 			attivitaClone = {
 				id: "attivita" + objStorageActivities.attivita.length,
 				checkbox: selectedActivity.checkbox,
@@ -367,7 +362,6 @@ $(document).ready(function(){
 				idmissione: selectedActivity.idmissione,
 				nomemissione: selectedActivity.nomemissione
 			};
-			
 			if(selectedActivity.hasOwnProperty('immaginesfondo')){
 				attivitaClone.immaginesfondo = selectedActivity.immaginesfondo;
 			}
@@ -388,7 +382,6 @@ $(document).ready(function(){
 				}
 			}
 			var objDuplicateActivity = JSON.stringify(attivitaClone); //trasformo oggetto JS in stringa JSON
-				
 			//richiesta post
 			xhr.open('POST', '/autore/duplicateActivity', true); //apro connessione tipo POST
 			xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8'); //header richiesta
@@ -400,13 +393,13 @@ $(document).ready(function(){
 	});
 	
 	$("#modificaattivita").click(function(){
-		var radioButtons = Array.from(document.getElementsByName('elencoAttivita')); 
-		var checkedRadio = radioButtons.find(radio => radio.checked);
+		radioButtons = Array.from(document.getElementsByName('elencoAttivita')); 
+		checkedRadio = radioButtons.find(radio => radio.checked);
 		if (checkedRadio !== undefined){
-			var idOfCheckedRadio = checkedRadio.id;
+			idOfCheckedRadio = checkedRadio.id;
 			retrievedObjectActivities = localStorage.getItem('attivita'); //ottengo elenco storie dalla local storage
 			objStorageActivities = JSON.parse(retrievedObjectActivities);
-			var selectedActivity= objStorageActivities.attivita.find(activity => activity.id === idOfCheckedRadio);//seleziono l'oggetto della missione che ha l'id = indice checkbutton selezionato
+			selectedActivity= objStorageActivities.attivita.find(activity => activity.id === idOfCheckedRadio);//seleziono l'oggetto della missione che ha l'id = indice checkbutton selezionato
 			//prendo i valori relativi alla missione selezionata e li inserisco nella input text
 			if(selectedActivity !== undefined){
 				document.getElementById('moddomandaattivita').value = selectedActivity.domanda;
@@ -437,8 +430,8 @@ $(document).ready(function(){
 					document.getElementById('sfondocaricato').innerHTML = "Hai caricato il seguente sfondo: " + "<i>"+ newPathBackground + "</i>";
 				}
 				else{
-						document.getElementById('sfondocaricato').innerHTML = "Non hai caricato in precedenza nessun sfondo.";
-					}
+					document.getElementById('sfondocaricato').innerHTML = "Non hai caricato in precedenza nessun sfondo.";
+				}
 			}
 		}
 		else{
@@ -450,7 +443,6 @@ $(document).ready(function(){
 	$("#finestramodificaattivita").on('hidden.bs.modal', function(){
 		location.reload();
 	});
-
 });
 
 function check(){
@@ -491,17 +483,18 @@ function check(){
 			document.getElementById("modmessaggiorispostasbagliata").disabled = true;
 	}
 }
+
 //crea attività
 function validateForm(e){
 	e.preventDefault();  //evita il comportamento predefinito del form -> invio dei dati
 	var indexOfCheckedRadioSA = getCheckedRadioId('radioSA'); //trovo l'indice del checkbutton della storia selezionata
-	var radioButtons = Array.from(document.getElementsByName('elencoMissioni')); //converto ListNode in array
-	var checkedRadio = radioButtons.find(radio => radio.checked);
+	radioButtons = Array.from(document.getElementsByName('elencoMissioni')); //converto ListNode in array
+	checkedRadio = radioButtons.find(radio => radio.checked);
 	var attivita;
 	if(indexOfCheckedRadioSA !== -1 && checkedRadio !== undefined){
 		var domandaAttivita = document.forms.formAttivita.domandaattivita.value;
 		if (domandaAttivita === "" || domandaAttivita === undefined) {
-			document.getElementById("messageerrattivita").innerHTML = ('<i>&nbspTitolo attività errato, inserire un nuovo titolo.</i>');
+			document.getElementById("messageerrattivita").innerHTML = ('<i>&nbsp &nbsp Titolo attività errato, inserire un nuovo titolo.</i>');
 			return false;
 		}
 		else{
@@ -555,12 +548,12 @@ function validateForm(e){
 			var formData = new FormData(document.getElementById("newActivityForm")); //formdata che contiene il form (file immagini)
 			formData.append("data", objNewActivity); //aggiungo oggetto objNewActivity nel formdata
 			xhr.open('POST', '/autore/newActivities', true); //apro connessione tipo POST
-			xhr.send(formData); //invio
+			xhr.send(formData); //invio l'intero formData al server testo + immagini
 			return true;
 		}
 	}
 	else{
-		document.getElementById("messageerrattivita").innerHTML = ('<i>&nbspNon è stata selezionata una storia archiviata ed una missione.</i>');
+		document.getElementById("messageerrattivita").innerHTML = ('<i>&nbsp &nbspNon è stata selezionata una storia archiviata ed una missione.</i>');
 		return false;
 	}			
 }
@@ -568,8 +561,8 @@ function validateForm(e){
 //modifica attività
 function validateModifyForm(e){
 	e.preventDefault();  //evita il comportamento predefinito del form -> invio dei dati
-	var radioButtons = Array.from(document.getElementsByName('elencoAttivita')); //converto ListNode in array
-	var checkedRadio = radioButtons.find(radio => radio.checked);
+	radioButtons = Array.from(document.getElementsByName('elencoAttivita')); //converto ListNode in array
+	checkedRadio = radioButtons.find(radio => radio.checked);
 	var attivita;
 	if (checkedRadio !== undefined){
 		var domandaAttivita = document.forms.formModificaAttivita.moddomandaattivita.value;
@@ -616,7 +609,6 @@ function validateModifyForm(e){
 					avanti: "Avanti"
 				};
 			}
-			
 			var objModifyActivity = JSON.stringify(attivita); //trasformo oggetto JS in stringa JSON
 			//richiesta post
 			var formData = new FormData(document.getElementById("modifyActivityForm")); //formdata che contiene il form (file immagini)
@@ -626,16 +618,12 @@ function validateModifyForm(e){
 			return true;
 		}
 	}
-	
 	else{
 		document.getElementById("messageerrmodattivita").innerHTML = ("&nbspNon è stata selezionata un'\attività.");
 		return false;
 	}			
 }
 
-
-
-	
 function cambiaPagina(url) {
 		window.location.replace(url);
 }
@@ -671,7 +659,7 @@ function getDuplicaAttivitaHTTPReq(){
 	};
 	return xhr;
 }
-	
+
 function getModificaAttivitaHTTPReq(){
 	xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function() {
@@ -681,7 +669,7 @@ function getModificaAttivitaHTTPReq(){
 	};
 	return xhr;
 }	
-	
+
 function getEliminaAttivitaHTTPReq(){
 	xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function() {
@@ -691,7 +679,7 @@ function getEliminaAttivitaHTTPReq(){
 		};
 	return xhr;
 }
-	
+
 function getCreaMissioneHTTPReq(){
 	xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function() {
@@ -733,7 +721,6 @@ function getDuplicaMissioneHTTPReq(){
 	};
 	return xhr;
 }
-
 
 function getEliminaMissioneHTTPReq(){
 	xhr = new XMLHttpRequest();
@@ -848,15 +835,15 @@ function getDuplicaStoriaHTTPReq(){
 }
 
 function getCheckedRadioId(radioButtonClass){
-	var radioButtons = Array.from(document.getElementsByName(radioButtonClass)); //converto ListNode in array
-	var checkedRadio = radioButtons.find(radio => radio.checked);//cerco il radiobutton checked
+	radioButtons = Array.from(document.getElementsByName(radioButtonClass)); //converto ListNode in array
+	checkedRadio = radioButtons.find(radio => radio.checked);//cerco il radiobutton checked
 	return(checkedRadio === undefined ? -1: parseInt(checkedRadio.id)); //ritorno l'indice del radiobutton checked se != da undefined
 }
 
 function modifyMission(){
-	var xhr = getModificaMissioneHTTPReq();
-	var radioButtons = Array.from(document.getElementsByName('elencoMissioni'));
-	var checkedRadio = radioButtons.find(radio => radio.checked);
+	xhr = getModificaMissioneHTTPReq();
+	radioButtons = Array.from(document.getElementsByName('elencoMissioni'));
+	checkedRadio = radioButtons.find(radio => radio.checked);
 	retrievedObjectMission = localStorage.getItem('missioni'); //ottengo elenco missioni dalla local storage
 	objStorageMission = JSON.parse(retrievedObjectMission);
 	if (checkedRadio !== undefined){
@@ -898,7 +885,7 @@ function modifyStory(){
 
 //necessario per vedere le storie presenti nel div 'storie pubblicate'
 function viewStoryP(){	
-	var xhr = new XMLHttpRequest();
+	xhr = new XMLHttpRequest();
 	xhr.open("GET", '/autore/newStory', true);
 	xhr.onreadystatechange = () => {
 		if (xhr.readyState === 4 && xhr.status === 200){
@@ -914,9 +901,10 @@ function viewStoryP(){
 	};
 	xhr.send();
 }
+
 //necessario per vedere le storie presenti nel div 'storie archiviate'
 function viewStoryA(){	
-	var xhr = new XMLHttpRequest();
+	xhr = new XMLHttpRequest();
 	xhr.open("GET", '/autore/newStory', true);
 	xhr.onreadystatechange = () => {
 		if (xhr.readyState === 4 && xhr.status === 200){
@@ -934,14 +922,13 @@ function viewStoryA(){
 }
 
 function viewMission(){
-	var xhr = new XMLHttpRequest();
+	xhr = new XMLHttpRequest();
 	xhr.open("GET", '/autore/newMission', true);
 	xhr.onreadystatechange = () => {
 		if (xhr.readyState === 4 && xhr.status === 200){
 			var strMission = xhr.responseText; //ottengo elenco missioni in formato stringa
 			localStorage.setItem('missioni', strMission); // Inserisco nella storage l'oggetto
 			var objMission = JSON.parse(strMission); //ottengo oggetto JS
-			
 			for (var i = 0; i < objMission.missioni.length; i++){
 			//crea tutti i radio button delle missioni
 				document.getElementById('elencomissioni').innerHTML += "<div class='form-check elencoMissioni'><input name='elencoMissioni' type='radio' id= " + objMission.missioni[i].id + " value= "+ objMission.missioni[i].nome + ">&nbsp<label class='labelMissioni' for= " + objMission.missioni[i].id + ">" + objMission.missioni[i].nome + "</label></div>";
@@ -959,7 +946,6 @@ function viewActivities(){
 			var strActivity = xhr.responseText; //ottengo elenco attività in formato stringa
 			localStorage.setItem('attivita', strActivity); // Inserisco nella storage l'oggetto
 			var objActivity = JSON.parse(strActivity); //ottengo oggetto JS
-			
 			for (var i = 0; i < objActivity.attivita.length; i++){
 			//crea tutti i radio button delle attività
 				document.getElementById('elencoattivita').innerHTML += "<div class='form-check elencoAttivita'><input name='elencoAttivita' type='radio' id= " + objActivity.attivita[i].id + " value= "+ objActivity.attivita[i].domanda + ">&nbsp<label class='labelAttivita' for= " + objActivity.attivita[i].id + ">" + objActivity.attivita[i].domanda + "</label></div>";
