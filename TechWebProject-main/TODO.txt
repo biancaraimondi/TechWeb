@@ -25,6 +25,3 @@ creare funzione che carica il contenuto di quell'attività (player.js)
 CRI: 
 
 unire file server nell'unico file provaserver.js di Bianca caricato nella pagine principale GitHub
-
-unica finestra tra crea e modifica attività
-
