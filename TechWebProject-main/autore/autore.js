@@ -175,20 +175,30 @@ $(document).ready(function(){
 		xhr = getDuplicaStoriaHTTPReq();
 		retrievedObjectStory = localStorage.getItem('storie'); //ottengo elenco storie dalla local storage
 		objStorageStory = JSON.parse(retrievedObjectStory);
+		retrievedObjectMission = localStorage.getItem('missioni'); //ottengo elenco storie dalla local storage
+		objStorageMission = JSON.parse(retrievedObjectMission);
+		retrievedObjectActivities = localStorage.getItem('attivita'); //ottengo elenco storie dalla local storage
+		objStorageActivities = JSON.parse(retrievedObjectActivities);
 		indexOfCheckedRadio = getCheckedRadioId('radioSA');
 		if (indexOfCheckedRadio !== -1){
 			selectedStory = objStorageStory.storie.find(story => story.id === indexOfCheckedRadio);
+			var selectedMission = objStorageMission.missioni.filter(mission => mission.idstoria === indexOfCheckedRadio);
+			var selectedActivity = objStorageActivities.attivita.filter(activity => activity.idstoria === indexOfCheckedRadio);
+			
 			if(selectedStory !== undefined){
 				var accessibileStory = selectedStory.accessibile;
 				var titleStory = selectedStory.nome; 
 				var etaStory = selectedStory.eta;
 				var statusStory = selectedStory.stato;
 				var storiaClone = { //creo oggetto storia da duplicare
-					id: objStorageStory.storie.length, //id = lunghezza array storie
+					id: objStorageStory.storie.length,
+					idold: indexOfCheckedRadio,//id = lunghezza array storie
 					nome: titleStory + " duplicata",
 					accessibile: accessibileStory,
 					eta: etaStory,
-					stato: statusStory
+					stato: statusStory,
+					missioni: selectedMission,
+					attivita: selectedActivity
 				};
 				var objDuplicateStory = JSON.stringify(storiaClone); //trasformo oggetto JS in stringa JSON
 				//richiesta post
@@ -360,11 +370,11 @@ $(document).ready(function(){
 		if (checkedRadio !== undefined){
 			idOfCheckedRadio = checkedRadio.id;
 			selectedActivity = objStorageActivities.attivita.find(activity => activity.id === idOfCheckedRadio);
-			console.log(selectedActivity.rispostebottoni.immagineaiuto);
 			attivitaClone = {
 				id: "attivita" + objStorageActivities.attivita.length,
 				checkbox: selectedActivity.checkbox,
 				domanda: selectedActivity.domanda,
+				idstoria: selectedActivity.idstoria,
 				nomestoria: selectedActivity.nomestoria,
 				idmissione: selectedActivity.idmissione,
 				nomemissione: selectedActivity.nomemissione

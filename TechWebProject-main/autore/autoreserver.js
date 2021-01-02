@@ -73,13 +73,47 @@ app.post("/autore/deleteStory", function(req,res){
 		var nameStoryToRemove = req.body.nomestoria;
 		stories = fs.readFileSync ("storie.json"); //leggere file e memorizza contenuto cioè stringa JSON inizialmente vuota []
 		objStory = JSON.parse(stories); //trasformo stringa in oggetto JS, sarà lista di storie	
+		mission = fs.readFileSync ("missioni.json"); //leggere file e memorizza contenuto cioè stringa JSON inizialmente vuota []
+		objMission = JSON.parse(mission);
+		activity = fs.readFileSync ("attivita.json"); //leggere file e memorizza contenuto cioè stringa JSON inizialmente vuota []
+		objActivity = JSON.parse(activity);
+		
+		var missionsDelete = {"missioni": objMission.missioni.filter(mission => mission.idstoria !== idStoryToRemove)}; //filtra le storie che hanno un id diverso da quello selezionato tramite il radiobutton e le memorizza nella variabile --> fatto per evitare il null
+
+		//metodo per decrementare gli indici delle storie
+		for (var i=0, id=0; i<missionsDelete.missioni.length; i++, id++){
+			missionsDelete.missioni[i].id = 'missione'+id;
+		}
+		
 		var storiesWithoutDeleteStory = {"storie": objStory.storie.filter(story => story.id !== idStoryToRemove)}; //filtra le storie che hanno un id diverso da quello selezionato tramite il radiobutton e le memorizza nella variabile --> fatto per evitare il null
 
 		//metodo per decrementare gli indici delle storie
-		for (var i=0, id=0; i<storiesWithoutDeleteStory.storie.length; i++, id++){
+		for (i=0, id=0; i<storiesWithoutDeleteStory.storie.length; i++, id++){
 			storiesWithoutDeleteStory.storie[i].id = id;
 		}
+		
+		var activitiesDelete ={"attivita": objActivity.attivita.filter(activity => activity.idstoria !== idStoryToRemove)}; //filtra le storie che hanno un id diverso da quello selezionato tramite il radiobutton e le memorizza nella variabile --> fatto per evitare il null
+
+		//metodo per decrementare gli indici delle storie
+		for (i=0, id=0; i<activitiesDelete.attivita.length; i++, id++){
+			activitiesDelete.attivita[i].id = 'attivita'+id;
+		}
+		
 		fs.writeFileSync("storie.json", JSON.stringify(storiesWithoutDeleteStory), 'utf8',(err) => { //scrivo all'interno del file storie le storie filtrate memorizzate in out
+			if (err){
+				console.log(err);
+				res.status(500).send('Non è stato possibile eliminare la storia.');
+			}
+		});
+		
+		fs.writeFileSync("attivita.json", JSON.stringify(activitiesDelete), 'utf8',(err) => { //scrivo all'interno del file storie le storie filtrate memorizzate in out
+			if (err){
+				console.log(err);
+				res.status(500).send('Non è stato possibile eliminare la storia.');
+			}
+		});
+		
+		fs.writeFileSync("missioni.json", JSON.stringify(missionsDelete), 'utf8',(err) => { //scrivo all'interno del file storie le storie filtrate memorizzate in out
 			if (err){
 				console.log(err);
 				res.status(500).send('Non è stato possibile eliminare la storia.');
@@ -238,14 +272,92 @@ app.get("/autore/pubblicStory", function(req,res){
 	});
 });
 
+
 //funzione duplica storie
 app.post("/autore/duplicateStory", function(req,res){
 	console.log("Ricevuto richiesta duplica storia");
 	stories = fs.readFileSync("storie.json");
 	objStory = JSON.parse(stories);
-	var duplicateStory = req.body; //contiene oggetto JS della storia da clonare
+	mission = fs.readFileSync("missioni.json");
+	objMission = JSON.parse(mission);
+	activity = fs.readFileSync("attivita.json");
+	objActivity = JSON.parse(activity);
 	nameStory = req.body.nome;
-	objStory.storie.push(duplicateStory); //inserisco in coda all'array, la storia duplicata
+	
+	objStory.storie.push({
+		id: req.body.id,
+		nome:req.body.nome,
+		accessibile:req.body.accessibile,
+		eta:req.body.eta,
+		stato:req.body.stato
+	}); //inserisco in coda all'array, la storia duplicata
+	
+	var missionsToDuplicate = objMission.missioni.filter(m => m.idstoria === req.body.idold); //filtro le missioni che hanno l'id storia della storia che voglio duplicare
+	var indexStart = objMission.missioni.length; //id necessario per modificare id della missione
+	//duplichiamo le missioni
+	var newMissions = []; 
+	for (var i=0; i < missionsToDuplicate.length; i++, indexStart++){
+		var newMission = JSON.parse(JSON.stringify(missionsToDuplicate[i])); //copio missioni filtrate da duplicare
+		//modifico i campi delle missioni da duplicare
+		newMission.id = 'missione'+indexStart;
+		newMission.idstoria = req.body.id;
+		newMission.nomestoria = req.body.nome;
+		
+		objMission.missioni.push(newMission);
+		
+		var withOldId = JSON.parse(JSON.stringify(newMission)); //copio missioni filtrate da duplicare
+		withOldId.oldid = missionsToDuplicate[i].id; //vecchio id missione
+		newMissions.push(withOldId);
+	}
+		
+	//duplicare le attività
+	var activitiesToDuplicate = objActivity.attivita.filter(a => a.idstoria === req.body.idold); //filtro attività da duplicare
+	indexStart = objActivity.attivita.length; //id necessario per mod nuovo id attività
+	//duplichiamo le missioni
+	var newActivities = [];
+	for (i=0; i < activitiesToDuplicate.length; i++, indexStart++){
+		var newActivity = JSON.parse(JSON.stringify(activitiesToDuplicate[i])); //copio attività da duplicare
+		//modifico i campi delle attività da duplicare
+		newActivity.id = 'attivita'+indexStart;
+		newActivity.idstoria = req.body.id;
+		newActivity.nomestoria = req.body.nome;
+		
+		var newId = newMissions.find(m => m.oldid === newActivity.idmissione);//cerco nell'array delle nuove missione la missione che ha come vecchio id l'id della missione attualmente associata all'attività da modificare
+		newActivity.idmissione = newId.id; //modifico vecchio id con nuovo
+	
+		
+		objActivity.attivita.push(newActivity);
+		var withOldId = JSON.parse(JSON.stringify(newActivity)); //copio attività da duplicare
+		withOldId.oldid = activitiesToDuplicate[i].id; //associo vecchio id dell'attività
+		newActivities.push(withOldId);
+	}
+	
+	var oldNameStory = nameStory.replace(" duplicata", "");
+	singleStory = fs.readFileSync(oldNameStory + ".json");
+	objSingleStory = JSON.parse(singleStory); 
+	objSingleStory.missioni.forEach(m => { //effettuo ciclo sulle missioni
+		var mission = newMissions.find(mission => mission.oldid === m.id); //trovo la missione che ha il vecchio id della missione nel file della singola storia
+		m.id = mission.id; //mod vecchio id con nuovo
+		
+		m.attivita.forEach(a => {//ciclo sulle attivita
+			var activity = newActivities.find(activity => activity.oldid === a.id); //trovo le attivtà con vecchio id delle attività nel file della singola storia
+			a.id = activity.id; // mod vecchio id con nuovo
+		});
+	});
+	
+	fs.writeFileSync("attivita.json", JSON.stringify(objActivity), 'utf8',(err) => { //scrivo all'interno del file storie.json la nuova storia trasformata in stringa
+		if (err){
+			console.log(err);
+			res.status(500).send('Non è stato possibile duplicare la storia.');
+		}
+	});
+	
+	fs.writeFileSync("missioni.json", JSON.stringify(objMission), 'utf8',(err) => { //scrivo all'interno del file storie.json la nuova storia trasformata in stringa
+		if (err){
+			console.log(err);
+			res.status(500).send('Non è stato possibile duplicare la storia.');
+		}
+	});
 	
 	fs.writeFileSync("storie.json", JSON.stringify(objStory), 'utf8',(err) => { //scrivo all'interno del file storie.json la nuova storia trasformata in stringa
 		if (err){
@@ -253,13 +365,15 @@ app.post("/autore/duplicateStory", function(req,res){
 			res.status(500).send('Non è stato possibile duplicare la storia.');
 		}
 	});
-	fs.appendFile(nameStory + '.json', '{"missioni":[]}', (err) => { //creo file 'nomestoria.json'
-  		if (err) {
-			console.log(err);
-			res.status(500).send('Non è stata aggiunta la nuova storia nel file della singola storia');
-		}
-  		console.log('Creato nuovo file json: '+ nameStory + '.json');
-	});
+	
+	fs.appendFile(nameStory + '.json', JSON.stringify(objSingleStory), (err) => { //creo file 'nomestoria.json'
+			if (err) {
+				console.log(err);
+				res.status(500).send('Non è stata aggiunta la nuova storia nel file della singola storia');
+			}
+			console.log('Creato nuovo file json: '+ nameStory + '.json');
+		});
+	
 	res.status(200).send('OK');
 });
 
@@ -501,7 +615,7 @@ app.post('/autore/newActivities', upload.any(), function (req, res) {
 		newActivityInStory.immaginesfondo = baseImagePath+background.filename;
 		newActivityObj.immaginesfondo = baseImagePath+background.filename;
 	}
-	if(activity.hasOwnProperty('avanti')){
+	if(newActivity.checkbox === false){
 		newActivityInStory.avanti = "Avanti";
 		newActivityObj.avanti = "Avanti";
 	}
@@ -613,7 +727,6 @@ app.post("/autore/deleteActivity", function(req,res){
 app.post("/autore/duplicateActivity", function(req,res){
 	console.log("Ricevuto richiesta duplica attività");
 	var duplicateActivity = req.body;
-	console.log(duplicateActivity);
 	activity = fs.readFileSync ("attivita.json"); 
 	objActivity = JSON.parse(activity); //trasformo stringa in oggetto JS, sarà lista di missioni
 	nameStory = duplicateActivity.nomestoria; //nome storia
@@ -718,7 +831,7 @@ app.post('/autore/modifyActivities', upload.any(), function (req, res) {
 		modifyActivityInStory.immaginesfondo = baseImagePath+background.filename;
 		modifyActivityObj.immaginesfondo = baseImagePath+background.filename;
 	}
-	if(activity.hasOwnProperty('avanti')){
+	if(modifyActivity.checkbox === false){
 		modifyActivityInStory.avanti = "Avanti";
 		modifyActivityObj.avanti = "Avanti";
 	}
