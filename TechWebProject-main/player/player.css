@@ -6,6 +6,31 @@ div#row1{
     margin: 30px 20px 20px 45px; /* margine sup 30px, margine dx 20px, margine inf 20px, margine sx 45px*/
 }
 
+div#row2{
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -100px 0 0 -100px;
+}
+
+div#row4{
+    float: right;
+}
+
+#campoTestoIniz > h1{
+    color: #8b0000;
+    text-align: center;
+    font-style: italic;
+}
+
+#campoTestoIniz > p{
+    color: black;
+    text-align: center;
+    font-style: italic;
+}
+
 #domanda{
     background-color: lightgrey;
     border-radius: 30px;
@@ -15,15 +40,6 @@ div#row1{
     padding: 40px;
     position: absolute;
     }
-
-div#row2{
-    width: 200px;
-    height: 200px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin: -100px 0 0 -100px;
-}
 
 .panel-default > .panel-heading {
     color: #333;

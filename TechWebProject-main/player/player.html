@@ -33,13 +33,17 @@
         <div class="container-fluid">
             
             <div class="row" id="row1" hidden>
-                <p id="domanda"> Prova prova prova. <!-- Testo spiegazione storia --> </p>  
+                <p id="domanda"> <!-- Inserimento testo domanda in modo automatico --> </p>
             </div>
             
             <br>
             
+            <div id="campoTestoIniz">
+                <h1> Benvenuto su M&M - Mistero al Museo. </h1>
+                <p> Sei pronto ad iniziare la tua storia? Inserisci il tuo nome e poi inizia a giocare! </p>
+            </div>
+            
             <div class="row" id="row2">
-                <!-- <p> Ciao, benvenuto su M&M - Mistero al museo! Inserisci il tuo nome per giocare alla storia selezionata. Buon divertimento! </p> -->
                 <!-- campo inserimento nome giocatore -->
                 <div id="campoNomeGiocatore">
                     <input type="text" placeholder="Inserisci il tuo nome" class="form-control-sm" id="nomeGiocatore">
@@ -51,26 +55,44 @@
             
             <div class="row" id="row3">
                 <!-- colonna bottoni risposte -->
+                <!-- <div class="col-sm-6 col-md-6 col-lg-6" id="campoRisposte" hidden>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="risposteBottoni" id="risposta1" value="option1">
+                      <label class="form-check-label" for="risposta1">  </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="risposteBottoni" id="risposta2" value="option2">
+                      <label class="form-check-label" for="risposta2">  </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="risposteBottoni" id="risposta3" value="option3">
+                      <label class="form-check-label" for="risposta3">  </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="risposteBottoni" id="risposta4" value="option4">
+                      <label class="form-check-label" for="risposta4">  </label>
+                    </div>
+                </div> -->
                 <div class="col-sm-6 col-md-6 col-lg-6" id="campoRisposte" hidden>
                     <div class="button-answer">
-                        <button type="button" class="btn btn-dark btn-sm"> RISPOSTA A </button>
+                        <button name="bottoni" type="button" class="btn btn-dark btn-sm" id="risposta1"> </button>
                     </div>
                     <br>
                     <div class="button-answer">
-                        <button type="button" class="btn btn-dark btn-sm"> RISPOSTA B </button>
+                        <button name="bottoni" type="button" class="btn btn-dark btn-sm" id="risposta2"> </button>
                     </div>
                     <br>
                     <div class="button-answer">
-                        <button type="button" class="btn btn-dark btn-sm"> RISPOSTA C </button>
+                        <button name="bottoni" type="button" class="btn btn-dark btn-sm" id="risposta3"> </button>
                     </div>
                     <br>
                     <div class="button-answer">
-                        <button type="button" class="btn btn-dark btn-sm"> RISPOSTA D </button>
+                        <button name="bottoni" type="button" class="btn btn-dark btn-sm" id="risposta4"> </button>
                     </div>
-                </div>
+                </div> 
                 <!-- colonna chat -->
                 <div class="col-sm-6 col-md-6 col-lg-6" id="campoChat" hidden>
-                    <div class="panel panel-default chat-widget ">
+                    <div class="panel panel-default chat-widget">
                         <div class="panel-heading">
                             <h3 class="panel-title"><i class="fa fa-comments"></i> Chat</h3>
                         </div>
@@ -89,7 +111,11 @@
                     </div>
                 </div>
             </div>
-            
+            <div class="row" id="row4" hidden>
+                <div id="campoAvanti">
+                    <button class="btn btn-dark btn-sm" type="button" id="avanti">Avanti</button>
+                </div>
+            </div>
         </div>
     
                 
@@ -100,8 +126,9 @@
         
         <!-- navbar inferiore -->
         <footer>
-            <nav class="navbar  navbar-fixed-bottom" id="footer" hidden>
-                <button class="navbar-toggler" type="button" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <nav class="navbar-fixed-bottom" id="footer" hidden>
+                <!--<input type="button" class="navbar-toggler" onclick="location.href='primaPagina.html'" value="Torna alla pagina principale"/>-->
+                <button class="navbar-toggler" type="button" onclick="location.href='primaPagina.html'" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 Torna alla pagina principale
                 </button>
             </nav>
