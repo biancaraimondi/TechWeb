@@ -24,7 +24,6 @@ MARTI:
 campi non sempre presenti (esempio freccia avanti, immagini aiuto, etc..) in file json inseriti in js e non html
 aggiungere div dell'incitamento/aiuto
 aggiungere bottone aiuto, posto per immagine aiuto, risposta testuale
-mettere apposto domanda e risposte che si sovrappongono
 randomizzare bottoni risposte
 eliminare alert
 inserire immagine di sfondo
