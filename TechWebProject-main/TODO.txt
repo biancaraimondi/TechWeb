@@ -16,7 +16,6 @@ prima della consegna del progetto, eliminare nel codice che viene caricato sul s
 
 BIANCA:
 
-modificare click su radiobutton primapagina
 gestire scambio messaggi tra player e valutatore
 
 MARTI:
@@ -31,5 +30,6 @@ aggiungere div immagine domanda
 
 CRI: 
 
+settare le nostre tre storie con stato="pubblicata" nel file storie.json
 unire file server nell'unico file provaserver.js di Bianca caricato nella pagine principale GitHub
 inserire nel json della storia l'immagine della domanda
