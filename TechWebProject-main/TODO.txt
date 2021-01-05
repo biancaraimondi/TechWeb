@@ -18,6 +18,8 @@ BIANCA:
 
 scaricare immagini citta interrail
 gestire scambio messaggi tra player e valutatore
+commentare e pulire codice 
+gestire invio foto e testo al valutatore
 
 MARTI:
 
