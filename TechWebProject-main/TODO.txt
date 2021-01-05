@@ -22,10 +22,10 @@ gestire scambio messaggi tra player e valutatore
 MARTI:
 
 campi non sempre presenti (esempio freccia avanti, immagini aiuto, etc..) in file json inseriti in js e non html
-aggiungere div immagine domanda
 
 CRI: 
 
+nome chiave dell'immagine all'interno della domanda è immaginedomanda
 settare le nostre tre storie con stato="pubblicata" nel file storie.json
 unire file server nell'unico file provaserver.js di Bianca caricato nella pagine principale GitHub
 inserire nel json della storia l'immagine della domanda
