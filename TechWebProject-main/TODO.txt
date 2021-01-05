@@ -23,8 +23,6 @@ gestire invio foto e testo al valutatore
 
 MARTI:
 
-scaricare immagini storia
-mettere a posto css
 
 CRI: 
 
