@@ -33,17 +33,17 @@
                 },
                 {
                     "domanda": "Accipicchia! Jupiter è rimasta bloccata sulla Luna per un guasto tecnico. Abbiamo bisogno di trovare il codice a 3 cifre da inserire nel pannello di controllo. Aiutaci a risolvere il problema.",
-                    "immaginesfondo": ".jpg",
+                    "immaginesfondo": "SfondoLuna.jpg",
                     "avanti": "Avanti"
                 },
                 {
                     "domanda": "Forza! Troviamo questo codice così da poter ripartire al più presto! Per decifrarlo abbiamo bisogno che tu risolva questi tre piccoli test scientifici: Quanto vale x in 2(x-1)=0? Invece quanto vale y in 3y=2+4? E invece z quanto vale se è il doppio di x? Scrivi in ordine il valore di x, y e z così avremo il nostro codice.",
-                    "immaginesfondo": ".jpg",
+                    "immaginesfondo": "SfondoFormule.jpg",
                     "camporisposta": ""
                 },
                 {
                     "domanda": "Yuhuuu! Finalmente Jupiter è ripartita per il suo viaggio grazie al tuo prezioso aiuto! Adesso è pronta per portarti a vedere il pianeta più vicino al Sole. Il suo nome è..?",
-                    "immaginesfondo": ".jpg",
+                    "immaginesfondo": "Jupiter.jpg",
                     "rispostebottoni": {
                         "sbagliata1": "Terra",
                         "giusta": "Mercurio",
@@ -55,31 +55,31 @@
                 },
                 {
                     "domanda": "Wow! Abbiamo quasi sfiorato il Sole per raggiungere Mercurio, che caldo eh! Ma torniamo a noi: abbiamo parlato di Mercurio e della Terra, in tutto i pianeti però sono 8. Prova ad elencarli in ordine da quello più vicino al Sole a quello più lontano.",
-                    "immaginesfondo": "sistemaSolare.png",
+                    "immaginesfondo": "SistemaSolare.jpg",
                     "camporisposta": ""
                 },
                 {
                     "domanda": "Bravissimo! Hai elencato i nomi di tutti gli otto pianeti del nostro Sistema Solare. Ma lo sai perchè sono 8 e non più 9? Perchè Plutone prima faceva parte del Sistema Solare ed era il nono pianeta, il più lontano dal sole, ma nel 2006, a seguito della scoperta di peculiarità del pianeta, è stato declassato. Ora infatti Plutone è un..?",
-                    "immaginesfondo": ".jpg",
+                    "immaginesfondo": "Plutone.jpg",
                     "rispostebottoni": {
                         "sbagliata1": "Satellite",
                         "giusta": "Pianeta nano",
                         "sbagliata2": "Asteroide",
                         "sbagliata3": "Cometa",
-                        "aiuto": "",
+                        "aiuto": "Il suo nome è dovuto al fatto che il pianeta è piccolo piccolo.",
                         "immagineaiuto": ""
                     }
                 },
                 {
                     "domanda": "Siamo arrivati quasi alla fine di questa strepitosa avvenutura. Abbiamo ricordato assieme i nomi dei pianeti, essi però sono suddivisi in due gruppi. Ti ricordi come si chiamano?",
-                    "immaginesfondo": ".jpg",
+                    "immaginesfondo": "SfondoFinale.jpg",
                     "rispostebottoni": {
                         "sbagliata1": "Pianeti grandi e Pianeti piccoli",
                         "giusta": "Pianeti di tipo terrestre e Pianeti di tipo gioviano",
                         "sbagliata2": "Pianeti di tipo gassoso e Pianeti nani",
                         "sbagliata3": "Pianeti e Asteroidi",
                         "aiuto": "I due gruppi prendono il nome perchè simili alla Terra (Mercurio, Venere, Terra e Marte) e perchè simili a Giove (Giove, Saturno, Urano, Nettuno).",
-                        "immagineaiuto": ""
+                        "immagineaiuto": "aiutoGruppi.jpg"
                     }
                 },
                 {
