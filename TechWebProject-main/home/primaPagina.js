@@ -9,6 +9,9 @@ xhr.onreadystatechange = function() {
 };
 xhr.send();
 
+function cambiaPagina(url) {
+	window.location.replace(url);
+}
 
 $(document).ready( function(){
 	var socket = io();
@@ -36,7 +39,7 @@ $(document).ready( function(){
 		}
 
 		for (var i=0;i<storie.storie.length;i++){
-			if (eta == storie.storie[i].eta){
+			if (eta == storie.storie[i].eta && storie.storie[i].stato == "pubblicata"){
 				document.getElementById("nomiStorie").innerHTML += "<div class='form-check'><input name='storia' type='radio' id='" + storie.storie[i].nome + "' value='" + storie.storie[i].nome + "'><label for='" + storie.storie[i].nome + "'>" + storie.storie[i].nome + "</label></div>";
 			}
 		}
