@@ -16,6 +16,7 @@ prima della consegna del progetto, eliminare nel codice che viene caricato sul s
 
 BIANCA:
 
+scaricare immagini citta interrail
 gestire scambio messaggi tra player e valutatore
 
 MARTI:
