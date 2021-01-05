@@ -22,9 +22,6 @@ gestire scambio messaggi tra player e valutatore
 MARTI:
 
 campi non sempre presenti (esempio freccia avanti, immagini aiuto, etc..) in file json inseriti in js e non html
-aggiungere bottone aiuto, posto per immagine aiuto, risposta testuale
-randomizzare bottoni risposte
-inserire immagine di sfondo
 aggiungere div immagine domanda
 
 CRI: 
