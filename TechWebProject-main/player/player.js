@@ -9,6 +9,10 @@ xhr.onreadystatechange = function() {
 };
 xhr.send();
 
+function cambiaPagina(url) {
+    window.location.replace(url);
+}
+
 $(document).ready(function () {
 	var nomeGiocatore = "";
 	var messaggioPlayer = "";
@@ -336,4 +340,8 @@ $(document).ready(function () {
     var numAttivita = storia.missioni[i].attivita.length; //lunghezza attivita -> numero delle attivita della missione i
     
     caricaAttivita();
+    
+    $(".navbar-toggler").click(function() {
+        cambiaPagina('primaPagina.html');
+    });
 }); //chiusura document.ready
