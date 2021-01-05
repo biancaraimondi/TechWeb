@@ -22,6 +22,8 @@ gestire scambio messaggi tra player e valutatore
 MARTI:
 
 scaricare immagini storia
+posizionare barra 'ricarica pagina' in fondo
+mettere a posto css
 
 CRI: 
 
