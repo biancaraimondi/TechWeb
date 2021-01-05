@@ -21,6 +21,7 @@ gestire scambio messaggi tra player e valutatore
 
 MARTI:
 
+scaricare immagini storia
 campi non sempre presenti (esempio freccia avanti, immagini aiuto, etc..) in file json inseriti in js e non html
 
 CRI: 
