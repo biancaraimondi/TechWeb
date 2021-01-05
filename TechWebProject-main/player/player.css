@@ -31,7 +31,7 @@ div#row4{
     font-style: italic;
 }
 
-#domanda{
+#domanda,#campoMessaggio{
     background-color: lightgrey;
     border-radius: 30px;
     opacity: 0.8;
