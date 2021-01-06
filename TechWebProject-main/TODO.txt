@@ -25,10 +25,11 @@ commentare e pulire codice
 gestire invio foto e testo al valutatore
 
 MARTI:
+aggiustare errore appendChild
 settare background
 creare funzione da richiamare nel click bottoni risposte e nel click bottone avanti
 sistemare css (nuvola mex aiuto/incitamento diminuire padding - bottone aiuto si nasconde dietro al bottone ricarica pagina) 
-modificare pulsante aiuto dentro a funzione caricaattivita
+mettere il pulsante aiuto dentro la funzione caricaattivita (se è presente nell'attivita corrente della storia JSON)
 
 CRI: 
 
