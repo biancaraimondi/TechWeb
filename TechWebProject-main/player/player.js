@@ -1,3 +1,7 @@
+function cambiaPagina(url) {
+    window.location.replace(url);
+}
+
 $(document).ready(function () {
 	var nomeGiocatore = "";
 	var messaggioPlayer = "";
@@ -221,7 +225,8 @@ $(document).ready(function () {
     xhr.onreadystatechange = function() {
     	if (xhr.readyState === 4 && xhr.status === 200){
     		var storiaJson = xhr.responseText; //ottengo storia in formato json	
-    		storia = JSON.parse(storiaJson); //ottengo storia in js
+    		console.log(storiaJson);
+            storia = JSON.parse(storiaJson); //ottengo storia in js
     		console.log(JSON.stringify(storia));
     		
     	}
@@ -271,6 +276,40 @@ $(document).ready(function () {
             console.log("Entrato nell'else dell'immagine sfondo");
         }
         //caso in cui è presente il campo di inserimento testo per la valutazione della risposta in amb. val.
+        console.log(storia.missioni[i].attivita[j].camporisposta);
+        if(storia.missioni[i].attivita[j].camporisposta != null && storia.missioni[i].attivita[j].camporisposta == ""){
+            console.log("Entrato nell'if del campo risposta");
+            //settare text input per testo da tastiera
+            document.getElementById('campoRisposte').hidden = false;
+            document.getElementById('risposta1').hidden = true;
+            document.getElementById('risposta2').hidden = true;
+            document.getElementById('risposta3').hidden = true;
+            document.getElementById('risposta4').hidden = true;
+            document.getElementById('aiuto').hidden = true;
+            var newDiv = document.createElement("div");
+            newDiv.setAttribute("id", "campoTextArea");
+            var newLabel = document.createElement("label");
+            newLabel.setAttribute("for", "name");
+            newLabel.innerHTML = "Inserisci qui il testo della risposta:";
+            newDiv.appendChild(newLabel);
+            //document.getElementById('campoTextArea').innerHTML;
+            var newInput = document.createElement("input");
+            newInput.setAttribute("type", "text");
+            newInput.setAttribute("id", "nameTextArea");
+            newInput.setAttribute("name", "name");
+            newInput.setAttribute("size", "35");
+            newDiv.appendChild(newInput);
+            document.getElementById('campoRisposte').appendChild(document.getElementById('campoTextArea'));
+            /*document.getElementById('campoRisposte').innerHTML += "<div id='campoTextArea'><label for='name'>Inserisci qui il testo della risposta:</label><input type='text' id='nameTextArea' name='name' size='35'></div>";*/
+        }
+        else{
+            console.log("Entrato nell'else del campo risposta");
+            //se non è presente in json non visulizzo il camporisposta
+            if(document.getElementById('campoTextArea')){
+                document.getElementById('campoRisposte').removeChild(document.getElementById('campoTextArea'));
+            }
+            document.getElementById('aiuto').hidden = false;
+        }
         /*if(storia.missioni[i].attivita[j].camporisposta){
             console.log("Entrato nell'if del campo risposta");
             //settare text input per testo da tastiera
@@ -303,41 +342,56 @@ $(document).ready(function () {
             console.log("Entrato nell'if del risposta bottoni");
             document.getElementById('campoRisposte').hidden = false;
             var numeroCasuale = Math.round(Math.random() * (4 - 1) + 1);
-            for(var z=1; z<=4; z++){
-                if(numeroCasuale>4){
-                    numeroCasuale=1;
-                }
-                var risposta = 'risposta' + numeroCasuale;
-                console.log(risposta);
-                if (z==1){
-                    //console.log(storia.missioni[i].attivita[j].rispostebottoni.giusta);
-                    $('#' + risposta).html(storia.missioni[i].attivita[j].rispostebottoni.giusta);
-                    var prova = $('#' + risposta).html();
-                    console.log(prova);
-                    document.getElementById(risposta).innerHTML = storia.missioni[i].attivita[j].rispostebottoni.giusta;
-                    document.getElementById(risposta).value = storia.missioni[i].attivita[j].rispostebottoni.giusta;
-                }
-                else{
-                    document.getElementById(risposta).innerHTML = storia.missioni[i].attivita[j].rispostebottoni.sbagliata + z-1;
-                    document.getElementById(risposta).value = storia.missioni[i].attivita[j].rispostebottoni.sbagliata + z-1;
-                }
-                numeroCasuale++;
+            switch(numeroCasuale){
+                    case 1 :
+                        document.getElementById('risposta1').innerHTML = storia.missioni[i].attivita[j].rispostebottoni.giusta;
+                        document.getElementById('risposta1').value = storia.missioni[i].attivita[j].rispostebottoni.giusta;
+                        document.getElementById('risposta2').innerHTML = storia.missioni[i].attivita[j].rispostebottoni.sbagliata1;
+                        document.getElementById('risposta2').value = storia.missioni[i].attivita[j].rispostebottoni.sbagliata1;
+                        document.getElementById('risposta3').innerHTML = storia.missioni[i].attivita[j].rispostebottoni.sbagliata2;
+                        document.getElementById('risposta3').value = storia.missioni[i].attivita[j].rispostebottoni.sbagliata2;
+                        document.getElementById('risposta4').innerHTML = storia.missioni[i].attivita[j].rispostebottoni.sbagliata3;
+                        document.getElementById('risposta4').value = storia.missioni[i].attivita[j].rispostebottoni.sbagliata3;
+                        break;
+                    case 2 :
+                        document.getElementById('risposta2').innerHTML = storia.missioni[i].attivita[j].rispostebottoni.giusta;
+                        document.getElementById('risposta2').value = storia.missioni[i].attivita[j].rispostebottoni.giusta;
+                        document.getElementById('risposta3').innerHTML = storia.missioni[i].attivita[j].rispostebottoni.sbagliata1;
+                        document.getElementById('risposta3').value = storia.missioni[i].attivita[j].rispostebottoni.sbagliata1;
+                        document.getElementById('risposta4').innerHTML = storia.missioni[i].attivita[j].rispostebottoni.sbagliata2;
+                        document.getElementById('risposta4').value = storia.missioni[i].attivita[j].rispostebottoni.sbagliata2;
+                        document.getElementById('risposta1').innerHTML = storia.missioni[i].attivita[j].rispostebottoni.sbagliata3;
+                        document.getElementById('risposta1').value = storia.missioni[i].attivita[j].rispostebottoni.sbagliata3;
+                        break;
+                    case 3 :
+                        document.getElementById('risposta3').innerHTML = storia.missioni[i].attivita[j].rispostebottoni.giusta;
+                        document.getElementById('risposta3').value = storia.missioni[i].attivita[j].rispostebottoni.giusta;
+                        document.getElementById('risposta4').innerHTML = storia.missioni[i].attivita[j].rispostebottoni.sbagliata1;
+                        document.getElementById('risposta4').value = storia.missioni[i].attivita[j].rispostebottoni.sbagliata1;
+                        document.getElementById('risposta1').innerHTML = storia.missioni[i].attivita[j].rispostebottoni.sbagliata2;
+                        document.getElementById('risposta1').value = storia.missioni[i].attivita[j].rispostebottoni.sbagliata2;
+                        document.getElementById('risposta2').innerHTML = storia.missioni[i].attivita[j].rispostebottoni.sbagliata3;
+                        document.getElementById('risposta2').value = storia.missioni[i].attivita[j].rispostebottoni.sbagliata3;
+                        break;
+                    case 4 :
+                        document.getElementById('risposta4').innerHTML = storia.missioni[i].attivita[j].rispostebottoni.giusta;
+                        document.getElementById('risposta4').value = storia.missioni[i].attivita[j].rispostebottoni.giusta;
+                        document.getElementById('risposta1').innerHTML = storia.missioni[i].attivita[j].rispostebottoni.sbagliata1;
+                        document.getElementById('risposta1').value = storia.missioni[i].attivita[j].rispostebottoni.sbagliata1;
+                        document.getElementById('risposta2').innerHTML = storia.missioni[i].attivita[j].rispostebottoni.sbagliata2;
+                        document.getElementById('risposta2').value = storia.missioni[i].attivita[j].rispostebottoni.sbagliata2;
+                        document.getElementById('risposta3').innerHTML = storia.missioni[i].attivita[j].rispostebottoni.sbagliata3;
+                        document.getElementById('risposta3').value = storia.missioni[i].attivita[j].rispostebottoni.sbagliata3;
+                        break;
             }
         }
         else {
             console.log("Entrato nell'else del risposta bottoni");
             document.getElementById('campoRisposte').hidden = true;
         }
-        //caso in cui è presente l'aiuto (in rispsote bottoni) nella storia json
-        /*if(storia.missioni[i].attivita[j].rispostebottoni.aiuto == null){
-            console.log("Entrato nell'if dell'aiuto in risposta bottoni");
-            document.getElementById('campoMessaggio').hidden = false;
-            document.getElementById('campoMessaggio').innerHTML = storia.missioni[i].attivita[j].rispostebottoni.aiuto;
-        }
-        else{
-            console.log("Entrato nell'else dell'aiuto in risposta bottoni");
-            document.getElementById('campoMessaggio').hidden = true;
-        }*/
     } //chiusura function caricaAttivita
 
+    $(".navbar-toggler").click(function() {
+        cambiaPagina('primaPagina.html');
+    });
 }); //chiusura document.ready

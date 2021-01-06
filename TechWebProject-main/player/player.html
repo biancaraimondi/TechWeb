@@ -17,7 +17,8 @@
             integrity="sha512-AcZyhRP/tbAEsXCCGlziPun5iFvcSUpEz2jKkx0blkYKbxU81F+iq8FURwPn1sYFeksJ+sDDrI5XujsqSobWdQ==" crossorigin="anonymous"></script> -->
         <script src="http://localhost:3000/socket.io/socket.io.js"></script>
 
-        
+        <!-- inclusione funzioni js -->
+        <script type="text/javascript" src="player.js"></script>
 
         <!-- inclusione foglio di stile -->
         <link rel="stylesheet" href="player.css">
@@ -58,24 +59,24 @@
                 <!-- colonna bottoni risposte -->
                 <div class="col-sm-6 col-md-6 col-lg-6" id="campoRisposte" hidden>
                     <div class="button-answer">
-                        <button name="bottoni" type="button" class="btn btn-dark btn-sm" value="" id="risposta1"> </button>
+                        <button type="button" class="btn btn-dark btn-sm" value="" id="risposta1"> </button>
                     </div>
                     <br>
                     <div class="button-answer">
-                        <button name="bottoni" type="button" class="btn btn-dark btn-sm" value="" id="risposta2"> </button>
+                        <button type="button" class="btn btn-dark btn-sm" value="" id="risposta2"> </button>
                     </div>
                     <br>
                     <div class="button-answer">
-                        <button name="bottoni" type="button" class="btn btn-dark btn-sm" value="" id="risposta3"> </button>
+                        <button type="button" class="btn btn-dark btn-sm" value="" id="risposta3"> </button>
                     </div>
                     <br>
                     <div class="button-answer">
-                        <button name="bottoni" type="button" class="btn btn-dark btn-sm" value="" id="risposta4"> </button>
+                        <button type="button" class="btn btn-dark btn-sm" value="" id="risposta4"> </button>
                     </div>
                     <br>
                     <br>
                     <div>
-                        <button name="bottoni" type="button" class="btn btn-dark btn-sm" value="" id="aiuto"> Aiuto </button>
+                        <button type="button" class="btn btn-dark btn-sm" id="aiuto"> Aiuto </button>
                     </div>
                     
                     <div class="message-camp">
@@ -117,9 +118,7 @@
                 </button>
             </nav>
         </footer>
-
-        <!-- inclusione funzioni js -->
-        <script type="text/javascript" src="player.js"></script>
+        
     </body>
 
 </html>
