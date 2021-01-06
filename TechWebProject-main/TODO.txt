@@ -26,7 +26,8 @@ gestire invio foto e testo al valutatore
 
 MARTI:
 settare background
-creare funzione da richiamare nel click bottoni risposte
+creare funzione da richiamare nel click bottoni risposte e nel click bottone avanti
+sistemare css (nuvola mex aiuto/incitamento diminuire padding - bottone aiuto si nasconde dietro al bottone ricarica pagina) 
 
 
 CRI: 
