@@ -25,6 +25,8 @@ commentare e pulire codice
 gestire invio foto e testo al valutatore
 
 MARTI:
+settare background
+creare funzione da richiamare nel click bottoni risposte
 
 
 CRI: 
