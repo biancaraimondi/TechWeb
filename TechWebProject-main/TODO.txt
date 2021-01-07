@@ -28,8 +28,10 @@ MARTI:
 aggiustare errore appendChild
 settare background
 creare funzione da richiamare nel click bottoni risposte e nel click bottone avanti
-sistemare css (nuvola mex aiuto/incitamento diminuire padding - bottone aiuto si nasconde dietro al bottone ricarica pagina) 
+sistemare css (bottone aiuto si nasconde dietro al bottone ricarica pagina) 
 mettere il pulsante aiuto dentro la funzione caricaattivita (se è presente nell'attivita corrente della storia JSON)
+- una volta che ho cliccato il bottone aiuto, con la funzione avanti si deve resettare il contenuto del div.
+- una volta che nel div mi esce il mex di incitamento si deve resettare il contenuto nella domanda successiva.
 
 CRI: 
 
