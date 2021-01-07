@@ -26,7 +26,6 @@ gestire invio foto e testo al valutatore
 
 MARTI:
 aggiustare errore appendChild
-settare background
 creare funzione da richiamare nel click bottoni risposte e nel click bottone avanti
 sistemare css (bottone aiuto si nasconde dietro al bottone ricarica pagina) 
 mettere il pulsante aiuto dentro la funzione caricaattivita (se è presente nell'attivita corrente della storia JSON)
