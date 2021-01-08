@@ -1,21 +1,25 @@
 var idGiocatore = "";//player visualizzato attualmente
 var nomeValutatore = "valutatore";//il valutatore può essere solo uno
-var utenti = [];//lista dei nomi dei player -> {nome}
+var utenti = [];//lista dei nomi dei player -> {nome, avanzamento, numAttivita}
 var messaggi = [];//lista dei messaggi in chat non ancora visualizzati dal valutatore -> {nomeTrasmittente, nomeRicevente, messaggio}
 var inserisci;//booleano utilizzato per i cicli for
 var playersList;//variabile utilizzata nell'ottenere il valore del player da visualizzare
 var i;//iteratore per cicli for
 var idGiocatorePrecendente;//player visualizzato precedentemente
+var socket = io();//utilizzato per gestire la chat
 
 function cambiaPagina(url) {
 	window.location.replace(url);
 }
 
 //prende in input il numero di domande a cui il player ha risposto correttamente e modifica l'avanzamento nella schermata del valutatore
-function modificaAvanzamento(domandeCompletate) {
+function modificaAvanzamento(domandeCompletate, domandeEffettive) {
 	//var avanzamentoAttuale = $(".progress-bar").width();
 	var fineMissioni = $(".progress").width();
-	$(".progress-bar").width(domandeCompletate * fineMissioni/10);
+	if (domandeEffettive)
+		$(".progress-bar").width(domandeCompletate * fineMissioni/domandeEffettive);
+	else
+		$(".progress-bar").width(0);
 }
 
 //funzione che ogni tre secondi fa qualcosa
@@ -35,7 +39,7 @@ $(document).ready( function(){
 			var obj = JSON.parse(this.responseText);
 			for (i=0;i<obj.length;i++){
 				if (obj[i].nome != 'valutatore'){//non carico anche il nome di un eventuale altro valutatore
-					utenti.push({nome : obj[i].nome});
+					utenti.push({nome : obj[i].nome, avanzamento : null, numAttivita : null});
 					document.getElementById('giocatore').innerHTML += "<div class='form-check'><input name='giocatore' type='radio' value='" + obj[i].nome + "' id='" + obj[i].nome + "'><label for=" + obj[i].nome + ">" + obj[i].nome + "</label></div>";
 				}
 			}
@@ -44,6 +48,11 @@ $(document).ready( function(){
 			for(i=0;i<utenti.length;i++){
 				console.log('nome: ' + utenti[i].nome);
 			}
+
+			//appena il valutatore si connette crea il relativo utente all'interno del server
+			messaggioValutatore = nomeValutatore + " connesso";
+			socket.emit('chat message', messaggioValutatore, nomeValutatore, idGiocatore);
+			console.log('VALUTATORE: valutatore connesso alla chat');
 		}
 	};
 	xmlhttp.open("GET", "/valutatore/utenti", true);
@@ -101,7 +110,14 @@ $(document).ready( function(){
 				}
 			}
 			
-			//TODO visualizzare l'avanzamento e le risposte del nuovo giocatore selezionato
+			//TODO visualizzare le risposte del giocatore selezionato
+			for (i=0;i<utenti.length;i++){
+				if (utenti[i].nome == idGiocatore){
+					console.log("VALUTATORE: contatori: " + utenti[i].avanzamento + " " + utenti[i].numAttivita + " " + utenti[i].nome);
+					modificaAvanzamento(utenti[i].avanzamento, utenti[i].numAttivita);
+					console.log('VALUTATORE: messaggio di avanzamento dal player ' + utenti[i].nome);
+				}
+			}	
 		}
 	});
 	
@@ -109,18 +125,6 @@ $(document).ready( function(){
 	$(".navbar-toggler").click(function() {
 		cambiaPagina('primaPagina.html');
 	});
-
-	//TODO associare la funzione aggiungiAvanzamento ai dati ricevuti dal player (utilizzare una nuova connessione socket??)
-	$("#si").click(function() {
-		modificaAvanzamento(7);
-	});
-
-	var socket = io();//utilizzato per gestire la chat
-	
-	//appena il valutatore si connette crea il relativo utente all'interno del server
-	messaggioValutatore = nomeValutatore + " connesso";
-	socket.emit('chat message', messaggioValutatore, nomeValutatore, idGiocatore);
-	console.log('VALUTATORE: valutatore connesso alla chat');
 	
 	//funzione che al click di "invia" invia il messaggio al player e copia il messaggio come message-right e nella lista dei messaggi
 	$('#invia').click(function(){
@@ -143,7 +147,7 @@ $(document).ready( function(){
 			}
 		}
 		if (inserisci){
-			utenti.push({nome : player});
+			utenti.push({nome : player, avanzamento : null, numAttivita : null});
 			document.getElementById('giocatore').innerHTML += "<div class='form-check'><input name='giocatore' type='radio' value='" + player + "' id='" + player + "'><label for=" + player + ">" + player + "</label></div>";
 		}
 		
@@ -152,5 +156,21 @@ $(document).ready( function(){
 			document.getElementById("messaggiChat").innerHTML += "<div class='message'><div class='message-text-wrapper'><div class='message-text'>" + msg + "</div></div></div>";
 		}
 		messaggi.push({nomeTrasmittente : player, nomeRicevente: valutatore, messaggio : msg});
+	});
+	
+	//funzione che modifica l'avanzamento del player
+	socket.on('avanzamento', function(avanzamento, numAttivita, player) {
+		console.log('VALUTATORE: messaggio di avanzamento dal player ' + player + " " + avanzamento + " " + numAttivita);
+		
+		//modifica la barra di avanzamento direttamente se corrisponde all'idGiocatore attualmente cliccato
+		if (idGiocatore == player){
+			modificaAvanzamento(avanzamento, numAttivita);
+		}
+		for (i=0;i<utenti.length;i++){
+			if (utenti[i].nome == player){
+				utenti[i].avanzamento = avanzamento;
+				utenti[i].numAttivita = numAttivita;
+			}
+		}
 	});
 });
