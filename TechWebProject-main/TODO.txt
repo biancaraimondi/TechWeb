@@ -18,9 +18,6 @@ BIANCA:
 
 Gli elementi non presenti nel documento non vengono cercati da getElementById(). Quando crei un elemento ed assegni un ID ad esso, devi inserire l'elemento nell'albero del documento con Node.insertBefore() o un metodo simile prima di poterlo ottenere con getElementById()
 
-
-
-gestire scambio messaggi tra player e valutatore
 commentare e pulire codice 
 gestire invio foto e testo al valutatore
 
