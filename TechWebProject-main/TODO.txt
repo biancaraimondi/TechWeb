@@ -19,7 +19,7 @@ BIANCA:
 Gli elementi non presenti nel documento non vengono cercati da getElementById(). Quando crei un elemento ed assegni un ID ad esso, devi inserire l'elemento nell'albero del documento con Node.insertBefore() o un metodo simile prima di poterlo ottenere con getElementById()
 
 commentare e pulire codice 
-gestire invio foto e testo al valutatore
+gestire invio foto e testo al valutatore (https://stackoverflow.com/questions/59478402/how-do-i-send-image-to-server-via-socket-io)
 
 MARTI:
 aggiustare errore appendChild
