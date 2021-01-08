@@ -65,15 +65,17 @@ app.get("/player/ottienistoria", function(req,res){
 	});	
 });
 
-//gestisce la chat tra valutatore e player
+//gestisce lo scambio di informazioni tra valutatore e player (connessi)
 io.on('connection', function (socket) {
 	console.log('SERVER: user ' + socket.id + ' connected');
-	
+
+	//inserisce nella variabile storiaDaCaricare la storia scelta dal valutatore nella prima pagina
 	socket.on('storia', function (nomeStoria) {//es. storiaDaCaricare = 'interrail'
 		storiaDaCaricare = nomeStoria;
 	});
-	
-	socket.on('chat message', function (msg, trasmittente, ricevente) {//'chat message' deve essere uguale nel file ambienteValutatore.js come parametro di socket.emit
+
+	//gestisce la chat tra valutatore e player
+	socket.on('chat message', function (msg, trasmittente, ricevente) {
 		
 		//se l'utente non è già connesso, lo inseriamo nella lista degli utenti connessi
 		inserisci = true;
@@ -108,6 +110,20 @@ io.on('connection', function (socket) {
 			}
 		}
 		
+	});
+	
+	//gestisce l'avanzamento della storia da parte del player e lo spedisce al valutatore
+	socket.on('avanzamento', function (contatoreAvanzamento, contatoreAttivita, player) {
+		console.log("SERVER: avanzamento: " + contatoreAvanzamento + " " + contatoreAttivita + " " + player);
+		var z = 0;
+		var socketUtente = "";
+		for(z=0; z<utenti.length; z++){
+			if(utenti[z].nome == 'valutatore'){
+				socketUtente = utenti[z].socket;
+			}
+		}
+		socket.to(socketUtente).emit('avanzamento', contatoreAvanzamento, contatoreAttivita, player);
+		console.log("SERVER: avanzamento spedito al valutatore");
 	});
 	
 	//se un utente si disconnette
