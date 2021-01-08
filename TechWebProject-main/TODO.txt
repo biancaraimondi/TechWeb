@@ -21,6 +21,7 @@ Gli elementi non presenti nel documento non vengono cercati da getElementById().
 commentare e pulire codice 
 gestire invio foto e testo al valutatore (https://stackoverflow.com/questions/59478402/how-do-i-send-image-to-server-via-socket-io)
 
+
 MARTI:
 aggiustare errore appendChild
 creare funzione da richiamare nel click bottoni risposte e nel click bottone avanti
@@ -32,6 +33,8 @@ if(j < numAttivita){//QUI SCRIVERE numAttivita - 1      stessa cosa per numMissi
                 j++;
                 caricaAttivita();
             }
+            
+gestire invio foto e testo al valutatore (https://www.html.it/pag/45424/gestire-la-fotocamera-scattare-una-foto/ OPPURE https://getbootstrap.com/docs/5.0/forms/input-group/)
 
 CRI: 
 
