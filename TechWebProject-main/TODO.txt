@@ -24,12 +24,8 @@ gestire invio foto e testo al valutatore (https://stackoverflow.com/questions/59
 
 MARTI:
 aggiustare errore appendChild
-sistemare css (nuvola aiuto si nasconde dietro al bottone ricarica pagina) 
-.aiuto è undefined
-if(j < numAttivita){//QUI SCRIVERE numAttivita - 1      stessa cosa per numMissioni
-                j++;
-                caricaAttivita();
-            }
+sistemare css (nuvola aiuto si nasconde dietro al bottone ricarica pagina)
+sistemare css (background)
             
 gestire invio foto e testo al valutatore (https://www.html.it/pag/45424/gestire-la-fotocamera-scattare-una-foto/ OPPURE https://getbootstrap.com/docs/5.0/forms/input-group/)
 
