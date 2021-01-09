@@ -23,7 +23,9 @@ gestire invio foto e testo al valutatore (https://stackoverflow.com/questions/59
 gestire problema player con lo stesso nome
 
 MARTI:
+mettere apposto il caricamento immagine da fotocamera
 rimettere a posto la riga 42 dellla storia JSON
+torna alla pag principale anche quando inserisci il nome del player
 sistemare css (nuvola aiuto si nasconde dietro al bottone ricarica pagina)
 sistemare css (background)
 sistemare css (risposta testuale)
