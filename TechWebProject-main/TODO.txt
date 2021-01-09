@@ -20,7 +20,7 @@ Gli elementi non presenti nel documento non vengono cercati da getElementById().
 
 commentare e pulire codice 
 gestire invio foto e testo al valutatore (https://stackoverflow.com/questions/59478402/how-do-i-send-image-to-server-via-socket-io)
-
+gestire problema player con lo stesso nome
 
 MARTI:
 aggiustare errore appendChild
