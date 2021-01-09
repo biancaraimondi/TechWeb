@@ -8,12 +8,30 @@ $(document).ready(function () {
 	var valutatore = "valutatore";
 	var socket = io();
 	var i;
+    var j;
 	var storia = {};
 	var numMissioni; //lunghezza missioni -> numero delle missioni
     var numAttivita; //lunghezza attivita -> numero delle attivita della missione i
     var contatoreAvanzamento = 0;
     var contatoreAttivita = 0;
     var z = 0;
+    var contatoreValutazioni = 0;
+    var contatoreValutazioniEffettive = 0;
+    var valutazioni[];
+    /*valutazioni[
+        {
+            missione : valore,
+            attivita: valore,
+            rispostaAlunno : valore,
+            valutazione : valore
+        },
+        {
+            missione : valore,
+            attivita: valore,
+            rispostaAlunno : valore,
+            valutazione : valore
+        }
+    ]*/
 	
 	//appena il player si connette manda un messaggio al valutatore
 	$('#nome').click(function(){
@@ -52,7 +70,17 @@ $(document).ready(function () {
 	socket.on('chat message', function(msg, id){
 		document.getElementById('messaggiChat').innerHTML += "<div class='message'><div class='message-text-wrapper'><div class='message-text'>" + msg + "</div></div></div>";
 	});
+    
+    socket.on('valutazione', function(missione, attivita, valutazione){
+        contatoreValutazioniEffettive++;
+        for(z=0; z < valutazioni; z++){
+            if(valutazioni[z].missione == missione && valutazioni[z].attivita == attivita){
+                valutazioni[z].valutazione = valutazione;
+            }
+        }
         
+    });
+    
     $('#aiuto').click(function(){
         document.getElementById('campoMessaggio').hidden = false;
         document.getElementById('campoMessaggio').innerHTML = storia.missioni[i].attivita[j].rispostebottoni.aiuto;
@@ -61,57 +89,47 @@ $(document).ready(function () {
         }
     });
     
+    $('#bottoneFoto').click(function(){
+        var app = {
+            initialize: function() {
+                this.bindEvents();
+            },
+            bindEvents: function() {
+                document.addEventListener('deviceready', this.onDeviceReady, false);
+            },
+            onDeviceReady: function() {
+                  $("#bottoneFoto").click(function() {
+                      navigator.camera.getPicture(app.onCameraSuccess, app.onCameraError, {
+                           correctOrientation: true,
+                           quality: 50,
+                           destinationType: navigator.camera.DestinationType.FILE_URI
+                       });
+                  });
+            },
+            onCameraSuccess: function(imageURI) {
+                document.getElementById('fotoAnteprima').width("1em");
+                document.getElementById('fotoAnteprima').src = imageURI;
+             },
+            onCameraError: function(errorMessage) {
+                  alert("Errore");
+            }
+            
+        };
+        app.initialize();
+    });
+
+    
     $('#avanti').click(function(){
-        if(j < numAttivita){
-            j++;
-            caricaAttivita();
-        }
-        else{
-            if(i < numMissioni){
-                i++;
-                j = 0;
-                numAttivita = storia.missioni[i].attivita.length;
-                caricaAttivita();
-            }
-            else{ //messaggio di conclusione storia
-                document.getElementById('campoNomeGiocatore').hidden = true;
-                document.getElementById('row1').hidden = false;
-                document.getElementById('campoTestoIniz').hidden = true;
-                document.getElementById('campoRisposte').hidden = true;
-                document.getElementById('campoChat').hidden = true;
-                document.getElementById('footer').hidden = true;
-                document.getElementById('row4').hidden = true;
-                document.getElementById('domanda').innerHTML = "Complimenti! Hai terminato con successo la storia. Ritorna alla pagina principale.";
-                //document.getElementById('row4').innerHTML += "<button class='btn btn-dark btn-sm' type='button' id='ok'> OK </button>";
-            }
-        }
+        document.getElementById('campoMessaggio').innerHTML = "";
+        document.getElementById('campoMessaggio').hidden = true;
+        cambioAttivita();
     });
     
     $('#risposta1').click(function(){
+        document.getElementById('campoMessaggio').innerHTML = "";
+        document.getElementById('campoMessaggio').hidden = true;
         if(storia.missioni[i].attivita[j].rispostebottoni.giusta == document.getElementById('risposta1').value){ //metodo js che prende il valore contenuto nel bottone
-            if(j < numAttivita){
-                j++;
-                caricaAttivita();
-            }
-            else{
-                if(i < numMissioni){
-                    i++;
-                    j = 0;
-                    numAttivita = storia.missioni[i].attivita.length;
-                    caricaAttivita();
-                }
-                else{ //messaggio di conclusione storia
-                    document.getElementById('campoNomeGiocatore').hidden = true;
-                    document.getElementById('row1').hidden = false;
-                    document.getElementById('campoTestoIniz').hidden = true;
-                    document.getElementById('campoRisposte').hidden = true;
-                    document.getElementById('campoChat').hidden = true;
-                    document.getElementById('footer').hidden = true;
-                    document.getElementById('row4').hidden = true;
-                    document.getElementById('domanda').innerHTML = "Complimenti! Hai terminato con successo la storia. Ritorna alla pagina principale.";
-                    //document.getElementById('row4').innerHTML += "<button class='btn btn-dark btn-sm' type='button' id='ok'> OK </button>";
-                }
-            }
+            cambioAttivita();
         }
         else{
             //messaggio di incitamento nel caso di risposta sbagliata
@@ -121,30 +139,10 @@ $(document).ready(function () {
     });
     
     $('#risposta2').click(function(){
-        if(storia.missioni[i].attivita[j].rispostebottoni.giusta == document.getElementById('risposta2').value){ //metodo js che prende il valore contenuto nel bottone*/
-            if(j < numAttivita){
-                j++;
-                caricaAttivita();
-            }
-            else{
-                if(i < numMissioni){
-                    i++;
-                    j = 0;
-                    numAttivita = storia.missioni[i].attivita.length;
-                    caricaAttivita();
-                }
-                else{ //messaggio di conclusione storia
-                    document.getElementById('campoNomeGiocatore').hidden = true;
-                    document.getElementById('row1').hidden = false;
-                    document.getElementById('campoTestoIniz').hidden = true;
-                    document.getElementById('campoRisposte').hidden = true;
-                    document.getElementById('campoChat').hidden = true;
-                    document.getElementById('footer').hidden = true;
-                    document.getElementById('row4').hidden = true;
-                    document.getElementById('domanda').innerHTML = "Complimenti! Hai terminato con successo la storia. Ritorna alla pagina principale.";
-                    //document.getElementById('row4').innerHTML += "<button class='btn btn-dark btn-sm' type='button' id='ok'> OK </button>";
-                }
-            }
+        document.getElementById('campoMessaggio').innerHTML = "";
+        document.getElementById('campoMessaggio').hidden = true;
+        if(storia.missioni[i].attivita[j].rispostebottoni.giusta == document.getElementById('risposta2').value){ //metodo js che prende il valore contenuto nel bottone
+            cambioAttivita();
         }
         else{
             //messaggio di incitamento nel caso di risposta sbagliata
@@ -154,30 +152,10 @@ $(document).ready(function () {
     });
     
     $('#risposta3').click(function(){
+        document.getElementById('campoMessaggio').innerHTML = "";
+        document.getElementById('campoMessaggio').hidden = true;
         if(storia.missioni[i].attivita[j].rispostebottoni.giusta == document.getElementById('risposta3').value){ //metodo js che prende il valore contenuto nel bottone
-            if(j < numAttivita){
-                j++;
-                caricaAttivita();
-            }
-            else{
-                if(i < numMissioni){
-                    i++;
-                    j = 0;
-                    numAttivita = storia.missioni[i].attivita.length;
-                    caricaAttivita();
-                }
-                else{ //messaggio di conclusione storia
-                    document.getElementById('campoNomeGiocatore').hidden = true;
-                    document.getElementById('row1').hidden = false;
-                    document.getElementById('campoTestoIniz').hidden = true;
-                    document.getElementById('campoRisposte').hidden = true;
-                    document.getElementById('campoChat').hidden = true;
-                    document.getElementById('footer').hidden = true;
-                    document.getElementById('row4').hidden = true;
-                    document.getElementById('domanda').innerHTML = "Complimenti! Hai terminato con successo la storia. Ritorna alla pagina principale.";
-                    //document.getElementById('row4').innerHTML += "<button class='btn btn-dark btn-sm' type='button' id='ok'> OK </button>";
-                }
-            }
+            cambioAttivita();
         }
         else{
             //messaggio di incitamento nel caso di risposta sbagliata
@@ -187,37 +165,34 @@ $(document).ready(function () {
     });
     
     $('#risposta4').click(function(){
+        document.getElementById('campoMessaggio').innerHTML = "";
+        document.getElementById('campoMessaggio').hidden = true;
         if(storia.missioni[i].attivita[j].rispostebottoni.giusta == document.getElementById('risposta4').value){ //metodo js che prende il valore contenuto nel bottone
-            if(j < numAttivita){
-                j++;
-                caricaAttivita();
-            }
-            else{
-                if(i < numMissioni){
-                    i++;
-                    j = 0;
-                    numAttivita = storia.missioni[i].attivita.length;
-                    caricaAttivita();
-                }
-                else{ //messaggio di conclusione storia
-                    document.getElementById('campoNomeGiocatore').hidden = true;
-                    document.getElementById('row1').hidden = false;
-                    document.getElementById('campoTestoIniz').hidden = true;
-                    document.getElementById('campoRisposte').hidden = true;
-                    document.getElementById('campoChat').hidden = true;
-                    document.getElementById('footer').hidden = true;
-                    document.getElementById('row4').hidden = true;
-                    document.getElementById('domanda').innerHTML = "Complimenti! Hai terminato con successo la storia. Ritorna alla pagina principale.";
-                    //document.getElementById('row4').innerHTML += "<button class='btn btn-dark btn-sm' type='button' id='ok'> OK </button>";
-                }
-            }
-            
+            cambioAttivita();
         }
         else{
             //messaggio di incitamento nel caso di risposta sbagliata
             document.getElementById('campoMessaggio').hidden = false;
             document.getElementById('campoMessaggio').innerHTML = "Sei sicuro della risposta? Non demordere e riprovaci.";
         }
+    });
+    
+    $('#inviaRisposta').click(function(){
+        var risposta = document.getElementById('nameTextArea').value;
+        socket.emit('risposta testo', risposta, i, j, nomeGiocatore);
+        console.log(risposta + " " + nomeGiocatore);
+        cambioAttivita();
+    });
+    
+    $('#inviaRispostaFoto').click(function(){
+        const reader = new FileReader();
+          reader.onload = function() {
+            const base64 = this.result.replace(/.*base64,/, '');
+              console.log(base64);
+            socket.emit('risposta immagine', base64, nomeGiocatore);
+          };
+          //reader.readAsDataURL(this.files[0]);
+        cambioAttivita();
     });
     
     var xhr = new XMLHttpRequest();
@@ -228,12 +203,9 @@ $(document).ready(function () {
     		console.log(storiaJson);
             storia = JSON.parse(storiaJson); //ottengo storia in js
     		console.log(JSON.stringify(storia));
-    		
     	}
     };
     xhr.send();
-
-    
     
     function caricaAttivita(){
         contatoreAvanzamento++;
@@ -247,8 +219,8 @@ $(document).ready(function () {
         }
         else {
             console.log("Entrato nell'else del campo domanda");
-            //document.getElementById('domanda').innerHTML = "";
-            document.getElementById('domanda').hidden = true;
+            document.getElementById('domanda').innerHTML = "";
+            //document.getElementById('domanda').hidden = true;
         }
         if(storia.missioni[i] && storia.missioni[i].attivita[j].immaginedomanda){
             console.log("Entrato nell'if del campo immagine della domanda");
@@ -269,74 +241,32 @@ $(document).ready(function () {
         //caso in cui è presente l'imm sfondo
         if(storia.missioni[i] && storia.missioni[i].attivita[j].immaginesfondo){
             console.log("Entrato nell'if dell'immagine sfondo");
-            document.body.style.background = "url('"+storia.missioni[i].attivita[j].immaginesfondo+"') no-repeat";
+            document.body.style.background = "url('"+storia.missioni[i].attivita[j].immaginesfondo+"') no-repeat center center fixed";
         }
         else {
-        	document.body.style.background = "white";
             console.log("Entrato nell'else dell'immagine sfondo");
+        	document.body.style.background = "white";
         }
         //caso in cui è presente il campo di inserimento testo per la valutazione della risposta in amb. val.
-        console.log(storia.missioni[i].attivita[j].camporisposta);
         if(storia.missioni[i].attivita[j].camporisposta != null && storia.missioni[i].attivita[j].camporisposta == ""){
+            contatoreValutazioni++;
             console.log("Entrato nell'if del campo risposta");
-            //settare text input per testo da tastiera
-            document.getElementById('campoRisposte').hidden = false;
-            document.getElementById('risposta1').hidden = true;
-            document.getElementById('risposta2').hidden = true;
-            document.getElementById('risposta3').hidden = true;
-            document.getElementById('risposta4').hidden = true;
-            document.getElementById('aiuto').hidden = true;
-            var newDiv = document.createElement("div");
-            newDiv.setAttribute("id", "campoTextArea");
-            var newLabel = document.createElement("label");
-            newLabel.setAttribute("for", "name");
-            newLabel.innerHTML = "Inserisci qui il testo della risposta:";
-            newDiv.appendChild(newLabel);
-            //document.getElementById('campoTextArea').innerHTML;
-            var newInput = document.createElement("input");
-            newInput.setAttribute("type", "text");
-            newInput.setAttribute("id", "nameTextArea");
-            newInput.setAttribute("name", "name");
-            newInput.setAttribute("size", "35");
-            newDiv.appendChild(newInput);
-            document.getElementById('campoRisposte').appendChild(document.getElementById('campoTextArea'));
-            /*document.getElementById('campoRisposte').innerHTML += "<div id='campoTextArea'><label for='name'>Inserisci qui il testo della risposta:</label><input type='text' id='nameTextArea' name='name' size='35'></div>";*/
+            document.getElementById('campoTextArea').hidden = false;
         }
         else{
             console.log("Entrato nell'else del campo risposta");
-            //se non è presente in json non visulizzo il camporisposta
-            if(document.getElementById('campoTextArea')){
-                document.getElementById('campoRisposte').removeChild(document.getElementById('campoTextArea'));
-            }
-            document.getElementById('aiuto').hidden = false;
+            document.getElementById('nameTextArea').value = "";
+            document.getElementById('campoTextArea').hidden = true;
         }
-        /*if(storia.missioni[i].attivita[j].camporisposta){
-            console.log("Entrato nell'if del campo risposta");
-            //settare text input per testo da tastiera
-            document.getElementById('campoRisposte').hidden = false;
-            document.getElementById('risposta1').hidden = true;
-            document.getElementById('risposta2').hidden = true;
-            document.getElementById('risposta3').hidden = true;
-            document.getElementById('risposta4').hidden = true;
-            document.getElementById('campoRisposte').innerHTML += "<div id='campoTextArea'><label for='name'>Inserisci qui il testo della risposta:</label><input type='text' id='nameTextArea' name='name' size='35'></div>";
+        if(storia.missioni[i].attivita[j].camporispostafoto != null && storia.missioni[i].attivita[j].camporispostafoto == ""){
+            contatoreValutazioni++;
+            console.log("Entrato nell'if del campo risposta foto");
+            document.getElementById('campoFoto').hidden = false;
         }
         else{
-            console.log("Entrato nell'else del campo risposta");
-            //se non è presente in json non visulizzo il camporisposta
-            document.getElementById('campoRisposte').innerHTML = "";
-        }*/
-        //caso in cui è presente l'immagine per l'aiuto -> richiamare funzione che fa qualcosa (?)
-        /*if (storia.missioni[i].attivita[j].rispostebottoni.immagineaiuto == null){
-            console.log("Entrato nell'if dell'immagine aiuto");
-            //div con tag img per foto con src nome_foto
-            document.getElementById('').innerHTML += "<div id='campoImmAiuto'><img height='' width='' src='nome_foto.jpg'></div>";
-            //creare un pop up contenente l'immagine aiuto e la descrizione dell'aiuto e bottone ok, tenendo in sottofondo la pagina html con le risposte dei vari bottoni
+            console.log("Entrato nell'else del campo risposta foto");
+            document.getElementById('campoFoto').hidden = true;
         }
-        else{
-            console.log("Entrato nell'else dell'immagine aiuto");
-            //setto src="" per annullare l'immagine dell'attivita precedente
-            document.getElementById('').innerHTML += "<div id='campoImmAiuto'><img height='' width='' src=''></div>";
-        }*/
         //caso in cui è presente la scelta delle risposte (rispsote bottoni) nella storia json
         if(storia.missioni[i] && storia.missioni[i].attivita[j].rispostebottoni){
             console.log("Entrato nell'if del risposta bottoni");
@@ -389,9 +319,54 @@ $(document).ready(function () {
             console.log("Entrato nell'else del risposta bottoni");
             document.getElementById('campoRisposte').hidden = true;
         }
+        //caso in cui è presente l'aiuto nella storia json
+        if(storia.missioni[i] && storia.missioni[i].attivita[j].rispostebottoni && storia.missioni[i].attivita[j].rispostebottoni.aiuto){
+            console.log("Entrato nell'if dell'aiuto");
+            document.getElementById('aiuto').hidden = false;
+        }
+        else{
+            console.log("Entrato nell'else dell'aiuto");
+            document.getElementById('aiuto').hidden = true;
+            document.getElementById('campoMessaggio').innerHTML = "";
+        }
     } //chiusura function caricaAttivita
+    
+    function cambioAttivita(){
+        if(j < numAttivita-1){
+            j++;
+            caricaAttivita();
+        }
+        else{
+            if(i < numMissioni-1){
+                i++;
+                j = 0;
+                numAttivita = storia.missioni[i].attivita.length;
+                caricaAttivita();
+            }
+            else{ //messaggio di conclusione storia
+                document.getElementById('campoNomeGiocatore').hidden = true;
+                document.getElementById('row1').hidden = false;
+                document.getElementById('campoTestoIniz').hidden = true;
+                document.getElementById('campoRisposte').hidden = true;
+                document.getElementById('campoChat').hidden = true;
+                document.getElementById('footer').hidden = true;
+                document.getElementById('row4').hidden = true;
+                document.getElementById('domanda').innerHTML = "Complimenti! Hai terminato con successo la storia. Sotto potrai vedere visualizzate tutte le tue valutazioni che prima erano in attesa di valutazione. Quando tutte le tue risposte saranno state valutate potrai ritornare alla pagina principale cliccando il pulsante in basso a sinistra.";
+                visualizzaValutazioni();
+                while(contatoreValutazioniEffettive < contatoreValutazioni){
+                    setInterval(visualizzaValutazioni, 5000);
+                }
+                document.getElementById('footer').hidden = false;
+            }
+        }
+    } //chiusura function cambioAttivita
+    
+    function visualizzaValutazioni(){
+        //le info da visualizzare le prendo dall'array valutazioni[]
+    }
 
     $(".navbar-toggler").click(function() {
         cambiaPagina('primaPagina.html');
     });
+    
 }); //chiusura document.ready

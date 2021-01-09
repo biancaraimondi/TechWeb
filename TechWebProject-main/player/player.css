@@ -31,15 +31,31 @@ div#row4{
     font-style: italic;
 }
 
-#domanda,#campoMessaggio{
+#domanda{
     background-color: lightgrey;
     border-radius: 30px;
     opacity: 0.8;
     width: 90%;
     font-size: 20px;
-    padding: 40px;
+    padding: 30px;
     position: absolute;
     }
+
+#campoMessaggio{
+    background-color: lightgrey;
+    margin-top: 10px;
+    margin-bottom: 60%;
+    border-radius: 20px;
+    opacity: 0.8;
+    width: 90%;
+    font-size: 20px;
+    padding: 15px;
+    position: absolute;
+    }
+
+#aiuto{
+    margin-bottom: 35px;
+}
 
 .panel-default > .panel-heading {
     color: #333;
@@ -171,3 +187,7 @@ div#row4{
     background:transparent;
     margin-top:-20px;
 }
+
+/*@media (min-width: 320px) and (max-width: 425px){
+    
+}*/

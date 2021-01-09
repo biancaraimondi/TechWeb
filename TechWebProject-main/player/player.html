@@ -34,8 +34,7 @@
             <div class="row" id="row1" hidden>
                 <p id="domanda"> <!-- Inserimento testo domanda in modo automatico --> </p>
             </div>
-            
-            <br>
+           
             <br>
             <br>
             <br>
@@ -56,6 +55,16 @@
             </div>
             
             <div class="row" id="row3">
+                <div id="campoTextArea" hidden>
+                    <label for="name">Inserisci qui il testo della risposta:</label>
+                    <input type="text" id="nameTextArea" name="name" size="35">
+                    <button class="btn btn-dark btn-sm" type="button" id="inviaRisposta">Invia risposta al valutatore</button>
+                </div>
+                <div id="campoFoto" hidden>
+                    <img id="bottoneFoto" src="camera.jpg"/>
+                    <img id="fotoAnteprima" src=""/>
+                    <button class="btn btn-dark btn-sm" type="button" id="inviaRispostaFoto">Invia foto al valutatore</button>
+                </div>
                 <!-- colonna bottoni risposte -->
                 <div class="col-sm-6 col-md-6 col-lg-6" id="campoRisposte" hidden>
                     <div class="button-answer">
@@ -74,11 +83,10 @@
                         <button type="button" class="btn btn-dark btn-sm" value="" id="risposta4"> </button>
                     </div>
                     <br>
-                    <br>
                     <div>
                         <button type="button" class="btn btn-dark btn-sm" id="aiuto"> Aiuto </button>
                     </div>
-                    
+                    <br>
                     <div class="message-camp">
                         <p id="campoMessaggio" hidden> <!-- Inserimento testo aiuto o incitamento in modo automatico --> </p>
                     </div>
