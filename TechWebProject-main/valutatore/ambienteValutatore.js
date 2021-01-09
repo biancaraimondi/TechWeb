@@ -173,4 +173,16 @@ $(document).ready( function(){
 			}
 		}
 	});
+            
+    socket.on('risposta testo', function(risposta, missione, attivita, player) {
+            console.log('VALUTATORE: risposta di testo dal player ' + player + ": " + risposta + ", missione: " + missione + ", attivita: " + attivita);
+            
+            //modifica la barra di avanzamento direttamente se corrisponde all'idGiocatore attualmente cliccato
+            if (idGiocatore == player){
+                //TODO creare funzione per valutare la risposta testuale del player
+            }
+            for (i=0;i<utenti.length;i++){
+                //TODO creare array di risposte
+            }
+        });
 });
