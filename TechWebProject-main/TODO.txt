@@ -26,6 +26,7 @@ MARTI:
 sistemare css (nuvola aiuto si nasconde dietro al bottone ricarica pagina)
 sistemare css (background)
 sistemare css (risposta testuale)
+terminata la storia visualizzare campo foto e campo testo data dal valutatore
             
 gestire invio foto e testo al valutatore (https://www.html.it/pag/45424/gestire-la-fotocamera-scattare-una-foto/ OPPURE https://getbootstrap.com/docs/5.0/forms/input-group/)
 
