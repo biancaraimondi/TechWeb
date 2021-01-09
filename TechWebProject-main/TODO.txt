@@ -31,6 +31,7 @@ torna alla pag principale anche quando inserisci il nome del player
 sistemare css (nuvola aiuto si nasconde dietro al bottone ricarica pagina)
 sistemare css (background)
 sistemare css (risposta testuale)
+creare funzione visualizzaValutazioni
             
 gestire invio foto e testo al valutatore (https://www.html.it/pag/45424/gestire-la-fotocamera-scattare-una-foto/ OPPURE https://getbootstrap.com/docs/5.0/forms/input-group/)
 
