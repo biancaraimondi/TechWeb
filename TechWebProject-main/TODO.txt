@@ -23,6 +23,7 @@ gestire invio foto e testo al valutatore (https://stackoverflow.com/questions/59
 gestire problema player con lo stesso nome
 
 MARTI:
+rimettere a posto la riga 42 dellla storia JSON
 sistemare css (nuvola aiuto si nasconde dietro al bottone ricarica pagina)
 sistemare css (background)
 sistemare css (risposta testuale)
