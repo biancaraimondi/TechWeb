@@ -16,7 +16,10 @@ prima della consegna del progetto, eliminare nel codice che viene caricato sul s
 
 rinominare la cartella "immaginiPlayer" con "image" (viene generata in automatico appena si apre il server)
 
+guardare funzionamento chromevox x accessibilità
+
 BIANCA:
+accessibilità 
 
 commentare e pulire codice
 
@@ -26,6 +29,8 @@ FORSE -> gestire se viene cambiata la storia nel server
 gestire errore caricamento radiobutton player vuoto
 
 MARTI:
+accessibilità
+
 RISOLTO PROBLEMONE INNERHTML:
             var element = document.getElementById('testoRispostaPlayer');
             element.innerHTML = "";
@@ -44,5 +49,6 @@ ilSistemaSolare.json -> si blocca quando arriva all'ultima attività prima del m
 gestire invio foto e testo al valutatore (https://www.html.it/pag/45424/gestire-la-fotocamera-scattare-una-foto/ OPPURE https://getbootstrap.com/docs/5.0/forms/input-group/)
 
 CRI: 
+accessibilità
 settare le nostre tre storie con stato="pubblicata" nel file storie.json
 unire file server nell'unico file provaserver.js di Bianca caricato nella pagine principale GitHub
