@@ -35,6 +35,7 @@ gestire errori del caricamento immagine da fotocamera: https://ichi.pro/it/come-
 sistemare css (nuvola aiuto si nasconde dietro al bottone ricarica pagina)
 sistemare css (background)
 creare funzione visualizzaValutazioni
+modificare if incoraggiamento
 
 ilSistemaSolare.json -> si blocca quando arriva all'ultima attività prima del msg conclusione storia 
             
