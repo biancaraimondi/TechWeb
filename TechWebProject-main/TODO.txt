@@ -27,16 +27,13 @@ mettere a posto le lettere accentate nella storia JSON perche il browser non le 
 MARTI:
 mettere a posto le lettere accentate nella storia JSON perche il browser non le visualizza
 caricare nuovo IlSIstemaSolare.json (su git ancora versione vecchia con errori)
-SE DA ERRORE SCRIVI var valutazioni = [];
 testare il codice
-citare il sito https://www.laboratoriolibero.com/corsi/jobselect/11/Lezione_11_camera.pdf
 gestire errori del caricamento immagine da fotocamera
-rimettere a posto la riga 42 dellla storia JSON
-torna alla pag principale anche quando inserisci il nome del player
 sistemare css (nuvola aiuto si nasconde dietro al bottone ricarica pagina)
 sistemare css (background)
-sistemare css (risposta testuale)
 creare funzione visualizzaValutazioni
+
+ilSistemaSolare.json -> si blocca quando arriva all'ultima attività prima del msg conclusione storia 
             
 gestire invio foto e testo al valutatore (https://www.html.it/pag/45424/gestire-la-fotocamera-scattare-una-foto/ OPPURE https://getbootstrap.com/docs/5.0/forms/input-group/)
 
