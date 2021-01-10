@@ -25,8 +25,6 @@ mettere a posto le lettere accentate nella storia JSON perche il browser non le 
 //TODO far visualizzare al player un messaggio per cambiare il nome perchè già esistente nella lista degli utenti
 
 MARTI:
-mettere a posto le lettere accentate nella storia JSON perche il browser non le visualizza
-caricare nuovo IlSIstemaSolare.json (su git ancora versione vecchia con errori)
 testare il codice
 gestire errori del caricamento immagine da fotocamera
 sistemare css (nuvola aiuto si nasconde dietro al bottone ricarica pagina)
