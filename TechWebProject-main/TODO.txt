@@ -36,14 +36,13 @@ sistemare css (nuvola aiuto si nasconde dietro al bottone ricarica pagina)
 sistemare css (background)
 creare funzione visualizzaValutazioni
 modificare if incoraggiamento
+nome chiave dell'immagine all'interno della domanda è immaginedomanda
+camporispostafoto è il campo da scrivere nella storia JSON quando si vuole rispondere con un'immagine
 
 ilSistemaSolare.json -> si blocca quando arriva all'ultima attività prima del msg conclusione storia 
             
 gestire invio foto e testo al valutatore (https://www.html.it/pag/45424/gestire-la-fotocamera-scattare-una-foto/ OPPURE https://getbootstrap.com/docs/5.0/forms/input-group/)
 
 CRI: 
-camporispostafoto è il campo da scrivere nella storia JSON quando si vuole rispondere con un'immagine
-nome chiave dell'immagine all'interno della domanda è immaginedomanda
 settare le nostre tre storie con stato="pubblicata" nel file storie.json
 unire file server nell'unico file provaserver.js di Bianca caricato nella pagine principale GitHub
-inserire nel json della storia l'immagine della domanda
