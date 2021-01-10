@@ -5,21 +5,21 @@
                 "nome":"ilSistemaSolare",
                 "accessibile":false,
                 "eta":"eta2",
-                "stato":"archiviata"
+                "stato":"pubblicata"
               },
               {
                 "id":1,
                 "nome":"Interrail",
                 "accessibile":true,
                 "eta":"eta3",
-                "stato":"archiviata"
+                "stato":"pubblicata"
               },
               {
                 "id":2,
-                "nome":"StoriaCri",
+                "nome":"ilBravoPedone",
                 "accessibile":false,
                 "eta":"eta1",
-                "stato":"archiviata"
+                "stato":"pubblicata"
               }
    ]
 }
