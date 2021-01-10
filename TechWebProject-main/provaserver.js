@@ -81,9 +81,9 @@ io.on('connection', function (socket) {
         inserisci = true;
         for (i=0;i<utenti.length;i++){
             if(utenti[i].nome == trasmittente){
-                /*if(trasmittente == 'valutatore'){
-                    utenti[i].socket = socket.id;
-                }*/
+                if(utenti[i].socket == socket.id){
+                	//TODO far visualizzare al player un messaggio per cambiare il nome perchè già esistente nella lista degli utenti
+                }
                 inserisci = false;
             }
         }
@@ -137,6 +137,19 @@ io.on('connection', function (socket) {
         }
         socket.to(socketUtente).emit('risposta testo', risposta, missione, attivita, player);
         console.log("SERVER: inviata risposta testuale al valutatore");
+    });
+    
+    socket.on('valutazione', function (missione, attivita, valutazione, player) {
+        console.log("SERVER: valutazione: " + valutazione + ", missione: " + missione + ", attivita: " + attivita + ", player: " + player);
+        var z = 0;
+        var socketUtente = "";
+        for(z=0; z<utenti.length; z++){
+            if(utenti[z].nome == player){
+                socketUtente = utenti[z].socket;
+            }
+        }
+        socket.to(socketUtente).emit('valutazione', missione, attivita, valutazione, player);
+        console.log("SERVER: inviata vautazione al valutatore");
     });
     
     //se un utente si disconnette
