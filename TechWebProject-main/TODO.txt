@@ -21,8 +21,11 @@ Gli elementi non presenti nel documento non vengono cercati da getElementById().
 commentare e pulire codice 
 gestire invio foto e testo al valutatore (https://stackoverflow.com/questions/59478402/how-do-i-send-image-to-server-via-socket-io)
 gestire problema player con lo stesso nome
+mettere a posto le lettere accentate nella storia JSON perche il browser non le visualizza
+
 
 MARTI:
+mettere a posto le lettere accentate nella storia JSON perche il browser non le visualizza
 caricare nuovo IlSIstemaSolare.json (su git ancora versione vecchia con errori)
 SE DA ERRORE SCRIVI var valutazioni = [];
 testare il codice
