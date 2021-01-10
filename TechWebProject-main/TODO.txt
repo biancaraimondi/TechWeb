@@ -25,6 +25,7 @@ mettere a posto le lettere accentate nella storia JSON perche il browser non le 
 //TODO far visualizzare al player un messaggio per cambiare il nome perchè già esistente nella lista degli utenti
 gestire avanzamento se il valutatore si collega dopo il player
 gestire problema cliccare due volte per entrare campo if per rimuovere contenuto valuta risposta (la valutazione al primo click viene spedita lo stesso)
+gestire se viene cambiata la storia nel server
 
 MARTI:
 testare il codice
