@@ -20,7 +20,6 @@ Gli elementi non presenti nel documento non vengono cercati da getElementById().
 
 commentare e pulire codice 
 gestire invio foto e testo al valutatore (https://stackoverflow.com/questions/59478402/how-do-i-send-image-to-server-via-socket-io)
-gestire problema player con lo stesso nome
 mettere a posto le lettere accentate nella storia JSON perche il browser non le visualizza
 //TODO far visualizzare al player un messaggio per cambiare il nome perchè già esistente nella lista degli utenti
 gestire avanzamento se il valutatore si collega dopo il player
