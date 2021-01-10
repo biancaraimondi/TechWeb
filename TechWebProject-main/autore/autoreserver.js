@@ -1,11 +1,13 @@
-var stories, objStory, mission, objMission, activity, objActivity, storyToEdit, storyToEditInActivities, missionToEdit, indexOfMissionToEdit, indexOfStoryToEdit, idStory, listStories, nameStory, idMission, singleStory,objSingleStory;
-
+//----- Express.js
 var express = require('express');
 var app = express();
+//--- Main modules
 var http = require('http').createServer(app);
 var bodyParser = require('body-parser');
 var fs = require('fs');
+var io = require('socket.io')(http);
 var multer = require('multer');
+//--- Global variables
 var storage = multer.diskStorage({ //settano la destinazione delle immagini e il nome immagine
   destination: __dirname + '/image',
   filename: function (req, file, cb) {
@@ -13,510 +15,604 @@ var storage = multer.diskStorage({ //settano la destinazione delle immagini e il
   }
 });
 var upload = multer({ storage: storage });
-
+//---- Messages
+var failedToAddStory = 'Non è stata aggiunta la nuova storia nel file storie.json';
+var failedToAddMission = 'Non è stata aggiunta la nuova missione nel file missioni.json';
+var failedToAddActivity = 'Non è stata aggiunta la nuova attivita nel file attivita.json';
+var failedToAddSingle = 'Non è sono state aggiunte le nuove modifiche nel file della storia';
+var failedToSaveUtils = 'Errore interno del server';
+//-- Application settings
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json()); //modo per convertire una stringa in un oggetto JSON
 app.use(express.static(__dirname));//utilizzato per includere css e js
 
+//-- Utils functions
+function openAndParseJsonFile(nameOfFile){
+	var object = fs.readFileSync(nameOfFile, err => {
+		return undefined;
+	});
+	return object===undefined ? undefined : JSON.parse(object);
+}
+
+function writeJsonFile(whichFile, content){
+	var result = true;
+	fs.writeFileSync(whichFile, JSON.stringify(content,null,4), 'utf8', (err) => { 
+			if (err){
+				console.log(err);
+				result = false;
+			}
+	});
+	return result;
+}
+
+function readUtils(){
+	return openAndParseJsonFile("_utils.json");
+}
+function writeUtils(content){
+	return writeJsonFile("_utils.json",content);
+}
+
+function createAndSaveStory(storyToAdd){
+	var x = openAndParseJsonFile("storie.json");
+	if(x===undefined){
+		return false;
+	}
+	x.storie.push(storyToAdd);
+	return writeJsonFile("storie.json", x);
+}
+function createAndSaveMission(missionToAdd){
+	var x = openAndParseJsonFile("missioni.json");
+	if(x===undefined){
+		return false;
+	}
+	x.missioni.push(missionToAdd);
+	return writeJsonFile("missioni.json", x);
+}
+function createAndSaveActivity(activityToAdd){
+	var x = openAndParseJsonFile("attivita.json");
+	if(x===undefined){
+		return false;
+	}
+	x.attivita.push(activityToAdd);
+	return writeJsonFile("attivita.json", x);
+}
+
+// Main server
 http.listen(3000, function () {
-  console.log('SERVER: listening on *:3000');
+	console.log("SERVER ROOT: "+__dirname);
+	console.log('SERVER: listening on *:3000');
 });
 
+//-----------------
 app.get('/autore', function (req, res) {
-  res.sendFile(__dirname + '/autore.html');
+	console.log("New connection");
+	res.sendFile(__dirname + '/autore.html');
 });
 
 //funzione crea nuova storia
 app.post("/autore/newStory", function(req,res){
 	console.log("Ricevuto richiesta creazione storia");
-   	stories = fs.readFileSync ("storie.json"); //leggere file e memorizza contenuto cioè stringa JSON inizialmente vuota []
-	objStory = JSON.parse(stories); //trasformo stringa in oggetto JS, sarà lista di storie
-	var newStory = req.body; //rappresenta oggetto JS storia da aggiungere al JSON
-	objStory.storie.push(newStory); //metto in coda all'array JSON storie la nuova storia
-	fs.writeFileSync("storie.json", JSON.stringify(objStory), 'utf8',(err) => { //scrivo all'interno del file storie.json la nuova storia trasformata in stringa
-		if (err){
-			console.log(err);
-			res.status(500).send('Non è stata aggiunta la nuova storia nel file storie.json');
-		}
-	});
-	fs.appendFile(req.body.nome + '.json', '{"missioni":[]}', (err) => { //creo file 'nomestoria.json'
+   	
+	var _utils = readUtils();
+	if(_utils===undefined){
+		res.status(500).send('Internal Server Error');
+		return;
+	}
+	var newStory = req.body; 
+	newStory.id = _utils.stories.lastIndex++;
+	
+	var opRes = createAndSaveStory(newStory);
+	if(!opRes){
+		res.status(500).send(failedToAddStory);
+		return;
+	}
+	opRes = writeUtils(_utils);
+	if(!opRes){
+		res.status(500).send(failedToSaveUtils);
+		return;
+	}
+	
+	// write "single story"
+	fs.appendFile(newStory.nome + '.json', JSON.stringify({"accessibile":newStory.accessibile,"eta":newStory.eta,"missioni":[]},null,4), (err) => { //creo file 'nomestoria.json'
   		if (err) {
 			console.log(err);
 			res.status(500).send('Non è stata aggiunta la nuova storia nel file della singola storia');
 		}
-  		console.log('Creato nuovo file json: '+ req.body.nome + '.json');
+  		console.log('Creato nuovo file json: '+ newStory.nome + '.json');
 	});
 	res.status(200).send('OK');
 });
 
-app.get("/autore/newStory", function(req,res){
-	fs.readFile("storie.json",(err,stories) => {
-		if (err){
-			console.log(err);
-			res.status(500).send('Non è presente il file storie.json');
-		}
-		else {
-			res.setHeader('Content-Type', 'application/json; charset=UTF-8'); //header risposta
-			res.end(stories); //invio risposta file storiaP.json
-		}
-	});
+app.get("/autore/stories", function(req,res){
+	var stories = openAndParseJsonFile("storie.json");
+	if(stories===undefined){
+		res.status(500).send('Non è presente il file storie.json');
+		return;
+	}
+	res.setHeader('Content-Type', 'application/json; charset=UTF-8'); //header risposta
+	res.end(JSON.stringify(stories)); //invio risposta file storie.json
 });
 
-//funzione elimina una storia
 app.post("/autore/deleteStory", function(req,res){
 	console.log("Ricevuto richiesta elimina storia");
 	if(req.body === null || !req.body.hasOwnProperty('id') || req.body.id === ''){ //controllo se il body è null, se il body non ha la proprietà 'nomestoria' e se l'id è vuoto
 		res.status(400).send('Errore nel corpo della richiesta');
+		return;
 	}
-	else{
-		var idStoryToRemove = req.body.id; //id storia da rimuovere
-		var nameStoryToRemove = req.body.nomestoria;
-		stories = fs.readFileSync ("storie.json"); //leggere file e memorizza contenuto cioè stringa JSON inizialmente vuota []
-		objStory = JSON.parse(stories); //trasformo stringa in oggetto JS, sarà lista di storie	
-		mission = fs.readFileSync ("missioni.json"); //leggere file e memorizza contenuto cioè stringa JSON inizialmente vuota []
-		objMission = JSON.parse(mission);
-		activity = fs.readFileSync ("attivita.json"); //leggere file e memorizza contenuto cioè stringa JSON inizialmente vuota []
-		objActivity = JSON.parse(activity);
 		
-		var missionsDelete = {"missioni": objMission.missioni.filter(mission => mission.idstoria !== idStoryToRemove)}; //filtra le storie che hanno un id diverso da quello selezionato tramite il radiobutton e le memorizza nella variabile --> fatto per evitare il null
-
-		//metodo per decrementare gli indici delle storie
-		for (var i=0, id=0; i<missionsDelete.missioni.length; i++, id++){
-			missionsDelete.missioni[i].id = 'missione'+id;
-		}
-		
-		var storiesWithoutDeleteStory = {"storie": objStory.storie.filter(story => story.id !== idStoryToRemove)}; //filtra le storie che hanno un id diverso da quello selezionato tramite il radiobutton e le memorizza nella variabile --> fatto per evitare il null
-
-		//metodo per decrementare gli indici delle storie
-		for (i=0, id=0; i<storiesWithoutDeleteStory.storie.length; i++, id++){
-			storiesWithoutDeleteStory.storie[i].id = id;
-		}
-		
-		var activitiesDelete ={"attivita": objActivity.attivita.filter(activity => activity.idstoria !== idStoryToRemove)}; //filtra le storie che hanno un id diverso da quello selezionato tramite il radiobutton e le memorizza nella variabile --> fatto per evitare il null
-
-		//metodo per decrementare gli indici delle storie
-		for (i=0, id=0; i<activitiesDelete.attivita.length; i++, id++){
-			activitiesDelete.attivita[i].id = 'attivita'+id;
-		}
-		
-		fs.writeFileSync("storie.json", JSON.stringify(storiesWithoutDeleteStory), 'utf8',(err) => { //scrivo all'interno del file storie le storie filtrate memorizzate in out
-			if (err){
-				console.log(err);
-				res.status(500).send('Non è stato possibile eliminare la storia.');
-			}
-		});
-		
-		fs.writeFileSync("attivita.json", JSON.stringify(activitiesDelete), 'utf8',(err) => { //scrivo all'interno del file storie le storie filtrate memorizzate in out
-			if (err){
-				console.log(err);
-				res.status(500).send('Non è stato possibile eliminare la storia.');
-			}
-		});
-		
-		fs.writeFileSync("missioni.json", JSON.stringify(missionsDelete), 'utf8',(err) => { //scrivo all'interno del file storie le storie filtrate memorizzate in out
-			if (err){
-				console.log(err);
-				res.status(500).send('Non è stato possibile eliminare la storia.');
-			}
-		});
-		
-		fs.unlink(nameStoryToRemove + '.json', (err) => { //funzione elimina storia dal pc
-			if (err) {
-				console.log(err);
-				res.status(500).send('Non è stato possibile eliminare il file della storia.');
-			}
-		  	console.log('Il file ' + nameStoryToRemove + '.json è stato eliminato.');
-		});
-		
-		res.status(200).send('OK');
+	var stories = openAndParseJsonFile("storie.json");
+	var missions = openAndParseJsonFile("missioni.json");
+	var activities = openAndParseJsonFile("attivita.json");
+	if(stories===undefined || missions===undefined || activities===undefined){
+		res.status(500).send('Internal Server Error');
+		return;
 	}
+	
+	var idStoryToRemove = req.body.id;
+	var resOp = writeJsonFile("storie.json",{"storie": stories.storie.filter(story => story.id !== idStoryToRemove)});
+	if(!resOp){
+		res.status(500).send('Internal Server Error');
+		return;
+	}
+	
+	resOp = writeJsonFile("missioni.json",{"missioni": missions.missioni.filter(mission => mission.idstoria !== idStoryToRemove)});
+	if(!resOp){
+		res.status(500).send('Internal Server Error');
+		return;
+	}
+	resOp = writeJsonFile("attivita.json",{"attivita": activities.attivita.filter(activity => activity.idstoria !== idStoryToRemove)});
+	if(!resOp){
+		res.status(500).send('Internal Server Error');
+		return;
+	}
+	var target = stories.storie.find(storia => storia.id === idStoryToRemove);
+	
+	fs.unlink(target.nome + '.json', (err) => { //funzione elimina storia dal pc
+		if (err) {
+			console.log(err);
+			res.status(500).send('Non è stato possibile eliminare il file della storia.');
+		}
+		console.log('Il file ' + target.nome + '.json è stato eliminato.');
+	});
+
+	res.status(200).send('OK');
 });
 
 //funzione modifica le storie
 app.post("/autore/modifiedStory", function(req,res){
 	console.log("Ricevuto richiesta modifica storia");
-   	stories = fs.readFileSync ("storie.json"); //leggere file e memorizza contenuto cioè stringa JSON inizialmente vuota []
-	objStory = JSON.parse(stories);//trasformo stringa in oggetto JS, sarà lista di storie
-	mission = fs.readFileSync ("missioni.json"); //leggere file e memorizza contenuto cioè stringa JSON inizialmente vuota []
-	objMission = JSON.parse(mission);
-	activity = fs.readFileSync ("attivita.json"); //leggere file e memorizza contenuto cioè stringa JSON inizialmente vuota []
-	objActivity = JSON.parse(activity);
-	var modifiedStory = req.body; //oggetto JS contenente la modifica della storia
-	var idOfStory = req.body.id;
-	var storyToEdit = objStory.storie.find(story => story.id === idOfStory); //cerco l'oggetto storia nella localstorage che ha l'id della storia che voglio modificare
-	var storyToEditInActivities = objActivity.attivita.filter(activity => activity.idstoria === idOfStory); //cerco l'oggetto storia nella localstorage che ha l'id della storia che voglio modificare
-	var missionToEdit = objMission.missioni.filter(mission => mission.idstoria === idOfStory);
-	var indexOfMissionToEdit = objMission.missioni.findIndex(mission => mission.idstoria === storyToEdit.idstoria);
-	var indexOfStoryToEdit = objStory.storie.findIndex(story => story.id === idOfStory); //cerco l'indice dell'oggetto storia nell'array che ha l'id della storia che voglio modificare
-	var i;
-	if(storyToEdit !== undefined){
-		fs.rename(storyToEdit.nome + '.json', modifiedStory.nome + '.json', (err) => { //rinomino il file della storia con il nuovo nome
-			if (err) {
-				console.log(err);
-				res.status(500).send('Non è stato possibile rinominare il file della singola storia.');
-			}
-			console.log('Creato nuovo file json: '+ req.body.nome + '.json');
-		});
-		
-		storyToEdit.nome = modifiedStory.nome;
-		storyToEdit.accessibile = modifiedStory.accessibile;
-		storyToEdit.eta = modifiedStory.eta;
-		objStory.storie.splice(indexOfStoryToEdit, storyToEdit); //modifico i valori della storia inserendoli nella posizione della storia che voglio modificare
-		
-		fs.writeFileSync("storie.json", JSON.stringify(objStory), 'utf8',(err) => { //riscrivo il file storie.json contenente la modifica della storia
-			if (err){
-				console.log(err);
-				res.status(500).send('Non è stato possibile apportare le modifiche della storia nel file storie.json');
-			}
-		});
-		if(missionToEdit !== ""){
-			
-			for(i = 0; i < missionToEdit.length; i++){
-				missionToEdit[i].nomestoria = modifiedStory.nome;
-				objMission.missioni.splice(indexOfMissionToEdit, missionToEdit);
-			}
-			fs.writeFileSync("missioni.json", JSON.stringify(objMission), 'utf8',(err) => { //modfico il nome della storia nel file missioni mantenendo l'associazione
-				if (err){
-					console.log(err);
-					res.status(500).send('Non è stato possibile apportare le modifiche della storia nel file missioni.json');
-				}
-			});
-		}
-		if(storyToEditInActivities !== ""){
-			for(i=0; i<storyToEditInActivities.length; i++){
-				storyToEditInActivities[i].nomestoria = modifiedStory.nome;
-				idOfStory = req.body.id;
-				objActivity.attivita.splice(idOfStory, missionToEdit);
-			}
 
-			fs.writeFileSync("attivita.json", JSON.stringify(objActivity), 'utf8',(err) => { //modfico il nome della storia nel file missioni mantenendo l'associazione
-				if (err){
-					console.log(err);
-					res.status(500).send('Non è stato possibile apportare le modifiche della storia nel file attivita.json');
+	var stories = openAndParseJsonFile("storie.json");
+	var missions = openAndParseJsonFile("missioni.json");
+	var activities = openAndParseJsonFile("attivita.json");
+	if(stories===undefined || missions===undefined || activities===undefined){
+		res.status(500).send('Internal Server Error');
+		return;
+	}
+	
+	var requested = req.body; //oggetto JS contenente la modifica della storia
+	
+	var idOfStory = requested.id;
+	var name = requested.nome;
+	var eta = requested.eta;
+	var accessible = requested.accessibile;
+	
+	var storyToEdit = stories.storie.find(story => story.id === idOfStory); //cerco l'oggetto storia nella localstorage che ha l'id della storia che voglio modificare
+	
+	if(storyToEdit === undefined){
+		res.status(500).send('Internal Server Error');
+		return;
+	}
+	var originalName = storyToEdit.nome;
+
+	storyToEdit.nome = name;
+	storyToEdit.eta = eta;
+	storyToEdit.accessibile = accessible;
+	
+	var out = {"storie": stories.storie.filter(story => story.id !== idOfStory)};
+	out.storie.push(storyToEdit);
+	var resOp = writeJsonFile("storie.json",out);
+	if(!resOp){
+		res.status(500).send('Internal Server Error');
+		return;
+	}
+	out = 
+		{"missioni": 
+		 	missions.missioni.map(mission => {
+				if(mission.idstoria===idOfStory){
+					mission.nomestoria = name;
 				}
-			});
-		}
-		res.status(200).send('OK');	
+				return mission;
+			})
+		};
+	resOp = writeJsonFile("missioni.json",out);
+	if(!resOp){
+		res.status(500).send('Internal Server Error');
+		return;
 	}
-	else{
-		console.log('Storia/Missione non presente');
+	out = 
+		{"attivita": 
+		 	activities.attivita.map(activity => {
+				if(activity.idstoria===idOfStory){
+					activity.nomestoria = name;
+				}
+				return activity;
+			})
+		};
+	resOp = writeJsonFile("attivita.json",out);
+	if(!resOp){
+		res.status(500).send('Internal Server Error');
+		return;
 	}
+	
+	fs.renameSync(originalName + '.json', name + '.json', (err) => { //rinomino il file della storia con il nuovo nome
+		if (err) {
+			resOp = false;
+			console.log(err);
+		}else{
+			console.log('Creato nuovo file json: '+ name + '.json');
+	}});
+	if(!resOp){
+		res.status(500).send('Non è stato possibile rinominare il file della singola storia.');
+		return;
+	}
+	
+	var singleStory = openAndParseJsonFile(name + '.json');
+	singleStory.accessibile = storyToEdit.accessibile;
+	singleStory.eta = storyToEdit.eta;
+	singleStory.nomestoria = name; 
+	
+	resOp = writeJsonFile(name+".json",singleStory);
+	if(!resOp){
+		res.status(500).send('Internal Server Error');
+		return;
+	}
+	
+	
+	res.status(200).send('OK');	
 });
 
 //funzione archivia storie
 app.post("/autore/archiveStory", function(req,res){
 	console.log("Ricevuto richiesta archivia storia");
-	stories = fs.readFileSync ("storie.json"); //legge file storie
-	objStory = JSON.parse(stories); //trasformo stringa in oggetto JS, sarà lista di storie
-	idStory = req.body.id; //id della storia archiviata
-	var storyToArchive = objStory.storie.find(story => story.id === idStory && story.stato === "pubblicata"); //cerco l'oggetto storia che ha l'id della storia e lo stato "pubblicata" che voglio archiviare
-	if(storyToArchive !== undefined){
-		listStories = {"storie": objStory.storie.filter(story => story.id !== storyToArchive.id)};//elenco storie diverso da quella che voglio archiviare
-		storyToArchive.stato = "archiviata"; //modifico lo stato da pubblicata a archiviata
-		listStories.storie.push(storyToArchive); //inserisco la storia archiviata in coda all'array
-		
-		fs.writeFileSync("storie.json", JSON.stringify(listStories), 'utf8',(err) => { //riscrivo il file storie.json contenente la modifica della storia
-			if (err){
-				console.log(err);
-				res.status(500).send('Non è stato possibile apportare le modifiche di archiviazione nel file storie.json');
-			}
-		});
-		res.status(200).send('OK');
+	
+	var stories = openAndParseJsonFile("storie.json");
+	if(stories === undefined){
+		res.status(500).send('Internal Server Error');
+		return;
 	}
+	
+	var idStory = req.body.id; //id della storia archiviata
+	var out = 
+		{"storie": 
+		 	stories.storie.map(story => {
+				if(story.id===idStory && story.stato === "pubblicata"){
+					story.stato = "archiviata";
+				}
+				return story;
+			})
+		};
+	var resOp = writeJsonFile("storie.json",out);
+	if(!resOp){
+		res.status(500).send('Internal Server Error');
+		return;
+	}
+	res.status(200).send('OK');
 });
 
-app.get("/autore/archiveStory", function(req,res){
-	fs.readFile("storie.json",(err,stories) => {
-		if (err){
-			console.log(err);
-			res.status(500).send('Non è presente il file storie.json');
-		}
-		else {
-			res.setHeader('Content-Type', 'application/json; charset=UTF-8'); //header risposta
-			res.end(stories); //invio risposta file storiaA.json
-		}
-	});
-});
-
-//funzione pubblica storie
 app.post("/autore/pubblicStory", function(req,res){
 	console.log("Ricevuto richiesta pubblica storia");
-	stories = fs.readFileSync ("storie.json"); //legge file storie
-	objStory = JSON.parse(stories); //trasformo stringa in oggetto JS, sarà lista di storie
-	idStory = req.body.id; //id della storia archiviata
-	var storyToPublic = objStory.storie.find(story => story.id === idStory && story.stato === "archiviata"); //cerco l'oggetto storia che ha l'id della storia che voglio modificare e che ha stato "archiviata"
-	if(storyToPublic !== undefined){
-		listStories = {"storie": objStory.storie.filter(story => story.id !== idStory)}; //filtra le storie che hanno un id diverso da quello selezionato tramite il radiobutton e le memorizza nella variabile --> fatto per evitare il null
-		storyToPublic.stato = "pubblicata"; //modifico stato da archiviata a pubblicata
-		listStories.storie.push(storyToPublic);
-		fs.writeFileSync("storie.json", JSON.stringify(listStories), 'utf8',(err) => { //riscrivo il file storie.json contenente la modifica della storia
-			if (err){
-				console.log(err);
-				res.status(500).send('Non è stato possibile apportare le modifiche di pubblicazione nel file storie.json');
-			}
-		});
-		res.status(200).send('OK');
+	
+	var stories = openAndParseJsonFile("storie.json");
+	if(stories === undefined){
+		res.status(500).send('Internal Server Error');
+		return;
 	}
+	
+	var idStory = req.body.id; //id della storia archiviata
+	var out = 
+		{"storie": 
+		 	stories.storie.map(story => {
+				if(story.id===idStory && story.stato === "archiviata"){
+					story.stato = "pubblicata";
+				}
+				return story;
+			})
+		};
+	var resOp = writeJsonFile("storie.json",out);
+	if(!resOp){
+		res.status(500).send('Internal Server Error');
+		return;
+	}
+	res.status(200).send('OK');
 });
 
-app.get("/autore/pubblicStory", function(req,res){
-	fs.readFile("storie.json",(err,stories) => {
-		if (err){
-			console.log(err);
-			res.status(500).send('Non è presente il file storie.json');
-		}
-		else {
-			res.setHeader('Content-Type', 'application/json; charset=UTF-8'); //header risposta
-			res.end(stories); //invio risposta file storiaA.json
+
+function duplicaAttivita(singleStory, _utils, storyID, missionID, newStoryID, newStoryName, newMissionID){
+	var activities = openAndParseJsonFile("attivita.json");
+	
+	var activitiesOut = [];
+	activities.attivita.forEach(a => {
+		activitiesOut.push(JSON.parse(JSON.stringify(a)));
+		if(a.idstoria === storyID && a.idmissione === missionID){
+			var cloned = JSON.parse(JSON.stringify(a)); //copia della missione
+			cloned.id = _utils.activities.lastIndex++;
+			cloned.idstoria = newStoryID;
+			cloned.nomestoria = newStoryName;
+			cloned.idmissione = newMissionID;
+			activitiesOut.push(JSON.parse(JSON.stringify(cloned)));
+
+			singleStory.missioni.forEach(m => {
+				if(m.id === missionID){
+					m.attivita.forEach(activity => {
+						if(activity.id === a.id){
+							activity.id = cloned.id;
+						}
+					});
+				}
+			});
 		}
 	});
-});
-
+	var out = {"attivita": activitiesOut};
+	var resOp = writeJsonFile("attivita.json",out);
+	if(!resOp){
+		return false;
+	}
+	return true;
+}
 
 //funzione duplica storie
 app.post("/autore/duplicateStory", function(req,res){
 	console.log("Ricevuto richiesta duplica storia");
-	stories = fs.readFileSync("storie.json");
-	objStory = JSON.parse(stories);
-	mission = fs.readFileSync("missioni.json");
-	objMission = JSON.parse(mission);
-	activity = fs.readFileSync("attivita.json");
-	objActivity = JSON.parse(activity);
-	nameStory = req.body.nome;
+
+	//--request
+	var storyToDuplicateID = req.body.id;
+	//-- common utils
+	var _utils = readUtils();
 	
-	objStory.storie.push({
-		id: req.body.id,
-		nome:req.body.nome,
-		accessibile:req.body.accessibile,
-		eta:req.body.eta,
-		stato:req.body.stato
-	}); //inserisco in coda all'array, la storia duplicata
-	
-	var missionsToDuplicate = objMission.missioni.filter(m => m.idstoria === req.body.idold); //filtro le missioni che hanno l'id storia della storia che voglio duplicare
-	var indexStart = objMission.missioni.length; //id necessario per modificare id della missione
-	//duplichiamo le missioni
-	var newMissions = []; 
-	for (var i=0; i < missionsToDuplicate.length; i++, indexStart++){
-		var newMission = JSON.parse(JSON.stringify(missionsToDuplicate[i])); //copio missioni filtrate da duplicare
-		//modifico i campi delle missioni da duplicare
-		newMission.id = 'missione'+indexStart;
-		newMission.idstoria = req.body.id;
-		newMission.nomestoria = req.body.nome;
-		
-		objMission.missioni.push(newMission);
-		
-		var withOldId = JSON.parse(JSON.stringify(newMission)); //copio missioni filtrate da duplicare
-		withOldId.oldid = missionsToDuplicate[i].id; //vecchio id missione
-		newMissions.push(withOldId);
-	}
-		
-	//duplicare le attività
-	var activitiesToDuplicate = objActivity.attivita.filter(a => a.idstoria === req.body.idold); //filtro attività da duplicare
-	indexStart = objActivity.attivita.length; //id necessario per mod nuovo id attività
-	//duplichiamo le missioni
-	var newActivities = [];
-	for (i=0; i < activitiesToDuplicate.length; i++, indexStart++){
-		var newActivity = JSON.parse(JSON.stringify(activitiesToDuplicate[i])); //copio attività da duplicare
-		//modifico i campi delle attività da duplicare
-		newActivity.id = 'attivita'+indexStart;
-		newActivity.idstoria = req.body.id;
-		newActivity.nomestoria = req.body.nome;
-		
-		var newId = newMissions.find(m => m.oldid === newActivity.idmissione);//cerco nell'array delle nuove missione la missione che ha come vecchio id l'id della missione attualmente associata all'attività da modificare
-		newActivity.idmissione = newId.id; //modifico vecchio id con nuovo
-	
-		
-		objActivity.attivita.push(newActivity);
-		var withOldId = JSON.parse(JSON.stringify(newActivity)); //copio attività da duplicare
-		withOldId.oldid = activitiesToDuplicate[i].id; //associo vecchio id dell'attività
-		newActivities.push(withOldId);
+	//--open file, create a story and save
+	var stories = openAndParseJsonFile("storie.json");
+	var story = stories.storie.find(s => s.id===storyToDuplicateID);
+	if(story===undefined){
+		res.status(500).send("Internal Server Error");
+		return;
 	}
 	
-	var oldNameStory = nameStory.replace(" duplicata", "");
-	singleStory = fs.readFileSync(oldNameStory + ".json");
-	objSingleStory = JSON.parse(singleStory); 
-	objSingleStory.missioni.forEach(m => { //effettuo ciclo sulle missioni
-		var mission = newMissions.find(mission => mission.oldid === m.id); //trovo la missione che ha il vecchio id della missione nel file della singola storia
-		m.id = mission.id; //mod vecchio id con nuovo
+	story.id = _utils.stories.lastIndex++;
+	var oldName = story.nome;
+	story.nome+=('_'+story.id); //utilizzato '_ + numero sequenziale' per evitare sovrascritttura del file
+	var resOp = writeUtils(_utils);
+	if(!resOp){
+		res.status(500).send("Internal Server Error");
+		return;
+	}
+	var resOp = createAndSaveStory(story);
+	if(!resOp){
+		res.status(500).send("Internal Server Error");
+		return;
+	}
+	
+	var singleStory = openAndParseJsonFile(oldName+".json");
+	var missions = openAndParseJsonFile("missioni.json");
+	try{
+		var missionsOut = [];
 		
-		m.attivita.forEach(a => {//ciclo sulle attivita
-			var activity = newActivities.find(activity => activity.oldid === a.id); //trovo le attivtà con vecchio id delle attività nel file della singola storia
-			a.id = activity.id; // mod vecchio id con nuovo
+		missions.missioni.forEach(m => {
+			missionsOut.push(JSON.parse(JSON.stringify(m)));
+			if(m.idstoria === storyToDuplicateID){
+				var cloned = JSON.parse(JSON.stringify(m)); //copia della missione
+				cloned.id = _utils.missions.lastIndex++;
+				cloned.idstoria = story.id;
+				cloned.nomestoria = story.nome;
+				missionsOut.push(JSON.parse(JSON.stringify(cloned)));
+
+				// dobbiamo anche duplicare le attività ....
+				var response = duplicaAttivita(singleStory,_utils, storyToDuplicateID,m.id, story.id, story.nome, cloned.id);
+
+				if(!response){
+					throw new Exception(); // throw (solleva) new (nuova) Exception (eccezione) 
+				}
+
+				singleStory.missioni.forEach(mission => {
+					if(mission.id === m.id){
+						mission.id = cloned.id;
+					}
+				});
+			}
 		});
-	});
-	
-	fs.writeFileSync("attivita.json", JSON.stringify(objActivity), 'utf8',(err) => { //scrivo all'interno del file storie.json la nuova storia trasformata in stringa
-		if (err){
-			console.log(err);
-			res.status(500).send('Non è stato possibile duplicare la storia.');
+
+		resOp = writeUtils(_utils);
+		if(!resOp){
+			res.status(500).send('Internal Server Error');
+			return;
 		}
-	});
-	
-	fs.writeFileSync("missioni.json", JSON.stringify(objMission), 'utf8',(err) => { //scrivo all'interno del file storie.json la nuova storia trasformata in stringa
-		if (err){
-			console.log(err);
-			res.status(500).send('Non è stato possibile duplicare la storia.');
-		}
-	});
-	
-	fs.writeFileSync("storie.json", JSON.stringify(objStory), 'utf8',(err) => { //scrivo all'interno del file storie.json la nuova storia trasformata in stringa
-		if (err){
-			console.log(err);
-			res.status(500).send('Non è stato possibile duplicare la storia.');
-		}
-	});
-	
-	fs.appendFile(nameStory + '.json', JSON.stringify(objSingleStory), (err) => { //creo file 'nomestoria.json'
+
+		var out = {"missioni": missionsOut};
+		resOp = writeJsonFile("missioni.json",out);
+		if(!resOp){
+			res.status(500).send('Internal Server Error');
+			return;
+		}	
+
+		fs.appendFileSync(story.nome + '.json', JSON.stringify(singleStory,null,4), (err) => { //creo file 'nomestoria.json'
 			if (err) {
 				console.log(err);
 				res.status(500).send('Non è stata aggiunta la nuova storia nel file della singola storia');
 			}
-			console.log('Creato nuovo file json: '+ nameStory + '.json');
+			console.log('Creato nuovo file json: '+ story.nome + '.json');
 		});
-	
-	res.status(200).send('OK');
+		
+		res.status(200).send('OK');	
+	}
+	catch(e){
+		res.status(500).send("Internal Server Error");
+		return;
+	}
 });
 
 //funzione crea missione
 app.post("/autore/newMission", function(req,res){
 	console.log("Ricevuto richiesta crea missione");
-	nameStory = req.body.titolostoria;
-	idStory = req.body.idstoria;
-	idMission = req.body.id;
-	nameMission = req.body.nome;
-	singleStory = fs.readFileSync(nameStory + ".json"); //leggofile json della storia
-	objSingleStory = JSON.parse(singleStory);
-	mission = fs.readFileSync("missioni.json"); //leggo il file missioni.json
-	objMission = JSON.parse(mission);
-	var newMission = {id: idMission, nome: nameMission, idstoria: idStory, nomestoria: nameStory};
+	var nameStory = req.body.titolostoria;
+	var idStory = req.body.idstoria;
+	var nameMission = req.body.nome;
+
+	var missions = openAndParseJsonFile("missioni.json");
+	var _utils = readUtils();
+	var newMission = {id: _utils.missions.lastIndex++, nome: nameMission, idstoria: idStory, nomestoria: nameStory};
+	var resOp = writeUtils(_utils);
+	if(!resOp){
+		res.status(500).send("Internal Server Error");
+		return;
+	}
+	resOp = createAndSaveMission(newMission);
+	if(!resOp){
+		res.status(500).send("Internal Server Error");
+		return;
+	}
 	
-	objSingleStory.missioni.push({id: idMission, nome: nameMission, attivita:[]});  //aggiungo alla storia il nome della missione
+	var singleStory = openAndParseJsonFile(nameStory+".json");
+	singleStory.missioni.push({id: newMission.id, nome: nameMission, attivita:[]});  //aggiungo alla storia il nome della missione
 	
-	fs.writeFileSync(nameStory + ".json", JSON.stringify(objSingleStory), 'utf8',(err) => { //scrivo all'interno del file "storia".json il titolo della missione
-		if (err){
-			console.log(err);
-			res.status(500).send('Non è stata aggiunta la nuova missione nel file della singola storia');
-		}
-	});
-	
-	objMission.missioni.push(newMission);
-	
-	fs.writeFileSync("missioni.json", JSON.stringify(objMission), 'utf8',(err) => { //scrivo all'interno del file missioni.json gli elementi relativi alla missione
-		if (err){
-			console.log(err);
-			res.status(500).send('Non è stata aggiunta la nuova missione nel file missioni.json');
-		}
-	});
+	resOp = writeJsonFile(nameStory + ".json",singleStory);
+	if(!resOp){
+		res.status(500).send("Internal Server Error");
+		return;
+	}
 	res.status(200).send('OK');	
 });
 
 app.get("/autore/newMission", function(req,res){
-	fs.readFile("missioni.json",(err,mission) => {
-		if (err){
-			console.log(err);
-			res.status(500).send('Non è presente il file missioni.json');
-		}
-		else {
-			res.setHeader('Content-Type', 'application/json; charset=UTF-8'); //header risposta
-			res.end(mission); //invio risposta file storiaP.json
-		}
-	});
+	var missions = openAndParseJsonFile("missioni.json");
+	if(missions===undefined){
+		res.status(500).send('Non è presente il file missioni.json');
+		return;
+	}
+	res.setHeader('Content-Type', 'application/json; charset=UTF-8'); //header risposta
+	res.end(JSON.stringify(missions)); //invio risposta file storiaP.json
 });
 
 //modifica missione + modifica missione nel file storia
 app.post("/autore/modifiedMission", function(req,res){
 	console.log("Ricevuto richiesta modifica missione");
-   	mission = fs.readFileSync ("missioni.json"); 
-	objMission = JSON.parse(mission); //trasformo stringa in oggetto JS, sarà lista di missioni
-	missionToEdit = objMission.missioni.find(mission => mission.id === req.body.id); //cerco l'oggetto missione che ha l'id della missione che voglio modificare nel file missioni.json
-	activity = fs.readFileSync ("attivita.json");
-	objActivity =  JSON.parse(activity);
-	nameStory = missionToEdit.nomestoria; //nome storia
-	singleStory = fs.readFileSync(nameStory + ".json"); //leggo file della storia
-	objSingleStory = JSON.parse(singleStory);
-	var modifiedMission = req.body; //oggetto JS contenente la modifica della missione
-	var missionToEditInStory = objSingleStory.missioni.find(mission => mission.id === req.body.id); //cerco l'oggetto missione nel file della storia che ha quel determinato id
-	var missionToEditInActivity = objActivity.attivita.filter(mission => mission.idmissione === req.body.id); //filtro le storie prese nel file attività che hanno quel determinato id
-	var idOfMissionToEdit = missionToEdit.id;
-	
-	if(missionToEdit !== undefined && missionToEditInStory !== undefined && missionToEditInActivity!== undefined){
-		missionToEdit.nome = modifiedMission.nome;
-		idOfMissionToEdit = modifiedMission.id;
-		objMission.missioni.splice(idOfMissionToEdit, missionToEdit); //modifico i valori della missione inserendoli nella posizione della missione che voglio modificare
-		missionToEditInStory.nome = modifiedMission.nome;
-		idOfMissionToEditInStory = modifiedMission.id;
-		objSingleStory.missioni.splice(idOfMissionToEditInStory, missionToEdit);
-		
-		for (var i=0; i<missionToEditInActivity.length; i++){
-			missionToEditInActivity[i].nomemissione = modifiedMission.nome;
-			var idOfMissionToEditInActivity = modifiedMission.id;
-			objActivity.attivita.splice(idOfMissionToEditInActivity, missionToEdit);
-		}
-		
-		fs.writeFileSync("attivita.json", JSON.stringify(objActivity), 'utf8',(err) => { //riscrivo il file missioni.json contenente la modifica della storia
-			if (err){
-				console.log(err);
-				res.status(500).send('Non è stato possibile apportare alla missione le modifiche nel file missioni.json');
-			}
-		});
-		
-		fs.writeFileSync(nameStory + ".json", JSON.stringify(objSingleStory), 'utf8',(err) => { //riscrivo il file missioni.json contenente la modifica della storia
-			if (err){
-				console.log(err);
-				res.status(500).send('Non è stato possibile apportare alla missione le modifiche nel file della singola storia');
-			}
-		});
-		
-		fs.writeFileSync("missioni.json", JSON.stringify(objMission), 'utf8',(err) => { //riscrivo il file missioni.json contenente la modifica della storia
-			if (err){
-				console.log(err);
-				res.status(500).send('Non è stato possibile apportare alla missione le modifiche nel file missioni.json');
-			}
-		});
-		res.status(200).send('OK');	
-	}
-	else{
-		console.log('Missione non presente');
-	}
 
+	var missionID = req.body.id;
+	var newMissionName = req.body.nome;
+	
+	var missions = openAndParseJsonFile("missioni.json");
+	var out = {"missioni": missions.missioni.map(m => {
+		if(m.id===missionID){
+			m.nome = newMissionName;	
+		}
+		return m;
+	})};
+	var resOp = writeJsonFile("missioni.json",out);
+	if(!resOp){
+		res.status(500).send("Internal Server Error");
+		return;
+	}
+	
+	var activities = openAndParseJsonFile("attivita.json");
+	out = {"attivita": activities.attivita.map(a => {
+		if(a.idmissione===missionID){
+			a.nomemissione = newMissionName;	
+		}
+		return a;
+	})};
+	var resOp = writeJsonFile("attivita.json",out);
+	if(!resOp){
+		res.status(500).send("Internal Server Error");
+		return;
+	}
+	
+	var story = missions.missioni.find(m => m.id===missionID);
+	var storyName = story.nomestoria;
+	
+	if(storyName !== undefined){
+		var singleStory = openAndParseJsonFile(storyName+".json");
+		out = singleStory.missioni.map(m => {
+			if(m.id===missionID){
+				m.nome = newMissionName;	
+			}
+			return m;
+		});
+		singleStory.missioni = out;
+
+		resOp = writeJsonFile(storyName+".json",singleStory);
+		if(!resOp){
+			res.status(500).send("Internal Server Error");
+			return;
+		}
+	}
+	res.status(200).send('OK');	
 });
 
 //duplica missione + duplica missione nel file della storia
 app.post("/autore/duplicateMission", function(req,res){
 	console.log("Ricevuto richiesta duplica missione");
-	mission = fs.readFileSync ("missioni.json"); 
-	objMission = JSON.parse(mission); //trasformo stringa in oggetto JS, sarà lista di missioni
-	var nameStory = req.body.nomestoria; //nome storia
-	var singleStory = fs.readFileSync(nameStory + ".json"); //leggo file della storia
-	var objSingleStory = JSON.parse(singleStory);
-	var listMission = objSingleStory.missioni.filter(mission => mission.id === req.body.idlast); //filtro le missioni nel file della singola storia che hanno l'id della missione che voglio duplicare
-	var idOfListMission = listMission.findIndex(mission => mission.id === req.body.idlast); //trovo l'id della storia filtrata -> serve per accedere alle attivita della singola storia
-	objMission.missioni.push(req.body); //inserisco in coda all'array, la storia duplicata
-	fs.writeFileSync("missioni.json", JSON.stringify(objMission), 'utf8',(err) => { //scrivo all'interno del file storie.json la nuova storia trasformata in stringa
-		if (err){
-			console.log(err);
-			res.status(500).send('Non è stato possibile duplicare la missione nel file missioni.json');
-		}
-	});
-	var missionClone = {
-		id: req.body.id,
-		nome: req.body.nome
-	};
-	if(listMission[idOfListMission].attivita === undefined){//controllo se le attività di quella missione è vuota
-		missionClone.attivita = [];
-	}
-	if(listMission[idOfListMission].attivita !== undefined){
-		missionClone.attivita = listMission[idOfListMission].attivita;
-	}
-	objSingleStory.missioni.push(missionClone);//inserisco in coda all'array, la storia duplicata
 	
-	fs.writeFileSync(nameStory + ".json", JSON.stringify(objSingleStory), 'utf8',(err) => { //scrivo all'interno del file storie.json la nuova storia trasformata in stringa
-		if (err){
-			console.log(err);
-			res.status(500).send('Non è stato possibile duplicare la missione nel file della singola missione');
+	var missionID = req.body.id;
+	var missions = openAndParseJsonFile("missioni.json");
+	
+	var _utils = readUtils();
+	
+	var mission = missions.missioni.find(m => m.id === missionID);
+	var storyName = mission.nomestoria;
+	var singleStory = openAndParseJsonFile(storyName+".json");
+	
+	try{
+		var missionsOut = [];
+		
+		missions.missioni.forEach(m => {
+			missionsOut.push(JSON.parse(JSON.stringify(m)));
+			if(m.id === missionID){
+				var cloned = JSON.parse(JSON.stringify(m)); //copia della missione
+				cloned.id = _utils.missions.lastIndex++;
+				missionsOut.push(JSON.parse(JSON.stringify(cloned)));
+
+				// dobbiamo anche duplicare le attività ....
+				var response = duplicaAttivita(singleStory,_utils, m.idstoria,m.id, m.idstoria, m.nomestoria, cloned.id);
+
+				if(!response){
+					throw new Exception(); // throw (solleva) new (nuova) Exception (eccezione) 
+				}
+
+				singleStory.missioni.forEach(mission => {
+					if(mission.id === m.id){
+						mission.id = cloned.id;
+					}
+				});
+			}
+		});
+
+		var resOp = writeUtils(_utils);
+		if(!resOp){
+			res.status(500).send('Internal Server Error');
+			return;
 		}
-	});
-	res.status(200).send('OK');
+
+		var out = {"missioni": missionsOut};
+		resOp = writeJsonFile("missioni.json",out);
+		if(!resOp){
+			res.status(500).send('Internal Server Error');
+			return;
+		}	
+
+		var outSingleStory = openAndParseJsonFile(storyName+".json");
+		outSingleStory.missioni = outSingleStory.missioni.concat(singleStory.missioni);
+		
+		resOp = writeJsonFile(storyName+".json",outSingleStory);
+		if(!resOp){
+			res.status(500).send('Internal Server Error');
+			return;
+		}
+		res.status(200).send('OK');	
+	}
+	catch(e){
+		console.error(e);
+		res.status(500).send("Internal Server Error");
+		return;
+	}
 });
 
 //elimina missione + elimina missione nel file della storia
@@ -525,39 +621,34 @@ app.post("/autore/deleteMission", function(req,res){
 	if(req.body === null || !req.body.hasOwnProperty('id') || req.body.id === ''){ //controllo se il body è null, se il body non ha la proprietà 'id e se l'id è vuoto
 		res.status(400).send('Errore nel corpo della richiesta');
 	}
-	idMission = req.body.id; //id missione da rimuovere
-	mission = fs.readFileSync ("missioni.json"); //leggere file e memorizza contenuto cioè stringa JSON inizialmente vuota []
-	objMission = JSON.parse(mission); //trasformo stringa in oggetto JS, sarà lista di missioni	
-	var missionToDelete = objMission.missioni.find(mission => mission.id === idMission); //cerco l'oggetto missione nella localstorage che ha l'id della missione che voglio modificare nel file missioni.json
-	nameStory = missionToDelete.nomestoria;
-	singleStory = fs.readFileSync (nameStory + ".json");
-	objSingleStory = JSON.parse(singleStory);
-	var listMission = {"missioni": objMission.missioni.filter(mission => mission.id !== idMission)};  //filtra le missioni nel file "missioni.json" che hanno un id diverso da quello selezionato tramite il radiobutton e le memorizza nella variabile --> fatto per evitare il null
-	var listMissionInStory = {"missioni": objSingleStory.missioni.filter(mission => mission.id !== idMission)}; //filtra le missioni nel file della storia che hanno un id diverso da quello selezionato tramite il radiobutton e le memorizza nella variabile --> fatto per evitare il null
+	var idMission = req.body.id; //id missione da rimuovere
 	
-	//metodo per decrementare gli indici delle missioni
-	for (var i=0, id=0; i<listMission.missioni.length; i++, id++){
-		listMission.missioni[i].id = "missione" + id;
+	var missions = openAndParseJsonFile("missioni.json");
+	var out ={"missioni": missions.missioni.filter(m => m.id !== idMission)};
+	var resOp = writeJsonFile("missioni.json",out);
+	if(!resOp){
+		res.status(500).send("Internal Server Error");
+		return;
 	}
 	
-	//metodo per decrementare gli indici delle missioni nelle storie
-	for (i=0, id=0; i<listMissionInStory.missioni.length; i++, id++){
-		listMissionInStory.missioni[i].id = "missione" + id;
+	var activities = openAndParseJsonFile("attivita.json");
+	out = {"attivita": activities.attivita.filter(a => a.idmissione !== idMission)};
+	resOp = writeJsonFile("attivita.json",out);
+	if(!resOp){
+		res.status(500).send("Internal Server Error");
+		return;
 	}
 	
-	fs.writeFileSync("missioni.json", JSON.stringify(listMission), 'utf8',(err) => { //scrivo all'interno del file storiaP.json le storie filtrate memorizzate in out
-		if (err){
-			console.log(err);
-			res.status(500).send('Non è stato possibile eliminare la missione nel file missioni.json');
-		}
-	});
-	
-	fs.writeFileSync(nameStory + ".json", JSON.stringify(listMissionInStory), 'utf8',(err) => { //scrivo all'interno del file storiaP.json le storie filtrate memorizzate in out
-		if (err){
-			console.log(err);
-			res.status(500).send('Non è stato possibile eliminare la missione nel file della singola missione');
-		}
-	});
+	var story = missions.missioni.find(m => m.id === idMission);
+	var storyName = story.nomestoria;
+	var singleStory = openAndParseJsonFile(storyName + ".json");
+	out = singleStory.missioni.filter(m => m.id !== idMission);
+	singleStory.missioni = out;
+	resOp = writeJsonFile(storyName + ".json",singleStory);
+	if(!resOp){
+		res.status(500).send("Internal Server Error");
+		return;
+	}
 	res.status(200).send('OK');
 });
 
@@ -569,17 +660,24 @@ app.post('/autore/newActivities', upload.any(), function (req, res) {
 		return;
 	}
 	var newActivity = JSON.parse(formDataString);
-	var id = newActivity.id;
-	var question = newActivity.domanda;;
-	nameStory = newActivity.titolostoria;
-	var missionTitle = newActivity.titolomissione;	
-	idMission = newActivity.idmissione;
-	idStory = newActivity.idstoria;
-	singleStory = fs.readFileSync(nameStory + ".json"); 
-	objSingleStory = JSON.parse(singleStory);
-	activity = fs.readFileSync("attivita.json"); 
-	objActivity = JSON.parse(activity);
-	var missionToEdit = objSingleStory.missioni.find(mission => mission.id === idMission); //individuo la missione alla quale aggiungere la nuova attività
+	var _utils = readUtils();
+	
+	var id = _utils.activities.lastIndex++;
+	var resOp = writeUtils(_utils);
+	if(!resOp){
+		res.status(500).send("Internal Server Error");
+		return;
+	}
+	var question = newActivity.domanda;
+	var nameStory = newActivity.nomestoria;
+	var missionTitle = newActivity.nomemissione;	
+	var idMission = newActivity.idmissione;
+	var idStory = newActivity.idstoria;
+	
+	var singleStory = openAndParseJsonFile(nameStory + ".json");
+	var activities = openAndParseJsonFile("attivita.json")
+	
+	var missionToEdit = singleStory.missioni.find(mission => mission.id === idMission); //individuo la missione alla quale aggiungere la nuova attività
 	var background;
 	var helpimage;
 	if(req.files.length>0){
@@ -602,7 +700,6 @@ app.post('/autore/newActivities', upload.any(), function (req, res) {
 	};
 	var newActivityObj = {
 		id: id,
-		checkbox: newActivity.checkbox,
 		domanda: question,
 		idstoria: idStory,
 		nomestoria: nameStory,
@@ -615,11 +712,28 @@ app.post('/autore/newActivities', upload.any(), function (req, res) {
 		newActivityInStory.immaginesfondo = baseImagePath+background.filename;
 		newActivityObj.immaginesfondo = baseImagePath+background.filename;
 	}
-	if(newActivity.checkbox === false){
+	if(newActivity.hasOwnProperty('checkboxnorisposta')){
+		newActivityInStory.checkboxnorisposta = newActivity.checkboxnorisposta;
+		newActivityObj.checkboxnorisposta = newActivity.checkboxnorisposta;
 		newActivityInStory.avanti = "Avanti";
 		newActivityObj.avanti = "Avanti";
 	}
-	else{
+	else if(newActivity.hasOwnProperty('checkboxcampo')){
+		newActivityInStory.checkboxcampo = newActivity.checkboxcampo;
+		newActivityObj.checkboxcampo = newActivity.checkboxcampo;
+		newActivityInStory.camporisposta = "";
+		newActivityInStory.aiuto = newActivity.aiuto;
+		newActivityInStory.incoraggiamento = newActivity.incoraggiamento;
+		newActivityObj.camporisposta = "";
+		newActivityObj.aiuto = newActivity.aiuto;
+		newActivityObj.incoraggiamento = newActivity.incoraggiamento;
+		if(helpimage!==undefined){
+			newActivityInStory.immagineaiuto = baseImagePath+helpimage.filename;
+			newActivityObj.immagineaiuto = baseImagePath+helpimage.filename;
+		}
+	}
+	else if(newActivity.hasOwnProperty('checkboxbottoni')){
+		newActivityInStory.checkboxbottoni = newActivity.checkboxbottoni;
 		newActivityInStory.rispostebottoni = {
 			sbagliata1 : newActivity.rispostebottoni.sbagliata1,
 			giusta : newActivity.rispostebottoni.giusta,
@@ -628,6 +742,7 @@ app.post('/autore/newActivities', upload.any(), function (req, res) {
 			aiuto: newActivity.rispostebottoni.aiuto,
 			incoraggiamento: newActivity.rispostebottoni.incoraggiamento
 		};
+		newActivityObj.checkboxbottoni = newActivity.checkboxbottoni;
 		newActivityObj.rispostebottoni = {
 			sbagliata1 : newActivity.rispostebottoni.sbagliata1,
 			giusta : newActivity.rispostebottoni.giusta,
@@ -641,36 +756,32 @@ app.post('/autore/newActivities', upload.any(), function (req, res) {
 			newActivityObj.rispostebottoni.immagineaiuto = baseImagePath+helpimage.filename;
 		}
 	}
+	
 	missionToEdit.attivita.push(newActivityInStory);
-	objActivity.attivita.push(newActivityObj);
+	activities.attivita.push(newActivityObj);
 	
-	fs.writeFileSync(nameStory + ".json", JSON.stringify(objSingleStory), 'utf8',(err) => {
-		if (err){
-			console.log(err);
-			res.status(500).send('Non è stata aggiunta la nuova attività nel file della singola storia');
-		}
-	});
+	var resOp = writeJsonFile(nameStory + ".json", singleStory);
+	if(!resOp){
+		res.status(500).send('Non è stata aggiunta la nuova attività nel file della singola storia');
+		return;
+	}
+	resOp = writeJsonFile("attivita.json", activities);
+	if(!resOp){
+		res.status(500).send('Non è stata aggiunta la nuova attività nel file attivita.json');
+		return;
+	}
 	
-	fs.writeFileSync("attivita.json", JSON.stringify(objActivity), 'utf8',(err) => {
-		if (err){
-			console.log(err);
-			res.status(500).send('Non è stata aggiunta la nuova attività nel file attivita.json');
-		}
-	});
 	res.status(200).send('OK');
 });
 
 app.get("/autore/newActivities", function(req,res){
-	fs.readFile("attivita.json",(err,activities) => {
-		if (err){
-			console.log(err);
-			res.status(500).send('Non è presente il file attivita.json');
-		}
-		else {
-			res.setHeader('Content-Type', 'application/json; charset=UTF-8'); //header risposta
-			res.end(activities);
-		}
-	});
+	var activities = openAndParseJsonFile("attivita.json");
+	if(activities===undefined){
+		res.status(500).send('Non è presente il file attivita.json');
+		return;
+	}
+	res.setHeader('Content-Type', 'application/json; charset=UTF-8'); //header risposta
+	res.end(JSON.stringify(activities));
 });
 
 app.post("/autore/deleteActivity", function(req,res){
@@ -678,126 +789,127 @@ app.post("/autore/deleteActivity", function(req,res){
 	if(req.body === null || !req.body.hasOwnProperty('id') || req.body.id === ''){ //controllo se il body è null, se il body non ha la proprietà 'id e se l'id è vuoto
 		res.status(400).send('Errore nel corpo della richiesta');
 	}
-	var idActivityToRemove = req.body.id; //id missione da rimuovere
-	activity = fs.readFileSync ("attivita.json"); //leggere file e memorizza contenuto cioè stringa JSON
-	objActivity = JSON.parse(activity); //trasformo stringa in oggetto JS, sarà lista di missioni
-	var activityToDelete = objActivity.attivita.find(activity => activity.id === idActivityToRemove); //cerco l'oggetto attività che ha l'id dell'attività' che voglio eliminare nel file attivita.json
-	nameStory = activityToDelete.nomestoria;
-	singleStory = fs.readFileSync (nameStory + ".json");
-	objSingleStory = JSON.parse(singleStory);
-	var missionInStory = objSingleStory.missioni.find(mission => mission.id === activityToDelete.idmissione); //cerco l'oggetto missione che ha l'id della missione che voglio modificare nel file della singola storia
-	var listActivity = {"attivita": objActivity.attivita.filter(activity => activity.id !== idActivityToRemove)}; //filtra le attività nel file "attività.json" che hanno un id diverso da quello selezionato tramite il radiobutton e le memorizza nella variabile --> fatto per evitare il null
-	var listActivityInStory = {
-		"missioni": [{
-			id: missionInStory.id, 
-			nome: missionInStory.nome, 
-			attivita:missionInStory.attivita.filter(activity => activity.id !== idActivityToRemove) //filtro le attivtà che hanno un'id diverso dall'attività che voglio eliminare
-		}]
-	};  
-
-	var i,j,id;
-	//metodo per decrementare gli indici delle missioni
-	for (i=0, id=0; i<listActivity.attivita.length; i++, id++){
-		listActivity.attivita[i].id = "attivita" + id;
+	var idActivityToRemove = req.body.id; //id attività da rimuovere
+	
+	var activities = openAndParseJsonFile("attivita.json");
+	
+	var activityToDelete = activities.attivita.find(activity => activity.id === idActivityToRemove);
+	var storyName = activityToDelete.nomestoria;
+	var missionID = activityToDelete.idmissione;
+	
+	var out = activities.attivita.filter(activity => activity.id !== idActivityToRemove);
+	activities.attivita = out;
+	var resOp = writeJsonFile("attivita.json",activities);
+	if(!resOp){
+		res.status(500).send('Non è stata rimossa l\'attività nel file attivita.json');
+		return;
 	}
 	
-	//metodo per decrementare gli indici delle missioni nelle storie
-	for (i=0; i<listActivityInStory.missioni.length; i++){
-		for (j=0, id=0; j<listActivityInStory.missioni[i].attivita.length; j++, id++){
-			listActivityInStory.missioni[i].attivita[j].id = "attivita" + id;
+	var singleStory = openAndParseJsonFile(storyName+".json");
+	
+	var missionOut = singleStory.missioni.map(m => {
+		var tmp = m;
+		if(m.id === missionID){
+			tmp.attivita = m.attivita.filter(a => a.id !== idActivityToRemove);
 		}
+		return tmp;
+	});
+	singleStory.missioni = missionOut;
+	resOp = writeJsonFile(storyName+".json",singleStory);
+	if(!resOp){
+		res.status(500).send('Non è stata rimossa l\'attività nel file'+storyName+'.json');
+		return;
 	}
 	
-	fs.writeFileSync("attivita.json", JSON.stringify(listActivity), 'utf8',(err) => { //scrivo all'interno del file storiaP.json le storie filtrate memorizzate in out
-		if (err){
-			console.log(err);
-			res.status(500).send('Non è stato possibile eliminare l\'attività nel file missioni.json');
-		}
-	});
-	
-	fs.writeFileSync(nameStory + ".json", JSON.stringify(listActivityInStory), 'utf8',(err) => { //scrivo all'interno del file storiaP.json le storie filtrate memorizzate in out
-		if (err){
-			console.log(err);
-			res.status(500).send('Non è stato possibile eliminare l\' attività nel file della singola missione');
-		}
-	});
-	res.status(200).send('OK');
+	res.status(200).send("OK");
 });
 
 app.post("/autore/duplicateActivity", function(req,res){
 	console.log("Ricevuto richiesta duplica attività");
-	var duplicateActivity = req.body;
-	activity = fs.readFileSync ("attivita.json"); 
-	objActivity = JSON.parse(activity); //trasformo stringa in oggetto JS, sarà lista di missioni
-	nameStory = duplicateActivity.nomestoria; //nome storia
-	idMission = duplicateActivity.idmissione; 
-	singleStory = fs.readFileSync(nameStory + ".json"); //leggo file della storia
-	objSingleStory = JSON.parse(singleStory);
-	objActivity.attivita.push(duplicateActivity);//inserisco in coda all'array, la storia duplicata
-	
-	fs.writeFileSync("attivita.json", JSON.stringify(objActivity), 'utf8',(err) => { //scrivo all'interno del file storie.json la nuova storia trasformata in stringa
-		if (err){
-			console.log(err);
-			res.status(500).send('Non è stato possibile duplicare l\'attività nel file missioni.json');
-		}
-	});
-	
-	var attivitaClone = {
-		id:duplicateActivity.id,
-		domanda: duplicateActivity.domanda
-	};
-	if(duplicateActivity.hasOwnProperty('immaginesfondo')){
-		attivitaClone.immaginesfondo = duplicateActivity.immaginesfondo;
-	}
-	if(duplicateActivity.hasOwnProperty('avanti')){
-		attivitaClone.avanti = "Avanti";
-	}
-	else{
-		attivitaClone.rispostebottoni = {
-			sbagliata1 : duplicateActivity.rispostebottoni.sbagliata1,
-			giusta : duplicateActivity.rispostebottoni.giusta,
-			sbagliata2 : duplicateActivity.rispostebottoni.sbagliata2,
-			sbagliata3 : duplicateActivity.rispostebottoni.sbagliata3,
-			aiuto: duplicateActivity.rispostebottoni.aiuto,
-			incoraggiamento: duplicateActivity.rispostebottoni.incoraggiamento
-		};
-		if (duplicateActivity.hasOwnProperty('immagineaiuto')){
-			attivitaClone.rispostebottoni.immagineaiuto = duplicateActivity.rispostebottoni.immaginesfondo;
-		}
-	}
 
-	var missionToEdit = objSingleStory.missioni.find(mission => mission.id === idMission); //trovo la missione che ha quel determinato id nel file della singola storia
-	missionToEdit.attivita.push(attivitaClone); //inserisco in coda all'array, l'attività duplicata
+	var activityIDToClone = req.body.id;
 	
-	fs.writeFileSync(nameStory + ".json", JSON.stringify(objSingleStory), 'utf8',(err) => { //scrivo all'interno del file storie.json la nuova storia trasformata in stringa
-		if (err){
-			console.log(err);
-			res.status(500).send('Non è stato possibile duplicare l\'attività nel file della singola missione');
+	var activities = openAndParseJsonFile("attivita.json");
+	var targetActivity = activities.attivita.find(a => a.id === activityIDToClone);
+	var storyName = targetActivity.nomestoria;
+	var missionID = targetActivity.idmissione;
+	var _utils = readUtils();
+	
+	var outActivities = [];
+	activities.attivita.forEach(a => {
+		outActivities.push(a);
+		if(a.id === activityIDToClone){
+			var tmp = JSON.parse(JSON.stringify(a));
+			tmp.id = _utils.activities.lastIndex++;
+			outActivities.push(tmp);
 		}
 	});
-	res.status(200).send('OK');
+	activities.attivita = outActivities;
+	
+	var resOp = writeUtils(_utils);
+	if(!resOp){
+		res.status(500).send("Internal Server Error");
+		return;
+	}
+	
+	resOp = writeJsonFile("attivita.json", activities);
+	if(!resOp){
+		res.status(500).send("Internal Server Error");
+		return;
+	}
+	
+	var singleStory = openAndParseJsonFile(storyName+".json");
+	
+	var missionOut = [];
+	singleStory.missioni.forEach(m =>{
+		var activitiesOut = [];
+		if(m.id===missionID){
+			m.attivita.forEach(a => {
+				activitiesOut.push(a);
+				if(a.id === activityIDToClone){
+					var cloned = JSON.parse(JSON.stringify(a));
+					cloned.id = _utils.activities.lastIndex-1;
+					activitiesOut.push(cloned);
+				}
+			});
+		}else{
+			activitiesOut = m.attivita;
+		}
+		m.attivita = activitiesOut;
+		missionOut.push(m);
+	});
+	
+	singleStory.missioni = missionOut;
+	
+	resOp = writeJsonFile(storyName+".json", singleStory);
+	if(!resOp){
+		res.status(500).send("Internal Server Error");
+		return;
+	}
+	res.status(200).send("OK");
 });
 
 app.post('/autore/modifyActivities', upload.any(), function (req, res) {
 	console.log("Ricevuto richiesta modifica attività");
 	var formDataString = req.body.data;
+	var baseImagePath = "./image/";
 	if(formDataString===undefined){
 		res.status(500).send("Errore nella richiesta del client");
 		return;
 	}
-	var modifyActivity = JSON.parse(formDataString);
-	var id = modifyActivity.id;
-	var question = modifyActivity.domanda;
-	nameStory = modifyActivity.titolostoria;
-	var missionTitle = modifyActivity.titolomissione;	
-	idMission = modifyActivity.idmissione;
-	singleStory = fs.readFileSync(nameStory + ".json"); 
-	objSingleStory = JSON.parse(singleStory);
-	activity = fs.readFileSync("attivita.json"); 
-	objActivity = JSON.parse(activity);
-	var missionToEdit = objSingleStory.missioni.find(mission => mission.id === idMission); //trovo la missione che ha quel id nel file della singola storia
-	var activityIdToEditInStory = missionToEdit.attivita.findIndex(activity => activity.id === id); //trovo l'id dell'attività che si trova nel file della singola storia
-	var activityIdToEdit = objActivity.attivita.findIndex(activity => activity.id === id); //trovo id dell'attività che si trova nel file delle attività
+	
+	var modifyActivity = JSON.parse(formDataString); //data to update
+	var activityID = modifyActivity.id;
+	
+	var activities = openAndParseJsonFile("attivita.json");
+	
+	//-- trova i dati che non cambiano
+	var out = activities.attivita.find(a => a.id === activityID);
+	var missionID = out.idmissione;
+	var storyName = out.nomestoria;
+	var storyID = out.idstoria;
+	var missionTitle = out.nomemissione;
+	
 	var background;
 	var helpimage;
 	if(req.files.length>0){
@@ -813,66 +925,147 @@ app.post('/autore/modifyActivities', upload.any(), function (req, res) {
 	console.log("Background uploaded? " + (background!==undefined ? "True" : "False"));
 	console.log("Helpimage uploaded? " + (helpimage!==undefined ? "True" : "False"));
 
-	var modifyActivityInStory = {
-		id: id,
-		domanda: question
-	};
-	var modifyActivityObj = {
-		id: id,
-		checkbox: modifyActivity.checkbox,
-		domanda: question,
-		nomestoria: nameStory,
-		idmissione: idMission,
-		nomemissione: missionTitle
-	};
+	// -- update activity with old fields
+	modifyActivity.idmissione = missionID;
+	modifyActivity.nomestoria = storyName;
+	modifyActivity.idstoria = storyID;
+	modifyActivity.nomemissione = missionTitle;
 	
-	var baseImagePath = "./image/";
 	if(background!==undefined){
-		modifyActivityInStory.immaginesfondo = baseImagePath+background.filename;
-		modifyActivityObj.immaginesfondo = baseImagePath+background.filename;
+		modifyActivity.immaginesfondo = baseImagePath+background.filename;
 	}
-	if(modifyActivity.checkbox === false){
-		modifyActivityInStory.avanti = "Avanti";
-		modifyActivityObj.avanti = "Avanti";
-	}
-	else{
-		modifyActivityInStory.rispostebottoni = {
-			sbagliata1 : activity.rispostebottoni.sbagliata1,
-			giusta : activity.rispostebottoni.giusta,
-			sbagliata2 : activity.rispostebottoni.sbagliata2,
-			sbagliata3 : activity.rispostebottoni.sbagliata3,
-			aiuto: activity.rispostebottoni.aiuto,
-			incoraggiamento: activity.rispostebottoni.incoraggiamento
-		};
-		modifyActivityObj.rispostebottoni = {
-			sbagliata1 : modifyActivity.rispostebottoni.sbagliata1,
-			giusta : modifyActivity.rispostebottoni.giusta,
-			sbagliata2 : modifyActivity.rispostebottoni.sbagliata2,
-			sbagliata3 : modifyActivity.rispostebottoni.sbagliata3,
-			aiuto: modifyActivity.rispostebottoni.aiuto,
-			incoraggiamento: modifyActivity.rispostebottoni.incoraggiamento
-		};
-		if(helpimage!==undefined){
-			modifyActivityInStory.rispostebottoni.immagineaiuto = baseImagePath+helpimage.filename;
-			modifyActivityObj.rispostebottoni.immagineaiuto = baseImagePath+helpimage.filename;
+	
+	if(helpimage!==undefined){
+		if(modifyActivity.hasOwnProperty('checkboxbottoni')){
+			modifyActivity.rispostebottoni.immagineaiuto = baseImagePath+helpimage.filename;
+		}else{
+			modifyActivity.immagineaiuto = baseImagePath+helpimage.filename;
 		}
 	}
 	
-	objActivity.attivita.splice(activityIdToEdit,1,modifyActivityObj); //modifico i valori dell'attività inserendoli nella posizione dell'attività che voglio modificare nel file delle attivtà
-	missionToEdit.attivita.splice(activityIdToEditInStory,1,modifyActivityInStory); //modifico i valori dell'attività inserendoli nella posizione dell'attività che voglio modificare nel file della singola storia
-	
-	fs.writeFileSync(nameStory + ".json", JSON.stringify(objSingleStory), 'utf8',(err) => { //riscrivo il file missioni.json contenente la modifica della storia
-		if (err){
-			console.log(err);
-			res.status(500).send('Non è stato possibile apportare alla missione le modifiche nel file della singola storia');
+	var activitiesOut = [];
+	activities.attivita.forEach(a => {
+		if(a.id === activityID){
+			activitiesOut.push(modifyActivity);
+		}else{
+			activitiesOut.push(a);	
 		}
 	});
 	
-	fs.writeFileSync("attivita.json", JSON.stringify(objActivity), 'utf8',(err) => { //riscrivo il file missioni.json contenente la modifica della storia
-		if (err){
-			console.log(err);
-			res.status(500).send('Non è stato possibile apportare all\'attività le modifiche nel file attività.json');
+	activities.attivita = activitiesOut;
+	var resOp = writeJsonFile("attivita.json", activities);
+	if(!resOp){
+		res.status(500).send("Internal Server Error");
+		return;
+	}
+	
+	var singleStory = openAndParseJsonFile(storyName + ".json");
+	var modifyActivity = JSON.parse(formDataString);
+
+	if(background!==undefined){
+		modifyActivity.immaginesfondo = baseImagePath+background.filename;
+	}
+	
+	if(helpimage!==undefined){
+		if(modifyActivity.hasOwnProperty('checkboxbottoni')){
+			modifyActivity.rispostebottoni.immagineaiuto = baseImagePath+helpimage.filename;
+		}else{
+			modifyActivity.immagineaiuto = baseImagePath+helpimage.filename;
 		}
+	}
+	
+	var missionOut = [];
+	singleStory.missioni.forEach(m => {
+		var tmp = m;
+		if(missionID === m.id){
+			var activitiesOut = [];
+			m.attivita.forEach(a => {
+				if(a.id === activityID){
+					a = modifyActivity;
+				}
+				activitiesOut.push(a);
+			});
+			tmp.attivita = activitiesOut;
+		}
+		missionOut.push(tmp);
 	});
+	
+	singleStory.missioni = missionOut;
+	var resOp = writeJsonFile(storyName+".json", singleStory);
+	if(!resOp){
+		res.status(500).send("Internal Server Error");
+		return;
+	}
 	res.status(200).send('OK');
+});
+
+app.post('/autore/uploadStory', function (req, res) {
+	console.log("Ricevuto richiesta caricamento storia");
+	var bodyUploadStory = req.body;
+	
+	var _utils = readUtils();
+	var stories = openAndParseJsonFile("storie.json");
+	
+	var storyID			= _utils.stories.lastIndex++;
+	var storyName		= bodyUploadStory.nomestoria;
+	var isAccessible	= bodyUploadStory.accessibile;
+	var ageRange		= bodyUploadStory.eta;	
+	
+	var resOp = writeUtils(_utils);
+	if(!resOp){
+		res.status(500).send("Internal Server Error");
+		return;
+	}
+
+	var s = {
+		id: storyID,
+		nome: storyName,
+		accessibile: isAccessible,
+		eta: ageRange,
+		stato: "archiviata"
+	};
+	resOp = createAndSaveStory(s);
+	if(!resOp){
+		res.status(500).send("Internal Server Error");
+		return;
+	}
+	
+	bodyUploadStory.id = storyID;
+	
+	bodyUploadStory.missioni.forEach(m => {
+		var mission = {
+			id: _utils.missions.lastIndex++,
+			nome: m.nome,
+			idstoria: storyID,
+			nomestoria: storyName
+		};
+		resOp = resOp && createAndSaveMission(mission);
+		
+		m.id = mission.id;
+		
+		m.attivita.forEach(a => {
+			var activity = JSON.parse(JSON.stringify(a));
+			activity.id = _utils.activities.lastIndex++;
+			activity.idstoria = storyID;
+			activity.idmissione = m.id;
+			activity.nomestoria = storyName;
+			activity.nomemissione = m.nome;
+			
+			resOp = resOp && createAndSaveActivity(activity);	
+			a.id = activity.id;
+		});
+	});
+	resOp = writeUtils(_utils) && resOp;
+	if(!resOp){
+		res.status(500).send("Internal Server Error");
+		return;
+	}
+	
+	resOp = writeJsonFile(storyName+".json", bodyUploadStory);
+	if(!resOp){
+		res.status(500).send("Internal Server Error");
+		return;
+	}
+	
+	res.status(200).send("OK");
 });
