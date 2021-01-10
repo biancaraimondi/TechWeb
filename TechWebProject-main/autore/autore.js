@@ -72,7 +72,7 @@ $(document).ready(function(){
 	$("#modificastoria").click(function(){
 		retrievedObjectStory = localStorage.getItem('storie'); //ottengo elenco storie dalla local storage
 		if(retrievedObjectStory === null){
-			document.getElementById('messageerrorfunction').innerHTML = ('Impossibile modificare la storia.');
+			document.getElementById('messageerrorfunction').innerHTML = ('<i>Impossibile modificare la storia.</i>');
 			document.getElementById("titolo1").hidden = true;
 			document.getElementById("formmodifica").hidden = true;
 			document.getElementById("formattivita").hidden = true;
@@ -444,6 +444,10 @@ $(document).ready(function(){
 		viewActivities();
 	});
 	
+	$(".navbar-toggler").click(function() {
+		cambiaPagina('primaPagina.html');
+	});
+	
 });
 
 function readFile(input) {
@@ -682,7 +686,7 @@ function validateModifyForm(e){
 	}
 	
 	else{
-		document.getElementById("messageerrmodattivita").innerHTML = ("&nbspNon è stata selezionata un'\attività.");
+		document.getElementById("messageerrmodattivita").innerHTML = ("<i>&nbspNon è stata selezionata un'\attività.</i>");
 		return false;
 	}			
 }
@@ -695,12 +699,12 @@ function getCreaAttivitaHTTPReq(){
 	xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function() {
 		if(xhr.readyState===4 && xhr.status===200){
-			document.getElementById("messageerrattivita").innerHTML = ('&nbspL\'attività è stata creata.');
+			document.getElementById("messageerrattivita").innerHTML = ('<i>&nbspL\'attività è stata creata.</i>');
 			location.reload();
 			return;
 		}
 		else{
-			document.getElementById("messageerrattivita").innerHTML = ('&nbspL\'attività non è stata creata, riprova.');
+			document.getElementById("messageerrattivita").innerHTML = ('<i>&nbspL\'attività non è stata creata, riprova.</i>');
 			return;
 		}
 	};
@@ -711,12 +715,12 @@ function getDuplicaAttivitaHTTPReq(){
 	xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === 4 && xhr.status === 200) {
-			document.getElementById("erroreattivita").innerHTML = ('&nbspL\'attività è stata duplicata.');
+			document.getElementById("erroreattivita").innerHTML = ('<i>&nbspL\'attività è stata duplicata.</i>');
 			location.reload();
 			return;
 		}
 		else{
-			document.getElementById("erroreattivita").innerHTML = ('&nbspL\'attività non è stata duplicata.');
+			document.getElementById("erroreattivita").innerHTML = ('<i>&nbspL\'attività non è stata duplicata.</i>');
 			return;
 		}
 	};
@@ -747,12 +751,12 @@ function getCreaMissioneHTTPReq(){
 	xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function() {
 		if(xhr.readyState===4 && xhr.status===200){ //se il server risponde con ok, ricarico la pagina per visualizzare tutte le missioni comprese quelle nuove
-			document.getElementById("messageerrormissione").innerHTML = ('La missione è stata creata.');
+			document.getElementById("messageerrormissione").innerHTML = ('<i>La missione è stata creata.</i>');
 			location.reload();
 			return;
 		}
 		else{
-			document.getElementById("messageerrormissione").innerHTML = ('La missione non è stata creata, riprova.');
+			document.getElementById("messageerrormissione").innerHTML = ('<i>La missione non è stata creata, riprova.</i>');
 			return;
 		}
 	};
@@ -773,12 +777,12 @@ function getDuplicaMissioneHTTPReq(){
 	xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === 4 && xhr.status === 200) {
-			document.getElementById("errormission").innerHTML = ('&nbspLa missione è stata duplicata.');
+			document.getElementById("errormission").innerHTML = ('<i>&nbspLa missione è stata duplicata.</i>');
 			location.reload();
 			return;
 		}
 		else{
-			document.getElementById("errormission").innerHTML = ('&nbspLa missione non è stata duplicata.');
+			document.getElementById("errormission").innerHTML = ('<i>&nbspLa missione non è stata duplicata.</i>');
 			return;
 		}
 	};
@@ -800,12 +804,12 @@ function getCreaStoriaHTTPReq(){
 	xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function() {
 		if(xhr.readyState===4 && xhr.status===200){ //se il server risponde con ok, ricarico la pagina per visualizzare tutte le storie comprese quelle nuove
-			document.getElementById("messageerror").innerHTML = ('La storia è stata creata.');
+			document.getElementById("messageerror").innerHTML = ('<i>La storia è stata creata.</i>');
 			location.reload();
 			return;
 		}
 		else{
-			document.getElementById("messageerror").innerHTML = ('La storia non è stata creata, riprova.');
+			document.getElementById("messageerror").innerHTML = ('<i>La storia non è stata creata, riprova.</i>');
 			return;
 		}
 	};
@@ -846,7 +850,7 @@ function getPubblicaStoriaHTTPReq(){
 	xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === 4 && xhr.status === 200) {
-			document.getElementById("messageerrorfunction").innerHTML = ('&nbspLa storia è stata pubblicata.');
+			document.getElementById("messageerrorfunction").innerHTML = ('<i>&nbspLa storia è stata pubblicata.</i>');
 			document.getElementById("titolo1").hidden = true;
 			document.getElementById("formmodifica").hidden = true;
 			document.getElementById("formattivita").hidden = true;
@@ -854,7 +858,7 @@ function getPubblicaStoriaHTTPReq(){
 			return;
 		}
 		else{
-			document.getElementById("messageerrorfunction").innerHTML = ('&nbspLa storia non è stata pubblicata.');
+			document.getElementById("messageerrorfunction").innerHTML = ('<i>&nbspLa storia non è stata pubblicata.</i>');
 			document.getElementById("titolo1").hidden = true;
 			document.getElementById("formmodifica").hidden = true;
 			document.getElementById("formattivita").hidden = true;
@@ -868,7 +872,7 @@ function getArchiviaStoriaHTTPReq(){
 	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === 4 && xhr.status === 200) {
-			document.getElementById("messageerrorfunction").innerHTML = ('&nbspLa storia è stata archiviata.');
+			document.getElementById("messageerrorfunction").innerHTML = ('<i>&nbspLa storia è stata archiviata.</i>');
 			document.getElementById("titolo1").hidden = true;
 			document.getElementById("formmodifica").hidden = true;
 			document.getElementById("formattivita").hidden = true;
@@ -876,7 +880,7 @@ function getArchiviaStoriaHTTPReq(){
 			return;
 		}
 		else{
-			document.getElementById("messageerrorfunction").innerHTML = ('&nbspLa storia non è stata archiviata.');
+			document.getElementById("messageerrorfunction").innerHTML = ('<i>&nbspLa storia non è stata archiviata.</i>');
 			document.getElementById("titolo1").hidden = true;
 			document.getElementById("formmodifica").hidden = true;
 			document.getElementById("formattivita").hidden = true;
@@ -890,7 +894,7 @@ function getDuplicaStoriaHTTPReq(){
 	xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === 4 && xhr.status === 200) {
-			document.getElementById("messageerrorfunction").innerHTML = ('&nbspLa storia è stata duplicata.');
+			document.getElementById("messageerrorfunction").innerHTML = ('<i>&nbspLa storia è stata duplicata.</i>');
 			document.getElementById("titolo1").hidden = true;
 			document.getElementById("formmodifica").hidden = true;
 			document.getElementById("formattivita").hidden = true;
@@ -898,7 +902,7 @@ function getDuplicaStoriaHTTPReq(){
 			return;
 		}
 		else{
-			document.getElementById("messageerrorfunction").innerHTML = ('&nbspLa storia non è stata duplicata.');
+			document.getElementById("messageerrorfunction").innerHTML = ('<i>&nbspLa storia non è stata duplicata.</i>');
 			document.getElementById("titolo1").hidden = true;
 			document.getElementById("formmodifica").hidden = true;
 			document.getElementById("formattivita").hidden = true;
@@ -1027,9 +1031,3 @@ function viewActivities(){
 	};
 	xhr.send();
 }
-
-$(document).ready(function(){
-	$(".navbar-toggler").click(function() {
-		cambiaPagina('primaPagina.html');
-	});
-});
