@@ -25,6 +25,10 @@ gestire avanzamento se il valutatore si collega dopo il player
 FORSE -> gestire se viene cambiata la storia nel server
 
 MARTI:
+RISOLTO PROBLEMONE INNERHTML:
+            var element = document.getElementById('testoRispostaPlayer');
+            element.innerHTML = "";
+
 //TODO far visualizzare al player un messaggio per cambiare il nome perchè già esistente nella lista degli utenti
 testare il codice
 gestire errori del caricamento immagine da fotocamera: https://ichi.pro/it/come-accedere-a-una-webcam-e-scattare-una-foto-con-javascript-203484453944696
