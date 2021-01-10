@@ -14,6 +14,8 @@ installare multer (npm install --save multer)
 
 prima della consegna del progetto, eliminare nel codice che viene caricato sul server unibo, tutti i commenti lasciare solo quelli importanti
 
+rinominare la cartella "immaginiPlayer" con "image" (viene generata in automatico appena si apre il server)
+
 BIANCA:
 
 Gli elementi non presenti nel documento non vengono cercati da getElementById(). Quando crei un elemento ed assegni un ID ad esso, devi inserire l'elemento nell'albero del documento con Node.insertBefore() o un metodo simile prima di poterlo ottenere con getElementById()
