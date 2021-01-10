@@ -7,6 +7,9 @@ var playersList;//variabile utilizzata nell'ottenere il valore del player da vis
 var i;//iteratore per cicli for
 var idGiocatorePrecendente;//player visualizzato precedentemente
 var socket = io();//utilizzato per gestire la chat
+var storia = {};
+var rispostaAttuale = null;
+var risposteDaValutare = [];
 
 function cambiaPagina(url) {
 	window.location.replace(url);
@@ -72,6 +75,18 @@ $(document).ready( function(){
 	xmlhttp2.open("GET", "/valutatore/messaggi", true);
 	xmlhttp2.send();
 	
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/player/ottienistoria', true); //apro connessione tipo GET
+    xhr.onreadystatechange = function() {
+    	if (xhr.readyState === 4 && xhr.status === 200){
+    		var storiaJson = xhr.responseText; //ottengo storia in formato json	
+    		console.log(storiaJson);
+            storia = JSON.parse(storiaJson); //ottengo storia in js
+    		console.log(JSON.stringify(storia));
+    	}
+    };
+    xhr.send();
+	
 	/*$.get( "/server/utenti", function(data) {
 		var obj = JSON.parse(data);
 		for (i=0;i<obj.length;i++){
@@ -110,14 +125,22 @@ $(document).ready( function(){
 				}
 			}
 			
-			//TODO visualizzare le risposte del giocatore selezionato
+			//visualizzare l'avanzamento del giocatore selezionato
 			for (i=0;i<utenti.length;i++){
 				if (utenti[i].nome == idGiocatore){
 					console.log("VALUTATORE: contatori: " + utenti[i].avanzamento + " " + utenti[i].numAttivita + " " + utenti[i].nome);
 					modificaAvanzamento(utenti[i].avanzamento, utenti[i].numAttivita);
-					console.log('VALUTATORE: messaggio di avanzamento dal player ' + utenti[i].nome);
 				}
-			}	
+			}
+			
+			for (i=0;i<risposteDaValutare.length;i++){
+				if (risposteDaValutare[i].player == idGiocatore){
+					document.getElementById('testoRispostaPlayer').innerHTML = "DOMANDA: " + storia.missioni[risposteDaValutare[i].missione].attivita[risposteDaValutare[i].attivita].domanda;
+					document.getElementById('testoRispostaPlayer').innerHTML += "<br>RISPOSTA: " + risposteDaValutare[i].risposta;
+					rispostaAttuale = risposteDaValutare[i];
+					i=risposteDaValutare.length;
+				}
+			}
 		}
 	});
 	
@@ -133,6 +156,63 @@ $(document).ready( function(){
 		document.getElementById("messaggiChat").innerHTML += "<div class='message message-right'> <div class='message-text-wrapper'> <div class='message-text'>" + messaggioValutatore + "</div></div></div>";
 		messaggi.push({nomeTrasmittente : nomeValutatore, nomeRicevente: idGiocatore, messaggio : messaggioValutatore});
 		document.getElementById('testoDaInviare').value = '';
+	});
+	
+	$("#si").click(function() {
+		for (i=0;i<risposteDaValutare.length;i++){
+			if(risposteDaValutare[i] === rispostaAttuale){
+				console.log("risposteDaValutare[i] è uguale a rispostaAttuale");
+				socket.emit('valutazione', rispostaAttuale.missione, rispostaAttuale.attivita, "si", idGiocatore);
+				risposteDaValutare.splice(i, 1);
+				//i++;
+			}
+		}
+		console.log(JSON.stringify(risposteDaValutare));
+		//TODO gestire se si carica un'immagine o un testo
+		inserisci = true;
+		for (i=0;i<risposteDaValutare.length;i++){
+			if (risposteDaValutare[i].player == idGiocatore){
+				document.getElementById('testoRispostaPlayer').innerHTML = "DOMANDA: " + storia.missioni[risposteDaValutare[i].missione].attivita[risposteDaValutare[i].attivita].domanda;
+				document.getElementById('testoRispostaPlayer').innerHTML += "<br>RISPOSTA: " + risposteDaValutare[i].risposta;
+				rispostaAttuale = risposteDaValutare[i];
+				i=risposteDaValutare.length;
+				inserisci = false;
+			}
+		}
+		if (inserisci){
+			rispostaAttuale = null;
+			//document.getElementById('testoRispostaPlayer').innerHTML = "";
+			//$('#testoRispostaPlayer').empty();
+		}
+	});
+	
+	$("#no").click(function() {
+		for (i=0;i<risposteDaValutare.length;i++){
+			if(risposteDaValutare[i] === rispostaAttuale){
+				console.log("risposteDaValutare[i] è uguale a rispostaAttuale");
+				socket.emit('valutazione', rispostaAttuale.missione, rispostaAttuale.attivita, "no", idGiocatore);
+				risposteDaValutare.splice(i, 1);
+				//i++;
+			}
+		}
+		console.log(JSON.stringify(risposteDaValutare));
+		//TODO gestire se si carica un'immagine o un testo
+		inserisci = true;
+		for (i=0;i<risposteDaValutare.length;i++){
+			if (risposteDaValutare[i].player == idGiocatore){
+				document.getElementById('testoRispostaPlayer').innerHTML = "DOMANDA: " + storia.missioni[risposteDaValutare[i].missione].attivita[risposteDaValutare[i].attivita].domanda;
+				document.getElementById('testoRispostaPlayer').innerHTML += "<br>RISPOSTA: " + risposteDaValutare[i].risposta;
+				rispostaAttuale = risposteDaValutare[i];
+				i=risposteDaValutare.length;
+				inserisci = false;
+			}
+		}
+		if (inserisci){
+			rispostaAttuale = null;
+			//TODO resettare il testo della domanda - SBAGLIATO
+			//document.getElementById('testoRispostaPlayer').innerHTML = "";
+			//$('#testoRispostaPlayer').empty();
+		}
 	});
 	
 	//funzione che riceve un messaggio dal server e copia il messaggio come message-left e nella lista dei messaggi
@@ -177,12 +257,30 @@ $(document).ready( function(){
     socket.on('risposta testo', function(risposta, missione, attivita, player) {
             console.log('VALUTATORE: risposta di testo dal player ' + player + ": " + risposta + ", missione: " + missione + ", attivita: " + attivita);
             
-            //modifica la barra di avanzamento direttamente se corrisponde all'idGiocatore attualmente cliccato
-            if (idGiocatore == player){
+            //modifica il campo risposte da valutare direttamente se corrisponde all'idGiocatore attualmente cliccato
+            if (idGiocatore == player && rispostaAttuale == null){
                 //TODO creare funzione per valutare la risposta testuale del player
+            	console.log("VALUTATORE: la rispostaAttuale è ancora {}");
+            	document.getElementById('testoRispostaPlayer').innerHTML = "DOMANDA: " + storia.missioni[missione].attivita[attivita].domanda;
+    			document.getElementById('testoRispostaPlayer').innerHTML += "<br>RISPOSTA: " + risposta;
+                rispostaAttuale = {
+                        missione : missione,
+                        attivita: attivita,
+                        risposta : risposta,
+                        immagine : null,
+                        player : player
+                    }
             }
             for (i=0;i<utenti.length;i++){
                 //TODO creare array di risposte
+            	risposteDaValutare.push({
+                        missione : missione,
+                        attivita: attivita,
+                        risposta : risposta,
+                        immagine : null,
+                        player : player
+                    });
             }
+            console.log(JSON.stringify(risposteDaValutare));
         });
 });
