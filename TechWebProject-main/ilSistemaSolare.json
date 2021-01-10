@@ -4,7 +4,7 @@
             "nome": "Alla scoperta del Sistema Solare",
             "attivita": [
                 {
-                    "domanda": "Benvenuto in questa nuova avventura spaziale! Sei stato selezionato dal nostro team per salire a bordo di Jupiter, una meravigliosa astronave che ti porterà in giro per lo spazio alla scoperta del nostro sistema solare. Se sei pronto direi di iniziare. Let's go!"
+                    "domanda": "Benvenuto in questa nuova avventura spaziale! Sei stato selezionato dal nostro team per salire a bordo di Jupiter, una meravigliosa astronave che ti porterà in giro per lo spazio alla scoperta del nostro sistema solare. Se sei pronto direi di iniziare. Let's go!",
                     "avanti": "Avanti"
                 },
                 {
@@ -83,7 +83,7 @@
                     }
                 },
                 {
-                    "domanda": "Complimenti! Hai portato a termine questa super avventura e Jupiter ora è pronta a rientrare alla base. Hai fatto un ottimo lavoro, continua così anche in futuro e non smettere mai di studiare! Alla prossima avventuraaa!"
+                    "domanda": "Complimenti! Hai portato a termine questa super avventura e Jupiter ora è pronta a rientrare alla base. Hai fatto un ottimo lavoro, continua così anche in futuro e non smettere mai di studiare! Alla prossima avventuraaa!",
                     "avanti": "Avanti"
                 }
             ]
