@@ -26,7 +26,7 @@ mettere a posto le lettere accentate nella storia JSON perche il browser non le 
 
 MARTI:
 testare il codice
-gestire errori del caricamento immagine da fotocamera
+gestire errori del caricamento immagine da fotocamera: https://ichi.pro/it/come-accedere-a-una-webcam-e-scattare-una-foto-con-javascript-203484453944696
 sistemare css (nuvola aiuto si nasconde dietro al bottone ricarica pagina)
 sistemare css (background)
 creare funzione visualizzaValutazioni
