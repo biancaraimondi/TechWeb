@@ -1,12 +1,12 @@
 @charset "utf-8";
 /* CSS Document */
 
-div#row1{
+div#row1 {
     height: 200px;
     margin: 30px 20px 20px 45px; /* margine sup 30px, margine dx 20px, margine inf 20px, margine sx 45px*/
 }
 
-div#row2{
+div#row2 {
     width: 200px;
     height: 200px;
     position: absolute;
@@ -15,23 +15,24 @@ div#row2{
     margin: -100px 0 0 -100px;
 }
 
-div#row4{
+div#row4 {
     float: right;
 }
 
-#campoTestoIniz > h1{
+#campoTestoIniz > h1 {
     color: #8b0000;
     text-align: center;
     font-style: italic;
 }
 
-#campoTestoIniz > p{
+#campoTestoIniz > p {
     color: black;
     text-align: center;
     font-style: italic;
 }
 
-#domanda{
+#domanda {
+    font-family: Baskerville, "Palatino Linotype", Palatino, "Century Schoolbook L", "Times New Roman", "serif";
     background-color: lightgrey;
     border-radius: 30px;
     opacity: 0.8;
@@ -41,7 +42,8 @@ div#row4{
     position: absolute;
     }
 
-#campoMessaggio{
+#campoMessaggio {
+    font-family: Baskerville, "Palatino Linotype", Palatino, "Century Schoolbook L", "Times New Roman", "serif";
     background-color: lightgrey;
     margin-top: 10px;
     margin-bottom: 60%;
@@ -53,8 +55,14 @@ div#row4{
     position: absolute;
     }
 
-#aiuto{
+#aiuto {
     margin-bottom: 35px;
+}
+
+label {
+    font-family: Baskerville, "Palatino Linotype", Palatino, "Century Schoolbook L", "Times New Roman", "serif";
+    line-height: 30px; /* Altezza di riga */
+    width: 220px; /* Larghezza */
 }
 
 .panel-default > .panel-heading {
@@ -65,6 +73,7 @@ div#row4{
 }
 
 .btn-dark {
+    font-family: Baskerville, "Palatino Linotype", Palatino, "Century Schoolbook L", "Times New Roman", "serif";
     color: white;
     background-color: #8b0000;
     border-color: #8b0000;
@@ -83,7 +92,7 @@ div#row4{
     background-color: #8b0000;
 }
 
-.navbar-toggler{
+.navbar-toggler {
     border-radius: 5px;
     border-color: #8b0000;
     box-shadow: 2px 2px 2px black;
@@ -92,6 +101,7 @@ div#row4{
 }
 
 /*Chat widget*/
+/*chat style from https://www.bootdey.com/snippets/view/messages-chat-with-tabs#css*/
 .chat-widget .message {
     display:block;
     margin-bottom:20px;
@@ -187,7 +197,3 @@ div#row4{
     background:transparent;
     margin-top:-20px;
 }
-
-/*@media (min-width: 320px) and (max-width: 425px){
-    
-}*/

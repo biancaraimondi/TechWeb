@@ -17,7 +17,7 @@ $(document).ready(function () {
     var z = 0;
     var contatoreValutazioni = 0;
     var contatoreValutazioniEffettive = 0;
-    var valutazioni[];
+    var valutazioni = [];
     /*valutazioni[
         {
             missione : valore,
@@ -89,6 +89,7 @@ $(document).ready(function () {
         }
     });
     
+    //gestione fotocamera from https://www.laboratoriolibero.com/corsi/jobselect/11/Lezione_11_camera.pdf
     $('#bottoneFoto').click(function(){
         var app = {
             initialize: function() {
@@ -134,7 +135,7 @@ $(document).ready(function () {
         else{
             //messaggio di incitamento nel caso di risposta sbagliata
             document.getElementById('campoMessaggio').hidden = false;
-            document.getElementById('campoMessaggio').innerHTML = "Sei sicuro della risposta? Non demordere e riprovaci.";
+            document.getElementById('campoMessaggio').innerHTML = "Sei sicuro della risposta? Non demordere e riprovaci. E se hai bisogno di un piccolo aiuto clicca il bottone 'Aiuto'.";
         }
     });
     
@@ -147,7 +148,7 @@ $(document).ready(function () {
         else{
             //messaggio di incitamento nel caso di risposta sbagliata
             document.getElementById('campoMessaggio').hidden = false;
-            document.getElementById('campoMessaggio').innerHTML = "Sei sicuro della risposta? Non demordere e riprovaci.";
+            document.getElementById('campoMessaggio').innerHTML = "Sei sicuro della risposta? Non demordere e riprovaci. E se hai bisogno di un piccolo aiuto clicca il bottone 'Aiuto'.";
         }
     });
     
@@ -160,7 +161,7 @@ $(document).ready(function () {
         else{
             //messaggio di incitamento nel caso di risposta sbagliata
             document.getElementById('campoMessaggio').hidden = false;
-            document.getElementById('campoMessaggio').innerHTML = "Sei sicuro della risposta? Non demordere e riprovaci.";
+            document.getElementById('campoMessaggio').innerHTML = "Sei sicuro della risposta? Non demordere e riprovaci. E se hai bisogno di un piccolo aiuto clicca il bottone 'Aiuto'.";
         }
     });
     
@@ -173,7 +174,7 @@ $(document).ready(function () {
         else{
             //messaggio di incitamento nel caso di risposta sbagliata
             document.getElementById('campoMessaggio').hidden = false;
-            document.getElementById('campoMessaggio').innerHTML = "Sei sicuro della risposta? Non demordere e riprovaci.";
+            document.getElementById('campoMessaggio').innerHTML = "Sei sicuro della risposta? Non demordere e riprovaci. E se hai bisogno di un piccolo aiuto clicca il bottone 'Aiuto'.";
         }
     });
     
@@ -241,7 +242,7 @@ $(document).ready(function () {
         //caso in cui è presente l'imm sfondo
         if(storia.missioni[i] && storia.missioni[i].attivita[j].immaginesfondo){
             console.log("Entrato nell'if dell'immagine sfondo");
-            document.body.style.background = "url('"+storia.missioni[i].attivita[j].immaginesfondo+"') no-repeat center center fixed";
+            document.body.style.background = "url('"+storia.missioni[i].attivita[j].immaginesfondo+"') no-repeat center center";
         }
         else {
             console.log("Entrato nell'else dell'immagine sfondo");
