@@ -31,9 +31,12 @@ gestire errore caricamento radiobutton player vuoto
 html prima pagina, il bottone valutatore già all'inizio
 html valutatore, hidden img
 
+cambiare html valutazione risposta
+
 MARTI:
 accessibilità
 
+cambiare socket.on valutazione risposta
 RISOLTO PROBLEMONE INNERHTML:
             var element = document.getElementById('testoRispostaPlayer');
             element.innerHTML = "";
