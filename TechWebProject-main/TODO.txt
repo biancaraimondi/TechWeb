@@ -35,6 +35,7 @@ cambiare html valutazione risposta (num da 1 a 10 come risposta + testo)
 modifica risoluzione immagini
 
 MARTI:
+gestire css div ultima pagina player
 accessibilità
 modifica risoluzione immagini
 cambiare socket.on valutazione risposta
