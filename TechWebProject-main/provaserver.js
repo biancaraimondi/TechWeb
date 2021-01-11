@@ -84,18 +84,24 @@ io.on('connection', function (socket) {
 
     //gestisce la chat tra valutatore e player
     socket.on('chat message', function (msg, trasmittente, ricevente) {
-        
+        var prova = "nomeErrato";
+        console.log(prova);
         //se l'utente non è già connesso, lo inseriamo nella lista degli utenti connessi
         inserisci = true;
         for (i=0;i<utenti.length;i++){
             if(utenti[i].nome == trasmittente){
-                if(utenti[i].socket == socket.id){
-                	//TODO far visualizzare al player un messaggio per cambiare il nome perchè già esistente nella lista degli utenti
+                if(utenti[i].socket !== socket.id){
+                    socket.to(socket.id).emit('chat message', prova, prova, prova);
+                    console.log("If interno");
                 }
-                inserisci = false;
+                else{
+                    inserisci = false;
+                }
+                console.log("If esterno");
             }
         }
         if (inserisci){
+            console.log(trasmittente);
             utenti.push({nome : trasmittente, socket : socket.id, avanzamento : null, attivita : null});
             //mostra gli utenti connessi
             console.log('SERVER: utenti: ');
@@ -104,6 +110,7 @@ io.on('connection', function (socket) {
             }
         }
         
+        console.log(JSON.stringify(utenti));
         console.log('SERVER: message from ' + trasmittente + ' to ' + ricevente + ': ' + msg);
         
         messaggi.push({messaggio : msg, trasmittente : trasmittente, ricevente : ricevente});
