@@ -36,8 +36,6 @@ nome chiave dell'immagine all'interno della domanda è immaginedomanda
 camporispostafoto è il campo da scrivere nella storia JSON quando si vuole rispondere con un'immagine
 gestire problema richiamare visualizzaValutazioni ogni tot secondi
 
-gestire css div ultima pagina player
-modifica risoluzione immagini
 gestire errori del caricamento immagine da fotocamera: https://ichi.pro/it/come-accedere-a-una-webcam-e-scattare-una-foto-con-javascript-203484453944696
                      (https://www.html.it/pag/45424/gestire-la-fotocamera-scattare-una-foto/ OPPURE https://getbootstrap.com/docs/5.0/forms/input-group/)
 
