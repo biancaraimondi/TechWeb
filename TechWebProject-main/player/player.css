@@ -31,6 +31,10 @@ div#row4 {
     font-style: italic;
 }
 
+#campoRisposte {
+    margin-bottom: 3em;
+}
+
 #domanda {
     font-family: Baskerville, "Palatino Linotype", Palatino, "Century Schoolbook L", "Times New Roman", "serif";
     background-color: lightgrey;
@@ -46,22 +50,21 @@ div#row4 {
     font-family: Baskerville, "Palatino Linotype", Palatino, "Century Schoolbook L", "Times New Roman", "serif";
     background-color: lightgrey;
     margin-top: 10px;
-    margin-bottom: 60%;
     border-radius: 20px;
     opacity: 0.8;
     width: 90%;
     font-size: 20px;
     padding: 15px;
-    position: absolute;
+    position: relative;
     }
 
 #aiuto {
-    margin-bottom: 35px;
+    margin-bottom: 10px;
 }
 
 label {
     font-family: Baskerville, "Palatino Linotype", Palatino, "Century Schoolbook L", "Times New Roman", "serif";
-    line-height: 30px; /* Altezza di riga */
+   /* line-height: 30px; /* Altezza di riga */
     width: 220px; /* Larghezza */
 }
 

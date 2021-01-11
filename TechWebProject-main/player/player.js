@@ -7,8 +7,8 @@ $(document).ready(function () {
 	var messaggioPlayer = "";
 	var valutatore = "valutatore";
 	var socket = io();
-	var i;
-    var j;
+	var i; //contatore missioni
+    var j; //contatore attivita
 	var storia = {};
 	var numMissioni; //lunghezza missioni -> numero delle missioni
     var numAttivita; //lunghezza attivita -> numero delle attivita della missione i
@@ -35,26 +35,31 @@ $(document).ready(function () {
 	
 	//appena il player si connette manda un messaggio al valutatore
 	$('#nome').click(function(){
-		nomeGiocatore = document.getElementById('nomeGiocatore').value;
-		document.getElementById('nomeGiocatore').value = "";
-		document.getElementById('campoNomeGiocatore').hidden = true;
-        document.getElementById('campoTestoIniz').hidden = true;
-        document.getElementById('row1').hidden = false;
-		//document.getElementById('campoRisposte').hidden = false;
-		document.getElementById('campoChat').hidden = false;
-        document.getElementById('row4').hidden = false;
-        document.getElementById('footer').hidden = false;
-		
-		messaggioPlayer = "Sono " + nomeGiocatore + ". Mi sono connesso";
-		socket.emit('chat message', messaggioPlayer, nomeGiocatore, valutatore);
-		i = 0; //contatore per le missioni
-	    j = 0; //contatore per le attivita
-	    numMissioni = storia.missioni.length; //lunghezza missioni -> numero delle missioni
-	    numAttivita = storia.missioni[0].attivita.length; //lunghezza attivita -> numero delle attivita della missione i
-	    for(z = 0; z < numMissioni; z++){
-	        contatoreAttivita += storia.missioni[z].attivita.length;
-	    }
-	    caricaAttivita();
+        document.getElementById('nomeUtenteErrato').hidden = true;
+        nomeGiocatore = document.getElementById('nomeGiocatore').value;
+        document.getElementById('nomeGiocatore').value = "";
+        messaggioPlayer = "Sono " + nomeGiocatore + ". Mi sono connesso";
+        socket.emit('chat message', messaggioPlayer, nomeGiocatore, valutatore);
+        //setTimeout(function(){
+            //if(document.getElementById('nomeUtenteErrato').hidden == true){
+                document.getElementById('campoNomeGiocatore').hidden = true;
+                document.getElementById('campoTestoIniz').hidden = true;
+                document.getElementById('row1').hidden = false;
+                //document.getElementById('campoRisposte').hidden = false;
+                document.getElementById('campoChat').hidden = false;
+                document.getElementById('row4').hidden = false;
+                document.getElementById('footer').hidden = false;
+                
+                i = 0; //contatore per le missioni
+                j = 0; //contatore per le attivita
+                numMissioni = storia.missioni.length; //lunghezza missioni -> numero delle missioni
+                numAttivita = storia.missioni[0].attivita.length; //lunghezza attivita -> numero delle attivita della missione i
+                for(z = 0; z < numMissioni; z++){
+                    contatoreAttivita += storia.missioni[z].attivita.length;
+                }
+                caricaAttivita();
+            //}
+        //}, 1000);
 	});
 	
     //chat tra player e valutatore
@@ -68,50 +73,62 @@ $(document).ready(function () {
 	});
     
 	socket.on('chat message', function(msg, id){
+        if(msg == "nomeErrato"){
+            document.getElementById('nomeUtenteErrato').hidden = false;
+        }
+        else{
 		document.getElementById('messaggiChat').innerHTML += "<div class='message'><div class='message-text-wrapper'><div class='message-text'>" + msg + "</div></div></div>";
+        }
 	});
     
     socket.on('valutazione', function(missione, attivita, valutazione){
         contatoreValutazioniEffettive++;
-        for(z=0; z < valutazioni; z++){
+        for(z=0; z < valutazioni.length; z++){
             if(valutazioni[z].missione == missione && valutazioni[z].attivita == attivita){
                 valutazioni[z].valutazione = valutazione;
             }
         }
-        
+        console.log("Messaggio ricevuto dal valutatore: " + valutazione);
     });
+    
+    /*socket.on('nome', function(pippo){
+        document.getElementById('nomeUtenteErrato').hidden = false;
+        console.log("Siamo dentro a nome: " + pippo);
+    });*/
     
     $('#aiuto').click(function(){
         document.getElementById('campoMessaggio').hidden = false;
         document.getElementById('campoMessaggio').innerHTML = storia.missioni[i].attivita[j].rispostebottoni.aiuto;
         if(storia.missioni[i].attivita[j].rispostebottoni.immagineaiuto){
-            document.getElementById('campoMessaggio').innerHTML += storia.missioni[i].attivita[j].rispostebottoni.immagineaiuto;
+            //document.getElementById('campoMessaggio').innerHTML += storia.missioni[i].attivita[j].rispostebottoni.immagineaiuto;
+            document.getElementById('campoMessaggio').innerHTML += "<img width='4em' src='"+storia.missioni[i].attivita[j].rispostebottoni.immagineaiuto+"'>"
         }
     });
     
     //gestione fotocamera from https://www.laboratoriolibero.com/corsi/jobselect/11/Lezione_11_camera.pdf
     $('#bottoneFoto').click(function(){
         var app = {
-            initialize: function() {
+            initialize: function(){
                 this.bindEvents();
             },
-            bindEvents: function() {
+            bindEvents: function(){
                 document.addEventListener('deviceready', this.onDeviceReady, false);
             },
-            onDeviceReady: function() {
-                  $("#bottoneFoto").click(function() {
+            onDeviceReady: function(){
+                  $("#bottoneFoto").click(function(){
                       navigator.camera.getPicture(app.onCameraSuccess, app.onCameraError, {
-                           correctOrientation: true,
-                           quality: 50,
-                           destinationType: navigator.camera.DestinationType.FILE_URI
+                            sourceType: Camera.PictureSourceType.CAMERA, //acquisizione immagine con fotocamera di default
+                            correctOrientation: true,
+                            quality: 50,
+                            destinationType: navigator.camera.DestinationType.FILE_URI //restituisce il file URI dell’immagine
                        });
                   });
             },
-            onCameraSuccess: function(imageURI) {
-                document.getElementById('fotoAnteprima').width("1em");
+            onCameraSuccess: function(imageURI){
+                document.getElementById('fotoAnteprima').width("40em");
                 document.getElementById('fotoAnteprima').src = imageURI;
              },
-            onCameraError: function(errorMessage) {
+            onCameraError: function(errorMessage){
                   alert("Errore");
             }
             
@@ -135,7 +152,7 @@ $(document).ready(function () {
         else{
             //messaggio di incitamento nel caso di risposta sbagliata
             document.getElementById('campoMessaggio').hidden = false;
-            document.getElementById('campoMessaggio').innerHTML = "Sei sicuro della risposta? Non demordere e riprovaci. E se hai bisogno di un piccolo aiuto clicca il bottone 'Aiuto'.";
+            document.getElementById('campoMessaggio').innerHTML = storia.missioni[i].attivita[j].rispostebottoni.incoraggiamento;
         }
     });
     
@@ -148,7 +165,7 @@ $(document).ready(function () {
         else{
             //messaggio di incitamento nel caso di risposta sbagliata
             document.getElementById('campoMessaggio').hidden = false;
-            document.getElementById('campoMessaggio').innerHTML = "Sei sicuro della risposta? Non demordere e riprovaci. E se hai bisogno di un piccolo aiuto clicca il bottone 'Aiuto'.";
+            document.getElementById('campoMessaggio').innerHTML = storia.missioni[i].attivita[j].rispostebottoni.incoraggiamento;
         }
     });
     
@@ -161,7 +178,7 @@ $(document).ready(function () {
         else{
             //messaggio di incitamento nel caso di risposta sbagliata
             document.getElementById('campoMessaggio').hidden = false;
-            document.getElementById('campoMessaggio').innerHTML = "Sei sicuro della risposta? Non demordere e riprovaci. E se hai bisogno di un piccolo aiuto clicca il bottone 'Aiuto'.";
+            document.getElementById('campoMessaggio').innerHTML = storia.missioni[i].attivita[j].rispostebottoni.incoraggiamento;
         }
     });
     
@@ -174,7 +191,7 @@ $(document).ready(function () {
         else{
             //messaggio di incitamento nel caso di risposta sbagliata
             document.getElementById('campoMessaggio').hidden = false;
-            document.getElementById('campoMessaggio').innerHTML = "Sei sicuro della risposta? Non demordere e riprovaci. E se hai bisogno di un piccolo aiuto clicca il bottone 'Aiuto'.";
+            document.getElementById('campoMessaggio').innerHTML = storia.missioni[i].attivita[j].rispostebottoni.incoraggiamento;
         }
     });
     
@@ -182,6 +199,12 @@ $(document).ready(function () {
         var risposta = document.getElementById('nameTextArea').value;
         socket.emit('risposta testo', risposta, i, j, nomeGiocatore);
         console.log(risposta + " " + nomeGiocatore);
+        valutazioni.push({
+            missione : i,
+            attivita: j,
+            rispostaAlunno : risposta,
+            valutazione : null
+        });
         cambioAttivita();
     });
     
@@ -203,7 +226,7 @@ $(document).ready(function () {
     		var storiaJson = xhr.responseText; //ottengo storia in formato json	
     		console.log(storiaJson);
             storia = JSON.parse(storiaJson); //ottengo storia in js
-    		console.log(JSON.stringify(storia));
+    		//console.log(JSON.stringify(storia));
     	}
     };
     xhr.send();
@@ -242,7 +265,12 @@ $(document).ready(function () {
         //caso in cui è presente l'imm sfondo
         if(storia.missioni[i] && storia.missioni[i].attivita[j].immaginesfondo){
             console.log("Entrato nell'if dell'immagine sfondo");
-            document.body.style.background = "url('"+storia.missioni[i].attivita[j].immaginesfondo+"') no-repeat center center";
+            document.body.style.background = "url('"+storia.missioni[i].attivita[j].immaginesfondo+"') no-repeat fixed";
+            var altezzaFinestra = window.outerHeight;
+            var larghezzaFinestra = window.outerWidth;
+            console.log("Altezza Finestra: " + altezzaFinestra);
+            console.log("Larghezza Finestra: " + larghezzaFinestra);
+            document.body.style.backgroundSize = larghezzaFinestra + "px " + altezzaFinestra + "px";
         }
         else {
             console.log("Entrato nell'else dell'immagine sfondo");
@@ -324,6 +352,9 @@ $(document).ready(function () {
         if(storia.missioni[i] && storia.missioni[i].attivita[j].rispostebottoni && storia.missioni[i].attivita[j].rispostebottoni.aiuto){
             console.log("Entrato nell'if dell'aiuto");
             document.getElementById('aiuto').hidden = false;
+            if (storia.missioni[i] && storia.missioni[i].attivita[j].rispostebottoni && storia.missioni[i].attivita[j].rispostebottoni.immagineaiuto){
+                
+            }
         }
         else{
             console.log("Entrato nell'else dell'aiuto");
@@ -354,9 +385,9 @@ $(document).ready(function () {
                 document.getElementById('row4').hidden = true;
                 document.getElementById('domanda').innerHTML = "Complimenti! Hai terminato con successo la storia. Sotto potrai vedere visualizzate tutte le tue valutazioni che prima erano in attesa di valutazione. Quando tutte le tue risposte saranno state valutate potrai ritornare alla pagina principale cliccando il pulsante in basso a sinistra.";
                 visualizzaValutazioni();
-                while(contatoreValutazioniEffettive < contatoreValutazioni){
+                /*while(contatoreValutazioniEffettive < contatoreValutazioni){
                     setInterval(visualizzaValutazioni, 5000);
-                }
+                }*/
                 document.getElementById('footer').hidden = false;
             }
         }
@@ -364,7 +395,15 @@ $(document).ready(function () {
     
     function visualizzaValutazioni(){
         //le info da visualizzare le prendo dall'array valutazioni[]
-    }
+        for(z=0; z < valutazioni.length; z++){
+            var newDiv = document.createElement("div");
+            newDiv.innerHTML = "Domanda: " + storia.missioni[valutazioni[z].missione].attivita[valutazioni[z].attivita].domanda + "<br>" + "Risposta: " + valutazioni[z].rispostaAlunno + "<br>" + "Valutazione: " + valutazioni[z].valutazione;
+            var oldDiv = document.getElementById('row1');
+            oldDiv.appendChild(newDiv);
+            valutazioni.splice(z,1);
+            z--;
+        }
+    } //chiusura function visualizzaValutazioni
 
     $(".navbar-toggler").click(function() {
         cambiaPagina('primaPagina.html');
