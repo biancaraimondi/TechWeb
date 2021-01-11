@@ -28,6 +28,9 @@ gestire invio foto al valutatore (https://stackoverflow.com/questions/59478402/h
 FORSE -> gestire se viene cambiata la storia nel server
 gestire errore caricamento radiobutton player vuoto
 
+html prima pagina, il bottone valutatore già all'inizio
+html valutatore, hidden img
+
 MARTI:
 accessibilità
 
