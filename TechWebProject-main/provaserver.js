@@ -3,7 +3,7 @@ var app = express();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 var fs = require("fs");
-var utenti = [];//lista dei nomi e dei socket dei players {nome : valore, socket : socket.id} TODO inserire anche l'avanzamento
+var utenti = [];//lista dei nomi e dei socket dei players {nome : valore, socket : socket.id, avanzamento : num, attivita : num}
 var messaggi = [];//lista dei messaggi (messaggio, trasmittente, ricevente)
 var risposteDaValutare = [];//lista delle risposte da valutare {missione : num, attivita: num, risposta : val, immagine : val, player : val}
 var nomeDisconnesso = '';
@@ -40,6 +40,12 @@ app.get("/valutatore/messaggi", function(req,res){
     res.end(loadMessaggi); //invio risposta array messaggi
 });
 
+app.get("/valutatore/risposte", function(req,res){
+    var loadRisposte = JSON.stringify(risposteDaValutare);
+    res.setHeader('Content-Type', 'application/json; charset=UTF-8'); //header risposta
+    res.end(loadRisposte); //invio risposta array messaggi
+});
+
 app.get("/primaPagina/ottieniStorie", function(req,res){
     fs.readFile("storie.json",function(err,storie) {
         if (err){
@@ -53,6 +59,7 @@ app.get("/primaPagina/ottieniStorie", function(req,res){
     });
 });
 
+//TODO gestire solo una storia finchè non ci sono più player
 app.get("/player/ottienistoria", function(req,res){
     fs.readFile(storiaDaCaricare + ".json",function(err,storia) {
         if (err){
@@ -89,7 +96,7 @@ io.on('connection', function (socket) {
             }
         }
         if (inserisci){
-            utenti.push({nome : trasmittente, socket : socket.id});
+            utenti.push({nome : trasmittente, socket : socket.id, avanzamento : null, attivita : null});
             //mostra gli utenti connessi
             console.log('SERVER: utenti: ');
             for(i=0;i<utenti.length;i++){
@@ -122,13 +129,19 @@ io.on('connection', function (socket) {
             if(utenti[z].nome == 'valutatore'){
                 socketUtente = utenti[z].socket;
             }
+            if(utenti[z].nome == player){
+                utenti[z].avanzamento = contatoreAvanzamento;
+                utenti[z].attivita = contatoreAttivita;
+            }
         }
         socket.to(socketUtente).emit('avanzamento', contatoreAvanzamento, contatoreAttivita, player);
         console.log("SERVER: avanzamento spedito al valutatore");
     });
     
+    //gestisce le risposte date dal player
     socket.on('risposta testo', function (risposta, missione, attivita, player) {
         console.log("SERVER: risposta testo: " + risposta + " inviata da " + player + ", missione: " + missione + ", attivita: " + attivita);
+        risposteDaValutare.push({missione : missione, attivita: attivita, risposta : risposta, immagine : null, player : player});
         var z = 0;
         var socketUtente = "";
         for(z=0; z<utenti.length; z++){
@@ -150,7 +163,7 @@ io.on('connection', function (socket) {
             }
         }
         socket.to(socketUtente).emit('valutazione', missione, attivita, valutazione, player);
-        console.log("SERVER: inviata vautazione al valutatore");
+        console.log("SERVER: inviata vautazione al player");
     });
     
     //se un utente si disconnette
