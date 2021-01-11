@@ -20,41 +20,27 @@ guardare funzionamento chromevox x accessibilità
 
 BIANCA:
 accessibilità 
-
 commentare e pulire codice
-
 gestire invio foto al valutatore (https://stackoverflow.com/questions/59478402/how-do-i-send-image-to-server-via-socket-io)
-
 FORSE -> gestire se viene cambiata la storia nel server
-gestire errore caricamento radiobutton player vuoto
 
-html valutatore, hidden img
-
+gestire errore caricamento radiobutton player vuoto (COLLEGATO A PROBLEMA NOME UGUALE)
 cambiare html valutazione risposta (num da 1 a 10 come risposta + testo)
-
 modifica risoluzione immagini
+//TODO far visualizzare al player un messaggio per cambiare il nome perchè già esistente nella lista degli utenti
 
 MARTI:
-gestire css div ultima pagina player
 accessibilità
-modifica risoluzione immagini
-cambiare socket.on valutazione risposta
-RISOLTO PROBLEMONE INNERHTML:
-            var element = document.getElementById('testoRispostaPlayer');
-            element.innerHTML = "";
-
-//TODO far visualizzare al player un messaggio per cambiare il nome perchè già esistente nella lista degli utenti
-testare il codice
-gestire errori del caricamento immagine da fotocamera: https://ichi.pro/it/come-accedere-a-una-webcam-e-scattare-una-foto-con-javascript-203484453944696
-sistemare css (backgroundSize)
-creare funzione visualizzaValutazioni (console log msg dal server - socket on)
-modificare if incoraggiamento
+//NON GUARDARE cambiare socket.on valutazione risposta
 nome chiave dell'immagine all'interno della domanda è immaginedomanda
 camporispostafoto è il campo da scrivere nella storia JSON quando si vuole rispondere con un'immagine
+gestire problema richiamare visualizzaValutazioni ogni tot secondi
 
-ilSistemaSolare.json -> si blocca quando arriva all'ultima attività prima del msg conclusione storia 
-            
-gestire invio foto e testo al valutatore (https://www.html.it/pag/45424/gestire-la-fotocamera-scattare-una-foto/ OPPURE https://getbootstrap.com/docs/5.0/forms/input-group/)
+gestire css div ultima pagina player
+modifica risoluzione immagini
+gestire errori del caricamento immagine da fotocamera: https://ichi.pro/it/come-accedere-a-una-webcam-e-scattare-una-foto-con-javascript-203484453944696
+                     (https://www.html.it/pag/45424/gestire-la-fotocamera-scattare-una-foto/ OPPURE https://getbootstrap.com/docs/5.0/forms/input-group/)
+
 
 CRI: 
 accessibilità
