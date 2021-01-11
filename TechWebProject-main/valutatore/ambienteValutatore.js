@@ -42,7 +42,7 @@ $(document).ready( function(){
 			var obj = JSON.parse(this.responseText);
 			for (i=0;i<obj.length;i++){
 				if (obj[i].nome != 'valutatore'){//non carico anche il nome di un eventuale altro valutatore
-					utenti.push({nome : obj[i].nome, avanzamento : null, numAttivita : null});
+					utenti.push({nome : obj[i].nome, avanzamento : obj[i].avanzamento, numAttivita : obj[i].attivita});
 					document.getElementById('giocatore').innerHTML += "<div class='form-check'><input name='giocatore' type='radio' value='" + obj[i].nome + "' id='" + obj[i].nome + "'><label for=" + obj[i].nome + ">" + obj[i].nome + "</label></div>";
 				}
 			}
@@ -74,6 +74,20 @@ $(document).ready( function(){
 	};
 	xmlhttp2.open("GET", "/valutatore/messaggi", true);
 	xmlhttp2.send();
+	
+	//ottiene le risposte date dai player
+	var xmlhttp3 = new XMLHttpRequest();
+	xmlhttp3.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			var obj = JSON.parse(this.responseText);
+			for (i=0;i<obj.length;i++){
+				risposteDaValutare.push({missione : obj[i].missione, attivita: obj[i].attivita, risposta : obj[i].risposta, immagine : obj[i].immagine, player : obj[i].player});
+			}
+			console.log(JSON.stringify(risposteDaValutare));
+		}
+	};
+	xmlhttp3.open("GET", "/valutatore/risposte", true);
+	xmlhttp3.send();
 	
     var xhr = new XMLHttpRequest();
     xhr.open('GET', '/player/ottienistoria', true); //apro connessione tipo GET
@@ -165,8 +179,8 @@ $(document).ready( function(){
 					&&	risposteDaValutare[i].attivita == rispostaAttuale.attivita
 					&&	risposteDaValutare[i].risposta == rispostaAttuale.risposta
 					&&	risposteDaValutare[i].player == rispostaAttuale.player){
-				console.log("risposteDaValutare[i] è uguale a rispostaAttuale");
 				socket.emit('valutazione', rispostaAttuale.missione, rispostaAttuale.attivita, valutazione, idGiocatore);
+				console.log("valutazione spedita al player");
 				risposteDaValutare.splice(i, 1);
 				i=risposteDaValutare.length;
 			}
@@ -244,7 +258,7 @@ $(document).ready( function(){
             //modifica il campo risposte da valutare direttamente se corrisponde all'idGiocatore attualmente cliccato
             if (idGiocatore == player && rispostaAttuale == null){
                 //TODO creare funzione per valutare la risposta testuale del player
-            	console.log("VALUTATORE: la rispostaAttuale è ancora {}");
+            	console.log("VALUTATORE: la rispostaAttuale è null");
             	document.getElementById('testoRispostaPlayer').innerHTML = "DOMANDA: " + storia.missioni[missione].attivita[attivita].domanda;
     			document.getElementById('testoRispostaPlayer').innerHTML += "<br>RISPOSTA: " + risposta;
                 rispostaAttuale = {
@@ -255,16 +269,13 @@ $(document).ready( function(){
                         player : player
                     }
             }
-            for (i=0;i<utenti.length;i++){
-                //TODO creare array di risposte
-            	risposteDaValutare.push({
+            risposteDaValutare.push({
                         missione : missione,
                         attivita: attivita,
                         risposta : risposta,
                         immagine : null,
                         player : player
                     });
-            }
             console.log(JSON.stringify(risposteDaValutare));
         });
 });
