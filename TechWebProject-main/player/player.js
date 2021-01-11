@@ -398,6 +398,12 @@ $(document).ready(function () {
         for(z=0; z < valutazioni.length; z++){
             var newDiv = document.createElement("div");
             newDiv.innerHTML = "Domanda: " + storia.missioni[valutazioni[z].missione].attivita[valutazioni[z].attivita].domanda + "<br>" + "Risposta: " + valutazioni[z].rispostaAlunno + "<br>" + "Valutazione: " + valutazioni[z].valutazione;
+            newDiv.style.margin = "180px 20px 30px 20px";
+            newDiv.style.width = "900px";
+            newDiv.style.height = "500px";
+            //newDiv.style.top = "50%";
+            //newDiv.style.left = "50%";
+            newDiv.style.fontFamily = "Baskerville";
             var oldDiv = document.getElementById('row1');
             oldDiv.appendChild(newDiv);
             valutazioni.splice(z,1);
