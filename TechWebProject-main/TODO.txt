@@ -30,7 +30,7 @@ gestire errore caricamento radiobutton player vuoto
 
 html valutatore, hidden img
 
-cambiare html valutazione risposta
+cambiare html valutazione risposta (num da 1 a 10 come risposta + testo)
 
 MARTI:
 accessibilità
