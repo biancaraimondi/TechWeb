@@ -32,6 +32,8 @@ html valutatore, hidden img
 
 cambiare html valutazione risposta (num da 1 a 10 come risposta + testo)
 
+modifica risoluzione immagini
+
 MARTI:
 accessibilità
 
