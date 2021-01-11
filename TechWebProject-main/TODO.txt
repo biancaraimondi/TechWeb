@@ -24,7 +24,7 @@ accessibilità
 commentare e pulire codice
 
 gestire invio foto al valutatore (https://stackoverflow.com/questions/59478402/how-do-i-send-image-to-server-via-socket-io)
-gestire avanzamento e risposte da valutare se il valutatore si collega dopo il player
+
 FORSE -> gestire se viene cambiata la storia nel server
 gestire errore caricamento radiobutton player vuoto
 
