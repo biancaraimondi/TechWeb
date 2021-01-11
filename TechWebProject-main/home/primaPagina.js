@@ -22,6 +22,7 @@ $(document).ready( function(){
 	$("#eta").click(function() {
 		document.getElementById("autore").hidden = true;
 		document.getElementById("storie").hidden = false;
+		document.getElementById("valutatore").hidden = true;
 		
 		//inserisce in eta l'età cliccata nell'html		
 		var etaList = document.getElementsByName("eta");
