@@ -36,7 +36,7 @@ modifica risoluzione immagini
 
 MARTI:
 accessibilità
-
+modifica risoluzione immagini
 cambiare socket.on valutazione risposta
 RISOLTO PROBLEMONE INNERHTML:
             var element = document.getElementById('testoRispostaPlayer');
