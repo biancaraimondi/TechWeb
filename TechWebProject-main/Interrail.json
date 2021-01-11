@@ -9,34 +9,37 @@
 				},
 				{
 					"domanda": "Sei appena atterrato dopo un volo pieno di turbolenze, sei stanco e gia' senti la mancanza di casa. Cerca un posto dove dormire in centro citta' vicino a Las Ramblas! Secondo te in che citta' ti trovi?",
-					"immaginesfondo": "Barcellona.jpg",
+					"immaginesfondo": "/image/Barcellona.jpg",
 					"rispostebottoni" : {
 						"sbagliata1" : "Roma",
 						"giusta" : "Barcellona",
 						"sbagliata2" : "Firenze",
 						"sbagliata3" : "Oslo",
+                        "incoraggiamento": "Sei sicuro della risposta? Non demordere e riprovaci. E se hai bisogno di un piccolo aiuto clicca il bottone 'Aiuto'",
 						"aiuto":"Marco ti ha appena detto che dall'aereo e' riuscito a vedere la Sagrada Familia!"
 					}
 				},
 				{
 					"domanda": "Alla fine avete dormito proprio in centro citta' e il giorno seguente avete deciso di pranzare al famoso mercato de La Boqueria. Marco ha scoperto di essere leggermente intollerante alle fragole e dato il suo mal di stomaco avete deciso di passare il pomeriggio in hotel a rilassarvi in sauna. Il giorno seguente avete preso il treno per una nuova citta' e, appena scesi, Giada ha esclamato: 'bonjour a toute la France!' dopo aver visto un magnifico tramonto dietro la Torre Eiffel. A te non piace un granche' il suono di quella lingua e quindi quasi annoiato capisci subito dove ti trovi",
-					"immaginesfondo": "Parigi.jpg",
+					"immaginesfondo": "/image/Parigi.jpg",
 					"rispostebottoni" : {
 						"sbagliata1" : "Valencia",
 						"giusta" : "Parigi",
 						"sbagliata2" : "Venezia",
 						"sbagliata3" : "Marsiglia",
+                        "incoraggiamento": "Sei sicuro della risposta? Non demordere e riprovaci. E se hai bisogno di un piccolo aiuto clicca il bottone 'Aiuto'",
 						"aiuto":"Giada ha appena visto passare una signora con il basco, e ha escalamato: 'J'adore Paris!'"
 					}
 				},
 				{
 					"domanda": "Finalmente avete terminato i giorni nella citta' dell'amore, e tu non vedi l'ora di partire per la nuova citta'. Prima di salire sull'Eurostar - il famoso treno che viaggia sott'acqua - noti che c'e' da mostrare i documenti per poter passare la dogana inglese. Mentre siete in fila senti Marco e Giada organizzare il giorno seguente per andare a visitare il Big Ben. Sei felicissimo, quella citta' era proprio nella tua lista delle cose da fare almento una volta nella vita! Di che citta' stanno parlando i tuoi amici?",
-					"immaginesfondo": "Londra.jpg",
+					"immaginesfondo": "/image/Londra.jpg",
 					"rispostebottoni" : {
 						"sbagliata1" : "Firenze",
 						"giusta" : "Londra",
 						"sbagliata2" : "Siviglia",
 						"sbagliata3" : "Oxford",
+                        "incoraggiamento": "Sei sicuro della risposta? Non demordere e riprovaci. E se hai bisogno di un piccolo aiuto clicca il bottone 'Aiuto'",
 						"aiuto":"Sul treno c'e' un signore che assomiglia tantissimo a Sherlock Holmes!"
 					}
 				},
@@ -55,34 +58,37 @@
 				},
 				{
 					"domanda": "Marco non vede l'ora di andare a visitare il museo di van Gogh e Giada e' superfelice perche' finalmente vedra' per la prima volta tutte le sue amate star del cinema in miniatura nel famoso museo delle cere. Dopo questa affermazione ti illumini e mentre l'Eurostar passa in mezzo ai campi pieni di tulipani cominci ad organizzare assieme a loro le giornate seguenti. Qual e' questa famosa citta' di cui tutti dicono assomigliare a Venezia?",
-					"immaginesfondo": "Amsterdam.jpg",
+					"immaginesfondo": "/image/Amsterdam.jpg",
 					"rispostebottoni" : {
 						"sbagliata1" : "Milano",
 						"giusta" : "Amsterdam",
 						"sbagliata2" : "Monaco",
 						"sbagliata3" : "Bruxelles",
+                        "incoraggiamento": "Sei sicuro della risposta? Non demordere e riprovaci. E se hai bisogno di un piccolo aiuto clicca il bottone 'Aiuto'",
 						"aiuto":"Giada e' contrariata all'idea di passare nel quartiere a luci rosse"
 					}
 				},
 				{
 					"domanda": "Dopo questi giorni trascorsi freneticamente Marco vi rivela che il giorno seguente alle 4 del mattino dovete prendere il prossimo treno. Il viaggio durera' piu' di 12 ore e tu al solo pensiero sei gia' stanco. L'indomani mattina con le borse sotto agli occhi vi recate in stazione, ma nel mentre vi accorgete che il treno e' in ritardo. Giada per la stanchezza comincia a litigare con Marco, e tu non sai come risolvere la situazione. Appena arriva il treno decidi di metterti ad ascoltare musica rilassante con gli auricolari. Finisci per addormentarti, e proprio quando stavi facendo un sogno bellissimo ti senti toccare una spalla. Apri gli occhi e noti il controllore che chiedendoti di mostrargli il biglietto ti esclama - Next station is Tivoli Gardens! -. Ti riprendi subito per l'euforia del parco divertimenti. Sei proprio felice che i tuoi amici ti abbiano portato a: ",
-					"immaginesfondo": "Copenaghen.jpg",
+					"immaginesfondo": "/image/Copenaghen.jpg",
 					"rispostebottoni" : {
 						"sbagliata1" : "Francoforte",
 						"giusta" : "Copenaghen",
 						"sbagliata2" : "Madrid",
 						"sbagliata3" : "Zagabria",
+                        "incoraggiamento": "Sei sicuro della risposta? Non demordere e riprovaci. E se hai bisogno di un piccolo aiuto clicca il bottone 'Aiuto'",
 						"aiuto":"La statua della Sirenetta e' la principale attrazione di questa citta'"
 					}
 				},
 				{
 					"domanda": "Partite per il prossimo viaggio e scopri che il treno deve oltrepassare un pezzo di mar Baltico. Il treno sale su un traghetto e voi recandovi in poppa riuscite ad intravedere due delfini che stanno seguendo le onde causate dal motore del traghetto. Che vista meravigliosa! Il traghetto continua la rotta verso la Germania. Marco aveva proposto questa meta per visitare Alexanderplatz.",
-					"immaginesfondo": "Berlino.jpg",
+					"immaginesfondo": "/image/Berlino.jpg",
 					"rispostebottoni" : {
 						"sbagliata1" : "Cracovia",
 						"giusta" : "Berlino",
 						"sbagliata2" : "Dresda",
 						"sbagliata3" : "Amburgo",
+                        "incoraggiamento": "Sei sicuro della risposta? Non demordere e riprovaci. E se hai bisogno di un piccolo aiuto clicca il bottone 'Aiuto'",
 						"aiuto":"negli anni della guerra fredda in questa citta' e' stato costruito un famoso muro"
 					}
 				},
@@ -101,34 +107,37 @@
 				},
 				{
 					"domanda": "Arrivati nel centro storico Marco si mette a fotografare il famoso orologio astronomico mentre Giada, appena tornata da una camminata, vi mostra una foto che ha fatto alla casa danzante. Intuisci il nome di questa citta' solo dopo questa foto. Dove ti hanno portato i tuoi amici questa volta?",
-					"immaginesfondo": "Praga.jpg",
+					"immaginesfondo": "/image/Praga.jpg",
 					"rispostebottoni" : {
 						"sbagliata1" : "Stoccolma",
 						"giusta" : "Praga",
 						"sbagliata2" : "Varsavia",
 						"sbagliata3" : "Brno",
+                        "incoraggiamento": "Sei sicuro della risposta? Non demordere e riprovaci. E se hai bisogno di un piccolo aiuto clicca il bottone 'Aiuto'",
 						"aiuto":"In questa citta' i turisti vanno semore a visitare il Ponte Carlo"
 					}
 				},
 				{
 					"domanda": "Partite con il prossimo treno per visitare uno dei 'paesi dell'est'. Questo posto meraviglioso e' attraversato dal Danubio, e proprio sulle sue sponde e' stata fatta l'opera 'scarpe sulle rive del Danubio'. Ti trovi a ..?",
-					"immaginesfondo": "Budapest.jpg",
+					"immaginesfondo": "/image/Budapest.jpg",
 					"rispostebottoni" : {
 						"sbagliata1" : "Bratislava",
 						"giusta" : "Budapest",
 						"sbagliata2" : "Salisburgo",
 						"sbagliata3" : "Trieste",
+                        "incoraggiamento": "Sei sicuro della risposta? Non demordere e riprovaci. E se hai bisogno di un piccolo aiuto clicca il bottone 'Aiuto'",
 						"aiuto":"Giada vi ha portati a mangiare il famoso Gulash"
 					}
 				},
 				{
 					"domanda": "Il treno per la prossima citta' e' davvero pieno, neanche il controllore riesce a passare tra i vagoni. Per fortuna il viaggio dura poco, ed in un lampo arrivate nella capitale austriaca.",
-					"immaginesfondo": "Vienna.jpg",
+					"immaginesfondo": "/image/Vienna.jpg",
 					"rispostebottoni" : {
 						"sbagliata1" : "Roma",
 						"giusta" : "Vienna",
 						"sbagliata2" : "Anversa",
 						"sbagliata3" : "Dublino",
+                        "incoraggiamento": "Sei sicuro della risposta? Non demordere e riprovaci. E se hai bisogno di un piccolo aiuto clicca il bottone 'Aiuto'",
 						"aiuto":"Hai portato Marco e Giada a bere un ottimo succo di mela"
 					}
 				},
