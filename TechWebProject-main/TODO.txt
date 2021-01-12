@@ -18,6 +18,10 @@ rinominare la cartella "immaginiPlayer" con "image" (viene generata in automatic
 
 guardare funzionamento chromevox x accessibilità
 
+:: GESTIONE FOTOCAMERA :: 
+includere il seguente script nell' <head>: <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
+installare: npm install webcam-easy
+
 BIANCA:
 accessibilità 
 commentare e pulire codice
