@@ -172,9 +172,7 @@ $(document).ready( function(){
 		messaggi.push({nomeTrasmittente : nomeValutatore, nomeRicevente: idGiocatore, messaggio : messaggioValutatore});
 		document.getElementById('testoDaInviare').value = '';
 	});
-	
-	
-	//TODO emettere messaggio con anche il commento alla valutazione
+
 	function emettiValutazione(valutazione) {
 		var commentoValutazione = document.getElementById("testoValutazione").value;
 		document.getElementById("testoValutazione").value = "";
