@@ -25,18 +25,22 @@ installare: npm install webcam-easy
 BIANCA:
 accessibilità 
 commentare e pulire codice
-gestire invio foto al valutatore (https://stackoverflow.com/questions/59478402/how-do-i-send-image-to-server-via-socket-io)
-FORSE -> cambiare l'array valutazioni con i relativi socket.on
+
+gestire problema ambiente valutatore image
+controllare specifiche Vitali
 
 MARTI:
 accessibilità
-//NON GUARDARE cambiare socket.on valutazione risposta
 nome chiave dell'immagine all'interno della domanda è immaginedomanda
 camporispostafoto è il campo da scrivere nella storia JSON quando si vuole rispondere con un'immagine
-gestire problema richiamare visualizzaValutazioni ogni tot secondi
 
+gestire problema richiamare visualizzaValutazioni ogni tot secondi
 modificare css utlima pagina player
-gestire errori del caricamento immagine da fotocamera: https://ichi.pro/it/come-accedere-a-una-webcam-e-scattare-una-foto-con-javascript-203484453944696
+
+controllare specifiche Vitali
+
+
+caricamento immagine da fotocamera: https://ichi.pro/it/come-accedere-a-una-webcam-e-scattare-una-foto-con-javascript-203484453944696
                                                         https://www.npmjs.com/package/webcam-easy
                      (https://www.html.it/pag/45424/gestire-la-fotocamera-scattare-una-foto/ OPPURE https://getbootstrap.com/docs/5.0/forms/input-group/)
 
