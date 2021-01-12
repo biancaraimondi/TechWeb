@@ -27,9 +27,7 @@ accessibilità
 commentare e pulire codice
 gestire invio foto al valutatore (https://stackoverflow.com/questions/59478402/how-do-i-send-image-to-server-via-socket-io)
 FORSE -> gestire se viene cambiata la storia nel server
-
-gestire errore caricamento radiobutton player vuoto (COLLEGATO A PROBLEMA NOME UGUALE)
-//TODO far visualizzare al player un messaggio per cambiare il nome perchè già esistente nella lista degli utenti
+gestire solo una storia finchè non ci sono più player
 
 MARTI:
 accessibilità
