@@ -16,6 +16,9 @@
         <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.1/socket.io.js"
             integrity="sha512-AcZyhRP/tbAEsXCCGlziPun5iFvcSUpEz2jKkx0blkYKbxU81F+iq8FURwPn1sYFeksJ+sDDrI5XujsqSobWdQ==" crossorigin="anonymous"></script> -->
         <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+        
+        <!-- inclusione script per webcam -->
+        <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
 
         <!-- inclusione funzioni js -->
         <script type="text/javascript" src="player.js"></script>
@@ -63,9 +66,15 @@
                     <button class="btn btn-dark btn-sm" type="button" id="inviaRisposta">Invia risposta al valutatore</button>
                 </div>
                 <div class="col-sm-6 col-md-6 col-lg-6" id="campoFoto" hidden>
+                    <p id="testoBottoneFoto"> Clicca l'icona della macchina fotografica per avviare la fotocamera: </p>
                     <img id="bottoneFoto" src="camera.png" width="40em" height="40em"/>
-                    <img id="fotoAnteprima" src=""/>
+                    <div id="fotoAnteprima">
+                    </div>
+                    <button class="btn btn-dark btn-sm" type="button" id="scattaFoto">Scatta Foto</button>
+                    <button class="btn btn-dark btn-sm" type="button" id="stopFotocamera">Stoppa Fotocamera</button>
                     <button class="btn btn-dark btn-sm" type="button" id="inviaRispostaFoto">Invia foto al valutatore</button>
+                    <video id="webcam" autoplay playsinline width="620" height="480"></video>
+                    <canvas id="canvas" class="d-none"></canvas>
                 </div>
                 <!-- colonna bottoni risposte -->
                 <div class="col-sm-6 col-md-6 col-lg-6" id="campoRisposte" hidden>

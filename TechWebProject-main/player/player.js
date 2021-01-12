@@ -32,6 +32,10 @@ $(document).ready(function () {
             valutazione : valore
         }
     ]*/
+    
+    const webcamElement = document.getElementById('webcam');
+    const canvasElement = document.getElementById('canvas');
+    const webcam = new Webcam(webcamElement, 'user', canvasElement);
 	
 	//appena il player si connette manda un messaggio al valutatore
 	$('#nome').click(function(){
@@ -105,9 +109,10 @@ $(document).ready(function () {
         }
     });
     
-    //gestione fotocamera from https://www.laboratoriolibero.com/corsi/jobselect/11/Lezione_11_camera.pdf
+    //gestione fotocamera from https://www.npmjs.com/package/webcam-easy
     $('#bottoneFoto').click(function(){
-        var app = {
+        gestioneFotocamera();
+        /*var app = {
             initialize: function(){
                 this.bindEvents();
             },
@@ -133,9 +138,24 @@ $(document).ready(function () {
             }
             
         };
-        app.initialize();
+        app.initialize();*/
     });
-
+    
+    $('#scattaFoto').click(function(){
+        /*var picture = webcam.snap();
+        webcam.snap(function(data_uri) {
+          // display results in page
+          document.getElementById('fotoAnteprima').innerHTML = "<img width='40em' src='"+data_uri+"'>";
+        });*/
+        let picture = webcam.snap();
+        document.querySelector('#canvas').href = picture;
+        console.log("acquisita immagine");
+    });
+    
+    $('#stopFotocamera').click(function(){
+        webcam.stop();
+        console.log("webcam stopped");
+    });
     
     $('#avanti').click(function(){
         document.getElementById('campoMessaggio').innerHTML = "";
@@ -262,7 +282,7 @@ $(document).ready(function () {
             console.log("Entrato nell'else del pulsante avanti");
             document.getElementById('campoAvanti').hidden = true;
         }
-        //caso in cui è presente l'imm sfondo
+        //caso in cui è presente l'immagine sfondo
         if(storia.missioni[i] && storia.missioni[i].attivita[j].immaginesfondo){
             console.log("Entrato nell'if dell'immagine sfondo");
             document.body.style.background = "url('"+storia.missioni[i].attivita[j].immaginesfondo+"') no-repeat fixed";
@@ -352,9 +372,6 @@ $(document).ready(function () {
         if(storia.missioni[i] && storia.missioni[i].attivita[j].rispostebottoni && storia.missioni[i].attivita[j].rispostebottoni.aiuto){
             console.log("Entrato nell'if dell'aiuto");
             document.getElementById('aiuto').hidden = false;
-            if (storia.missioni[i] && storia.missioni[i].attivita[j].rispostebottoni && storia.missioni[i].attivita[j].rispostebottoni.immagineaiuto){
-                
-            }
         }
         else{
             console.log("Entrato nell'else dell'aiuto");
@@ -410,6 +427,16 @@ $(document).ready(function () {
             z--;
         }
     } //chiusura function visualizzaValutazioni
+    
+    function gestioneFotocamera(){
+        webcam.start()
+           .then(result =>{
+              console.log("webcam started");
+           })
+           .catch(err => {
+               console.log(err);
+           });
+    } //chiusura function gestioneFotocamera
 
     $(".navbar-toggler").click(function() {
         cambiaPagina('primaPagina.html');
