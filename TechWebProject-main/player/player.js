@@ -46,8 +46,8 @@ $(document).ready(function () {
         document.getElementById('nomeGiocatore').value = "";
         messaggioPlayer = "Sono " + nomeGiocatore + ". Mi sono connesso";
         socket.emit('chat message', messaggioPlayer, nomeGiocatore, valutatore);
-        //setTimeout(function(){
-            //if(document.getElementById('nomeUtenteErrato').hidden == true){
+        setTimeout(function(){
+            if(document.getElementById('nomeUtenteErrato').hidden == true){
                 document.getElementById('campoNomeGiocatore').hidden = true;
                 document.getElementById('campoTestoIniz').hidden = true;
                 document.getElementById('row1').hidden = false;
@@ -64,8 +64,8 @@ $(document).ready(function () {
                     contatoreAttivita += storia.missioni[z].attivita.length;
                 }
                 caricaAttivita();
-            //}
-        //}, 1000);
+            }
+        }, 100);
 	});
 	
     //chat tra player e valutatore
@@ -98,10 +98,10 @@ $(document).ready(function () {
         console.log("Messaggio ricevuto dal valutatore: " + valutazione);
     });
     
-    /*socket.on('nome', function(pippo){
+    socket.on('nomeErrato', function(){
+        console.log("PLAYER: Nome Errato");
         document.getElementById('nomeUtenteErrato').hidden = false;
-        console.log("Siamo dentro a nome: " + pippo);
-    });*/
+    });
     
     $('#aiuto').click(function(){
         document.getElementById('campoMessaggio').hidden = false;
