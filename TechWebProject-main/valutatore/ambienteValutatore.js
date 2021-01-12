@@ -173,13 +173,17 @@ $(document).ready( function(){
 		document.getElementById('testoDaInviare').value = '';
 	});
 	
+	
+	//TODO emettere messaggio con anche il commento alla valutazione
 	function emettiValutazione(valutazione) {
+		var commentoValutazione = document.getElementById("testoValutazione").value;
+		document.getElementById("testoValutazione").value = "";
 		for (i=0;i<risposteDaValutare.length;i++){
 			if(risposteDaValutare[i].missione == rispostaAttuale.missione
 					&&	risposteDaValutare[i].attivita == rispostaAttuale.attivita
 					&&	risposteDaValutare[i].risposta == rispostaAttuale.risposta
 					&&	risposteDaValutare[i].player == rispostaAttuale.player){
-				socket.emit('valutazione', rispostaAttuale.missione, rispostaAttuale.attivita, valutazione, idGiocatore);
+				socket.emit('valutazione', rispostaAttuale.missione, rispostaAttuale.attivita, valutazione, commentoValutazione, idGiocatore);
 				console.log("valutazione spedita al player");
 				risposteDaValutare.splice(i, 1);
 				i=risposteDaValutare.length;
@@ -205,12 +209,52 @@ $(document).ready( function(){
 		}
 	}
 	
-	$("#si").click(function(){
+	/*$("#si").click(function(){
 		emettiValutazione("si");
 	});
 	
 	$("#no").click(function() {
 		emettiValutazione("no");
+	});*/
+	
+	$("#valutazione1").click(function(){
+		emettiValutazione("1");
+	});
+	
+	$("#valutazione2").click(function(){
+		emettiValutazione("2");
+	});
+	
+	$("#valutazione3").click(function(){
+		emettiValutazione("3");
+	});
+	
+	$("#valutazione4").click(function(){
+		emettiValutazione("4");
+	});
+	
+	$("#valutazione5").click(function(){
+		emettiValutazione("5");
+	});
+	
+	$("#valutazione6").click(function(){
+		emettiValutazione("6");
+	});
+	
+	$("#valutazione7").click(function(){
+		emettiValutazione("7");
+	});
+	
+	$("#valutazione8").click(function(){
+		emettiValutazione("8");
+	});
+	
+	$("#valutazione9").click(function(){
+		emettiValutazione("9");
+	});
+	
+	$("#valutazione10").click(function(){
+		emettiValutazione("10");
 	});
 	
 	//funzione che riceve un messaggio dal server e copia il messaggio come message-left e nella lista dei messaggi
