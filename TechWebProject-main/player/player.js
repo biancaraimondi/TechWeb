@@ -23,13 +23,15 @@ $(document).ready(function () {
             missione : valore,
             attivita: valore,
             rispostaAlunno : valore,
-            valutazione : valore
+            valutazione : valore,
+            commentoValutazione : valore
         },
         {
             missione : valore,
             attivita: valore,
             rispostaAlunno : valore,
-            valutazione : valore
+            valutazione : valore,
+            commentoValutazione : valore
         }
     ]*/
     
@@ -85,11 +87,12 @@ $(document).ready(function () {
         }
 	});
     
-    socket.on('valutazione', function(missione, attivita, valutazione){
+    socket.on('valutazione', function(missione, attivita, valutazione, commentoValutazione, player){
         contatoreValutazioniEffettive++;
         for(z=0; z < valutazioni.length; z++){
             if(valutazioni[z].missione == missione && valutazioni[z].attivita == attivita){
                 valutazioni[z].valutazione = valutazione;
+                valutazioni[z].commentoValutazione = commentoValutazione;
             }
         }
         console.log("Messaggio ricevuto dal valutatore: " + valutazione);
@@ -414,7 +417,7 @@ $(document).ready(function () {
         //le info da visualizzare le prendo dall'array valutazioni[]
         for(z=0; z < valutazioni.length; z++){
             var newDiv = document.createElement("div");
-            newDiv.innerHTML = "Domanda: " + storia.missioni[valutazioni[z].missione].attivita[valutazioni[z].attivita].domanda + "<br>" + "Risposta: " + valutazioni[z].rispostaAlunno + "<br>" + "Valutazione: " + valutazioni[z].valutazione;
+            newDiv.innerHTML = "Domanda: " + storia.missioni[valutazioni[z].missione].attivita[valutazioni[z].attivita].domanda + "<br>" + "Risposta: " + valutazioni[z].rispostaAlunno + "<br>" + "Valutazione: " + valutazioni[z].valutazione + "<br>" + "Commento alla valutazione: " + valutazioni[z].commentoValutazione;
             newDiv.style.margin = "180px 20px 30px 20px";
             newDiv.style.width = "900px";
             newDiv.style.height = "500px";
