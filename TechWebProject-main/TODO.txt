@@ -26,8 +26,7 @@ BIANCA:
 accessibilità 
 commentare e pulire codice
 gestire invio foto al valutatore (https://stackoverflow.com/questions/59478402/how-do-i-send-image-to-server-via-socket-io)
-FORSE -> gestire se viene cambiata la storia nel server
-gestire solo una storia finchè non ci sono più player
+FORSE -> cambiare l'array valutazioni con i relativi socket.on
 
 MARTI:
 accessibilità
