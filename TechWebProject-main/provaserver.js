@@ -5,7 +5,7 @@ var io = require('socket.io')(http);
 var fs = require("fs");
 var utenti = [];//lista dei nomi e dei socket dei players {nome : valore, socket : socket.id, avanzamento : num, attivita : num}
 var messaggi = [];//lista dei messaggi {messaggio : val, trasmittente : val, ricevente : val}
-var risposteDaValutare = [];//lista delle risposte da valutare {missione : num, attivita: num, risposta : val, immagine : val, player : val}
+var risposteDaValutare = [];//lista delle risposte da valutare {domanda: val, risposta : val, immagine : val, player : val}
 var nomeDisconnesso = '';
 var inserisci = true;
 var storiaDaCaricare = "";
@@ -141,9 +141,9 @@ io.on('connection', function (socket) {
     });
     
     //gestisce le risposte date dal player
-    socket.on('risposta testo', function (risposta, missione, attivita, player) {
-        console.log("SERVER: risposta testo: " + risposta + " inviata da " + player + ", missione: " + missione + ", attivita: " + attivita);
-        risposteDaValutare.push({missione : missione, attivita: attivita, risposta : risposta, immagine : null, player : player});
+    socket.on('risposta testo', function (domanda, risposta, player) {
+        console.log("SERVER: risposta testo: " + risposta + " inviata da " + player + ", domanda: " + domanda);
+        risposteDaValutare.push({domanda: domanda, risposta : risposta, immagine : null, player : player});
         var z = 0;
         var socketUtente = "";
         for(z=0; z<utenti.length; z++){
@@ -151,12 +151,28 @@ io.on('connection', function (socket) {
                 socketUtente = utenti[z].socket;
             }
         }
-        socket.to(socketUtente).emit('risposta testo', risposta, missione, attivita, player);
+        socket.to(socketUtente).emit('risposta testo', domanda, risposta, player);
         console.log("SERVER: inviata risposta testuale al valutatore");
     });
     
-    socket.on('valutazione', function (missione, attivita, valutazione, commentoValutazione, player) {
-        console.log("SERVER: valutazione: " + valutazione + ", missione: " + missione + ", attivita: " + attivita + ", player: " + player);
+    socket.on('risposta immagine', function (domanda, picture, player) {
+        console.log("SERVER: risposta immagine: " + picture + " inviata da " + player + ", domanda: " + domanda);
+        risposteDaValutare.push({domanda: domanda, risposta : null, immagine : picture, player : player});
+        var z = 0;
+        var socketUtente = "";
+        for(z=0; z<utenti.length; z++){
+            if(utenti[z].nome == 'valutatore'){
+                socketUtente = utenti[z].socket;
+            }
+        }
+        socket.to(socketUtente).emit('risposta immagine', domanda, picture, player);
+        console.log("SERVER: inviata risposta con immagine al valutatore");
+    });
+    
+    
+    
+    socket.on('valutazione', function (domanda, valutazione, commentoValutazione, player) {
+        console.log("SERVER: valutazione: " + valutazione + ", domanda: " + domanda + ", player: " + player);
         var z = 0;
         var socketUtente = "";
         for(z=0; z<utenti.length; z++){
@@ -164,7 +180,7 @@ io.on('connection', function (socket) {
                 socketUtente = utenti[z].socket;
             }
         }
-        socket.to(socketUtente).emit('valutazione', missione, attivita, valutazione, commentoValutazione, player);
+        socket.to(socketUtente).emit('valutazione', domanda, valutazione, commentoValutazione, player);
         console.log("SERVER: inviata vautazione al player");
     });
     
