@@ -20,21 +20,21 @@ $(document).ready(function () {
     var valutazioni = [];
     /*valutazioni[
         {
-            missione : valore,
-            attivita: valore,
-            rispostaAlunno : valore,
+            domanda: valore,
+            risposta : valore,
+            immagine : valore,
             valutazione : valore,
             commentoValutazione : valore
         },
         {
-            missione : valore,
-            attivita: valore,
-            rispostaAlunno : valore,
+            domanda: valore,
+            risposta : valore,
+            immagine : valore,
             valutazione : valore,
             commentoValutazione : valore
         }
     ]*/
-    
+    let picture;
     const webcamElement = document.getElementById('webcam');
     const canvasElement = document.getElementById('canvas');
     const webcam = new Webcam(webcamElement, 'user', canvasElement);
@@ -87,10 +87,10 @@ $(document).ready(function () {
         }
 	});
     
-    socket.on('valutazione', function(missione, attivita, valutazione, commentoValutazione, player){
+    socket.on('valutazione', function(domanda, valutazione, commentoValutazione, player){
         contatoreValutazioniEffettive++;
         for(z=0; z < valutazioni.length; z++){
-            if(valutazioni[z].missione == missione && valutazioni[z].attivita == attivita){
+            if(valutazioni[z].domanda == domanda){
                 valutazioni[z].valutazione = valutazione;
                 valutazioni[z].commentoValutazione = commentoValutazione;
             }
@@ -115,44 +115,19 @@ $(document).ready(function () {
     //gestione fotocamera from https://www.npmjs.com/package/webcam-easy
     $('#bottoneFoto').click(function(){
         gestioneFotocamera();
-        /*var app = {
-            initialize: function(){
-                this.bindEvents();
-            },
-            bindEvents: function(){
-                document.addEventListener('deviceready', this.onDeviceReady, false);
-            },
-            onDeviceReady: function(){
-                  $("#bottoneFoto").click(function(){
-                      navigator.camera.getPicture(app.onCameraSuccess, app.onCameraError, {
-                            sourceType: Camera.PictureSourceType.CAMERA, //acquisizione immagine con fotocamera di default
-                            correctOrientation: true,
-                            quality: 50,
-                            destinationType: navigator.camera.DestinationType.FILE_URI //restituisce il file URI dell’immagine
-                       });
-                  });
-            },
-            onCameraSuccess: function(imageURI){
-                document.getElementById('fotoAnteprima').width("40em");
-                document.getElementById('fotoAnteprima').src = imageURI;
-             },
-            onCameraError: function(errorMessage){
-                  alert("Errore");
-            }
-            
-        };
-        app.initialize();*/
     });
     
     $('#scattaFoto').click(function(){
-        /*var picture = webcam.snap();
-        webcam.snap(function(data_uri) {
-          // display results in page
-          document.getElementById('fotoAnteprima').innerHTML = "<img width='40em' src='"+data_uri+"'>";
-        });*/
-        let picture = webcam.snap();
-        document.querySelector('#canvas').href = picture;
+        picture = webcam.snap();
+        var newDiv = document.getElementById('fotoAnteprima');
+        var newImg = document.createElement("img");
+        newImg.setAttribute("width", "40em");
+        newImg.setAttribute("src", picture);
+        var immagineJson = JSON.stringify(newImg);
+        console.log(immagineJson);
+        newDiv.appendChild(newImg);
         console.log("acquisita immagine");
+        webcam.stop();
     });
     
     $('#stopFotocamera').click(function(){
@@ -220,25 +195,27 @@ $(document).ready(function () {
     
     $('#inviaRisposta').click(function(){
         var risposta = document.getElementById('nameTextArea').value;
-        socket.emit('risposta testo', risposta, i, j, nomeGiocatore);
-        console.log(risposta + " " + nomeGiocatore);
+        socket.emit('risposta testo', domanda, risposta, nomeGiocatore);
         valutazioni.push({
-            missione : i,
-            attivita: j,
-            rispostaAlunno : risposta,
-            valutazione : null
+            domanda : domanda,
+            risposta : risposta,
+            immagine : null,
+            valutazione : null,
+            commentoValutazione : null
         });
         cambioAttivita();
     });
     
     $('#inviaRispostaFoto').click(function(){
-        const reader = new FileReader();
-          reader.onload = function() {
-            const base64 = this.result.replace(/.*base64,/, '');
-              console.log(base64);
-            socket.emit('risposta immagine', base64, nomeGiocatore);
-          };
-          //reader.readAsDataURL(this.files[0]);
+        var domanda = storia.missioni[i].attivita[j].domanda;
+        socket.emit('risposta immagine', domanda, picture, nomeGiocatore);
+        valutazioni.push({
+            domanda : domanda,
+            risposta : null,
+            immagine : picture,
+            valutazione : null,
+            commentoValutazione : null
+        });
         cambioAttivita();
     });
     
@@ -416,16 +393,26 @@ $(document).ready(function () {
     function visualizzaValutazioni(){
         //le info da visualizzare le prendo dall'array valutazioni[]
         for(z=0; z < valutazioni.length; z++){
-            var newDiv = document.createElement("div");
-            newDiv.innerHTML = "Domanda: " + storia.missioni[valutazioni[z].missione].attivita[valutazioni[z].attivita].domanda + "<br>" + "Risposta: " + valutazioni[z].rispostaAlunno + "<br>" + "Valutazione: " + valutazioni[z].valutazione + "<br>" + "Commento alla valutazione: " + valutazioni[z].commentoValutazione;
-            newDiv.style.margin = "180px 20px 30px 20px";
-            newDiv.style.width = "900px";
-            newDiv.style.height = "500px";
-            //newDiv.style.top = "50%";
-            //newDiv.style.left = "50%";
-            newDiv.style.fontFamily = "Baskerville";
-            var oldDiv = document.getElementById('row1');
-            oldDiv.appendChild(newDiv);
+            if (valutazioni[z].immagine == null){
+                var newDiv = document.createElement("div");
+                newDiv.innerHTML = "Domanda: " + valutazioni[z].domanda + "<br>" + "Risposta: " + valutazioni[z].risposta + "<br>" + "Valutazione: " + valutazioni[z].valutazione + "<br>" + "Commento alla valutazione: " + valutazioni[z].commentoValutazione;
+                //newDiv.style.margin = "180px 20px 30px 20px";
+                newDiv.style.width = "900px";
+                newDiv.style.height = "500px";
+                newDiv.style.fontFamily = "Baskerville";
+                var oldDiv = document.getElementById('row1');
+                oldDiv.appendChild(newDiv);
+            }
+            else{
+                var newDiv = document.createElement("div");
+                newDiv.innerHTML = "Domanda: " + valutazioni[z].domanda + "<br>" + "Risposta immagine: <img width='3em' src='" + valutazioni[z].immagine + "></img><br>" + "Valutazione: " + valutazioni[z].valutazione + "<br>" + "Commento alla valutazione: " + valutazioni[z].commentoValutazione;
+                //newDiv.style.margin = "180px 20px 30px 20px";
+                newDiv.style.width = "900px";
+                newDiv.style.height = "500px";
+                newDiv.style.fontFamily = "Baskerville";
+                var oldDiv = document.getElementById('row1');
+                oldDiv.appendChild(newDiv);
+            }
             valutazioni.splice(z,1);
             z--;
         }
