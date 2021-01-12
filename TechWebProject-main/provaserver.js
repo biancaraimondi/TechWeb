@@ -160,7 +160,7 @@ io.on('connection', function (socket) {
         console.log("SERVER: inviata risposta testuale al valutatore");
     });
     
-    socket.on('valutazione', function (missione, attivita, valutazione, player) {
+    socket.on('valutazione', function (missione, attivita, valutazione, commentoValutazione, player) {
         console.log("SERVER: valutazione: " + valutazione + ", missione: " + missione + ", attivita: " + attivita + ", player: " + player);
         var z = 0;
         var socketUtente = "";
@@ -169,7 +169,7 @@ io.on('connection', function (socket) {
                 socketUtente = utenti[z].socket;
             }
         }
-        socket.to(socketUtente).emit('valutazione', missione, attivita, valutazione, player);
+        socket.to(socketUtente).emit('valutazione', missione, attivita, valutazione, commentoValutazione, player);
         console.log("SERVER: inviata vautazione al player");
     });
     
