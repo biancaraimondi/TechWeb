@@ -4,7 +4,7 @@ var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 var fs = require("fs");
 var utenti = [];//lista dei nomi e dei socket dei players {nome : valore, socket : socket.id, avanzamento : num, attivita : num}
-var messaggi = [];//lista dei messaggi (messaggio, trasmittente, ricevente)
+var messaggi = [];//lista dei messaggi {messaggio : val, trasmittente : val, ricevente : val}
 var risposteDaValutare = [];//lista delle risposte da valutare {missione : num, attivita: num, risposta : val, immagine : val, player : val}
 var nomeDisconnesso = '';
 var inserisci = true;
@@ -84,45 +84,40 @@ io.on('connection', function (socket) {
 
     //gestisce la chat tra valutatore e player
     socket.on('chat message', function (msg, trasmittente, ricevente) {
-        var prova = "nomeErrato";
-        console.log(prova);
+        console.log('SERVER: message from ' + trasmittente + ' to ' + ricevente + ': ' + msg);
         //se l'utente non è già connesso, lo inseriamo nella lista degli utenti connessi
         inserisci = true;
+        var nomeCorretto = true;
         for (i=0;i<utenti.length;i++){
             if(utenti[i].nome == trasmittente){
+            	//se l'utente ha inserito un nome che è già nella lista allora gli spediamo un messaggio con scritto di cambiare nome
                 if(utenti[i].socket !== socket.id){
-                    socket.to(socket.id).emit('chat message', prova, prova, prova);
-                    console.log("If interno");
+                	nomeCorretto = false;
+                    io.to(socket.id).emit('nomeErrato');
+                    console.log("SERVER: spedito al player un messaggio per cambiare nome");
                 }
-                else{
-                    inserisci = false;
-                }
-                console.log("If esterno");
+                inserisci = false;
             }
         }
         if (inserisci){
             console.log(trasmittente);
             utenti.push({nome : trasmittente, socket : socket.id, avanzamento : null, attivita : null});
-            //mostra gli utenti connessi
-            console.log('SERVER: utenti: ');
-            for(i=0;i<utenti.length;i++){
-                console.log('nome: ' + utenti[i].nome + ' socket: ' + utenti[i].socket);//mostra gli utenti connessi
-            }
         }
         
-        console.log(JSON.stringify(utenti));
-        console.log('SERVER: message from ' + trasmittente + ' to ' + ricevente + ': ' + msg);
-        
-        messaggi.push({messaggio : msg, trasmittente : trasmittente, ricevente : ricevente});
+        console.log("SERVER: utenti: " + JSON.stringify(utenti));
         
         //invia il messaggio al destinatario 'ricevente'
         var socketUtente = '';
-        inserisci = true;
-        for (i=0;i<utenti.length;i++){
-            if (utenti[i].nome == ricevente){
-                socketUtente = utenti[i].socket;
-                socket.to(socketUtente).emit('chat message', msg, trasmittente, ricevente);
-            }
+        console.log("nome corretto: " + nomeCorretto);
+        if(nomeCorretto){
+	        messaggi.push({messaggio : msg, trasmittente : trasmittente, ricevente : ricevente});
+	        for (i=0;i<utenti.length;i++){
+	            if (utenti[i].nome == ricevente){
+	                socketUtente = utenti[i].socket;
+	                socket.to(socketUtente).emit('chat message', msg, trasmittente, ricevente);
+	                console.log("MESSAGGIO SPEDITO");
+	            }
+	        }
         }
         
     });
