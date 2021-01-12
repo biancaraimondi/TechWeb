@@ -179,9 +179,12 @@ io.on('connection', function (socket) {
         for (i=0;i<utenti.length;i++){
             if (utenti[i].socket == socket.id){
                 nomeDisconnesso = utenti[i].nome;
+                utenti.splice(i, 1);
+                i--;
             }
         }
         console.log('SERVER: user ' + socket.id + ' disconnected. (' + nomeDisconnesso + ')');
+        console.log('SERVER: utenti: ' + JSON.stringify(utenti));
         var msg='Mi sono disconnesso, non riuscirò più a ricevere i tuoi messaggi';
         //invia un messaggio al valutatore se il disconnesso è un player
         if (nomeDisconnesso != 'valutatore'){
