@@ -29,7 +29,6 @@ gestire invio foto al valutatore (https://stackoverflow.com/questions/59478402/h
 FORSE -> gestire se viene cambiata la storia nel server
 
 gestire errore caricamento radiobutton player vuoto (COLLEGATO A PROBLEMA NOME UGUALE)
-cambiare html valutazione risposta (num da 1 a 10 come risposta + testo)
 //TODO far visualizzare al player un messaggio per cambiare il nome perchè già esistente nella lista degli utenti
 
 MARTI:
