@@ -21,6 +21,7 @@ accessibilità
 commentare e pulire codice
 
 eliminare puntino bianco giocatore nullo
+modificare messaggio incitamento
 
 MARTI:
 accessibilità
@@ -29,6 +30,7 @@ nome chiave dell'immagine all'interno della domanda è immaginedomanda
 camporispostafoto è il campo da scrivere nella storia JSON quando si vuole rispondere con un'immagine
 
 eliminare pulsante stoppa fotocamera
+modificare messaggio incitamento
 modificare css per anteprima foto (più grande e a dx - non sotto il png camera)
 sistemare css ultimo div (margin per il footer)
 cambiare nelle storie il messaggio di incitamento
@@ -38,5 +40,6 @@ controllare specifiche Vitali
 CRI: 
 accessibilità
 creare storie ed inserirle nel file storie.json
+modificare messaggio incitamento
 settare le nostre tre storie con stato="pubblicata" nel file storie.json
 unire file server nell'unico file provaserver.js di Bianca caricato nella pagine principale GitHub
