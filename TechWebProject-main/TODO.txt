@@ -20,6 +20,8 @@ guardare funzionamento chromevox x accessibilità
  
 installare: npm install webcam-easy (gestione fotocamera)
 
+cambiare nelle storie il messaggio di incitamento
+
 BIANCA:
 accessibilità 
 commentare e pulire codice
