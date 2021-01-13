@@ -28,6 +28,7 @@ commentare e pulire codice
 
 gestire problema ambiente valutatore image
 controllare specifiche Vitali
+eliminare player quando si disconnette
 
 MARTI:
 accessibilità
