@@ -2,21 +2,15 @@ GENERALE:
 
 modificare inclusione libreria socket.io prima della consegna (cambiare porta in 8000)
 
-creare storie ed inserirle nel file storie.json (nome storia Bianca: interrail)
-
-creare ognuna la propria storia 
-
 creare QRcode
 
-rendere accessibili tutte le pagine 
+rendere accessibili tutte le pagine (guardare funzionamento chromevox x accessibilità)
 
 installare multer (npm install --save multer)
 
 prima della consegna del progetto, eliminare nel codice che viene caricato sul server unibo, tutti i commenti lasciare solo quelli importanti
 
-rinominare la cartella "immaginiPlayer" con "image" (viene generata in automatico appena si apre il server)
-
-guardare funzionamento chromevox x accessibilità
+rinominare la cartella "immaginiPlayer" con "image" (viene generata in automatico appena si apre il server) ??
  
 installare: npm install webcam-easy (gestione fotocamera)
 
@@ -30,6 +24,7 @@ eliminare puntino bianco giocatore nullo
 
 MARTI:
 accessibilità
+commentare e pulire codice
 nome chiave dell'immagine all'interno della domanda è immaginedomanda
 camporispostafoto è il campo da scrivere nella storia JSON quando si vuole rispondere con un'immagine
 
@@ -42,5 +37,6 @@ controllare specifiche Vitali
 
 CRI: 
 accessibilità
+creare storie ed inserirle nel file storie.json
 settare le nostre tre storie con stato="pubblicata" nel file storie.json
 unire file server nell'unico file provaserver.js di Bianca caricato nella pagine principale GitHub
