@@ -18,6 +18,7 @@ $(document).ready(function () {
     var contatoreValutazioni = 0;
     var contatoreValutazioniEffettive = 0;
     var valutazioni = [];
+    var inserisciMargine;
     /*valutazioni[
         {
             domanda: valore,
@@ -96,6 +97,9 @@ $(document).ready(function () {
             }
         }
         console.log("Messaggio ricevuto dal valutatore: " + valutazione);
+        if(i == (numMissioni-1) && j == (numAttivita-1)){
+            visualizzaValutazioni();
+        }
     });
     
     socket.on('nomeErrato', function(){
@@ -195,6 +199,7 @@ $(document).ready(function () {
     
     $('#inviaRisposta').click(function(){
         var risposta = document.getElementById('nameTextArea').value;
+        var domanda = storia.missioni[i].attivita[j].domanda;
         socket.emit('risposta testo', domanda, risposta, nomeGiocatore);
         valutazioni.push({
             domanda : domanda,
@@ -381,40 +386,52 @@ $(document).ready(function () {
                 document.getElementById('footer').hidden = true;
                 document.getElementById('row4').hidden = true;
                 document.getElementById('domanda').innerHTML = "Complimenti! Hai terminato con successo la storia. Sotto potrai vedere visualizzate tutte le tue valutazioni che prima erano in attesa di valutazione. Quando tutte le tue risposte saranno state valutate potrai ritornare alla pagina principale cliccando il pulsante in basso a sinistra.";
+                inserisciMargine = true;
                 visualizzaValutazioni();
-                /*while(contatoreValutazioniEffettive < contatoreValutazioni){
-                    setInterval(visualizzaValutazioni, 5000);
-                }*/
-                document.getElementById('footer').hidden = false;
             }
         }
     } //chiusura function cambioAttivita
     
     function visualizzaValutazioni(){
+        
         //le info da visualizzare le prendo dall'array valutazioni[]
         for(z=0; z < valutazioni.length; z++){
-            if (valutazioni[z].immagine == null){
+            if (valutazioni[z].valutazione != null && valutazioni[z].commentoValutazione != null){
                 var newDiv = document.createElement("div");
-                newDiv.innerHTML = "Domanda: " + valutazioni[z].domanda + "<br>" + "Risposta: " + valutazioni[z].risposta + "<br>" + "Valutazione: " + valutazioni[z].valutazione + "<br>" + "Commento alla valutazione: " + valutazioni[z].commentoValutazione;
-                //newDiv.style.margin = "180px 20px 30px 20px";
+                if (valutazioni[z].immagine == null){
+                    newDiv.innerHTML = "<br> Domanda: " + valutazioni[z].domanda + "<br>" + "Risposta: " + valutazioni[z].risposta + "<br>" + "Valutazione: " + valutazioni[z].valutazione + "<br>" + "Commento alla valutazione: " + valutazioni[z].commentoValutazione;
+                }
+                else{
+                    newDiv.innerHTML = "<br> Domanda: " + valutazioni[z].domanda + "<br> Risposta immagine: ";
+                    var Img = document.createElement("img");
+                    Img.src = valutazioni[z].immagine;
+                    Img.setAttribute("width", "150em");
+                    newDiv.appendChild(Img);
+                    newDiv.innerHTML += "<br>" + "Valutazione: " + valutazioni[z].valutazione + "<br>" + "Commento alla valutazione: " + valutazioni[z].commentoValutazione;
+                }
+                if(inserisciMargine == true){
+                    newDiv.style.marginTop = "180px";
+                }
+                inserisciMargine = false;
+                newDiv.style.marginBottom = "50px";
                 newDiv.style.width = "900px";
-                newDiv.style.height = "500px";
                 newDiv.style.fontFamily = "Baskerville";
+                newDiv.style.fontSize = "18px";
                 var oldDiv = document.getElementById('row1');
                 oldDiv.appendChild(newDiv);
+                window.scroll();
+                valutazioni.splice(z,1);
+                z--;
             }
-            else{
-                var newDiv = document.createElement("div");
-                newDiv.innerHTML = "Domanda: " + valutazioni[z].domanda + "<br>" + "Risposta immagine: <img width='3em' src='" + valutazioni[z].immagine + "></img><br>" + "Valutazione: " + valutazioni[z].valutazione + "<br>" + "Commento alla valutazione: " + valutazioni[z].commentoValutazione;
-                //newDiv.style.margin = "180px 20px 30px 20px";
-                newDiv.style.width = "900px";
-                newDiv.style.height = "500px";
-                newDiv.style.fontFamily = "Baskerville";
-                var oldDiv = document.getElementById('row1');
-                oldDiv.appendChild(newDiv);
-            }
-            valutazioni.splice(z,1);
-            z--;
+        }
+        if(contatoreValutazioniEffettive == contatoreValutazioni){
+            var newDiv = document.createElement("div");
+            newDiv.style.height = "50px";
+            newDiv.innerHTML = "Devo riempire dello spazio" + "<br>";
+            newDiv.style.color = "white";
+            var oldDiv = document.getElementById('row1');
+            oldDiv.appendChild(newDiv);
+            document.getElementById('footer').hidden = false;
         }
     } //chiusura function visualizzaValutazioni
     
