@@ -20,17 +20,12 @@ guardare funzionamento chromevox x accessibilità
  
 installare: npm install webcam-easy (gestione fotocamera)
 
-cambiare nelle storie il messaggio di incitamento
-
 testare progetto su chrome, firefox, safari, opera, edge
-
-creare var punteggio player
 
 BIANCA:
 accessibilità 
 commentare e pulire codice
 
-eliminare player quando si disconnette
 eliminare puntino bianco giocatore nullo
 
 MARTI:
@@ -39,7 +34,10 @@ nome chiave dell'immagine all'interno della domanda è immaginedomanda
 camporispostafoto è il campo da scrivere nella storia JSON quando si vuole rispondere con un'immagine
 
 eliminare pulsante stoppa fotocamera
-modificare css per anteprima foto
+modificare css per anteprima foto (più grande e a dx - non sotto il png camera)
+sistemare css ultimo div (margin per il footer)
+cambiare nelle storie il messaggio di incitamento
+creare var punteggio player (da visualizzare alla fine - es. 45/47 totali) - visualizzarlo al centro dove a sx ho il 'torna alla pg princ'
 controllare specifiche Vitali
 
 CRI: 
