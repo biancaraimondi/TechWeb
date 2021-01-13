@@ -33,7 +33,7 @@ nome chiave dell'immagine all'interno della domanda è immaginedomanda
 camporispostafoto è il campo da scrivere nella storia JSON quando si vuole rispondere con un'immagine
 
 gestire problema richiamare visualizzaValutazioni ogni tot secondi
-modificare css utlima pagina player
+gestire problema player-valutatore per domanda/risposta
 
 controllare specifiche Vitali
 
