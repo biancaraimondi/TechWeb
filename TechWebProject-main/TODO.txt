@@ -9,8 +9,6 @@ rendere accessibili tutte le pagine (guardare funzionamento chromevox x accessib
 installare multer (npm install --save multer)
 
 prima della consegna del progetto, eliminare nel codice che viene caricato sul server unibo, tutti i commenti lasciare solo quelli importanti
-
-rinominare la cartella "immaginiPlayer" con "image" (viene generata in automatico appena si apre il server) ??
  
 installare: npm install webcam-easy (gestione fotocamera)
 
@@ -40,6 +38,4 @@ controllare specifiche Vitali
 CRI: 
 accessibilità
 creare storie ed inserirle nel file storie.json
-modificare messaggio incitamento
-settare le nostre tre storie con stato="pubblicata" nel file storie.json
 unire file server nell'unico file provaserver.js di Bianca caricato nella pagine principale GitHub
