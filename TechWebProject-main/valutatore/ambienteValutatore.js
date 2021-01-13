@@ -57,9 +57,6 @@ $(document).ready( function(){
 			socket.emit('chat message', messaggioValutatore, nomeValutatore, idGiocatore);
 			console.log('VALUTATORE: valutatore connesso alla chat');
 		}
-        else{
-            console.log("Consolo log utenti");
-        }
 	};
 	xmlhttp.open("GET", "/valutatore/utenti", true);
 	xmlhttp.send();
@@ -74,9 +71,6 @@ $(document).ready( function(){
 				}
 			}
 		}
-        else{
-            console.log("Consolo log messaggi");
-        }
 	};
 	xmlhttp2.open("GET", "/valutatore/messaggi", true);
 	xmlhttp2.send();
@@ -91,9 +85,6 @@ $(document).ready( function(){
 			}
 			console.log(JSON.stringify(risposteDaValutare));
 		}
-        else{
-            console.log("Consolo log risposte");
-        }
 	};
 	xmlhttp3.open("GET", "/valutatore/risposte", true);
 	xmlhttp3.send();
@@ -151,14 +142,17 @@ $(document).ready( function(){
                         document.getElementById('testoRispostaPlayer').innerHTML = "DOMANDA: " + risposteDaValutare[i].domanda;
                         document.getElementById('testoRispostaPlayer').innerHTML += "<br>RISPOSTA: " + risposteDaValutare[i].risposta;
                         rispostaAttuale = risposteDaValutare[i];
-                        i=risposteDaValutare.length;
+                        document.getElementById('testoRispostaPlayer').hidden = false;
                     }
                     else{
                         document.getElementById('testoRispostaPlayer').innerHTML = "DOMANDA: " + risposteDaValutare[i].domanda;
                         var immagine = document.getElementById('immagineRispostaPlayer');
-                        immagine.setAttribute("src", risposteDaValutare[i].picture);
+                        immagine.src = risposteDaValutare[i].immagine;
                         rispostaAttuale = risposteDaValutare[i];
+                        document.getElementById('testoRispostaPlayer').hidden = false;
+                        document.getElementById('immagineRispostaPlayer').hidden = false;
                     }
+                    i=risposteDaValutare.length;
 				}
 			}
 		}
@@ -195,7 +189,7 @@ $(document).ready( function(){
 			}
 		}
 		console.log("risposteDaValutare: " + JSON.stringify(risposteDaValutare));
-		//TODO gestire se si carica un'immagine o un testo
+        
 		inserisci = true;
 		for (i=0;i<risposteDaValutare.length;i++){
 			if (risposteDaValutare[i].player == idGiocatore){
@@ -204,16 +198,16 @@ $(document).ready( function(){
                     document.getElementById('testoRispostaPlayer').innerHTML = "DOMANDA: " + risposteDaValutare[i].domanda;
                     document.getElementById('testoRispostaPlayer').innerHTML += "<br>RISPOSTA: " + risposteDaValutare[i].risposta;
                     rispostaAttuale = risposteDaValutare[i];
-                    i=risposteDaValutare.length;
                 }
                 else{
                     document.getElementById('testoRispostaPlayer').hidden = false;
                     document.getElementById('immagineRispostaPlayer').hidden = false;
-                    document.getElementById('testoRispostaPlayer').innerHTML = "DOMANDA: " + domanda;
+                    document.getElementById('testoRispostaPlayer').innerHTML = "DOMANDA: " + risposteDaValutare[i].domanda;
                     var immagine = document.getElementById('immagineRispostaPlayer');
-                    immagine.setAttribute("src", picture);
+                    immagine.src = risposteDaValutare[i].picture;
                     rispostaAttuale = risposteDaValutare[i];
                 }
+                i=risposteDaValutare.length;
 				inserisci = false;
 			}
 		}
@@ -320,6 +314,7 @@ $(document).ready( function(){
             	console.log("VALUTATORE: la rispostaAttuale è null");
             	document.getElementById('testoRispostaPlayer').innerHTML = "DOMANDA: " + domanda;
     			document.getElementById('testoRispostaPlayer').innerHTML += "<br>RISPOSTA: " + risposta;
+                document.getElementById('testoRispostaPlayer').hidden = false;
                 rispostaAttuale = {
                         domanda: domanda,
                         risposta : risposta,
@@ -344,8 +339,9 @@ $(document).ready( function(){
                 console.log("VALUTATORE: la rispostaAttuale è null");
                 document.getElementById('testoRispostaPlayer').innerHTML = "DOMANDA: " + domanda;
                 var immagine = document.getElementById('immagineRispostaPlayer');
-                //immagine.setAttribute("src", picture);
-                immagine.setAttribute("src", "/image/Londra.jpg");
+                immagine.src = picture;
+                document.getElementById('testoRispostaPlayer').hidden = false;
+                document.getElementById('immagineRispostaPlayer').hidden = false;
                 rispostaAttuale = {
                         domanda : domanda,
                         risposta : null,
