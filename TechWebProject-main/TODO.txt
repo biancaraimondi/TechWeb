@@ -27,15 +27,14 @@ accessibilità
 commentare e pulire codice
 
 eliminare player quando si disconnette
+eliminare puntino bianco giocatore nullo
 
 MARTI:
 accessibilità
 nome chiave dell'immagine all'interno della domanda è immaginedomanda
 camporispostafoto è il campo da scrivere nella storia JSON quando si vuole rispondere con un'immagine
 
-gestire problema richiamare visualizzaValutazioni ogni tot secondi
-gestire problema player-valutatore per domanda/risposta
-
+modificare css per anteprima foto
 controllare specifiche Vitali
 
 CRI: 
