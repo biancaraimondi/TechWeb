@@ -38,6 +38,7 @@ accessibilità
 nome chiave dell'immagine all'interno della domanda è immaginedomanda
 camporispostafoto è il campo da scrivere nella storia JSON quando si vuole rispondere con un'immagine
 
+eliminare pulsante stoppa fotocamera
 modificare css per anteprima foto
 controllare specifiche Vitali
 
