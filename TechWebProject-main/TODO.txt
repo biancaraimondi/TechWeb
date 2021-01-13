@@ -17,9 +17,8 @@ prima della consegna del progetto, eliminare nel codice che viene caricato sul s
 rinominare la cartella "immaginiPlayer" con "image" (viene generata in automatico appena si apre il server)
 
 guardare funzionamento chromevox x accessibilità
-
-:: GESTIONE FOTOCAMERA :: 
-installare: npm install webcam-easy
+ 
+installare: npm install webcam-easy (gestione fotocamera)
 
 BIANCA:
 accessibilità 
@@ -37,12 +36,6 @@ gestire problema richiamare visualizzaValutazioni ogni tot secondi
 modificare css utlima pagina player
 
 controllare specifiche Vitali
-
-
-caricamento immagine da fotocamera: https://ichi.pro/it/come-accedere-a-una-webcam-e-scattare-una-foto-con-javascript-203484453944696
-                                                        https://www.npmjs.com/package/webcam-easy
-                     (https://www.html.it/pag/45424/gestire-la-fotocamera-scattare-una-foto/ OPPURE https://getbootstrap.com/docs/5.0/forms/input-group/)
-
 
 CRI: 
 accessibilità
