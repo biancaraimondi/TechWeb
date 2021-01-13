@@ -22,6 +22,8 @@ installare: npm install webcam-easy (gestione fotocamera)
 
 cambiare nelle storie il messaggio di incitamento
 
+testare progetto su chrome, firefox, safari, opera, edge
+
 BIANCA:
 accessibilità 
 commentare e pulire codice
