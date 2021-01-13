@@ -24,6 +24,8 @@ cambiare nelle storie il messaggio di incitamento
 
 testare progetto su chrome, firefox, safari, opera, edge
 
+creare var punteggio player
+
 BIANCA:
 accessibilità 
 commentare e pulire codice
