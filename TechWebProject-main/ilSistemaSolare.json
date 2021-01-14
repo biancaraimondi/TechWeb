@@ -15,7 +15,7 @@
                         "giusta": "Apollo 11",
                         "sbagliata2": "Asterix",
                         "sbagliata3": "Messenger",
-                        "incoraggiamento": "Sei sicuro della risposta? Non demordere e riprovaci. E se hai bisogno di un piccolo aiuto clicca il bottone 'Aiuto'",
+                        "incoraggiamento": "Mhh! Prova a pensarci meglio e cambia la tua risposta. Se hai difficolta' puoi sempre visualizzare l'aiuto",
                         "aiuto": "Prova ad aiutarti guardando questa foto che rappresenta l'emblema della missione: ",
                         "immagineaiuto": "/image/Apollo11.png"
                     }
@@ -28,7 +28,7 @@
                         "giusta": "Terra",
                         "sbagliata2": "Venere",
                         "sbagliata3": "Giove",
-                        "incoraggiamento": "Sei sicuro della risposta? Non demordere e riprovaci. E se hai bisogno di un piccolo aiuto clicca il bottone 'Aiuto'",
+                        "incoraggiamento": "Sei sicuro della risposta? Pensa bene a dove noi abitiamo e riprovaci. E se hai bisogno puoi sempre visualizzare l'aiuto",
                         "aiuto": "Questo pianeta e' per noi Casa.",
                         "immagineaiuto": ""
                     }
@@ -41,7 +41,7 @@
                 {
                     "domanda": "Forza! Troviamo questo codice così da poter ripartire al piu' presto! Per decifrarlo abbiamo bisogno che tu risolva questi tre piccoli test scientifici: Quanto vale x in 2(x-1)=0? Invece quanto vale y in 3y=2+4? E invece z quanto vale se e' il doppio di x? Scrivi in ordine il valore di x, y e z cosi' avremo il nostro codice.",
                     "immaginesfondo": "",
-                    "camporisposta": ""
+                    "camporispostafoto": ""
                 },
                 {
                     "domanda": "Yuhuuu! Finalmente Jupiter e' ripartita per il suo viaggio grazie al tuo prezioso aiuto! Adesso e' pronta per portarti a vedere il pianeta piu' vicino al Sole. Il suo nome e'..?",
@@ -51,7 +51,7 @@
                         "giusta": "Mercurio",
                         "sbagliata2": "Urano",
                         "sbagliata3": "Venere",
-                        "incoraggiamento": "Sei sicuro della risposta? Non demordere e riprovaci. E se hai bisogno di un piccolo aiuto clicca il bottone 'Aiuto'",
+                        "incoraggiamento": "Accidenti! Non e' questa la risposta corretta, che ne dici di riprovarci? Puoi sempre visualizzare l'aiuto se hai difficoltà a trovare la risposta",
                         "aiuto": "Ha lo stesso nome del liquido contenuto nel termometro che usi per misurarti la febbre.",
                         "immagineaiuto": ""
                     }
@@ -69,7 +69,7 @@
                         "giusta": "Pianeta nano",
                         "sbagliata2": "Asteroide",
                         "sbagliata3": "Cometa",
-                        "incoraggiamento": "Sei sicuro della risposta? Non demordere e riprovaci. E se hai bisogno di un piccolo aiuto clicca il bottone 'Aiuto'",
+                        "incoraggiamento": "Mh! Ci sei andato vicino, pensaci ancora un po' e prova a cambiare la risposta. E se hai bisogno puoi sempre visualizzare l'aiuto",
                         "aiuto": "Il suo nome e' dovuto al fatto che il pianeta e' piccolo piccolo.",
                         "immagineaiuto": ""
                     }
@@ -82,9 +82,9 @@
                         "giusta": "Pianeti di tipo terrestre e Pianeti di tipo gioviano",
                         "sbagliata2": "Pianeti di tipo gassoso e Pianeti nani",
                         "sbagliata3": "Pianeti e Asteroidi",
-                        "incoraggiamento": "Sei sicuro della risposta? Non demordere e riprovaci. E se hai bisogno di un piccolo aiuto clicca il bottone 'Aiuto'",
-                        "aiuto": "I due gruppi prendono il nome perche' simili alla Terra (Mercurio, Venere, Terra e Marte) e perche' simili a Giove (Giove, Saturno, Urano, Nettuno). Aiutati con la foto: ",
-                        "immagineaiuto": "/image/aiutoGruppi.jpg"
+                        "incoraggiamento": "Dai che sei arrivato alla fine! Un ultimo sforzo per riprovarci e indovinare l'ultima rispsota. Se hai difficolta' guarda l'aiuto",
+                        "aiuto": "I due gruppi prendono il nome perche' simili alla Terra (Mercurio, Venere, Terra e Marte) e perche' simili a Giove (Giove, Saturno, Urano, Nettuno).",
+                        "immagineaiuto": ""
                     }
                 },
                 {
