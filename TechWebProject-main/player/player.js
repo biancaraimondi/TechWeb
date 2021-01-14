@@ -118,23 +118,25 @@ $(document).ready(function () {
     
     //gestione fotocamera from https://www.npmjs.com/package/webcam-easy
     $('#bottoneFoto').click(function(){
-        gestioneFotocamera();
+        webcam.start()
+           .then(result =>{
+              console.log("webcam started");
+           })
+           .catch(err => {
+               console.log(err);
+           });
     });
     
     $('#scattaFoto').click(function(){
         picture = webcam.snap();
         var newDiv = document.getElementById('fotoAnteprima');
         var newImg = document.createElement("img");
-        newImg.setAttribute("width", "40em");
+        newImg.setAttribute("width", "100em");
         newImg.setAttribute("src", picture);
         var immagineJson = JSON.stringify(newImg);
         console.log(immagineJson);
         newDiv.appendChild(newImg);
         console.log("acquisita immagine");
-        webcam.stop();
-    });
-    
-    $('#stopFotocamera').click(function(){
         webcam.stop();
         console.log("webcam stopped");
     });
@@ -434,16 +436,6 @@ $(document).ready(function () {
             document.getElementById('footer').hidden = false;
         }
     } //chiusura function visualizzaValutazioni
-    
-    function gestioneFotocamera(){
-        webcam.start()
-           .then(result =>{
-              console.log("webcam started");
-           })
-           .catch(err => {
-               console.log(err);
-           });
-    } //chiusura function gestioneFotocamera
 
     $(".navbar-toggler").click(function() {
         cambiaPagina('primaPagina.html');

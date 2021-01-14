@@ -59,6 +59,7 @@
             </div>
             
             <div class="row" id="row3">
+                <!-- campo risposte testuali e campo risposte con foto -->
                 <div class="col-sm-6 col-md-6 col-lg-6" id="campoTextArea" hidden>
                     <label for="name">Inserisci qui il testo della risposta:</label>
                     <br>
@@ -66,15 +67,16 @@
                     <button class="btn btn-dark btn-sm" type="button" id="inviaRisposta">Invia risposta al valutatore</button>
                 </div>
                 <div class="col-sm-6 col-md-6 col-lg-6" id="campoFoto" hidden>
-                    <p id="testoBottoneFoto"> Clicca l'icona della macchina fotografica per avviare la fotocamera: </p>
-                    <img id="bottoneFoto" src="camera.png" width="40em" height="40em"/>
+                    <p id="testoBottoneFoto"> Clicca l'icona della macchina fotografica per avviare la fotocamera <img id="bottoneFoto" src="camera.png" width="40em" height="40em"/></p>
+                    <p id="testoAnteprimaFoto"> Di seguito potrai vedere l'anteprima della foto scattata: </p>
                     <div id="fotoAnteprima">
+                        <!-- anteprima foto -->
                     </div>
+                    <br>
                     <button class="btn btn-dark btn-sm" type="button" id="scattaFoto">Scatta Foto</button>
-                    <button class="btn btn-dark btn-sm" type="button" id="stopFotocamera">Stoppa Fotocamera</button>
                     <button class="btn btn-dark btn-sm" type="button" id="inviaRispostaFoto">Invia foto al valutatore</button>
                     <video id="webcam" autoplay playsinline width="620" height="480"></video>
-                    <canvas id="canvas" class="d-none"></canvas>
+                    <canvas id="canvas" class="d-none">
                 </div>
                 <!-- colonna bottoni risposte -->
                 <div class="col-sm-6 col-md-6 col-lg-6" id="campoRisposte" hidden>
