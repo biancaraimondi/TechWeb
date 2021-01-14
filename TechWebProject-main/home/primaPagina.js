@@ -1,10 +1,11 @@
+//richiedo i nomi delle storie da caricare
 var storie= {};
 var xhr = new XMLHttpRequest();
-xhr.open('GET', '/primaPagina/ottieniStorie', true); //apro connessione tipo GET
+xhr.open('GET', '/primaPagina/ottieniStorie', true);
 xhr.onreadystatechange = function() {
 	if (xhr.readyState === 4 && xhr.status === 200){
-		var storieJson = xhr.responseText; //ottengo storie in formato json
-		storie = JSON.parse(storieJson); //ottengo storie in js
+		var storieJson = xhr.responseText;
+		storie = JSON.parse(storieJson);
 	}
 };
 xhr.send();
@@ -24,7 +25,7 @@ $(document).ready( function(){
 		document.getElementById("storie").hidden = false;
 		document.getElementById("valutatore").hidden = true;
 		
-		//inserisce in eta l'età cliccata nell'html		
+		//inserisce in eta l'età cliccata nell'html
 		var etaList = document.getElementsByName("eta");
 		for (i = 0; i < etaList.length; i++) {
 			if (etaList[i].checked) {
@@ -56,7 +57,7 @@ $(document).ready( function(){
 			}
 		}
 		console.log(nomeStoria);
-		socket.emit('storia', nomeStoria);//es. storiaDaCaricare = 'interrail' e non 'interrail.json'
+		socket.emit('storia', nomeStoria);
 	});
 	
 	$("#buttonQRcode").click(function() {
