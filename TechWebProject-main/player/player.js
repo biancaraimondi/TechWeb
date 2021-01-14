@@ -19,6 +19,9 @@ $(document).ready(function () {
     var contatoreValutazioniEffettive = 0;
     var valutazioni = [];
     var inserisciMargine;
+    var punteggio = 0.0;
+    var punteggioIntermedio = 1.0;
+    var punteggioTotale = 0;
     /*valutazioni[
         {
             domanda: valore,
@@ -90,6 +93,8 @@ $(document).ready(function () {
     
     socket.on('valutazione', function(domanda, valutazione, commentoValutazione, player){
         contatoreValutazioniEffettive++;
+        punteggio += parseFloat(valutazione);
+        console.log(punteggio);
         for(z=0; z < valutazioni.length; z++){
             if(valutazioni[z].domanda == domanda){
                 valutazioni[z].valutazione = valutazione;
@@ -151,10 +156,15 @@ $(document).ready(function () {
         document.getElementById('campoMessaggio').innerHTML = "";
         document.getElementById('campoMessaggio').hidden = true;
         if(storia.missioni[i].attivita[j].rispostebottoni.giusta == document.getElementById('risposta1').value){ //metodo js che prende il valore contenuto nel bottone
+            punteggio += punteggioIntermedio;
+            console.log(punteggio);
+            punteggioIntermedio = 1;
             cambioAttivita();
         }
         else{
             //messaggio di incitamento nel caso di risposta sbagliata
+            punteggioIntermedio -= 0.25;
+            console.log(punteggio);
             document.getElementById('campoMessaggio').hidden = false;
             document.getElementById('campoMessaggio').innerHTML = storia.missioni[i].attivita[j].rispostebottoni.incoraggiamento;
         }
@@ -164,10 +174,15 @@ $(document).ready(function () {
         document.getElementById('campoMessaggio').innerHTML = "";
         document.getElementById('campoMessaggio').hidden = true;
         if(storia.missioni[i].attivita[j].rispostebottoni.giusta == document.getElementById('risposta2').value){ //metodo js che prende il valore contenuto nel bottone
+            punteggio += punteggioIntermedio;
+            console.log(punteggio);
+            punteggioIntermedio = 1;
             cambioAttivita();
         }
         else{
             //messaggio di incitamento nel caso di risposta sbagliata
+            punteggioIntermedio -= 0.25;
+            console.log(punteggio);
             document.getElementById('campoMessaggio').hidden = false;
             document.getElementById('campoMessaggio').innerHTML = storia.missioni[i].attivita[j].rispostebottoni.incoraggiamento;
         }
@@ -177,10 +192,15 @@ $(document).ready(function () {
         document.getElementById('campoMessaggio').innerHTML = "";
         document.getElementById('campoMessaggio').hidden = true;
         if(storia.missioni[i].attivita[j].rispostebottoni.giusta == document.getElementById('risposta3').value){ //metodo js che prende il valore contenuto nel bottone
+            punteggio += punteggioIntermedio;
+            console.log(punteggio);
+            punteggioIntermedio = 1;
             cambioAttivita();
         }
         else{
             //messaggio di incitamento nel caso di risposta sbagliata
+            punteggioIntermedio -= 0.25;
+            console.log(punteggio);
             document.getElementById('campoMessaggio').hidden = false;
             document.getElementById('campoMessaggio').innerHTML = storia.missioni[i].attivita[j].rispostebottoni.incoraggiamento;
         }
@@ -190,10 +210,15 @@ $(document).ready(function () {
         document.getElementById('campoMessaggio').innerHTML = "";
         document.getElementById('campoMessaggio').hidden = true;
         if(storia.missioni[i].attivita[j].rispostebottoni.giusta == document.getElementById('risposta4').value){ //metodo js che prende il valore contenuto nel bottone
+            punteggio += punteggioIntermedio;
+            console.log(punteggio);
+            punteggioIntermedio = 1;
             cambioAttivita();
         }
         else{
             //messaggio di incitamento nel caso di risposta sbagliata
+            punteggioIntermedio -= 0,25;
+            console.log(punteggio);
             document.getElementById('campoMessaggio').hidden = false;
             document.getElementById('campoMessaggio').innerHTML = storia.missioni[i].attivita[j].rispostebottoni.incoraggiamento;
         }
@@ -286,6 +311,7 @@ $(document).ready(function () {
         //caso in cui è presente il campo di inserimento testo per la valutazione della risposta in amb. val.
         if(storia.missioni[i].attivita[j].camporisposta != null && storia.missioni[i].attivita[j].camporisposta == ""){
             contatoreValutazioni++;
+            punteggioTotale += 10;
             console.log("Entrato nell'if del campo risposta");
             document.getElementById('campoTextArea').hidden = false;
         }
@@ -296,6 +322,7 @@ $(document).ready(function () {
         }
         if(storia.missioni[i].attivita[j].camporispostafoto != null && storia.missioni[i].attivita[j].camporispostafoto == ""){
             contatoreValutazioni++;
+            punteggioTotale += 10;
             console.log("Entrato nell'if del campo risposta foto");
             document.getElementById('campoFoto').hidden = false;
         }
@@ -305,6 +332,7 @@ $(document).ready(function () {
         }
         //caso in cui è presente la scelta delle risposte (rispsote bottoni) nella storia json
         if(storia.missioni[i] && storia.missioni[i].attivita[j].rispostebottoni){
+            punteggioTotale++;
             console.log("Entrato nell'if del risposta bottoni");
             document.getElementById('campoRisposte').hidden = false;
             var numeroCasuale = Math.round(Math.random() * (4 - 1) + 1);
@@ -425,15 +453,15 @@ $(document).ready(function () {
                 valutazioni.splice(z,1);
                 z--;
             }
-        }
-        if(contatoreValutazioniEffettive == contatoreValutazioni){
-            var newDiv = document.createElement("div");
-            newDiv.style.height = "50px";
-            newDiv.innerHTML = "Devo riempire dello spazio" + "<br>";
-            newDiv.style.color = "white";
-            var oldDiv = document.getElementById('row1');
-            oldDiv.appendChild(newDiv);
-            document.getElementById('footer').hidden = false;
+            if(contatoreValutazioniEffettive == contatoreValutazioni && z == valutazioni.length-1){
+                var newDiv = document.createElement("div");
+                newDiv.style.height = "50px";
+                newDiv.innerHTML = "Punteggio ottenuto: " + punteggio + "/" + punteggioTotale;
+                newDiv.style.position = "center";
+                var oldDiv = document.getElementById('row1');
+                oldDiv.appendChild(newDiv);
+                document.getElementById('footer').hidden = false;
+            }
         }
     } //chiusura function visualizzaValutazioni
 
