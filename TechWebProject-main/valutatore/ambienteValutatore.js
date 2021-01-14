@@ -7,9 +7,8 @@ var playersList;//variabile utilizzata nell'ottenere il valore del player da vis
 var i;//iteratore per cicli for
 var idGiocatorePrecendente;//player visualizzato precedentemente
 var socket = io();//utilizzato per gestire la chat
-var storia = {};
 var rispostaAttuale = null;
-var risposteDaValutare = [];
+var risposteDaValutare = [];//lista di risposte date dai player ancora da valutare
 
 function cambiaPagina(url) {
 	window.location.replace(url);
@@ -25,16 +24,7 @@ function modificaAvanzamento(domandeCompletate, domandeEffettive) {
 		$(".progress-bar").width(0);
 }
 
-//funzione che ogni tre secondi fa qualcosa
-/*function functionName() {
-	(function(){
-		//
-	}, 3000);
-}*/
-
 $(document).ready( function(){
-	//nomeValutatore = prompt("inserisci qui il tuo nome: ", "");
-
 	//carica i player già connessi nell'array 'utenti'
 	var xmlhttp = new XMLHttpRequest();
 	xmlhttp.onreadystatechange = function() {
@@ -47,20 +37,16 @@ $(document).ready( function(){
 				}
 			}
 			//mostra i player connessi
-			console.log('VALUTATORE: players: ');
-			for(i=0;i<utenti.length;i++){
-				console.log('nome: ' + utenti[i].nome);
-			}
-
+			console.log('VALUTATORE: players: ' + obj);
 			//appena il valutatore si connette crea il relativo utente all'interno del server
 			messaggioValutatore = nomeValutatore + " connesso";
 			socket.emit('chat message', messaggioValutatore, nomeValutatore, idGiocatore);
-			console.log('VALUTATORE: valutatore connesso alla chat');
 		}
 	};
 	xmlhttp.open("GET", "/valutatore/utenti", true);
 	xmlhttp.send();
-	
+
+	//carica i messaggi chat già spediti dai player nell'array 'messaggi'
 	var xmlhttp2 = new XMLHttpRequest();
 	xmlhttp2.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
@@ -70,12 +56,14 @@ $(document).ready( function(){
 					messaggi.push({nomeTrasmittente : obj[i].trasmittente, nomeRicevente: obj[i].ricevente, messaggio : obj[i].messaggio});
 				}
 			}
+			//mostra i messaggi ricevuti
+			console.log('VALUTATORE: messaggi: ' + obj);
 		}
 	};
 	xmlhttp2.open("GET", "/valutatore/messaggi", true);
 	xmlhttp2.send();
 	
-	//ottiene le risposte date dai player
+	//carica le risposte già date dai player nell'array 'risposteDaValutare'
 	var xmlhttp3 = new XMLHttpRequest();
 	xmlhttp3.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
@@ -83,28 +71,19 @@ $(document).ready( function(){
 			for (i=0;i<obj.length;i++){
 				risposteDaValutare.push({domanda: obj[i].domanda, risposta : obj[i].risposta, immagine : obj[i].immagine, player : obj[i].player});
 			}
-			console.log(JSON.stringify(risposteDaValutare));
+			console.log('VALUTATORE: risposte da valutare: ' + obj);
 		}
 	};
 	xmlhttp3.open("GET", "/valutatore/risposte", true);
 	xmlhttp3.send();
 	
-	/*$.get( "/server/utenti", function(data) {
-		var obj = JSON.parse(data);
-		for (i=0;i<obj.length;i++){
-			utenti.push({nome : obj[i].nome});
-			document.getElementById('giocatore').innerHTML += "<div class='form-check'><input name='giocatore' type='radio' value='" + obj[i].nome + "' id='" + obj[i].nome + "'><label for=" + obj[i].nome + ">" + obj[i].nome + "</label></div>";
-		}
-		//mostra i player connessi
-		console.log('VALUTATORE: players: ');
-		for(i=0;i<utenti.length;i++){
-			console.log('nome: ' + utenti[i].nome);
-		}
-	});*/
-	
 	$("#giocatore").click(function() {
 		
-		//setta idGiocatore al valore che ha la label
+		//visualizza chat, avanzamento e risposte relative al player scelto
+		document.getElementById("aiuto").hidden = false;
+		document.getElementById("chat").hidden = false;
+		
+		//setta idGiocatore al valore che ha la label del giocatore appena scelto (cliccato)
 		idGiocatorePrecendente = idGiocatore;
 		playersList = document.getElementsByTagName("input");
 		for (i = 0; i < playersList.length; i++) {
@@ -130,7 +109,6 @@ $(document).ready( function(){
 			//visualizza l'avanzamento del giocatore selezionato
 			for (i=0;i<utenti.length;i++){
 				if (utenti[i].nome == idGiocatore){
-					console.log("VALUTATORE: contatori: " + utenti[i].avanzamento + " " + utenti[i].numAttivita + " " + utenti[i].nome);
 					modificaAvanzamento(utenti[i].avanzamento, utenti[i].numAttivita);
 				}
 			}
@@ -172,6 +150,7 @@ $(document).ready( function(){
 		document.getElementById('testoDaInviare').value = '';
 	});
 
+	//funzione che spedisce la valutazione al player corrente e gestisce il caricamento di una nuova risposta da valutare
 	function emettiValutazione(valutazione) {
 		var commentoValutazione = document.getElementById("testoValutazione").value;
 		document.getElementById("testoValutazione").value = "";
@@ -179,38 +158,42 @@ $(document).ready( function(){
 			if(risposteDaValutare[i].domanda == rispostaAttuale.domanda
 					&&	risposteDaValutare[i].risposta == rispostaAttuale.risposta
 					&&	risposteDaValutare[i].player == rispostaAttuale.player
-                    &&  risposteDaValutare[i].immagine == rispostaAttuale.immagine){
+					&&	risposteDaValutare[i].immagine == rispostaAttuale.immagine){
 				socket.emit('valutazione', rispostaAttuale.domanda, valutazione, commentoValutazione, idGiocatore);
 				console.log("valutazione spedita al player");
 				risposteDaValutare.splice(i, 1);
 				i=risposteDaValutare.length;
-                document.getElementById('testoRispostaPlayer').hidden = true;
-                document.getElementById('immagineRispostaPlayer').hidden = true;
+				document.getElementById('testoRispostaPlayer').hidden = true;
+				document.getElementById('immagineRispostaPlayer').hidden = true;
 			}
 		}
-		console.log("risposteDaValutare: " + JSON.stringify(risposteDaValutare));
-        
+		console.log("VALUTATORE: Risposte ancora da valutare: " + JSON.stringify(risposteDaValutare));
+
 		inserisci = true;
 		for (i=0;i<risposteDaValutare.length;i++){
+			//se la risposta da valutare corrisponde a quella spedita dal player attualmente scelto
 			if (risposteDaValutare[i].player == idGiocatore){
-                if(risposteDaValutare[i].immagine == null){
-                    document.getElementById('testoRispostaPlayer').hidden = false;
-                    document.getElementById('testoRispostaPlayer').innerHTML = "DOMANDA: " + risposteDaValutare[i].domanda;
-                    document.getElementById('testoRispostaPlayer').innerHTML += "<br>RISPOSTA: " + risposteDaValutare[i].risposta;
-                    rispostaAttuale = risposteDaValutare[i];
-                }
-                else{
-                    document.getElementById('testoRispostaPlayer').hidden = false;
-                    document.getElementById('immagineRispostaPlayer').hidden = false;
-                    document.getElementById('testoRispostaPlayer').innerHTML = "DOMANDA: " + risposteDaValutare[i].domanda;
-                    var immagine = document.getElementById('immagineRispostaPlayer');
-                    immagine.src = risposteDaValutare[i].picture;
-                    rispostaAttuale = risposteDaValutare[i];
-                }
-                i=risposteDaValutare.length;
+				//se la risposta da valutare contiene solo testo
+				if(risposteDaValutare[i].immagine == null){
+					document.getElementById('testoRispostaPlayer').hidden = false;
+					document.getElementById('testoRispostaPlayer').innerHTML = "DOMANDA: " + risposteDaValutare[i].domanda;
+					document.getElementById('testoRispostaPlayer').innerHTML += "<br>RISPOSTA: " + risposteDaValutare[i].risposta;
+					rispostaAttuale = risposteDaValutare[i];
+				}
+				//se la risposta da valutare contiene solo un'immagine
+				else{
+					document.getElementById('testoRispostaPlayer').hidden = false;
+					document.getElementById('immagineRispostaPlayer').hidden = false;
+					document.getElementById('testoRispostaPlayer').innerHTML = "DOMANDA: " + risposteDaValutare[i].domanda;
+					var immagine = document.getElementById('immagineRispostaPlayer');
+					immagine.src = risposteDaValutare[i].picture;
+					rispostaAttuale = risposteDaValutare[i];
+				}
+				i=risposteDaValutare.length;
 				inserisci = false;
 			}
 		}
+		//nel caso in cui per il giocatore selezionato non ci siano più risposte da valutare
 		if (inserisci == true){
 			console.log("Per il momento non ci sono piu' risposte da valutare per questo player");
 			rispostaAttuale = null;
@@ -218,14 +201,6 @@ $(document).ready( function(){
 			element.innerHTML = "";
 		}
 	}
-	
-	/*$("#si").click(function(){
-		emettiValutazione("si");
-	});
-	
-	$("#no").click(function() {
-		emettiValutazione("no");
-	});*/
 	
 	$("#valutazione1").click(function(){
 		emettiValutazione("1");
@@ -278,7 +253,7 @@ $(document).ready( function(){
 				inserisci = false;
 			}
 		}
-		if (inserisci){
+		if (inserisci && player!=""){
 			utenti.push({nome : player, avanzamento : null, numAttivita : null});
 			document.getElementById('giocatore').innerHTML += "<div class='form-check'><input name='giocatore' type='radio' value='" + player + "' id='" + player + "'><label for=" + player + ">" + player + "</label></div>";
 		}
@@ -305,56 +280,54 @@ $(document).ready( function(){
 			}
 		}
 	});
-            
-    socket.on('risposta testo', function(domanda, risposta, player) {
-            console.log('VALUTATORE: risposta di testo dal player ' + player + ": " + risposta + ", domanda: " + domanda);
-            
-            //modifica il campo risposte da valutare direttamente se corrisponde all'idGiocatore attualmente cliccato
-            if (idGiocatore == player && rispostaAttuale == null){
-            	console.log("VALUTATORE: la rispostaAttuale è null");
-            	document.getElementById('testoRispostaPlayer').innerHTML = "DOMANDA: " + domanda;
-    			document.getElementById('testoRispostaPlayer').innerHTML += "<br>RISPOSTA: " + risposta;
-                document.getElementById('testoRispostaPlayer').hidden = false;
-                rispostaAttuale = {
-                        domanda: domanda,
-                        risposta : risposta,
-                        immagine : null,
-                        player : player
-                    }
-            }
-            risposteDaValutare.push({
-                        domanda: domanda,
-                        risposta : risposta,
-                        immagine : null,
-                        player : player
-                    });
-            console.log(JSON.stringify(risposteDaValutare));
-        });
-            
-    socket.on('risposta immagine', function(domanda, picture, player) {
-            console.log('VALUTATORE: risposta con immagine dal player ' + player + ": " + picture + ", domanda: " + domanda);
-            
-            //modifica il campo risposte da valutare direttamente se corrisponde all'idGiocatore attualmente cliccato
-            if (idGiocatore == player && rispostaAttuale == null){
-                console.log("VALUTATORE: la rispostaAttuale è null");
-                document.getElementById('testoRispostaPlayer').innerHTML = "DOMANDA: " + domanda;
-                var immagine = document.getElementById('immagineRispostaPlayer');
-                immagine.src = picture;
-                document.getElementById('testoRispostaPlayer').hidden = false;
-                document.getElementById('immagineRispostaPlayer').hidden = false;
-                rispostaAttuale = {
-                        domanda : domanda,
-                        risposta : null,
-                        immagine : picture,
-                        player : player
-                    }
-            }
-            risposteDaValutare.push({
-                        domanda: domanda,
-                        risposta : null,
-                        immagine : picture,
-                        player : player
-                    });
-            console.log(JSON.stringify(risposteDaValutare));
-        });
+
+	socket.on('risposta testo', function(domanda, risposta, player) {
+		console.log('VALUTATORE: risposta di testo dal player ' + player + ": domanda: " + domanda + ", risposta: " + risposta);
+
+		//modifica il campo risposte da valutare direttamente se corrisponde all'idGiocatore attualmente cliccato
+		if (idGiocatore == player && rispostaAttuale == null){
+			document.getElementById('testoRispostaPlayer').innerHTML = "DOMANDA: " + domanda;
+			document.getElementById('testoRispostaPlayer').innerHTML += "<br>RISPOSTA: " + risposta;
+			document.getElementById('testoRispostaPlayer').hidden = false;
+			rispostaAttuale = {
+				domanda: domanda,
+				risposta : risposta,
+				immagine : null,
+				player : player
+			}
+		}
+		risposteDaValutare.push({
+			domanda: domanda,
+			risposta : risposta,
+			immagine : null,
+			player : player
+		});
+		console.log("VALUTATORE: Risposte ancora da valutare" + JSON.stringify(risposteDaValutare));
+	});
+
+	socket.on('risposta immagine', function(domanda, picture, player) {
+		console.log('VALUTATORE: risposta con immagine dal player ' + player + ": " + picture + ", domanda: " + domanda);
+
+		//modifica il campo risposte da valutare direttamente se corrisponde all'idGiocatore attualmente cliccato
+		if (idGiocatore == player && rispostaAttuale == null){
+			document.getElementById('testoRispostaPlayer').innerHTML = "DOMANDA: " + domanda;
+			var immagine = document.getElementById('immagineRispostaPlayer');
+			immagine.src = picture;
+			document.getElementById('testoRispostaPlayer').hidden = false;
+			document.getElementById('immagineRispostaPlayer').hidden = false;
+			rispostaAttuale = {
+				domanda : domanda,
+				risposta : null,
+				immagine : picture,
+				player : player
+			}
+		}
+		risposteDaValutare.push({
+			domanda: domanda,
+			risposta : null,
+			immagine : picture,
+			player : player
+		});
+		console.log("VALUTATORE: Risposte ancora da valutare" + JSON.stringify(risposteDaValutare));
+	});
 });

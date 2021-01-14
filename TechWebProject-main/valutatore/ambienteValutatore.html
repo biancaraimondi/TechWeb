@@ -8,11 +8,9 @@
 <meta name="DC.Language" content="it">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
- <!-- <audio> per inserire audio al contenuto-->
-
 <title>Ambiente Valutatore</title>	
 
-<!-- inclusione librerie bootstrap e jquery -->
+<!-- inclusione librerie bootstrap, jquery e socket.io-->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">	
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
@@ -26,10 +24,8 @@
 <!-- inclusione funzioni js -->
 <script type="text/javascript" src="ambienteValutatore.js"></script>
 
-	
 <!-- inclusione icona browser pagina-->
 <link rel="icon" type="image/png" sizes="16x16" href="...">
-	
 
 </head>
 <body>
@@ -47,7 +43,8 @@
 		</span>
 	</nav>
 </header>
-<div class="container-fluid"> <!-- area in cui inserire oggetti width:100% dello schemo del dispositivo-->
+
+<div class="container-fluid">
 	
 	<div class="row">
 		<div class="col-sm-12 col-md-12 col-lg-12 col-xl-3" id="giocatori">
@@ -61,7 +58,7 @@
 			
 		</div>
 		
-		<div class="col-sm-12 col-md-12 col-lg-12 col-xl-5" id="aiuto"> <!-- hidden -->
+		<div class="col-sm-12 col-md-12 col-lg-12 col-xl-5" id="aiuto" hidden>
 			<h2>Avanzamento e risposte del player</h2>
 			<div class="panel panel-default">
 				<div class="panel-body" id="avanzamento">
@@ -71,9 +68,9 @@
 						<div class="progress-bar progress-bar-striped bg-danger progress-bar-animated" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">AVANZAMENTO</div>
 					</div>
 					<br><br>
-                    <p id="testoRispostaPlayer" hidden> </p>
+					<p id="testoRispostaPlayer" hidden> </p>
 					<br><br>
-                    <img  id="immagineRispostaPlayer" src="" class="rounded" width="50%" alt="immagine mandata dal player" hidden>
+					<img  id="immagineRispostaPlayer" src="" class="rounded" width="50%" alt="immagine mandata dal player" hidden>
 				</div>
 				<br>
 				<div class="panel-footer">
@@ -96,17 +93,11 @@
 							<a class="dropdown-item" href="#" id="valutazione10">10</a>
 						</div>
 					</div>
-					<!--
-					<span class="input-group-btn" id="valuta">
-						<button class="btn bg-danger" type="button" id="si">SI</button>
-						<button class="btn bg-danger" type="button" id="no">NO</button>
-					</span>
-					-->
 				</div>
 			</div>
 		</div>
 		
-		<div class="col-sm-12 col-md-12 col-lg-12 col-xl-4" id="chat"> <!-- hidden -->
+		<div class="col-sm-12 col-md-12 col-lg-12 col-xl-4" id="chat" hidden>
 			<h2>Chat</h2>
 			<br>
 			<div class="panel panel-default chat-widget">

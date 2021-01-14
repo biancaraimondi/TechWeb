@@ -137,10 +137,6 @@ h2{
 	overflow-x : auto;
 }
 
-/*.col-sm-12, .col-md-12, .col-lg-12, .col-xl-3, .col-xl-5, .col-xl-4 {
-	border: 1px solid black;
-}*/
-
 .col-sm-12 div.chat-widget, .col-md-12 div.chat-widget, .col-lg-12 div.chat-widget{
 	margin-bottom: 2em;
 }
