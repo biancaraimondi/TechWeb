@@ -2,18 +2,18 @@
 /* CSS Document */
 
 input[type='radio'] {
-    -webkit-appearance:none;
+    -webkit-appearance:none; /* utilizzato per poter modificare liberamente il radio button senza venga applicato alcun stile del SO in uso dall'utente */
     width:20px;
     height:20px;
     border:1px solid darkgray;
     border-radius:50%;
-    outline:none;
+    outline:none; /*non visualizza contorno */ 
     box-shadow:0 0 5px 0px gray inset;
 }
 input[type='radio']:hover {
     box-shadow:0 0 5px 0px orange inset;
 }
-input[type='radio']:before {
+input[type='radio']:before { /*all'interno del radio button viene creato un sottile spazio bianco*/
     content:'';
     display:block;
     width:60%;
@@ -21,7 +21,7 @@ input[type='radio']:before {
     margin: 20% auto;    
     border-radius:50%;    
 }
-input[type='radio']:checked:before {
+input[type='radio']:checked:before { /*coloro l'interno del radio button*/
     background:#8b0000;
 }
 
@@ -30,7 +30,7 @@ input[type='radio']:checked:before {
 }
 
 .lineaverticale {
-  border-left: 2px solid #8b0000;
+	border-left: 2px solid #8b0000;
 	opacity: 0.6;
 }
 #titolopagina{
@@ -61,12 +61,12 @@ h6, h5, .form-check-label {
 	color: #8b0000;
 }
 .dropdown-item:active {
-  color: white;
+  	color: white;
 	background-color: #8b0000;
 }
 
 h2,h3 {
-	 text-shadow:   1px  2px 3px black;
+	text-shadow: 1px 2px 3px black;
 	color: #8b0000;
 }
 
@@ -82,7 +82,6 @@ h4 {
 }
 
 .navbar-toggler{
-	
 	border-radius: 5px;
 	box-shadow: 2px 2px 2px black;
 }
@@ -104,7 +103,6 @@ h4 {
 	}
 }
 
-
 @media (min-width: 376px) and (max-width: 425px){
 	
 	#titolo1, #messageerrorfunction, #formattivita, #formmodifica {
@@ -121,15 +119,9 @@ h4 {
 	{
 		display:none;
 	}
-	
-	
-	
 }
 
-
 @media (min-width: 426px) and (max-width: 768px){
-	
-	
 	#logoprogetto{
 		width: 70px;
 		height: 70px;
@@ -137,20 +129,15 @@ h4 {
 	#titolopagina{
 		font-size: 29px;
 	}
-	
-	
-	
 	#azionepubblico, #crea, #azionearchivio {
 		padding: 5px 5px;
 	}
-	
 	#eliminaattivita, #eliminamissione, #nuovamissione, #incollamissione, #nuovaattivita, #incollaattivita, #modificaattivita, #modificamissione {
 		padding: 5px 5px;
 	}
 }
+
 @media (min-width: 769px){
-	
-	
 	#logoprogetto{
 		width: 70px;
 		height: 70px;
@@ -158,11 +145,9 @@ h4 {
 	#titolopagina{
 		font-size: 29px;
 	}
-	
 	#azionepubblico, #crea, #azionearchivio {
 		padding: 5px 5px;
 	}
-	
 	#eliminaattivita, #eliminamissione, #nuovamissione, #incollamissione, #nuovaattivita, #incollaattivita, #modificaattivita, #modificamissione {
 		padding: 5px 5px;
 	}
