@@ -31,5 +31,4 @@ controllare specifiche Vitali
 
 CRI: 
 accessibilità
-creare storie ed inserirle nel file storie.json
 unire file server nell'unico file provaserver.js di Bianca caricato nella pagine principale GitHub
