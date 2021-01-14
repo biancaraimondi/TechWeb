@@ -31,4 +31,3 @@ controllare specifiche Vitali
 
 CRI: 
 accessibilità
-unire file server nell'unico file provaserver.js di Bianca caricato nella pagine principale GitHub
