@@ -15,7 +15,7 @@
 						"giusta" : "Barcellona",
 						"sbagliata2" : "Firenze",
 						"sbagliata3" : "Oslo",
-                        "incoraggiamento": "Sei sicuro della risposta? Non demordere e riprovaci. E se hai bisogno di un piccolo aiuto clicca il bottone 'Aiuto'",
+						"incoraggiamento": "Mmmh, anche se sei stanco prova a cambiare la tua risposta",
 						"aiuto":"Marco ti ha appena detto che dall'aereo e' riuscito a vedere la Sagrada Familia!"
 					}
 				},
@@ -27,7 +27,7 @@
 						"giusta" : "Parigi",
 						"sbagliata2" : "Venezia",
 						"sbagliata3" : "Marsiglia",
-                        "incoraggiamento": "Sei sicuro della risposta? Non demordere e riprovaci. E se hai bisogno di un piccolo aiuto clicca il bottone 'Aiuto'",
+						"incoraggiamento": "In questa citta' sono famose le baguette, prova a cambiare la tua risposta",
 						"aiuto":"Giada ha appena visto passare una signora con il basco, e ha escalamato: 'J'adore Paris!'"
 					}
 				},
@@ -39,7 +39,7 @@
 						"giusta" : "Londra",
 						"sbagliata2" : "Siviglia",
 						"sbagliata3" : "Oxford",
-                        "incoraggiamento": "Sei sicuro della risposta? Non demordere e riprovaci. E se hai bisogno di un piccolo aiuto clicca il bottone 'Aiuto'",
+						"incoraggiamento": "Andrete a visitare Buckingham Palace, prova a cambiare la tua risposta",
 						"aiuto":"Sul treno c'e' un signore che assomiglia tantissimo a Sherlock Holmes!"
 					}
 				},
@@ -64,7 +64,7 @@
 						"giusta" : "Amsterdam",
 						"sbagliata2" : "Monaco",
 						"sbagliata3" : "Bruxelles",
-                        "incoraggiamento": "Sei sicuro della risposta? Non demordere e riprovaci. E se hai bisogno di un piccolo aiuto clicca il bottone 'Aiuto'",
+						"incoraggiamento": "Qui in citta' e' pieno di ragazzi che utilizzano la bici, dovremmo cominciare ad utilizzarla un po' di piu' anche noi in Italia. Prova a cambiare la tua risposta",
 						"aiuto":"Giada e' contrariata all'idea di passare nel quartiere a luci rosse"
 					}
 				},
@@ -76,7 +76,7 @@
 						"giusta" : "Copenaghen",
 						"sbagliata2" : "Madrid",
 						"sbagliata3" : "Zagabria",
-                        "incoraggiamento": "Sei sicuro della risposta? Non demordere e riprovaci. E se hai bisogno di un piccolo aiuto clicca il bottone 'Aiuto'",
+						"incoraggiamento": "Dietro l'angolo c'e' il famoso quartiere di Cristiania. Prova a cambiare la tua risposta",
 						"aiuto":"La statua della Sirenetta e' la principale attrazione di questa citta'"
 					}
 				},
@@ -88,7 +88,7 @@
 						"giusta" : "Berlino",
 						"sbagliata2" : "Dresda",
 						"sbagliata3" : "Amburgo",
-                        "incoraggiamento": "Sei sicuro della risposta? Non demordere e riprovaci. E se hai bisogno di un piccolo aiuto clicca il bottone 'Aiuto'",
+						"incoraggiamento": "Sul muro che fu costruito sono presenti dei bellissimi murales'",
 						"aiuto":"negli anni della guerra fredda in questa citta' e' stato costruito un famoso muro"
 					}
 				},
@@ -113,8 +113,8 @@
 						"giusta" : "Praga",
 						"sbagliata2" : "Varsavia",
 						"sbagliata3" : "Brno",
-                        "incoraggiamento": "Sei sicuro della risposta? Non demordere e riprovaci. E se hai bisogno di un piccolo aiuto clicca il bottone 'Aiuto'",
-						"aiuto":"In questa citta' i turisti vanno semore a visitare il Ponte Carlo"
+						"incoraggiamento": "E' vicino a Brno, forza riprovaci",
+						"aiuto":"In questa citta' i turisti vanno sempre a visitare il Ponte Carlo"
 					}
 				},
 				{
@@ -125,7 +125,7 @@
 						"giusta" : "Budapest",
 						"sbagliata2" : "Salisburgo",
 						"sbagliata3" : "Trieste",
-                        "incoraggiamento": "Sei sicuro della risposta? Non demordere e riprovaci. E se hai bisogno di un piccolo aiuto clicca il bottone 'Aiuto'",
+						"incoraggiamento": "La parte della citta' chiamata Buda conta diverse colline da cui si puo' ammirare tutta la citta'",
 						"aiuto":"Giada vi ha portati a mangiare il famoso Gulash"
 					}
 				},
@@ -137,7 +137,7 @@
 						"giusta" : "Vienna",
 						"sbagliata2" : "Anversa",
 						"sbagliata3" : "Dublino",
-                        "incoraggiamento": "Sei sicuro della risposta? Non demordere e riprovaci. E se hai bisogno di un piccolo aiuto clicca il bottone 'Aiuto'",
+						"incoraggiamento": "E' la capitale dell'Austria, forza riprovaci",
 						"aiuto":"Hai portato Marco e Giada a bere un ottimo succo di mela"
 					}
 				},
