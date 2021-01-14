@@ -6,12 +6,12 @@
             "nome": "Alla scoperta del Sistema Solare",
             "attivita": [
                 {
-					"checkboxnorisposta": true,
+		    "checkboxnorisposta": true,
                     "domanda": "Benvenuto in questa nuova avventura spaziale! Sei stato selezionato dal nostro team per salire a bordo di Jupiter, una meravigliosa astronave che ti portera' in giro per lo spazio alla scoperta del nostro sistema solare. Se sei pronto direi di iniziare. Let's go!",
                     "avanti": "Avanti"
                 },
                 {
-					"checkboxbottoni": true,
+		    "checkboxbottoni": true,
                     "domanda": "Sono tante le missioni importanti compiute nel corso degli anni. Sai dirmi qual e' il nome di quella maggiormente ricordata nella storia per aver portato, per la prima volta, l'uomo sulla Luna?",
                     "immaginesfondo": "./image/Lancio1.jpg",
                     "rispostebottoni": {
@@ -25,7 +25,7 @@
                     }
                 },
                 {
-					"checkboxbottoni": true,
+		    "checkboxbottoni": true,
                     "domanda": "Anche tu, ora, come Neil Armstrong, sei approdato sulla Luna. La Luna e' un satellite naturale ed e' l'unico di un pianeta a noi tanto caro. Sai dirmi quale?",
                     "immaginesfondo": "./image/SfondoTerraLuna.jpg",
                     "rispostebottoni": {
@@ -38,20 +38,20 @@
                     }
                 },
                 {
-					"checkboxnorisposta": true,
+		    "checkboxnorisposta": true,
                     "domanda": "Accipicchia! Jupiter e' rimasta bloccata sulla Luna per un guasto tecnico. Abbiamo bisogno di trovare il codice a 3 cifre da inserire nel pannello di controllo. Aiutaci a risolvere il problema.",
                     "immaginesfondo": "./image/SfondoLuna.jpg",
                     "avanti": "Avanti"
                 },
                 {
-					"checkboxcampo": true,
+		    "checkboxcampo": true,
                     "domanda": "Forza! Troviamo questo codice così da poter ripartire al piu' presto! Per decifrarlo abbiamo bisogno che tu risolva questi tre piccoli test scientifici: Quanto vale x in 2(x-1)=0? Invece quanto vale y in 3y=2+4? E invece z quanto vale se e' il doppio di x? Scrivi in ordine il valore di x, y e z cosi' avremo il nostro codice.",
                     "camporispostafoto": "",
-					"aiuto": "",
-					"incoraggiamento": ""
+		    "aiuto": "",
+		    "incoraggiamento": ""
                 },
                 {
-					"checkboxbottoni": true,
+		    "checkboxbottoni": true,
                     "domanda": "Yuhuuu! Finalmente Jupiter e' ripartita per il suo viaggio grazie al tuo prezioso aiuto! Adesso e' pronta per portarti a vedere il pianeta piu' vicino al Sole. Il suo nome e'..?",
                     "immaginesfondo": "./image/Jupiter.jpg",
                     "rispostebottoni": {
@@ -64,15 +64,15 @@
                     }
                 },
                 {
-					"checkboxcampo": true,
+		    "checkboxcampo": true,
                     "domanda": "Wow! Abbiamo quasi sfiorato il Sole per raggiungere Mercurio, che caldo eh! Ma torniamo a noi: abbiamo parlato di Mercurio e della Terra, in tutto i pianeti pero' sono 8. Prova ad elencarli in ordine da quello piu' vicino al Sole a quello piu' lontano.",
                     "immaginesfondo": "./image/SistemaSolare.jpg",
                     "camporisposta": "",
-					"aiuto": "",
-					"incoraggiamento": ""
+		    "aiuto": "",
+		    "incoraggiamento": ""
                 },
                 {
-					"checkboxbottoni": true,
+		    "checkboxbottoni": true,
                     "domanda": "Bravissimo! Hai elencato i nomi di tutti gli otto pianeti del nostro Sistema Solare. Ma lo sai perche' sono 8 e non piu' 9? Perche' Plutone prima faceva parte del Sistema Solare ed era il nono pianeta, il piu' lontano dal sole, ma nel 2006, a seguito della scoperta di peculiarita' del pianeta, e' stato declassato. Ora infatti Plutone e' un..?",
                     "immaginesfondo": "./image/Plutone.jpg",
                     "rispostebottoni": {
@@ -85,7 +85,7 @@
                     }
                 },
                 {
-					"checkboxbottoni": true,
+		    "checkboxbottoni": true,
                     "domanda": "Siamo arrivati quasi alla fine di questa strepitosa avvenutura. Abbiamo ricordato assieme i nomi dei pianeti, essi pero' sono suddivisi in due gruppi. Ti ricordi come si chiamano?",
                     "immaginesfondo": "./image/SfondoFinale.jpg",
                     "rispostebottoni": {
@@ -98,12 +98,12 @@
                     }
                 },
                 {
-					"checkboxnorisposta": true,
+		    "checkboxnorisposta": true,
                     "domanda": "Complimenti! Hai portato a termine questa super avventura e Jupiter ora e' pronta a rientrare alla base. Hai fatto un ottimo lavoro, continua cosi' anche in futuro e non smettere mai di studiare! Alla prossima avventuraaa!",
                     "avanti": "Avanti"
                 }
             ]
         }
     ],
-	"nomestoria": "ilSistemaSolare"
+    "nomestoria": "ilSistemaSolare"
 }
