@@ -15,11 +15,9 @@ installare: npm install webcam-easy (gestione fotocamera)
 testare progetto su chrome, firefox, safari, opera, edge
 
 BIANCA:
+
 accessibilità 
 commentare e pulire codice
-
-eliminare puntino bianco giocatore nullo
-modificare messaggio incitamento
 
 MARTI:
 accessibilità
