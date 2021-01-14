@@ -1,5 +1,4 @@
 @charset "utf-8";
-/* CSS Document */
 
 input[type='radio'] {
     -webkit-appearance:none; /* utilizzato per poter modificare liberamente il radio button senza venga applicato alcun stile del SO in uso dall'utente */
