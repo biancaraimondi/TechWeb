@@ -18,8 +18,7 @@ inserire in tutte le pagine: home, autore, player e valutatore icona pagina nell
 
 BIANCA:
 
-accessibilità 
-commentare e pulire codice
+accessibilità
 
 MARTI:
 accessibilità
