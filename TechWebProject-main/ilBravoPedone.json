@@ -16,7 +16,7 @@
                     
                     "checkboxcampo": true,
                     "domanda": "Sei appena uscito di casa con la mamma, e ti ha detto che andrete al parco per incontrare i tuoi amici di scuola. Pero' per raggiungere il parco, dovete attraversare una strada dove passano tante macchine. Come si chiama quella parte di strada dedicata al passaggio dei pedoni?",
-					"immaginesfondo": "./image/sfondoattraversamento.jpg",
+		    "immaginesfondo": "./image/sfondoattraversamento.jpg",
                     "camporisposta": "",
                     "aiuto": "Hanno la forma simile alla pelle di una zebra.",
                     "incoraggiamento": "Amico pedone sei sicuro della risposta che hai inserito? Pensaci bene, se hai difficolta' puoi sempre visualizzare l'aiuto.",
@@ -25,7 +25,7 @@
                 },
                 {
                     "domanda": "Bravo amico pedone, hai appena attraversato la strada sulle strisce pedonali e hai raggiunto l'altra parte della strada. Ora pero' per raggiungere il parco, devi percorrere uno spazio che si trova vicino alla strada dove passano le auto. Come si chiama lo spazio dove possono camminare i pedoni?",
-					"immaginesfondo": "./image/sfondomarciapiede.jpg",
+		    "immaginesfondo": "./image/sfondomarciapiede.jpg",
                     "checkboxbottoni": true,
                     "rispostebottoni": {
                         "sbagliata1": "Strada",
@@ -39,7 +39,7 @@
                 },
                 {
                     "domanda": "Esatto amico pedone, stai utilizzando il marciapiede che ti portera' al parco. Alla fine del marciapiede dovrai di nuovo attraversare la strada sulle strisce pedonali, pero' questa volta c'e' il semaforo. Con quale colore si puo' passare dall'altro lato?",
-					"immaginesfondo": "./image/sfondosemaforo.jpg",
+		    "immaginesfondo": "./image/sfondosemaforo.jpg",
                     "checkboxbottoni": true,
                     "rispostebottoni": {
                         "sbagliata1": "Rosso",
@@ -54,7 +54,7 @@
                 {
                     
                     "domanda": "Evviva! Finalmente sei riuscito a raggiungere il parco con la mamma, rispettando le regole dei pedoni. Ora puoi giocare con i tuoi amici!",
-					"immaginesfondo": "./image/sfondoparco.jpg",
+		    "immaginesfondo": "./image/sfondoparco.jpg",
                     "checkboxnorisposta": true,
                     "avanti": "Avanti"
                 }
@@ -66,7 +66,7 @@
                 {
                     
                     "domanda": "E' quasi ora di cena, e papa' e' venuto a prenderci con la sua macchina. Qual e' la prima cosa che fai quando ti siedi dietro mamma e papa'?",
-					"immaginesfondo": "./image/sfondocintura.jpg",
+		    "immaginesfondo": "./image/sfondocintura.jpg",
                     "checkboxbottoni": true,
                     "rispostebottoni": {
                         "sbagliata1": "Abbasso il finestrino",
@@ -81,7 +81,7 @@
                 {
                     
                     "domanda": "Sulla strada verso casa, papa' deve percorrere una grossa rotonda. Prima di percorrerla pero' c'e' un cartello di obbligo che ci indica la rotonda. Che forma ha questo cartello?",
-					"immaginesfondo": "./image/sfondorotonda.jpg",
+		    "immaginesfondo": "./image/sfondorotonda.jpg",
                     "checkboxbottoni": true,
                     "rispostebottoni": {
                         "sbagliata1": "Quadrato",
@@ -96,7 +96,7 @@
                 {
                     
                     "domanda": "Dopo aver percorso la rotonda, senti un fischio che arriva dalla strada. Questo suono lo sta facendo il nostro amico vigile con il fischietto. Il vigile oltre ad usare il fischietto ha anche le braccia aperte. Cosa ci vuole dire il nostro amico vigile?",
-					"immaginesfondo": "./image/sfondovigile.jpg",
+		    "immaginesfondo": "./image/sfondovigile.jpg",
                     "checkboxbottoni": true,
                     "rispostebottoni": {
                         "sbagliata1": "Bisogna aumentare la velocita'",
@@ -110,7 +110,7 @@
                 {
                     
                     "domanda": "Stiamo per arrivare a casa, e vicino alla tua scuola e' presente un cartello che ci dice che ci sono dei bambini. Questo cartello ha la forma di un triangolo. Cosa ci indica il segnale con la forma di un triangolo?",
-					"immaginesfondo": "./image/sfondoscuola.jpg",
+		    "immaginesfondo": "./image/sfondoscuola.jpg",
                     "checkboxbottoni": true,
                     "rispostebottoni": {
                         "sbagliata1": "Divieto",
@@ -125,7 +125,7 @@
                 {
                     
                     "domanda": "Congratulazioni amico pedone! Finalmente sei tornato a casa con mamma e papa', imparando nuove cose sui segnali stradali, su come ci si comporta sulla strada e infine abbiamo conosciuto l'amico vigile. Alla prossima passeggiata, amico pedone!",
-					"immaginesfondo": "./image/sfondocasa.jpg",
+		    "immaginesfondo": "./image/sfondocasa.jpg",
                     "checkboxnorisposta": true,
                     "avanti": "Avanti"
                 }
