@@ -14,6 +14,8 @@ installare: npm install webcam-easy (gestione fotocamera)
 
 testare progetto su chrome, firefox, safari, opera, edge
 
+inserire in tutte le pagine: home, autore, player e valutatore icona pagina nell'head dell'html  -> <link rel="icon" type="image/png" sizes="16x16" href="icon/logow.png">
+
 BIANCA:
 
 accessibilità 
