@@ -44,11 +44,11 @@
                     "avanti": "Avanti"
                 },
                 {
-		    "checkboxfoto": true,
+		    "checkboxcampo": true,
                     "domanda": "Forza! Troviamo questo codice così da poter ripartire al piu' presto! Per decifrarlo abbiamo bisogno che tu risolva questi tre piccoli test scientifici: Quanto vale x in 2(x-1)=0? Invece quanto vale y in 3y=2+4? E invece z quanto vale se e' il doppio di x? Scrivi in ordine il valore di x, y e z cosi' avremo il nostro codice.",
-                    "camporispostafoto": "",
-		    "aiuto": "",
-		    "incoraggiamento": ""
+                    "camporisposta": "",
+                    "aiuto": "",
+                    "incoraggiamento": ""
                 },
                 {
 		    "checkboxbottoni": true,
@@ -64,12 +64,12 @@
                     }
                 },
                 {
-		    "checkboxcampo": true,
+		    "checkboxfoto": true,
                     "domanda": "Wow! Abbiamo quasi sfiorato il Sole per raggiungere Mercurio, che caldo eh! Ma torniamo a noi: abbiamo parlato di Mercurio e della Terra, in tutto i pianeti pero' sono 8. Prova ad elencarli in ordine da quello piu' vicino al Sole a quello piu' lontano.",
                     "immaginesfondo": "./image/SistemaSolare.jpg",
-                    "camporisposta": "",
-		    "aiuto": "",
-		    "incoraggiamento": ""
+		    "camporispostafoto": "",
+                    "aiuto": "",
+                    "incoraggiamento": ""
                 },
                 {
 		    "checkboxbottoni": true,
