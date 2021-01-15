@@ -21,6 +21,7 @@ gestire problema accenti
 BIANCA:
 accessibilità (scaricare chromevox come estensione e poi utilizzare la guida online: https://support.google.com/chromebook/answer/7031755#zippy=%2Cscegliere-il-testo-con-il-cursore)
 
+modifica "colore" player quando viene modificato il suo stato (avanzamento, chat, valutazione)
 creare file da esportare per punteggio player
 modificare storia di gruppo
 
