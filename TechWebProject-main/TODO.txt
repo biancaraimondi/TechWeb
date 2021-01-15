@@ -29,6 +29,7 @@ commentare e pulire codice
 nome chiave dell'immagine all'interno della domanda è immaginedomanda
 camporispostafoto è il campo da scrivere nella storia JSON quando si vuole rispondere con un'immagine
 
+crea bottone per chiedere aiuto al valutatore (inserire la domanda corrente in chat)
 modifica: in base al punteggio finale messaggio conclusivo diverso
 modificare ombreggiatura testo sotto le scritte nel json sistemasolare
 sistemare css ultimo div (margin per il footer)
