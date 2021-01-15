@@ -5,6 +5,7 @@
             "attivita": [
                 {
                     "domanda": "Benvenuto in questa nuova avventura spaziale! Sei stato selezionato dal nostro team per salire a bordo di Jupiter, una meravigliosa astronave che ti porterà in giro per lo spazio alla scoperta del nostro sistema solare. Se sei pronto direi di iniziare questo viaggio insieme. Let's go!",
+                    "immaginesfondo": "/image/SfondoIniziale.jpg",
                     "avanti": "Avanti"
                 },
                 {
@@ -40,7 +41,7 @@
                 },
                 {
                     "domanda": "Forza! Troviamo questo codice così da poter ripartire al più presto! Per decifrarlo abbiamo bisogno che tu risolva questi tre piccoli test scientifici: Quanto vale x in 2(x-1)=0? Invece quanto vale y in 3y=2+4? E invece z quanto vale se è il doppio di x? Scrivi in ordine il valore di x, y e z così avremo il nostro codice e i tecnici a bordo potranno inserirlo nel pannello di controllo per far ripartire Jupiter.",
-                    "immaginesfondo": "",
+                    "immaginesfondo": "/image/SfondoFormule.jpg",
                     "camporisposta": ""
                 },
                 {
