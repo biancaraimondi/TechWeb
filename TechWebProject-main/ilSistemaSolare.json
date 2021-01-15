@@ -44,7 +44,7 @@
                     "avanti": "Avanti"
                 },
                 {
-		    "checkboxcampo": true,
+		    "checkboxfoto": true,
                     "domanda": "Forza! Troviamo questo codice così da poter ripartire al piu' presto! Per decifrarlo abbiamo bisogno che tu risolva questi tre piccoli test scientifici: Quanto vale x in 2(x-1)=0? Invece quanto vale y in 3y=2+4? E invece z quanto vale se e' il doppio di x? Scrivi in ordine il valore di x, y e z cosi' avremo il nostro codice.",
                     "camporispostafoto": "",
 		    "aiuto": "",
