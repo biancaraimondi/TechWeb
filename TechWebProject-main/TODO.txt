@@ -22,7 +22,6 @@ accessibilità
 commentare e pulire codice
 
 inserire in tutte le pagine: home, autore, player e valutatore icona pagina nell'head dell'html  -> <link rel="icon" type="image/png" sizes="16x16" href="icon/logow.png">
-gestire problema accenti
 creare oggetto js del punteggio finale da mandare al valutatore
 crea bottone per chiedere aiuto al valutatore (inserire la domanda corrente in chat)
 modifica: in base al punteggio finale messaggio conclusivo diverso
