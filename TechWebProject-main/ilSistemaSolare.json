@@ -5,7 +5,7 @@
             "attivita": [
                 {
                     "domanda": "Benvenuto in questa nuova avventura spaziale! Sei stato selezionato dal nostro team per salire a bordo di Jupiter, una meravigliosa astronave che ti porterà in giro per lo spazio alla scoperta del nostro sistema solare. Se sei pronto direi di iniziare questo viaggio insieme. Let's go!",
-                    "immaginesfondo": "/image/SfondoIniziale.jpg",
+                    "immaginesfondo": "/image/SfondoIniziale1.jpg",
                     "avanti": "Avanti"
                 },
                 {
