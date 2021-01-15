@@ -40,3 +40,4 @@ controllare specifiche Vitali
 
 CRI: 
 accessibilità
+non caricare interrail
