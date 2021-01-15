@@ -17,7 +17,6 @@ inserire in tutte le pagine: home, autore, player e valutatore icona pagina nell
 testare progetto su chrome, firefox, safari, opera, edge
 modifica "colore" player quando viene modificato il suo stato (avanzamento, chat, valutazione)
 creare file da esportare per punteggio player
-modificare storia di gruppo
 
 MARTI:
 accessibilità
