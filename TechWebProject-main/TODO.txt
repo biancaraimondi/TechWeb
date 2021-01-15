@@ -21,6 +21,8 @@ gestire problema accenti
 BIANCA:
 accessibilità (scaricare chromevox come estensione e poi utilizzare la guida online: https://support.google.com/chromebook/answer/7031755#zippy=%2Cscegliere-il-testo-con-il-cursore)
 
+modificare storia di gruppo
+
 MARTI:
 accessibilità
 commentare e pulire codice
