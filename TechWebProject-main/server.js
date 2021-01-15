@@ -954,6 +954,20 @@ app.post('/autore/newActivities', upload.any(), function (req, res) {
 			newActivityObj.immagineaiuto = baseImagePath+helpimage.filename;
 		}
 	}
+	else if(newActivity.hasOwnProperty('checkboxfoto')){
+		newActivityInStory.checkboxfoto = newActivity.checkboxfoto;
+		newActivityObj.checkboxfoto = newActivity.checkboxfoto;
+		newActivityInStory.camporispostafoto = "";
+		newActivityInStory.aiuto = newActivity.aiuto;
+		newActivityInStory.incoraggiamento = newActivity.incoraggiamento;
+		newActivityObj.camporispostafoto = "";
+		newActivityObj.aiuto = newActivity.aiuto;
+		newActivityObj.incoraggiamento = newActivity.incoraggiamento;
+		if(helpimage!==undefined){
+			newActivityInStory.immagineaiuto = baseImagePath+helpimage.filename;
+			newActivityObj.immagineaiuto = baseImagePath+helpimage.filename;
+		}
+	}
 	else if(newActivity.hasOwnProperty('checkboxbottoni')){
 		newActivityInStory.checkboxbottoni = newActivity.checkboxbottoni;
 		newActivityInStory.rispostebottoni = {
