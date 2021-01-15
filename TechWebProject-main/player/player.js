@@ -22,6 +22,10 @@ $(document).ready(function () {
     var punteggio = 0.0;
     var punteggioIntermedio = 1.0;
     var punteggioTotale = 0;
+    let picture;
+    const webcamElement = document.getElementById('webcam');
+    const canvasElement = document.getElementById('canvas');
+    const webcam = new Webcam(webcamElement, 'user', canvasElement);
     /*valutazioni[
         {
             domanda: valore,
@@ -38,11 +42,7 @@ $(document).ready(function () {
             commentoValutazione : valore
         }
     ]*/
-    let picture;
-    const webcamElement = document.getElementById('webcam');
-    const canvasElement = document.getElementById('canvas');
-    const webcam = new Webcam(webcamElement, 'user', canvasElement);
-	
+    
 	//appena il player si connette manda un messaggio al valutatore
 	$('#nome').click(function(){
         document.getElementById('nomeUtenteErrato').hidden = true;
@@ -217,7 +217,7 @@ $(document).ready(function () {
         }
         else{
             //messaggio di incitamento nel caso di risposta sbagliata
-            punteggioIntermedio -= 0,25;
+            punteggioIntermedio -= 0.25;
             console.log(punteggio);
             document.getElementById('campoMessaggio').hidden = false;
             document.getElementById('campoMessaggio').innerHTML = storia.missioni[i].attivita[j].rispostebottoni.incoraggiamento;
@@ -278,13 +278,6 @@ $(document).ready(function () {
             document.getElementById('domanda').innerHTML = "";
             //document.getElementById('domanda').hidden = true;
         }
-        if(storia.missioni[i] && storia.missioni[i].attivita[j].immaginedomanda){
-            console.log("Entrato nell'if del campo immagine della domanda");
-            document.getElementById('domanda').innerHTML += "<img width='4em' src='"+storia.missioni[i].attivita[j].immaginedomanda+"'>"
-        }
-        else {
-            console.log("Entrato nell'else del campo immagine della domanda");
-        }
         //caso in cui è presente il bottone avanti nella storia json
         if (storia.missioni[i] && storia.missioni[i].attivita[j].avanti){
             console.log("Entrato nell'if del pulsante avanti");
@@ -320,6 +313,7 @@ $(document).ready(function () {
             document.getElementById('nameTextArea').value = "";
             document.getElementById('campoTextArea').hidden = true;
         }
+        //caso in cui è presente il campo di inserimento foto per la valutazione della risposta in amb. val.
         if(storia.missioni[i].attivita[j].camporispostafoto != null && storia.missioni[i].attivita[j].camporispostafoto == ""){
             contatoreValutazioni++;
             punteggioTotale += 10;
@@ -414,7 +408,7 @@ $(document).ready(function () {
                 document.getElementById('campoRisposte').hidden = true;
                 document.getElementById('campoChat').hidden = true;
                 document.getElementById('footer').hidden = true;
-                document.getElementById('row4').hidden = true;
+                document.getElementById('campoAvanti').hidden = true;
                 document.getElementById('domanda').innerHTML = "Complimenti! Hai terminato con successo la storia. Sotto potrai vedere visualizzate tutte le tue valutazioni che prima erano in attesa di valutazione. Quando tutte le tue risposte saranno state valutate potrai ritornare alla pagina principale cliccando il pulsante in basso a sinistra.";
                 inserisciMargine = true;
                 visualizzaValutazioni();
@@ -423,13 +417,13 @@ $(document).ready(function () {
     } //chiusura function cambioAttivita
     
     function visualizzaValutazioni(){
-        
         //le info da visualizzare le prendo dall'array valutazioni[]
         for(z=0; z < valutazioni.length; z++){
+            var newDiv = document.createElement("div");
             if (valutazioni[z].valutazione != null && valutazioni[z].commentoValutazione != null){
-                var newDiv = document.createElement("div");
+                //var newDiv = document.createElement("div");
                 if (valutazioni[z].immagine == null){
-                    newDiv.innerHTML = "<br> Domanda: " + valutazioni[z].domanda + "<br>" + "Risposta: " + valutazioni[z].risposta + "<br>" + "Valutazione: " + valutazioni[z].valutazione + "<br>" + "Commento alla valutazione: " + valutazioni[z].commentoValutazione;
+                    newDiv.innerHTML = "<br> Domanda: " + valutazioni[z].domanda + "<br>" + "Risposta: " + valutazioni[z].risposta + "<br>" + "Valutazione: " + valutazioni[z].valutazione + "<br>" + "Commento alla valutazione: " + valutazioni[z].commentoValutazione + "<br>" + "<br>";
                 }
                 else{
                     newDiv.innerHTML = "<br> Domanda: " + valutazioni[z].domanda + "<br> Risposta immagine: ";
@@ -437,7 +431,7 @@ $(document).ready(function () {
                     Img.src = valutazioni[z].immagine;
                     Img.setAttribute("width", "150em");
                     newDiv.appendChild(Img);
-                    newDiv.innerHTML += "<br>" + "Valutazione: " + valutazioni[z].valutazione + "<br>" + "Commento alla valutazione: " + valutazioni[z].commentoValutazione;
+                    newDiv.innerHTML += "<br>" + "Valutazione: " + valutazioni[z].valutazione + "<br>" + "Commento alla valutazione: " + valutazioni[z].commentoValutazione + "<br>" + "<br>";
                 }
                 if(inserisciMargine == true){
                     newDiv.style.marginTop = "180px";
@@ -446,7 +440,7 @@ $(document).ready(function () {
                 newDiv.style.marginBottom = "50px";
                 newDiv.style.width = "900px";
                 newDiv.style.fontFamily = "Baskerville";
-                newDiv.style.fontSize = "18px";
+                newDiv.style.fontSize = "20px";
                 var oldDiv = document.getElementById('row1');
                 oldDiv.appendChild(newDiv);
                 window.scroll();
@@ -454,12 +448,15 @@ $(document).ready(function () {
                 z--;
             }
             if(contatoreValutazioniEffettive == contatoreValutazioni && z == valutazioni.length-1){
-                var newDiv = document.createElement("div");
-                newDiv.style.height = "50px";
-                newDiv.innerHTML = "Punteggio ottenuto: " + punteggio + "/" + punteggioTotale;
-                newDiv.style.position = "center";
-                var oldDiv = document.getElementById('row1');
-                oldDiv.appendChild(newDiv);
+                var newDivDue = document.createElement("div");
+                newDivDue.style.fontFamily = "Baskerville";
+                newDivDue.style.fontSize = "20px";
+                newDivDue.style.height = "100px";
+                newDivDue.innerHTML = "Punteggio ottenuto: " + punteggio + "/" + punteggioTotale;
+                newDivDue.style.fontWeight = "bold";
+                newDivDue.style.float = "left";
+                newDivDue.style.marginBottom = "300px";
+                newDiv.appendChild(newDivDue);
                 document.getElementById('footer').hidden = false;
             }
         }
