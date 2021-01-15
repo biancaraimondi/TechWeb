@@ -25,7 +25,6 @@ inserire in tutte le pagine: home, autore, player e valutatore icona pagina nell
 creare oggetto js del punteggio finale da mandare al valutatore
 crea bottone per chiedere aiuto al valutatore (inserire la domanda corrente in chat)
 modifica: in base al punteggio finale messaggio conclusivo diverso
-modificare ombreggiatura testo sotto le scritte nel json sistemasolare
 
 CRI: 
 accessibilità
