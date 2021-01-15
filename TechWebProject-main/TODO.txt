@@ -10,11 +10,10 @@ installare multer (npm install --save multer)
  
 installare: npm install webcam-easy (gestione fotocamera)
 
-inserire in tutte le pagine: home, autore, player e valutatore icona pagina nell'head dell'html  -> <link rel="icon" type="image/png" sizes="16x16" href="icon/logow.png">
-
 BIANCA:
 accessibilità (scaricare chromevox come estensione e poi utilizzare la guida online: https://support.google.com/chromebook/answer/7031755#zippy=%2Cscegliere-il-testo-con-il-cursore)
 
+inserire in tutte le pagine: home, autore, player e valutatore icona pagina nell'head dell'html  -> <link rel="icon" type="image/png" sizes="16x16" href="icon/logow.png">
 testare progetto su chrome, firefox, safari, opera, edge
 modifica "colore" player quando viene modificato il suo stato (avanzamento, chat, valutazione)
 creare file da esportare per punteggio player
@@ -24,6 +23,7 @@ MARTI:
 accessibilità
 commentare e pulire codice
 
+inserire in tutte le pagine: home, autore, player e valutatore icona pagina nell'head dell'html  -> <link rel="icon" type="image/png" sizes="16x16" href="icon/logow.png">
 gestire problema accenti
 creare oggetto js del punteggio finale da mandare al valutatore
 crea bottone per chiedere aiuto al valutatore (inserire la domanda corrente in chat)
