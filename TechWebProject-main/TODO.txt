@@ -27,6 +27,7 @@ commentare e pulire codice
 nome chiave dell'immagine all'interno della domanda è immaginedomanda
 camporispostafoto è il campo da scrivere nella storia JSON quando si vuole rispondere con un'immagine
 
+modificare ombreggiatura testo sotto le scritte nel json sistemasolare
 sistemare css ultimo div (margin per il footer)
 controllare specifiche Vitali
 
