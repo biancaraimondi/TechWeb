@@ -1,110 +1,98 @@
 {
-	"accessibile":true,
-	"eta":"eta3",
 	"missioni" : [
 		{
-			"nome": "Raggiungi il Big Ben",
+			"nome": "Raggiungete il Big Ben",
 			"attivita" : [
 				{
-					"checkboxnorisposta": true,
-					"domanda" : "Ciao! Stai per affrontare una nuova sfida nei posti piu' disparati dell'Europa. Il tuo amico Marco insieme alla vostra amica Giada hanno scelto di cominciare il viaggio prendendo l'aereo da Bologna e decidendo di non farti sapere la destinazione. Ti hanno detto solo che visiterete insieme le 10 citta' piu' belle e caratteristiche dell'Europa spostandovi tra di esse con il treno! Sali sul primo volo e goditi questo interrail!",
+					"domanda" : "Ciao! State per affrontare una nuova sfida nei posti più disparati dell'Europa. Il vostro amico Marco insieme alla vostra amica Giada hanno scelto di cominciare il viaggio prendendo l'aereo da Bologna e decidendo di non farvi sapere la destinazione. Vi hanno detto solo che visiterete insieme le 10 città più belle e caratteristiche dell'Europa spostandovi tra di esse con il treno! Sali sul primo volo e goditi questo interrail!",
 					"avanti" : "Avanti"
 				},
 				{
-					"checkboxbottoni": true,
-					"domanda": "Sei appena atterrato dopo un volo pieno di turbolenze, sei stanco e gia' senti la mancanza di casa. Cerca un posto dove dormire in centro citta' vicino a Las Ramblas! Secondo te in che citta' ti trovi?",
-					"immaginesfondo": "./image/Barcellona.jpg",
+					"domanda": "Siete appena atterrati dopo un volo pieno di turbolenze, siete stanchi e già sentite la mancanza di casa. Cercate un posto dove dormire in centro città vicino a Las Ramblas! Secondo voi in che città vi trovate?",
+					"immaginesfondo": "/image/Barcellona.jpg",
 					"rispostebottoni" : {
 						"sbagliata1" : "Roma",
 						"giusta" : "Barcellona",
 						"sbagliata2" : "Firenze",
 						"sbagliata3" : "Oslo",
-						"incoraggiamento": "Mmmh, anche se sei stanco prova a cambiare la tua risposta",
-						"aiuto":"Marco ti ha appena detto che dall'aereo e' riuscito a vedere la Sagrada Familia!"
+						"incoraggiamento": "Mmmh, anche se siete stanchi provate a cambiare la vostra risposta",
+						"aiuto":"Marco vi ha appena detto che dall'aereo è riuscito a vedere la Sagrada Familia!"
 					}
 				},
 				{
-					"checkboxbottoni": true,
-					"domanda": "Alla fine avete dormito proprio in centro citta' e il giorno seguente avete deciso di pranzare al famoso mercato de La Boqueria. Marco ha scoperto di essere leggermente intollerante alle fragole e dato il suo mal di stomaco avete deciso di passare il pomeriggio in hotel a rilassarvi in sauna. Il giorno seguente avete preso il treno per una nuova citta' e, appena scesi, Giada ha esclamato: 'bonjour a toute la France!' dopo aver visto un magnifico tramonto dietro la Torre Eiffel. A te non piace un granche' il suono di quella lingua e quindi quasi annoiato capisci subito dove ti trovi",
-					"immaginesfondo": "./image/Parigi.jpg",
+					"domanda": "Alla fine avete dormito proprio in centro città e il giorno seguente avete deciso di pranzare al famoso mercato de La Boqueria. Marco ha scoperto di essere leggermente intollerante alle fragole e dato il suo mal di stomaco avete deciso di passare il pomeriggio in hotel a rilassarvi in sauna. Il giorno seguente avete preso il treno per una nuova città e, appena scesi, Giada ha esclamato: 'bonjour a toute la France!' dopo aver visto un magnifico tramonto dietro la Torre Eiffel. A voi non piace un granchè il suono di quella lingua e quindi quasi annoiati capite subito dove vi trovate",
+					"immaginesfondo": "/image/Parigi.jpg",
 					"rispostebottoni" : {
 						"sbagliata1" : "Valencia",
 						"giusta" : "Parigi",
 						"sbagliata2" : "Venezia",
 						"sbagliata3" : "Marsiglia",
-						"incoraggiamento": "In questa citta' sono famose le baguette, prova a cambiare la tua risposta",
+						"incoraggiamento": "In questa città sono famose le baguette, provate a cambiare la vostra risposta",
 						"aiuto":"Giada ha appena visto passare una signora con il basco, e ha escalamato: 'J'adore Paris!'"
 					}
 				},
 				{
-					"checkboxbottoni": true,
-					"domanda": "Finalmente avete terminato i giorni nella citta' dell'amore, e tu non vedi l'ora di partire per la nuova citta'. Prima di salire sull'Eurostar - il famoso treno che viaggia sott'acqua - noti che c'e' da mostrare i documenti per poter passare la dogana inglese. Mentre siete in fila senti Marco e Giada organizzare il giorno seguente per andare a visitare il Big Ben. Sei felicissimo, quella citta' era proprio nella tua lista delle cose da fare almento una volta nella vita! Di che citta' stanno parlando i tuoi amici?",
-					"immaginesfondo": "./image/Londra.jpg",
+					"domanda": "Finalmente avete terminato i giorni nella città dell'amore, e voi non vedete l'ora di partire per la nuova città. Prima di salire sull'Eurostar - il famoso treno che viaggia sott'acqua - notate che c'è da mostrare i documenti per poter passare la dogana inglese. Mentre siete in fila senti Marco e Giada organizzare il giorno seguente per andare a visitare il Big Ben. Siete felicissimi, quella città era proprio nella vostra lista delle cose da fare almento una volta nella vita! Di che città stanno parlando i vostri amici?",
+					"immaginesfondo": "/image/Londra.jpg",
 					"rispostebottoni" : {
 						"sbagliata1" : "Firenze",
 						"giusta" : "Londra",
 						"sbagliata2" : "Siviglia",
 						"sbagliata3" : "Oxford",
-						"incoraggiamento": "Andrete a visitare Buckingham Palace, prova a cambiare la tua risposta",
-						"aiuto":"Sul treno c'e' un signore che assomiglia tantissimo a Sherlock Holmes!"
+						"incoraggiamento": "Andrete a visitare Buckingham Palace, provate a cambiare la vostra risposta",
+						"aiuto":"Sul treno c'è un signore che assomiglia tantissimo a Sherlock Holmes!"
 					}
 				},
 				{
-					"checkboxnorisposta": true,
-					"domanda" : "Il Big Ben e' davvero altissimo! Non te l'aspettavi! Continua il tuo viaggio e ti renderai conto di quanti altri posti stupendi esistono di cui non eri a conoscenza",
+					"domanda" : "Il Big Ben è davvero altissimo! Non ve l'aspettavate! Continuate il vostro viaggio e vi renderete conto di quanti altri posti stupendi esistono di cui non eravate a conoscenza",
 					"avanti" : "Avanti"
 				}
 			]
 		},
 		{
-			"nome": "Raggiungi Alexanderplatz",
+			"nome": "Raggiungete Alexanderplatz",
 			"attivita" : [
 				{
-					"checkboxnorisposta": true,
-					"domanda" : "A malincuore e' ora di lasciare la tua amata citta'. Sei triste, e durante il viaggio in treno i tuoi amici per tirarti su di morale cominciano a darti indizi sulla nuova meta.",
+					"domanda" : "A malincuore è ora di lasciare la vostra amata città. Siete tristi, e durante il viaggio in treno i vostri amici per tirarvi su di morale cominciano a darvi indizi sulla nuova meta.",
 					"avanti" : "Avanti"
 				},
 				{
-					"checkboxbottoni": true,
-					"domanda": "Marco non vede l'ora di andare a visitare il museo di van Gogh e Giada e' superfelice perche' finalmente vedra' per la prima volta tutte le sue amate star del cinema in miniatura nel famoso museo delle cere. Dopo questa affermazione ti illumini e mentre l'Eurostar passa in mezzo ai campi pieni di tulipani cominci ad organizzare assieme a loro le giornate seguenti. Qual e' questa famosa citta' di cui tutti dicono assomigliare a Venezia?",
-					"immaginesfondo": "./image/Amsterdam.jpg",
+					"domanda": "Marco non vede l'ora di andare a visitare il museo di van Gogh e Giada è superfelice perchè finalmente vedrà per la prima volta tutte le sue amate star del cinema in miniatura nel famoso museo delle cere. Dopo questa affermazione vi illuminate e mentre l'Eurostar passa in mezzo ai campi pieni di tulipani cominciate ad organizzare assieme a loro le giornate seguenti. Qual è questa famosa città di cui tutti dicono assomigliare a Venezia?",
+					"immaginesfondo": "/image/Amsterdam.jpg",
 					"rispostebottoni" : {
 						"sbagliata1" : "Milano",
 						"giusta" : "Amsterdam",
 						"sbagliata2" : "Monaco",
 						"sbagliata3" : "Bruxelles",
-						"incoraggiamento": "Qui in citta' e' pieno di ragazzi che utilizzano la bici, dovremmo cominciare ad utilizzarla un po' di piu' anche noi in Italia. Prova a cambiare la tua risposta",
-						"aiuto":"Giada e' contrariata all'idea di passare nel quartiere a luci rosse"
+						"incoraggiamento": "Qui in città è pieno di ragazzi che utilizzano la bici, dovremmo cominciare ad utilizzarla un po' di più anche noi in Italia. Provate a cambiare la vostra risposta",
+						"aiuto":"Giada è contrariata all'idea di passare nel quartiere a luci rosse"
 					}
 				},
 				{
-					"checkboxbottoni": true,
-					"domanda": "Dopo questi giorni trascorsi freneticamente Marco vi rivela che il giorno seguente alle 4 del mattino dovete prendere il prossimo treno. Il viaggio durera' piu' di 12 ore e tu al solo pensiero sei gia' stanco. L'indomani mattina con le borse sotto agli occhi vi recate in stazione, ma nel mentre vi accorgete che il treno e' in ritardo. Giada per la stanchezza comincia a litigare con Marco, e tu non sai come risolvere la situazione. Appena arriva il treno decidi di metterti ad ascoltare musica rilassante con gli auricolari. Finisci per addormentarti, e proprio quando stavi facendo un sogno bellissimo ti senti toccare una spalla. Apri gli occhi e noti il controllore che chiedendoti di mostrargli il biglietto ti esclama - Next station is Tivoli Gardens! -. Ti riprendi subito per l'euforia del parco divertimenti. Sei proprio felice che i tuoi amici ti abbiano portato a: ",
-					"immaginesfondo": "./image/Copenaghen.jpg",
+					"domanda": "Dopo questi giorni trascorsi freneticamente Marco vi rivela che il giorno seguente alle 4 del mattino dovete prendere il prossimo treno. Il viaggio durerà più di 12 ore e voi al solo pensiero siete già stanchi. L'indomani mattina con le borse sotto agli occhi vi recate in stazione, ma nel mentre vi accorgete che il treno è in ritardo. Giada per la stanchezza comincia a litigare con Marco, e voi non sapete come risolvere la situazione. Appena arriva il treno decidete di mettervi ad ascoltare musica rilassante con gli auricolari. Finite per addormentarti, e proprio quando stavate facendo un sogno bellissimo vi sentite toccare una spalla. Aprite gli occhi e notate il controllore che chiedendovi di mostrargli il biglietto esclama - Next station is Tivoli Gardens! -. Vi riprendete subito per l'euforia del parco divertimenti. Siete proprio felici che i vostri amici vi abbiano portato a: ",
+					"immaginesfondo": "/image/Copenaghen.jpg",
 					"rispostebottoni" : {
 						"sbagliata1" : "Francoforte",
 						"giusta" : "Copenaghen",
 						"sbagliata2" : "Madrid",
 						"sbagliata3" : "Zagabria",
-						"incoraggiamento": "Dietro l'angolo c'e' il famoso quartiere di Cristiania. Prova a cambiare la tua risposta",
-						"aiuto":"La statua della Sirenetta e' la principale attrazione di questa citta'"
+						"incoraggiamento": "Dietro l'angolo c'è il famoso quartiere di Cristiania. Provate a cambiare la vostra risposta",
+						"aiuto":"La statua della Sirenetta è la principale attrazione di questa città"
 					}
 				},
 				{
-					"checkboxbottoni": true,
-					"domanda": "Partite per il prossimo viaggio e scopri che il treno deve oltrepassare un pezzo di mar Baltico. Il treno sale su un traghetto e voi recandovi in poppa riuscite ad intravedere due delfini che stanno seguendo le onde causate dal motore del traghetto. Che vista meravigliosa! Il traghetto continua la rotta verso la Germania. Marco aveva proposto questa meta per visitare Alexanderplatz.",
-					"immaginesfondo": "./image/Berlino.jpg",
+					"domanda": "Partite per il prossimo viaggio e scoprite che il treno deve oltrepassare un pezzo di mar Baltico. Il treno sale su un traghetto e voi recandovi in poppa riuscite ad intravedere due delfini che stanno seguendo le onde causate dal motore del traghetto. Che vista meravigliosa! Il traghetto continua la rotta verso la Germania. Marco aveva proposto questa meta per visitare Alexanderplatz.",
+					"immaginesfondo": "/image/Berlino.jpg",
 					"rispostebottoni" : {
 						"sbagliata1" : "Cracovia",
 						"giusta" : "Berlino",
 						"sbagliata2" : "Dresda",
 						"sbagliata3" : "Amburgo",
-						"incoraggiamento": "Sul muro che fu costruito sono presenti dei bellissimi murales'",
-						"aiuto":"negli anni della guerra fredda in questa citta' e' stato costruito un famoso muro"
+						"incoraggiamento": "Sul muro che fu costruito sono presenti dei bellissimi murales",
+						"aiuto":"Negli anni della guerra fredda in questa città è stato costruito un famoso muro"
 					}
 				},
 				{
-					"checkboxnorisposta": true,
 					"domanda" : "Dopo aver comprato una scorta di pretzel la vostra destinazione cambia...",
 					"avanti" : "Avanti"
 				}
@@ -114,56 +102,50 @@
 			"nome": "Ritorno a casa",
 			"attivita" : [
 				{
-					"checkboxnorisposta": true,
-					"domanda" : "Siete passati per tantissimi luoghi famosi, e forse quello che ti aspetta non sara' ancora di tua conoscenza. Continua questa esperienza per acculturarti sempre di piu'!",
+					"domanda" : "Siete passati per tantissimi luoghi famosi, e forse quello che vi aspetta non sarà ancora di vostra conoscenza. Continuate questa esperienza per acculturarvi sempre di più!",
 					"avanti" : "Avanti"
 				},
 				{
-					"checkboxbottoni": true,
-					"domanda": "Arrivati nel centro storico Marco si mette a fotografare il famoso orologio astronomico mentre Giada, appena tornata da una camminata, vi mostra una foto che ha fatto alla casa danzante. Intuisci il nome di questa citta' solo dopo questa foto. Dove ti hanno portato i tuoi amici questa volta?",
-					"immaginesfondo": "./image/Praga.jpg",
+					"domanda": "Arrivati nel centro storico Marco si mette a fotografare il famoso orologio astronomico mentre Giada, appena tornata da una camminata, vi mostra una foto che ha fatto alla casa danzante. Intuite il nome di questa città solo dopo questa foto. Dove vi hanno portato i tuoi amici questa volta?",
+					"immaginesfondo": "/image/Praga.jpg",
 					"rispostebottoni" : {
 						"sbagliata1" : "Stoccolma",
 						"giusta" : "Praga",
 						"sbagliata2" : "Varsavia",
 						"sbagliata3" : "Brno",
-						"incoraggiamento": "E' vicino a Brno, forza riprovaci",
-						"aiuto":"In questa citta' i turisti vanno sempre a visitare il Ponte Carlo"
+						"incoraggiamento": "E' vicino a Brno, forza riprovateci",
+						"aiuto":"In questa città i turisti vanno sempre a visitare Ponte Carlo"
 					}
 				},
 				{
-					"checkboxbottoni": true,
-					"domanda": "Partite con il prossimo treno per visitare uno dei 'paesi dell'est'. Questo posto meraviglioso e' attraversato dal Danubio, e proprio sulle sue sponde e' stata fatta l'opera 'scarpe sulle rive del Danubio'. Ti trovi a ..?",
-					"immaginesfondo": "./image/Budapest.jpg",
+					"domanda": "Partite con il prossimo treno per visitare uno dei 'paesi dell'est'. Questo posto meraviglioso è attraversato dal Danubio, e proprio sulle sue sponde è stata fatta l'opera 'scarpe sulle rive del Danubio'. Vi trovate a ..?",
+					"immaginesfondo": "/image/Budapest.jpg",
 					"rispostebottoni" : {
 						"sbagliata1" : "Bratislava",
 						"giusta" : "Budapest",
 						"sbagliata2" : "Salisburgo",
 						"sbagliata3" : "Trieste",
-						"incoraggiamento": "La parte della citta' chiamata Buda conta diverse colline da cui si puo' ammirare tutta la citta'",
+						"incoraggiamento": "La parte della città chiamata Buda conta diverse colline da cui si può ammirare tutta la città",
 						"aiuto":"Giada vi ha portati a mangiare il famoso Gulash"
 					}
 				},
 				{
-					"checkboxbottoni": true,
-					"domanda": "Il treno per la prossima citta' e' davvero pieno, neanche il controllore riesce a passare tra i vagoni. Per fortuna il viaggio dura poco, ed in un lampo arrivate nella capitale austriaca.",
-					"immaginesfondo": "./image/Vienna.jpg",
+					"domanda": "Il treno per la prossima città è davvero pieno, neanche il controllore riesce a passare tra i vagoni. Per fortuna il viaggio dura poco, ed in un lampo arrivate nella capitale austriaca.",
+					"immaginesfondo": "/image/Vienna.jpg",
 					"rispostebottoni" : {
 						"sbagliata1" : "Roma",
 						"giusta" : "Vienna",
 						"sbagliata2" : "Anversa",
 						"sbagliata3" : "Dublino",
-						"incoraggiamento": "E' la capitale dell'Austria, forza riprovaci",
-						"aiuto":"Hai portato Marco e Giada a bere un ottimo succo di mela"
+						"incoraggiamento": "E' la città di Mozart, forza riprovateci",
+						"aiuto":"Avete portato Marco e Giada a bere un ottimo succo di mela"
 					}
 				},
 				{
-					"checkboxnorisposta": true,
-					"domanda" : "Complimenti! Sei riuscito a tornare a casa con un treno diretto e a concludere uno dei viaggi piu' belli da fare nella vita! D'ora in poi potrai dare consigli a tutti i tuoi amici e condivere con loro l'esperienza (Mi raccomando, continua a studiare l'inglese!)",
+					"domanda" : "Complimenti! Siete riusciti a tornare a casa con un treno diretto e a concludere uno dei viaggi più belli da fare nella vita! D'ora in poi potrete dare consigli a tutti i vostri amici e condivere con loro l'esperienza (Mi raccomando, continuate a studiare l'inglese!)",
 					"avanti" : "Avanti"
 				}
 			]
 		}
-	],
-	"nomestoria": "Interrail"
+	]
 }
