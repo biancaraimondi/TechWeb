@@ -13,7 +13,6 @@ installare: npm install webcam-easy (gestione fotocamera)
 BIANCA:
 accessibilità (scaricare chromevox come estensione e poi utilizzare la guida online: https://support.google.com/chromebook/answer/7031755#zippy=%2Cscegliere-il-testo-con-il-cursore)
 
-inserire in tutte le pagine: home, autore, player e valutatore icona pagina nell'head dell'html  -> <link rel="icon" type="image/png" sizes="16x16" href="icon/logow.png">
 testare progetto su chrome, firefox, safari, opera, edge
 modifica "colore" player quando viene modificato il suo stato (avanzamento, chat, valutazione)
 creare file da esportare per punteggio player
