@@ -7,20 +7,15 @@ creare QRcode
 rendere accessibili tutte le pagine (guardare funzionamento chromevox x accessibilità)
 
 installare multer (npm install --save multer)
-
-prima della consegna del progetto, eliminare nel codice che viene caricato sul server unibo, tutti i commenti lasciare solo quelli importanti
  
 installare: npm install webcam-easy (gestione fotocamera)
 
-testare progetto su chrome, firefox, safari, opera, edge
-
 inserire in tutte le pagine: home, autore, player e valutatore icona pagina nell'head dell'html  -> <link rel="icon" type="image/png" sizes="16x16" href="icon/logow.png">
-
-gestire problema accenti
 
 BIANCA:
 accessibilità (scaricare chromevox come estensione e poi utilizzare la guida online: https://support.google.com/chromebook/answer/7031755#zippy=%2Cscegliere-il-testo-con-il-cursore)
 
+testare progetto su chrome, firefox, safari, opera, edge
 modifica "colore" player quando viene modificato il suo stato (avanzamento, chat, valutazione)
 creare file da esportare per punteggio player
 modificare storia di gruppo
@@ -28,16 +23,13 @@ modificare storia di gruppo
 MARTI:
 accessibilità
 commentare e pulire codice
-nome chiave dell'immagine all'interno della domanda è immaginedomanda
-camporispostafoto è il campo da scrivere nella storia JSON quando si vuole rispondere con un'immagine
 
-creare oggetto js
+gestire problema accenti
+creare oggetto js del punteggio finale da mandare al valutatore
 crea bottone per chiedere aiuto al valutatore (inserire la domanda corrente in chat)
 modifica: in base al punteggio finale messaggio conclusivo diverso
 modificare ombreggiatura testo sotto le scritte nel json sistemasolare
-sistemare css ultimo div (margin per il footer)
-controllare specifiche Vitali
 
 CRI: 
 accessibilità
-non caricare interrail
+non caricare interrail (per testare caricamento storia nell'ambiente autore)
