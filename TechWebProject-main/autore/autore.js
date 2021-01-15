@@ -377,6 +377,32 @@ $(document).ready(function(){
 							document.getElementById('sfondocaricato').innerHTML = "Non hai caricato in precedenza nessun sfondo.";
 						}
 				}
+				else if(selectedActivity.hasOwnProperty('checkboxfoto')){
+					document.getElementById("modrispostacorretta").disabled = true;
+					document.getElementById("modrispostasbagliata1").disabled = true;
+					document.getElementById("modrispostasbagliata2").disabled = true;
+					document.getElementById("modrispostasbagliata3").disabled = true;
+					document.getElementById("modaiutorisposta").disabled = false;
+					document.getElementById("modificaaiutoimmagine").disabled = false;
+					document.getElementById("modmessaggiorispostasbagliata").disabled = false;
+					document.getElementById('modcheckboxfoto').checked = selectedActivity.checkboxfoto;
+					document.getElementById('modaiutorisposta').value = selectedActivity.aiuto;
+					document.getElementById('modmessaggiorispostasbagliata').value = selectedActivity.incoraggiamento;
+					if (selectedActivity.hasOwnProperty('immagineaiuto')){
+						newPathHelpImage = selectedActivity.immagineaiuto.replace("./image/", "");
+						document.getElementById('imgaiutocaricato').innerHTML = "Avevi caricato la seguente immagine aiuto: " + "<i>" + newPathHelpImage + "</i><br> Ricarica l'immagine aiuto se la vuoi riutilizzare.";
+					}
+					else{
+						document.getElementById('imgaiutocaricato').innerHTML = "Non hai caricato in precedenza nessun immagine aiuto.";
+					}
+					if(selectedActivity.hasOwnProperty('immaginesfondo')){
+						newPathBackground = selectedActivity.immaginesfondo.replace("./image/", "");
+						document.getElementById('sfondocaricato').innerHTML = "Avevi caricato il seguente sfondo: " + "<i>" + newPathBackground + "</i><br> Ricarica lo sfondo se lo vuoi riutilizzare.";
+					}
+					else{
+							document.getElementById('sfondocaricato').innerHTML = "Non hai caricato in precedenza nessun sfondo.";
+						}
+				}
 				else if(selectedActivity.hasOwnProperty('checkboxnorisposta')){
 					document.getElementById("modrispostacorretta").disabled = true;
 					document.getElementById("modrispostasbagliata1").disabled = true;
@@ -471,6 +497,15 @@ function check(){
 			document.getElementById("aiutoimmagine").disabled = false;
 			document.getElementById("messaggiorispostasbagliata").disabled = false;
 	}
+	 else if(document.getElementById("checkboxfoto").checked){
+		document.getElementById("rispostacorretta").disabled = true;
+			document.getElementById("rispostasbagliata1").disabled = true;
+			document.getElementById("rispostasbagliata2").disabled = true;
+			document.getElementById("rispostasbagliata3").disabled = true;
+			document.getElementById("aiutorisposta").disabled = false;
+			document.getElementById("aiutoimmagine").disabled = false;
+			document.getElementById("messaggiorispostasbagliata").disabled = false;
+	}
 	else if(document.getElementById("checkboxniente").checked){
 			document.getElementById("rispostacorretta").disabled = true;
 			document.getElementById("rispostasbagliata1").disabled = true;
@@ -490,6 +525,15 @@ function check(){
 			document.getElementById("modmessaggiorispostasbagliata").disabled = false;
 		}
 	else if(document.getElementById("modcheckboxcampo").checked){
+		document.getElementById("modrispostacorretta").disabled = true;
+			document.getElementById("modrispostasbagliata1").disabled = true;
+			document.getElementById("modrispostasbagliata2").disabled = true;
+			document.getElementById("modrispostasbagliata3").disabled = true;
+			document.getElementById("modaiutorisposta").disabled = false;
+			document.getElementById("modificaaiutoimmagine").disabled = false;
+			document.getElementById("modmessaggiorispostasbagliata").disabled = false;
+	}
+	else if(document.getElementById("modcheckboxfoto").checked){
 		document.getElementById("modrispostacorretta").disabled = true;
 			document.getElementById("modrispostasbagliata1").disabled = true;
 			document.getElementById("modrispostasbagliata2").disabled = true;
@@ -531,7 +575,9 @@ function validateForm(e){
 			var storyTitle = selectedMission.nomestoria;
 			var radioButtonAnswer = document.getElementById("checkboxrisposte").checked;
 			var radioAnswer = document.getElementById("checkboxcampo").checked;
+			var radioPhotoAnswer = document.getElementById("checkboxfoto").checked;
 			var radioNoAnswer = document.getElementById("checkboxniente").checked;
+			
 			if(radioButtonAnswer){
 				attivita = {
 					checkboxbottoni: radioButtonAnswer,
@@ -559,6 +605,19 @@ function validateForm(e){
 					nomemissione: missionTitle,
 					domanda: document.getElementById("domandaattivita").value, 
 					camporisposta: "",
+					aiuto:document.getElementById("aiutorisposta").value,
+					incoraggiamento: document.getElementById("messaggiorispostasbagliata").value
+					};
+				}
+			else if(radioPhotoAnswer){
+				attivita = {
+					checkboxfoto: radioPhotoAnswer,
+					idstoria: idStory,
+					nomestoria: storyTitle,
+					idmissione: idMission,
+					nomemissione: missionTitle,
+					domanda: document.getElementById("domandaattivita").value, 
+					camporispostafoto: "",
 					aiuto:document.getElementById("aiutorisposta").value,
 					incoraggiamento: document.getElementById("messaggiorispostasbagliata").value
 					};
@@ -603,6 +662,7 @@ function validateModifyForm(e){
 			xhr = getModificaAttivitaHTTPReq();
 			var radioButtonAnswer = document.getElementById("modcheckboxrisposte").checked;
 			var radioAnswer = document.getElementById("modcheckboxcampo").checked;
+			var radioPhotoAnswer = document.getElementById("modcheckboxfoto").checked;
 			var radioNoAnswer = document.getElementById("modcheckboxniente").checked;
 			if(radioButtonAnswer){
 				attivita = {
@@ -625,6 +685,16 @@ function validateModifyForm(e){
 					checkboxcampo: radioAnswer,
 					domanda: document.getElementById("moddomandaattivita").value, 
 					camporisposta: "",
+					aiuto:document.getElementById("modaiutorisposta").value,
+					incoraggiamento: document.getElementById("modmessaggiorispostasbagliata").value
+				};
+			}
+			else if(radioPhotoAnswer){
+				attivita = {
+					id: indexOfCheckedRadio,
+					checkboxfoto: radioPhotoAnswer,
+					domanda: document.getElementById("moddomandaattivita").value, 
+					camporispostafoto: "",
 					aiuto:document.getElementById("modaiutorisposta").value,
 					incoraggiamento: document.getElementById("modmessaggiorispostasbagliata").value
 				};
