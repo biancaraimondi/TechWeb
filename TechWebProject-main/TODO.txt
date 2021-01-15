@@ -33,3 +33,6 @@ modificare ombreggiatura testo sotto le scritte nel json sistemasolare
 CRI: 
 accessibilità
 non caricare interrail (per testare caricamento storia nell'ambiente autore)
+
+ACCESSIBILITA':
+
