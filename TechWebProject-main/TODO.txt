@@ -20,7 +20,6 @@ MARTI:
 accessibilità
 commentare e pulire codice
 
-creare oggetto js del punteggio finale da mandare al valutatore
 crea bottone per chiedere aiuto al valutatore (inserire la domanda corrente in chat)
 modifica: in base al punteggio finale messaggio conclusivo diverso
 
