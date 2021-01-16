@@ -96,6 +96,14 @@ $(document).ready( function(){
 		//se cambia il giocatore selezionato
 		if (idGiocatorePrecendente != idGiocatore) {
 			
+			//cambia il background-color del giocatore per far notare che è in attesa di visualizzazione da parte del valutatore
+			var labels = document.getElementsByTagName('LABEL');
+			for (i = 0; i < labels.length; i++) {
+				if (labels[i].htmlFor == idGiocatore) {
+					labels[i].style.backgroundColor = "";
+				}
+			}
+			
 			//inseriamo nella chat i messaggi corrispondenti al nuovo giocatore selezionato
 			document.getElementById("messaggiChat").innerHTML = "";
 			for (i = 0; i < messaggi.length; i++) {
@@ -257,14 +265,26 @@ $(document).ready( function(){
 			utenti.push({nome : player, avanzamento : null, numAttivita : null});
 			document.getElementById('giocatore').innerHTML += "<div class='form-check'><input name='giocatore' type='radio' value='" + player + "' id='" + player + "'><label for=" + player + ">" + player + "</label></div>";
 		}
-		
+
+		//aggiunge il messaggio nella lista dei messaggi
+		messaggi.push({nomeTrasmittente : player, nomeRicevente: valutatore, messaggio : msg});
+
+		console.log("messaggi : " + JSON.stringify(messaggi));
 		//aggiunge il messaggio direttamente in chat se corrisponde all'idGiocatore attualmente cliccato
 		if (idGiocatore == player){
 			document.getElementById("messaggiChat").innerHTML += "<div class='message'><div class='message-text-wrapper'><div class='message-text'>" + msg + "</div></div></div>";
+		}else{//cambia il background-color del giocatore per far notare che è in attesa di visualizzazione da parte del valutatore
+			if(msg != "Sono " + player + ". Mi sono connesso"){
+				var labels = document.getElementsByTagName('LABEL');
+				for (i = 0; i < labels.length; i++) {
+					if (labels[i].htmlFor == player) {
+						labels[i].style.backgroundColor = "#d74c4c";
+					}
+				}
+			}
 		}
-		messaggi.push({nomeTrasmittente : player, nomeRicevente: valutatore, messaggio : msg});
 	});
-	
+
 	//funzione che modifica l'avanzamento del player
 	socket.on('avanzamento', function(avanzamento, numAttivita, player) {
 		console.log('VALUTATORE: messaggio di avanzamento dal player ' + player + " " + avanzamento + " " + numAttivita);
@@ -272,6 +292,13 @@ $(document).ready( function(){
 		//modifica la barra di avanzamento direttamente se corrisponde all'idGiocatore attualmente cliccato
 		if (idGiocatore == player){
 			modificaAvanzamento(avanzamento, numAttivita);
+		}else{//cambia il background-color del giocatore per far notare che è in attesa di visualizzazione da parte del valutatore
+			var labels = document.getElementsByTagName('LABEL');
+			for (i = 0; i < labels.length; i++) {
+				if (labels[i].htmlFor == player) {
+					labels[i].style.backgroundColor = "#d74c4c";
+				}
+			}
 		}
 		for (i=0;i<utenti.length;i++){
 			if (utenti[i].nome == player){
@@ -285,15 +312,24 @@ $(document).ready( function(){
 		console.log('VALUTATORE: risposta di testo dal player ' + player + ": domanda: " + domanda + ", risposta: " + risposta);
 
 		//modifica il campo risposte da valutare direttamente se corrisponde all'idGiocatore attualmente cliccato
-		if (idGiocatore == player && rispostaAttuale == null){
-			document.getElementById('testoRispostaPlayer').innerHTML = "DOMANDA: " + domanda;
-			document.getElementById('testoRispostaPlayer').innerHTML += "<br>RISPOSTA: " + risposta;
-			document.getElementById('testoRispostaPlayer').hidden = false;
-			rispostaAttuale = {
-				domanda: domanda,
-				risposta : risposta,
-				immagine : null,
-				player : player
+		if (idGiocatore == player){
+			if (rispostaAttuale == null){
+				document.getElementById('testoRispostaPlayer').innerHTML = "DOMANDA: " + domanda;
+				document.getElementById('testoRispostaPlayer').innerHTML += "<br>RISPOSTA: " + risposta;
+				document.getElementById('testoRispostaPlayer').hidden = false;
+				rispostaAttuale = {
+					domanda: domanda,
+					risposta : risposta,
+					immagine : null,
+					player : player
+				}
+			}	
+		}else{//cambia il background-color del giocatore per far notare che è in attesa di visualizzazione da parte del valutatore
+			var labels = document.getElementsByTagName('LABEL');
+			for (i = 0; i < labels.length; i++) {
+				if (labels[i].htmlFor == player) {
+					labels[i].style.backgroundColor = "#d74c4c";
+				}
 			}
 		}
 		risposteDaValutare.push({
@@ -309,17 +345,26 @@ $(document).ready( function(){
 		console.log('VALUTATORE: risposta con immagine dal player ' + player + ": " + picture + ", domanda: " + domanda);
 
 		//modifica il campo risposte da valutare direttamente se corrisponde all'idGiocatore attualmente cliccato
-		if (idGiocatore == player && rispostaAttuale == null){
-			document.getElementById('testoRispostaPlayer').innerHTML = "DOMANDA: " + domanda;
-			var immagine = document.getElementById('immagineRispostaPlayer');
-			immagine.src = picture;
-			document.getElementById('testoRispostaPlayer').hidden = false;
-			document.getElementById('immagineRispostaPlayer').hidden = false;
-			rispostaAttuale = {
-				domanda : domanda,
-				risposta : null,
-				immagine : picture,
-				player : player
+		if (idGiocatore == player){
+			if(rispostaAttuale == null){
+				document.getElementById('testoRispostaPlayer').innerHTML = "DOMANDA: " + domanda;
+				var immagine = document.getElementById('immagineRispostaPlayer');
+				immagine.src = picture;
+				document.getElementById('testoRispostaPlayer').hidden = false;
+				document.getElementById('immagineRispostaPlayer').hidden = false;
+				rispostaAttuale = {
+					domanda : domanda,
+					risposta : null,
+					immagine : picture,
+					player : player
+				}
+			}
+		}else{//cambia il background-color del giocatore per far notare che è in attesa di visualizzazione da parte del valutatore
+			var labels = document.getElementsByTagName('LABEL');
+			for (i = 0; i < labels.length; i++) {
+				if (labels[i].htmlFor == player) {
+					labels[i].style.backgroundColor = "#d74c4c";
+				}
 			}
 		}
 		risposteDaValutare.push({
