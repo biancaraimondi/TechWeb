@@ -18,6 +18,15 @@ $(document).ready(function () {
     var contatoreValutazioni = 0;
     var contatoreValutazioniEffettive = 0;
     var valutazioni = [];
+    /*valutazioni[
+        {
+            domanda: valore,
+            risposta : valore,
+            immagine : valore,
+            valutazione : valore,
+            commentoValutazione : valore
+        }
+    ]*/
     var inserisciMargine;
     var punteggio = 0.0;
     var punteggioIntermedio = 1.0;
@@ -26,18 +35,14 @@ $(document).ready(function () {
     const webcamElement = document.getElementById('webcam');
     const canvasElement = document.getElementById('canvas');
     const webcam = new Webcam(webcamElement, 'user', canvasElement);
-    /*valutazioni[
+    var datiRiassuntivi = [];
+    /*datiRiassuntivi[
         {
             domanda: valore,
-            risposta : valore,
-            immagine : valore,
-            valutazione : valore,
-            commentoValutazione : valore
-        },
-        {
-            domanda: valore,
-            risposta : valore,
-            immagine : valore,
+            rispostaTesto : valore,
+            rispostaImmagine : valore,
+            rispostaBottoni : valore,
+            tentativi : valore,
             valutazione : valore,
             commentoValutazione : valore
         }
@@ -99,6 +104,12 @@ $(document).ready(function () {
             if(valutazioni[z].domanda == domanda){
                 valutazioni[z].valutazione = valutazione;
                 valutazioni[z].commentoValutazione = commentoValutazione;
+            }
+        }
+        for(z=0; z < datiRiassuntivi.length; z++){
+            if(datiRiassuntivi[z].domanda == domanda){
+                datiRiassuntivi[z].valutazione = valutazione;
+                datiRiassuntivi[z].commentoValutazione = commentoValutazione;
             }
         }
         console.log("Messaggio ricevuto dal valutatore: " + valutazione);
@@ -390,6 +401,61 @@ $(document).ready(function () {
     } //chiusura function caricaAttivita
     
     function cambioAttivita(){
+        /*datiRiassuntivi[
+            {
+                domanda: valore,
+                rispostaTesto : valore,
+                rispostaImmagine : valore,
+                rispostaBottoni : valore,
+                tentativi : valore,
+                valutazione : valore,
+                commentoValutazione : valore
+            }
+        ]*/
+        if (storia.missioni[i] && storia.missioni[i].attivita[j].rispostebottoni){
+            var tentativi;
+            switch(punteggioIntermedio){
+                    case 1 :
+                        tentativi = 1;
+                    case 0.75 :
+                        tentativi = 2;
+                    case 0.5 :
+                        tentativi = 3;
+                    default :
+                        tentativi = 4;
+            }
+            datiRiassuntivi.push({
+                domanda: storia.missioni[i].attivita[j].domanda,
+                rispostaTesto: null,
+                rispostaImmagine: null,
+                rispostaBottoni: storia.missioni[i].attivita[j].rispostebottoni.giusta,
+                tentativi: tentativi,
+                valutazione: null,
+                commentoValutazione: null
+            });
+        }
+        if (storia.missioni[i].attivita[j].camporisposta != null && storia.missioni[i].attivita[j].camporisposta == ""){
+            datiRiassuntivi.push({
+                domanda: storia.missioni[i].attivita[j].domanda,
+                rispostaTesto: document.getElementById('nameTextArea').value,
+                rispostaImmagine: null,
+                rispostaBottoni: null,
+                tentativi: null,
+                valutazione: null,
+                commentoValutazione: null
+            });
+        }
+        if(storia.missioni[i].attivita[j].camporispostafoto != null && storia.missioni[i].attivita[j].camporispostafoto == ""){
+            datiRiassuntivi.push({
+                domanda: storia.missioni[i].attivita[j].domanda,
+                rispostaTesto: null,
+                rispostaImmagine: picture,
+                rispostaBottoni: null,
+                tentativi: null,
+                valutazione: null,
+                commentoValutazione: null
+            });
+        }
         if(j < numAttivita-1){
             j++;
             caricaAttivita();
@@ -457,12 +523,23 @@ $(document).ready(function () {
                 newDivDue.style.float = "left";
                 newDivDue.style.marginBottom = "300px";
                 newDiv.appendChild(newDivDue);
-                document.getElementById('footer').hidden = false;
             }
         }
+        if(contatoreValutazioniEffettive == contatoreValutazioni && z == valutazioni.length){
+            document.getElementById('footer').hidden = false;
+            document.getElementById('paginaPrincipale').hidden = true;
+            document.getElementById('inviaDatiRiassuntivi').hidden = false;
+            console.log(JSON.stringify(datiRiassuntivi));
+        }
     } //chiusura function visualizzaValutazioni
+    
+    $("#inviaDatiRiassuntivi").click(function(){
+        socket.emit("dati riassuntivi", JSON.stringify(datiRiassuntivi), punteggioTotale, nomeGiocatore);
+        document.getElementById('domanda').innerHTML = "Resta in attesa fino a quando non verrai reindirizzato alla pagina principale.";
+        document.getElementById('inviaDatiRiassuntivi').hidden = true;
+    });
 
-    $(".navbar-toggler").click(function() {
+    $("#paginaPrincipale").click(function() {
         cambiaPagina('primaPagina.html');
     });
     
