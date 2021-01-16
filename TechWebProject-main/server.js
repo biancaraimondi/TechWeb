@@ -22,18 +22,14 @@ app.use(express.static(__dirname));//utilizzato per includere css e js
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json()); //modo per convertire una stringa in un oggetto JSON
 
-// Main server
-http.listen(3000, function () {
-	console.log("SERVER ROOT: " + __dirname);
-	console.log('SERVER: listening on *:3000');
-});
-
 var utenti = [];//lista dei nomi e dei socket dei players {nome : valore, socket : socket.id, avanzamento : num, attivita : num}
 var messaggi = [];//lista dei messaggi {messaggio : val, trasmittente : val, ricevente : val}
 var risposteDaValutare = [];//lista delle risposte da valutare {domanda: val, risposta : val, immagine : val, player : val}
-var nomeDisconnesso = '';
+var nomeDisconnesso;
 var inserisci = true;
 var storiaDaCaricare = "";
+
+app.use(express.static(__dirname));//utilizzato per includere css e js
 
 app.get('/', function (req, res) {
 	res.sendFile(__dirname + '/primaPagina.html');
@@ -204,7 +200,7 @@ io.on('connection', function (socket) {
 
 	//se un utente si disconnette
 	socket.on('disconnect', function () {
-		nomeDisconnesso = '';
+		nomeDisconnesso = null;
 		for (i=0;i<utenti.length;i++){
 			if (utenti[i].socket == socket.id){
 				nomeDisconnesso = utenti[i].nome;
@@ -216,16 +212,18 @@ io.on('connection', function (socket) {
 		console.log('SERVER: utenti: ' + JSON.stringify(utenti));
 		var msg='Mi sono disconnesso, non riuscirò più a ricevere i tuoi messaggi';
 		//invia un messaggio al valutatore se il disconnesso è un player
-		if (nomeDisconnesso != 'valutatore'){
-			var socketValutatore='';
-			for (i=0;i<utenti.length;i++){
-				if (utenti[i].nome == 'valutatore'){
-					socketValutatore = utenti[i].socket;
+		if(nomeDisconnesso != null){
+			if (nomeDisconnesso != 'valutatore'){
+				var socketValutatore='';
+				for (i=0;i<utenti.length;i++){
+					if (utenti[i].nome == 'valutatore'){
+						socketValutatore = utenti[i].socket;
+					}
 				}
+				socket.to(socketValutatore).emit('chat message', msg, nomeDisconnesso, 'valutatore');
+			} else {//invia un messaggio ai players se il disconnesso è il valutatore
+				socket.broadcast.emit('chat message', msg, nomeDisconnesso, '');
 			}
-			socket.to(socketValutatore).emit('chat message', msg, nomeDisconnesso, 'valutatore');
-		} else {//invia un messaggio ai players se il disconnesso è il valutatore
-			socket.broadcast.emit('chat message', msg, nomeDisconnesso, '');
 		}
 	});
 
@@ -1316,4 +1314,11 @@ app.post('/autore/uploadStory', function (req, res) {
 		return;
 	}
 	res.status(200).send("OK");
+});
+
+
+//Main server
+http.listen(3000, function () {
+	console.log("SERVER ROOT: " + __dirname);
+	console.log('SERVER: listening on *:3000');
 });
