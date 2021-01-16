@@ -1,16 +1,20 @@
 {
+	"accessibile":false,
+    "eta":"eta2",
     "missioni": [
         {
             "nome": "Alla scoperta del Sistema Solare",
             "attivita": [
                 {
+					"checkboxnorisposta": true,
                     "domanda": "Benvenuto in questa nuova avventura spaziale! Sei stato selezionato dal nostro team per salire a bordo di Jupiter, una meravigliosa astronave che ti porterà in giro per lo spazio alla scoperta del nostro sistema solare. Se sei pronto direi di iniziare questo viaggio insieme. Let's go!",
-                    "immaginesfondo": "/image/SfondoIniziale1.jpg",
+                    "immaginesfondo": "./image/SfondoIniziale1.jpg",
                     "avanti": "Avanti"
                 },
                 {
+					"checkboxbottoni": true,
                     "domanda": "Sono tante le missioni importanti compiute nel corso degli anni. Sai dirmi qual è il nome di quella maggiormente ricordata nella storia per aver portato, per la prima volta, l'uomo sulla Luna?",
-                    "immaginesfondo": "/image/Lancio1.jpg",
+                    "immaginesfondo": "./image/Lancio1.jpg",
                     "rispostebottoni": {
                         "sbagliata1": "Mars 2",
                         "giusta": "Apollo 11",
@@ -18,82 +22,93 @@
                         "sbagliata3": "Messenger",
                         "incoraggiamento": "Mhh! Prova a pensarci meglio e cambia la tua risposta. Se hai difficoltà puoi sempre visualizzare l'aiuto.",
                         "aiuto": "Prova ad aiutarti guardando questa foto che rappresenta l'emblema della missione: ",
-                        "immagineaiuto": "/image/Apollo11.png"
+                        "immagineaiuto": "./image/Apollo11.png"
                     }
                 },
                 {
+					"checkboxbottoni": true,
                     "domanda": "Anche tu, ora, come Neil Armstrong, sei approdato sulla Luna. La Luna è un satellite naturale ed è l'unico di un pianeta a noi tanto caro. Sai dirmi quale?",
-                    "immaginesfondo": "/image/SfondoTerraLuna.jpg",
+                    "immaginesfondo": "./image/SfondoTerraLuna.jpg",
                     "rispostebottoni": {
                         "sbagliata1": "Marte",
                         "giusta": "Terra",
                         "sbagliata2": "Venere",
                         "sbagliata3": "Giove",
                         "incoraggiamento": "Sei sicuro della risposta? Pensa bene a dove noi abitiamo e riprovaci. E se hai bisogno puoi sempre visualizzare l'aiuto.",
-                        "aiuto": "Questo pianeta è per noi Casa.",
-                        "immagineaiuto": ""
+                        "aiuto": "Questo pianeta è per noi Casa."
+                        
                     }
                 },
                 {
+					"checkboxnorisposta": true,
                     "domanda": "Accipicchia! Jupiter è rimasta bloccata sulla Luna per un guasto tecnico. Abbiamo bisogno di trovare il codice a 3 cifre da inserire nel pannello di controllo. Aiutaci a risolvere il problema così potremo continuare la nostra avventura nello spazio.",
-                    "immaginesfondo": "/image/SfondoLuna.jpg",
+                    "immaginesfondo": "./image/SfondoLuna.jpg",
                     "avanti": "Avanti"
                 },
                 {
+					"checkboxcampo": true,
                     "domanda": "Forza! Troviamo questo codice così da poter ripartire al più presto! Per decifrarlo abbiamo bisogno che tu risolva questi tre piccoli test scientifici: Quanto vale x in 2(x-1)=0? Invece quanto vale y in 3y=2+4? E invece z quanto vale se è il doppio di x? Scrivi in ordine il valore di x, y e z così avremo il nostro codice e i tecnici a bordo potranno inserirlo nel pannello di controllo per far ripartire Jupiter.",
-                    "immaginesfondo": "/image/SfondoFormule.jpg",
-                    "camporisposta": ""
+                    "immaginesfondo": "./image/SfondoFormule.jpg",
+                    "camporisposta": "",
+                    "aiuto": "",
+                    "incoraggiamento": ""
                 },
                 {
+					"checkboxbottoni": true,
                     "domanda": "Yuhuuu! Finalmente Jupiter è ripartita per il suo viaggio grazie al tuo prezioso aiuto! Adesso è pronta per portarti a vedere il pianeta più vicino al Sole. Vediamo un pò... Il suo nome è..?",
-                    "immaginesfondo": "/image/Jupiter.jpg",
+                    "immaginesfondo": "./image/Jupiter.jpg",
                     "rispostebottoni": {
                         "sbagliata1": "Terra",
                         "giusta": "Mercurio",
                         "sbagliata2": "Urano",
                         "sbagliata3": "Venere",
                         "incoraggiamento": "Accidenti! Non è questa la risposta corretta, che ne dici di riprovarci? Puoi sempre visualizzare l'aiuto se hai difficoltà a trovare la risposta.",
-                        "aiuto": "Ha lo stesso nome del liquido contenuto nel termometro che usi per misurarti la febbre.",
-                        "immagineaiuto": ""
+                        "aiuto": "Ha lo stesso nome del liquido contenuto nel termometro che usi per misurarti la febbre."
+                        
                     }
                 },
                 {
+					"checkboxfoto": true,
                     "domanda": "Wow! Abbiamo quasi sfiorato il Sole per raggiungere Mercurio, che caldo eh!? Ma torniamo a noi: abbiamo parlato di Mercurio e della Terra, in tutto i pianeti però sono 8. Prova a disegnarli su un foglio di carta scrivendo il loro nome in ordine da quello più vicino al Sole a quello più lontano. Poi scatta una foto e yuhuuu, continuiamo il viaggio su Jupiter!",
-                    "immaginesfondo": "/image/SistemaSolare.jpg",
-                    "camporispostafoto": ""
+                    "immaginesfondo": "./image/SistemaSolare.jpg",
+                    "camporispostafoto": "",
+                    "aiuto": "",
+                    "incoraggiamento": ""
                 },
                 {
+					"checkboxbottoni": true,
                     "domanda": "Bravissimo! Hai elencato i nomi di tutti gli otto pianeti del nostro Sistema Solare. Ma lo sai perchè sono 8 e non più 9? Perchè Plutone prima faceva parte del Sistema Solare ed era il nono pianeta, il più lontano dal sole, ma nel 2006, a seguito della scoperta di peculiarità del pianeta, è stato declassato. Ora infatti Plutone è un..?",
-                    "immaginesfondo": "/image/Plutone.jpg",
+                    "immaginesfondo": "./image/Plutone.jpg",
                     "rispostebottoni": {
                         "sbagliata1": "Satellite",
                         "giusta": "Pianeta nano",
                         "sbagliata2": "Asteroide",
                         "sbagliata3": "Cometa",
                         "incoraggiamento": "Mh! Ci sei andato vicino, pensaci ancora un pà e prova a cambiare la risposta. E se hai bisogno puoi sempre visualizzare l'aiuto.",
-                        "aiuto": "Il suo nome è dovuto al fatto che il pianeta è piccolo piccolo.",
-                        "immagineaiuto": ""
+                        "aiuto": "Il suo nome è dovuto al fatto che il pianeta è piccolo piccolo."
                     }
                 },
                 {
+					"checkboxbottoni": true,
                     "domanda": "Siamo arrivati quasi alla fine di questa strepitosa avvenutura. Abbiamo ricordato assieme i nomi dei pianeti, essi però sono suddivisi in due gruppi. Ti ricordi come si chiamano?",
-                    "immaginesfondo": "/image/SfondoFinale.jpg",
+                    "immaginesfondo": "./image/SfondoFinale.jpg",
                     "rispostebottoni": {
                         "sbagliata1": "Pianeti grandi e Pianeti piccoli",
                         "giusta": "Pianeti di tipo terrestre e Pianeti di tipo gioviano",
                         "sbagliata2": "Pianeti di tipo gassoso e Pianeti nani",
                         "sbagliata3": "Pianeti e Asteroidi",
                         "incoraggiamento": "Dai che sei arrivato alla fine! Un ultimo sforzo per riprovarci e indovinare l'ultima rispsota. Se hai difficoltà guarda l'aiuto.",
-                        "aiuto": "I due gruppi prendono il nome perchè simili alla Terra (Mercurio, Venere, Terra e Marte) e perchè simili a Giove (Giove, Saturno, Urano, Nettuno).",
-                        "immagineaiuto": ""
+                        "aiuto": "I due gruppi prendono il nome perchè simili alla Terra (Mercurio, Venere, Terra e Marte) e perchè simili a Giove (Giove, Saturno, Urano, Nettuno)."
+                        
                     }
                 },
                 {
+					"checkboxnorisposta": true,
                     "domanda": "Complimenti! Hai portato a termine questa super avventura e Jupiter ora è pronta a rientrare alla base. Spero tu ti sia diverito a ripassare assieme il Sistema Solare. Hai fatto un ottimo lavoro, continua così anche in futuro e non smettere mai di studiare! Alla prossima avventuraaa!",
                     "avanti": "Avanti"
                 }
             ]
         }
-    
-    ]
+    ],
+	"nomestoria": "ilSistemaSolare"
 }
