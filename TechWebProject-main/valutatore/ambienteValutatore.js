@@ -36,6 +36,11 @@ $(document).ready( function(){
 					document.getElementById('giocatore').innerHTML += "<div class='form-check'><input name='giocatore' type='radio' value='" + obj[i].nome + "' id='" + obj[i].nome + "'><label for=" + obj[i].nome + ">" + obj[i].nome + "</label></div>";
 				}
 			}
+            var labels = document.getElementsByTagName('LABEL');
+            for (i = 0; i < labels.length; i++) {
+                    labels[i].style.color = "#8b0000";
+                    labels[i].style.textDecoration = "underline";
+            }
 			//mostra i player connessi
 			console.log('VALUTATORE: players: ' + obj);
 			//appena il valutatore si connette crea il relativo utente all'interno del server
@@ -100,7 +105,8 @@ $(document).ready( function(){
 			var labels = document.getElementsByTagName('LABEL');
 			for (i = 0; i < labels.length; i++) {
 				if (labels[i].htmlFor == idGiocatore) {
-					labels[i].style.backgroundColor = "";
+					labels[i].style.color = "black";
+                    labels[i].style.textDecoration = "none";
 				}
 			}
 			
@@ -278,7 +284,8 @@ $(document).ready( function(){
 				var labels = document.getElementsByTagName('LABEL');
 				for (i = 0; i < labels.length; i++) {
 					if (labels[i].htmlFor == player) {
-						labels[i].style.backgroundColor = "#d74c4c";
+                        labels[i].style.color = "#8b0000";
+                        labels[i].style.textDecoration = "underline";
 					}
 				}
 			}
@@ -296,7 +303,8 @@ $(document).ready( function(){
 			var labels = document.getElementsByTagName('LABEL');
 			for (i = 0; i < labels.length; i++) {
 				if (labels[i].htmlFor == player) {
-					labels[i].style.backgroundColor = "#d74c4c";
+                    labels[i].style.color = "#8b0000";
+                    labels[i].style.textDecoration = "underline";
 				}
 			}
 		}
@@ -328,7 +336,8 @@ $(document).ready( function(){
 			var labels = document.getElementsByTagName('LABEL');
 			for (i = 0; i < labels.length; i++) {
 				if (labels[i].htmlFor == player) {
-					labels[i].style.backgroundColor = "#d74c4c";
+                    labels[i].style.color = "#8b0000";
+                    labels[i].style.textDecoration = "underline";
 				}
 			}
 		}
@@ -363,7 +372,8 @@ $(document).ready( function(){
 			var labels = document.getElementsByTagName('LABEL');
 			for (i = 0; i < labels.length; i++) {
 				if (labels[i].htmlFor == player) {
-					labels[i].style.backgroundColor = "#d74c4c";
+					labels[i].style.color = "#8b0000";
+                    labels[i].style.textDecoration = "underline";
 				}
 			}
 		}
@@ -375,4 +385,11 @@ $(document).ready( function(){
 		});
 		console.log("VALUTATORE: Risposte ancora da valutare" + JSON.stringify(risposteDaValutare));
 	});
+            
+    socket.on('dati riassuntivi', function(datiRiassuntivi, punteggio, player) {
+        console.log("VALUTATORE: dati riassuntivi da: " + player + " con punteggio: " + punteggio + " : " + datiRiassuntivi);
+        document.getElementById('salvaDati').hidden = false;
+        
+    });
+        
 });

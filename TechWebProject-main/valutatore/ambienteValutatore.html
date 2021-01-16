@@ -34,7 +34,7 @@
 <header>
 	<nav class="navbar navbar-light">
 		<span class="navbar-text">
-			<img src="logow.png" width="80" height="80" alt="Logo progetto"/>
+			<img src="icon/logow.png" width="80" height="80" alt="Logo progetto"/>
 		</span>
 		<span class="navbar-text">
 			<font color ="white">
@@ -70,9 +70,12 @@
 					<br><br>
 					<img  id="immagineRispostaPlayer" src="" class="rounded" width="50%" alt="immagine mandata dal player" hidden>
 				</div>
+                <div id="salvaDati" hidden>
+                    <button type="button" class="btn btn-danger">Salva dati</button>
+                </div>
 				<br>
 				<div class="panel-footer">
-					<div class="btn-group">
+					<div class="btn-group" id="spedisciValutazione">
 						<input type="text" class="form-control" id="testoValutazione" placeholder="Inserisci qui eventuali commenti alla tua valutazione">
 						<button type="button" class="btn btn-danger">Valuta</button>
 						<button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -90,7 +93,7 @@
 							<a class="dropdown-item" href="#" id="valutazione9">9</a>
 							<a class="dropdown-item" href="#" id="valutazione10">10</a>
 						</div>
-					</div>
+                    </div>
 				</div>
 			</div>
 		</div>
