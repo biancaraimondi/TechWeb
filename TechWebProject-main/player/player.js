@@ -128,7 +128,7 @@ $(document).ready(function () {
         document.getElementById('campoMessaggio').innerHTML = storia.missioni[i].attivita[j].rispostebottoni.aiuto;
         if(storia.missioni[i].attivita[j].rispostebottoni.immagineaiuto){
             //document.getElementById('campoMessaggio').innerHTML += storia.missioni[i].attivita[j].rispostebottoni.immagineaiuto;
-            document.getElementById('campoMessaggio').innerHTML += "<img width='4em' src='"+storia.missioni[i].attivita[j].rispostebottoni.immagineaiuto+"'>"
+            document.getElementById('campoMessaggio').innerHTML += "<br> <img height='200em' src='"+storia.missioni[i].attivita[j].rispostebottoni.immagineaiuto+"'>"
         }
     });
     
@@ -136,7 +136,7 @@ $(document).ready(function () {
     $('#bottoneFoto').click(function(){
         webcam.start()
            .then(result =>{
-              console.log("webcam started");
+              console.log("Webcam started.");
            })
            .catch(err => {
                console.log(err);
@@ -152,9 +152,9 @@ $(document).ready(function () {
         var immagineJson = JSON.stringify(newImg);
         console.log(immagineJson);
         newDiv.appendChild(newImg);
-        console.log("acquisita immagine");
+        console.log("Acquisita immagine.");
         webcam.stop();
-        console.log("webcam stopped");
+        console.log("Webcam stopped.");
     });
     
     $('#avanti').click(function(){
@@ -169,8 +169,8 @@ $(document).ready(function () {
         if(storia.missioni[i].attivita[j].rispostebottoni.giusta == document.getElementById('risposta1').value){ //metodo js che prende il valore contenuto nel bottone
             punteggio += punteggioIntermedio;
             console.log(punteggio);
-            punteggioIntermedio = 1;
             cambioAttivita();
+            punteggioIntermedio = 1;
         }
         else{
             //messaggio di incitamento nel caso di risposta sbagliata
@@ -187,8 +187,8 @@ $(document).ready(function () {
         if(storia.missioni[i].attivita[j].rispostebottoni.giusta == document.getElementById('risposta2').value){ //metodo js che prende il valore contenuto nel bottone
             punteggio += punteggioIntermedio;
             console.log(punteggio);
-            punteggioIntermedio = 1;
             cambioAttivita();
+            punteggioIntermedio = 1;
         }
         else{
             //messaggio di incitamento nel caso di risposta sbagliata
@@ -205,8 +205,8 @@ $(document).ready(function () {
         if(storia.missioni[i].attivita[j].rispostebottoni.giusta == document.getElementById('risposta3').value){ //metodo js che prende il valore contenuto nel bottone
             punteggio += punteggioIntermedio;
             console.log(punteggio);
-            punteggioIntermedio = 1;
             cambioAttivita();
+            punteggioIntermedio = 1;
         }
         else{
             //messaggio di incitamento nel caso di risposta sbagliata
@@ -223,8 +223,8 @@ $(document).ready(function () {
         if(storia.missioni[i].attivita[j].rispostebottoni.giusta == document.getElementById('risposta4').value){ //metodo js che prende il valore contenuto nel bottone
             punteggio += punteggioIntermedio;
             console.log(punteggio);
-            punteggioIntermedio = 1;
             cambioAttivita();
+            punteggioIntermedio = 1;
         }
         else{
             //messaggio di incitamento nel caso di risposta sbagliata
@@ -401,28 +401,22 @@ $(document).ready(function () {
     } //chiusura function caricaAttivita
     
     function cambioAttivita(){
-        /*datiRiassuntivi[
-            {
-                domanda: valore,
-                rispostaTesto : valore,
-                rispostaImmagine : valore,
-                rispostaBottoni : valore,
-                tentativi : valore,
-                valutazione : valore,
-                commentoValutazione : valore
-            }
-        ]*/
         if (storia.missioni[i] && storia.missioni[i].attivita[j].rispostebottoni){
-            var tentativi;
+            var tentativi = 0;
+            console.log(punteggioIntermedio);
             switch(punteggioIntermedio){
                     case 1 :
                         tentativi = 1;
+                        break;
                     case 0.75 :
                         tentativi = 2;
+                        break;
                     case 0.5 :
                         tentativi = 3;
+                        break;
                     default :
                         tentativi = 4;
+                        break;
             }
             datiRiassuntivi.push({
                 domanda: storia.missioni[i].attivita[j].domanda,
@@ -487,7 +481,6 @@ $(document).ready(function () {
         for(z=0; z < valutazioni.length; z++){
             var newDiv = document.createElement("div");
             if (valutazioni[z].valutazione != null && valutazioni[z].commentoValutazione != null){
-                //var newDiv = document.createElement("div");
                 if (valutazioni[z].immagine == null){
                     newDiv.innerHTML = "<br> Domanda: " + valutazioni[z].domanda + "<br>" + "Risposta: " + valutazioni[z].risposta + "<br>" + "Valutazione: " + valutazioni[z].valutazione + "<br>" + "Commento alla valutazione: " + valutazioni[z].commentoValutazione + "<br>" + "<br>";
                 }
@@ -535,8 +528,30 @@ $(document).ready(function () {
     
     $("#inviaDatiRiassuntivi").click(function(){
         socket.emit("dati riassuntivi", JSON.stringify(datiRiassuntivi), punteggioTotale, nomeGiocatore);
-        document.getElementById('domanda').innerHTML = "Resta in attesa fino a quando non verrai reindirizzato alla pagina principale.";
+        var myNode = document.getElementById("row1");
+        //elimina la visualizzazione delle valutazioni
+        while (myNode.children[1]) { //elimina tutti i figli a partire dal secondo
+               myNode.removeChild(myNode.children[1]);
+        }
+        //punteggio : punteggioTotale = x : 10 -> x = (punteggio * 10) / punteggioTotale
+        var x = punteggio * 10 / punteggioTotale;
+        console.log(x);
+        if(x > 0 && x < 4){
+            document.getElementById('domanda').innerHTML = "Hai totalizzato: " + punteggio + " punti su " + punteggioTotale + ". Sei riuscito a portare a termine la tua partita ma la prossima volta prova ad impegnarti di più! <br> Resta in attesa fino a quando non verrai reindirizzato alla pagina principale.";
+        }
+        else if(x >= 4 && x < 7){
+            document.getElementById('domanda').innerHTML = "Hai totalizzato: " + punteggio + " punti su " + punteggioTotale + ". Sei stato bravo nel portare a termine la partita ma sappiamo che puoi dare di più! <br> Resta in attesa fino a quando non verrai reindirizzato alla pagina principale.";
+        }
+        else{
+            document.getElementById('domanda').innerHTML = "Hai totalizzato: " + punteggio + " punti su " + punteggioTotale + ". Sei stato bravissimo! Ottima partita! <br> Resta in attesa fino a quando non verrai reindirizzato alla pagina principale.";
+        }
         document.getElementById('inviaDatiRiassuntivi').hidden = true;
+    });
+    
+    $("#aiutoChat").click(function(){
+        var messaggioPlayer = "RICHIESTA AIUTO: " + storia.missioni[i].attivita[j].domanda;
+        socket.emit('chat message', messaggioPlayer, nomeGiocatore, valutatore);
+        document.getElementById('messaggiChat').innerHTML += "<div class='message message-right'> <div class='message-text-wrapper'> <div class='message-text'>" + messaggioPlayer + "</div></div></div>";
     });
 
     $("#paginaPrincipale").click(function() {
