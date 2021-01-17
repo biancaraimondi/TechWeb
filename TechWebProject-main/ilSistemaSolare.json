@@ -9,7 +9,8 @@
 					"checkboxnorisposta": true,
                     "domanda": "Benvenuto in questa nuova avventura spaziale! Sei stato selezionato dal nostro team per salire a bordo di Jupiter, una meravigliosa astronave che ti porterà in giro per lo spazio alla scoperta del nostro sistema solare. Se sei pronto direi di iniziare questo viaggio insieme. Let's go!",
                     "immaginesfondo": "./image/SfondoIniziale1.jpg",
-                    "avanti": "Avanti"
+                    "avanti": "Avanti",
+					"stato": "attiva"
                 },
                 {
 					"checkboxbottoni": true,
@@ -23,7 +24,8 @@
                         "incoraggiamento": "Mhh! Prova a pensarci meglio e cambia la tua risposta. Se hai difficoltà puoi sempre visualizzare l'aiuto.",
                         "aiuto": "Prova ad aiutarti guardando questa foto che rappresenta l'emblema della missione: ",
                         "immagineaiuto": "./image/Apollo11.jpg"
-                    }
+                    },
+					"stato": "attiva"
                 },
                 {
 					"checkboxbottoni": true,
@@ -36,14 +38,15 @@
                         "sbagliata3": "Giove",
                         "incoraggiamento": "Sei sicuro della risposta? Pensa bene a dove noi abitiamo e riprovaci. E se hai bisogno puoi sempre visualizzare l'aiuto.",
                         "aiuto": "Questo pianeta è per noi Casa."
-                        
-                    }
+                    },
+					"stato": "attiva"
                 },
                 {
 					"checkboxnorisposta": true,
                     "domanda": "Accipicchia! Jupiter è rimasta bloccata sulla Luna per un guasto tecnico. Abbiamo bisogno di trovare il codice a 3 cifre da inserire nel pannello di controllo. Aiutaci a risolvere il problema così potremo continuare la nostra avventura nello spazio.",
                     "immaginesfondo": "./image/SfondoLuna.jpg",
-                    "avanti": "Avanti"
+                    "avanti": "Avanti",
+					"stato": "attiva"
                 },
                 {
 					"checkboxcampo": true,
@@ -51,7 +54,8 @@
                     "immaginesfondo": "./image/SfondoFormule.jpg",
                     "camporisposta": "",
                     "aiuto": "",
-                    "incoraggiamento": ""
+                    "incoraggiamento": "",
+					"stato": "attiva"
                 },
                 {
 					"checkboxbottoni": true,
@@ -64,8 +68,8 @@
                         "sbagliata3": "Venere",
                         "incoraggiamento": "Accidenti! Non è questa la risposta corretta, che ne dici di riprovarci? Puoi sempre visualizzare l'aiuto se hai difficoltà a trovare la risposta.",
                         "aiuto": "Ha lo stesso nome del liquido contenuto nel termometro che usi per misurarti la febbre."
-                        
-                    }
+                    },
+					"stato": "attiva"
                 },
                 {
 					"checkboxfoto": true,
@@ -73,7 +77,8 @@
                     "immaginesfondo": "./image/SistemaSolare.jpg",
                     "camporispostafoto": "",
                     "aiuto": "",
-                    "incoraggiamento": ""
+                    "incoraggiamento": "",
+					"stato": "attiva"
                 },
                 {
 					"checkboxbottoni": true,
@@ -86,7 +91,8 @@
                         "sbagliata3": "Cometa",
                         "incoraggiamento": "Mh! Ci sei andato vicino, pensaci ancora un po' e prova a cambiare la risposta. E se hai bisogno puoi sempre visualizzare l'aiuto.",
                         "aiuto": "Il suo nome è dovuto al fatto che il pianeta è piccolo piccolo."
-                    }
+                    },
+					"stato": "attiva"
                 },
                 {
 					"checkboxbottoni": true,
@@ -100,15 +106,17 @@
                         "incoraggiamento": "Dai che sei arrivato alla fine! Un ultimo sforzo per riprovarci e indovinare l'ultima rispsota. Se hai difficoltà guarda l'aiuto.",
                         "aiuto": "I due gruppi prendono il nome perchè simili alla Terra (Mercurio, Venere, Terra e Marte) e perchè simili a Giove (Giove, Saturno, Urano, Nettuno).",
                         "immagineaiuto": "./image/aiutoGruppi.jpg"
-                        
-                    }
+                    },
+					"stato": "attiva"
                 },
                 {
 					"checkboxnorisposta": true,
                     "domanda": "Complimenti! Hai portato a termine questa super avventura e Jupiter ora è pronta a rientrare alla base. Spero tu ti sia diverito a ripassare assieme il Sistema Solare. Hai fatto un ottimo lavoro, continua così anche in futuro e non smettere mai di studiare! Alla prossima avventuraaa!",
-                    "avanti": "Avanti"
+                    "avanti": "Avanti",
+					"stato": "attiva"
                 }
-            ]
+            ],
+			"stato": "attiva"
         }
     ],
 	"nomestoria": "ilSistemaSolare"

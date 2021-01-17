@@ -8,7 +8,8 @@
 				{
 					"checkboxnorisposta": true,
 					"domanda" : "Ciao! State per affrontare una nuova sfida nei posti più disparati dell'Europa. Il vostro amico Marco insieme alla vostra amica Giada hanno scelto di cominciare il viaggio prendendo l'aereo da Bologna e decidendo di non farvi sapere la destinazione. Vi hanno detto solo che visiterete insieme le 10 città più belle e caratteristiche dell'Europa spostandovi tra di esse con il treno! Sali sul primo volo e goditi questo interrail!",
-					"avanti" : "Avanti"
+					"avanti" : "Avanti",
+					"stato": "attiva"
 				},
 				{
 					"checkboxbottoni": true,
@@ -21,7 +22,8 @@
 						"sbagliata3" : "Oslo",
 						"incoraggiamento": "Mmmh, anche se siete stanchi provate a cambiare la vostra risposta",
 						"aiuto":"Marco vi ha appena detto che dall'aereo è riuscito a vedere la Sagrada Familia!"
-					}
+					},
+					"stato": "attiva"
 				},
 				{
 					"checkboxbottoni": true,
@@ -34,7 +36,8 @@
 						"sbagliata3" : "Marsiglia",
 						"incoraggiamento": "In questa città sono famose le baguette, provate a cambiare la vostra risposta",
 						"aiuto":"Giada ha appena visto passare una signora con il basco, e ha escalamato: 'J'adore Paris!'"
-					}
+					},
+					"stato": "attiva"
 				},
 				{
 					"checkboxbottoni": true,
@@ -47,14 +50,17 @@
 						"sbagliata3" : "Oxford",
 						"incoraggiamento": "Andrete a visitare Buckingham Palace, provate a cambiare la vostra risposta",
 						"aiuto":"Sul treno c'è un signore che assomiglia tantissimo a Sherlock Holmes!"
-					}
+					},
+					"stato": "attiva"
 				},
 				{
 					"checkboxnorisposta": true,
 					"domanda" : "Il Big Ben è davvero altissimo! Non ve l'aspettavate! Continuate il vostro viaggio e vi renderete conto di quanti altri posti stupendi esistono di cui non eravate a conoscenza",
-					"avanti" : "Avanti"
+					"avanti" : "Avanti",
+					"stato": "attiva"
 				}
-			]
+			],
+			"stato": "attiva"
 		},
 		{
 			"nome": "Raggiungete Alexanderplatz",
@@ -62,7 +68,8 @@
 				{
 					"checkboxnorisposta": true,
 					"domanda" : "A malincuore è ora di lasciare la vostra amata città. Siete tristi, e durante il viaggio in treno i vostri amici per tirarvi su di morale cominciano a darvi indizi sulla nuova meta.",
-					"avanti" : "Avanti"
+					"avanti" : "Avanti",
+					"stato": "attiva"
 				},
 				{
 					"checkboxbottoni": true,
@@ -75,7 +82,8 @@
 						"sbagliata3" : "Bruxelles",
 						"incoraggiamento": "Qui in città è pieno di ragazzi che utilizzano la bici, dovremmo cominciare ad utilizzarla un po' di più anche noi in Italia. Provate a cambiare la vostra risposta",
 						"aiuto":"Giada è contrariata all'idea di passare nel quartiere a luci rosse"
-					}
+					},
+					"stato": "attiva"
 				},
 				{
 					"checkboxbottoni": true,
@@ -88,7 +96,8 @@
 						"sbagliata3" : "Zagabria",
 						"incoraggiamento": "Dietro l'angolo c'è il famoso quartiere di Cristiania. Provate a cambiare la vostra risposta",
 						"aiuto":"La statua della Sirenetta è la principale attrazione di questa città"
-					}
+					},
+					"stato": "attiva"
 				},
 				{
 					"checkboxbottoni": true,
@@ -101,14 +110,17 @@
 						"sbagliata3" : "Amburgo",
 						"incoraggiamento": "Sul muro che fu costruito sono presenti dei bellissimi murales",
 						"aiuto":"Negli anni della guerra fredda in questa città è stato costruito un famoso muro"
-					}
+					},
+					"stato": "attiva"
 				},
 				{
 					"checkboxnorisposta": true,
 					"domanda" : "Dopo aver comprato una scorta di pretzel la vostra destinazione cambia...",
-					"avanti" : "Avanti"
+					"avanti" : "Avanti",
+					"stato": "attiva"
 				}
-			]
+			],
+			"stato": "attiva"
 		},
 		{
 			"nome": "Ritorno a casa",
@@ -116,7 +128,8 @@
 				{
 					"checkboxnorisposta": true,
 					"domanda" : "Siete passati per tantissimi luoghi famosi, e forse quello che vi aspetta non sarà ancora di vostra conoscenza. Continuate questa esperienza per acculturarvi sempre di più!",
-					"avanti" : "Avanti"
+					"avanti" : "Avanti",
+					"stato": "attiva"
 				},
 				{
 					"checkboxbottoni": true,
@@ -129,7 +142,8 @@
 						"sbagliata3" : "Brno",
 						"incoraggiamento": "E' vicino a Brno, forza riprovateci",
 						"aiuto":"In questa città i turisti vanno sempre a visitare Ponte Carlo"
-					}
+					},
+					"stato": "attiva"
 				},
 				{
 					"checkboxbottoni": true,
@@ -142,7 +156,8 @@
 						"sbagliata3" : "Trieste",
 						"incoraggiamento": "La parte della città chiamata Buda conta diverse colline da cui si può ammirare tutta la città",
 						"aiuto":"Giada vi ha portati a mangiare il famoso Gulash"
-					}
+					},
+					"stato": "attiva"
 				},
 				{
 					"checkboxbottoni": true,
@@ -155,14 +170,17 @@
 						"sbagliata3" : "Dublino",
 						"incoraggiamento": "E' la città di Mozart, forza riprovateci",
 						"aiuto":"Avete portato Marco e Giada a bere un ottimo succo di mela"
-					}
+					},
+					"stato": "attiva"
 				},
 				{
 					"checkboxnorisposta": true,
 					"domanda" : "Complimenti! Siete riusciti a trovare un treno diretto per tornare a casa e a concludere uno dei viaggi più belli da fare nella vita! D'ora in poi potrete dare consigli a tutti i vostri amici e condivere con loro l'esperienza (Mi raccomando, continuate a studiare l'inglese!)",
-					"avanti" : "Avanti"
+					"avanti" : "Avanti",
+					"stato": "attiva"
 				}
-			]
+			],
+			"stato": "attiva"
 		}
 	],
 	"nomestoria": "Interrail"
