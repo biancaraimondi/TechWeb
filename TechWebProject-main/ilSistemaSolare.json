@@ -22,7 +22,7 @@
                         "sbagliata3": "Messenger",
                         "incoraggiamento": "Mhh! Prova a pensarci meglio e cambia la tua risposta. Se hai difficoltà puoi sempre visualizzare l'aiuto.",
                         "aiuto": "Prova ad aiutarti guardando questa foto che rappresenta l'emblema della missione: ",
-                        "immagineaiuto": "./image/Apollo11.png"
+                        "immagineaiuto": "./image/Apollo11.jpg"
                     }
                 },
                 {
@@ -84,7 +84,7 @@
                         "giusta": "Pianeta nano",
                         "sbagliata2": "Asteroide",
                         "sbagliata3": "Cometa",
-                        "incoraggiamento": "Mh! Ci sei andato vicino, pensaci ancora un pà e prova a cambiare la risposta. E se hai bisogno puoi sempre visualizzare l'aiuto.",
+                        "incoraggiamento": "Mh! Ci sei andato vicino, pensaci ancora un po' e prova a cambiare la risposta. E se hai bisogno puoi sempre visualizzare l'aiuto.",
                         "aiuto": "Il suo nome è dovuto al fatto che il pianeta è piccolo piccolo."
                     }
                 },
@@ -98,7 +98,8 @@
                         "sbagliata2": "Pianeti di tipo gassoso e Pianeti nani",
                         "sbagliata3": "Pianeti e Asteroidi",
                         "incoraggiamento": "Dai che sei arrivato alla fine! Un ultimo sforzo per riprovarci e indovinare l'ultima rispsota. Se hai difficoltà guarda l'aiuto.",
-                        "aiuto": "I due gruppi prendono il nome perchè simili alla Terra (Mercurio, Venere, Terra e Marte) e perchè simili a Giove (Giove, Saturno, Urano, Nettuno)."
+                        "aiuto": "I due gruppi prendono il nome perchè simili alla Terra (Mercurio, Venere, Terra e Marte) e perchè simili a Giove (Giove, Saturno, Urano, Nettuno).",
+                        "immagineaiuto": "./image/aiutoGruppi.jpg"
                         
                     }
                 },
