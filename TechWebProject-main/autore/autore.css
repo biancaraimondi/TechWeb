@@ -1,3 +1,6 @@
+@charset "utf-8";
+/* CSS Document */
+
 input[type='radio'] {
     -webkit-appearance:none; /* utilizzato per poter modificare liberamente il radio button senza venga applicato alcun stile del SO in uso dall'utente */
     width:20px;
@@ -7,7 +10,7 @@ input[type='radio'] {
     outline:none; /*non visualizza contorno */ 
     box-shadow:0 0 5px 0px gray inset;
 }
-input[type='radio']:hover {
+input[type='radio']:enabled:hover {
     box-shadow:0 0 5px 0px orange inset;
 }
 input[type='radio']:before { /*all'interno del radio button viene creato un sottile spazio bianco*/
@@ -20,6 +23,10 @@ input[type='radio']:before { /*all'interno del radio button viene creato un sott
 }
 input[type='radio']:checked:before { /*coloro l'interno del radio button*/
     background:#8b0000;
+}
+
+input[type='radio']:disabled {
+	 background: #ccc;
 }
 
 #labelcaricajson{
@@ -43,7 +50,7 @@ input[type='radio']:checked:before { /*coloro l'interno del radio button*/
 	height: "80";
 }
 
-#crea, #salva, #annullacrea, #salvamodifica, #annullamod, #nuovamissione, #modificamissione, #duplicamissione, #eliminamissione, #nuovaattivita, #modificaattivita, #duplicaattivita, #eliminaattivita, #confermaelimina, #salvaat, #confermaeliminaatt, #confermaeliminamis, #salvamissione, #salvamodat, #salvamodmis, #backhome {
+#crea, #salva, #annullacrea, #salvamodifica, #annullamod, #nuovamissione, #confermasposta, #confermaspostaatt, #nuovaattivita, #confermacopia, #confermacopiaattivita, #eliminaattivita, #confermaelimina, #salvaat, #confermaeliminaatt, #confermaeliminamis, #salvamissione, #salvamodat, #salvamodmis, #backhome, #confermaattivamissione, #confermadisattiva, #confermaattivaattivita, #confermadisattivaatt, #istruzioni  {
 	background-color: #8b0000; 
 	color: white;
 }

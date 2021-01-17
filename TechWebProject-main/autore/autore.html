@@ -74,7 +74,7 @@
 		<div class="lineaverticale"></div>
 
 		<!-- contenitore crea storia nascosto -->
-		<label id="titolo1"><h4> &nbsp;&nbsp; Crea o seleziona una storia </h4></label>
+		<label id="titolo1"><h4> &nbsp;&nbsp; Crea una storia<br> &nbsp;&nbsp; oppure seleziona una storia archiviata per visualizzare le missioni associate.</h4></label>
 		<div id="messageerrorfunction"></div>
 		<div class="col-sm col-md col-lg" id="formattivita" hidden>
 			<div id="form-row">
@@ -161,12 +161,23 @@
 			<div class="row" id="pulsantimissioni">
 			&nbsp;
 			<button type="button" class="btn btn-primary btn-sm" id="nuovamissione" data-target="#finestramissione" data-toggle="modal">Crea nuova missione</button>&nbsp;
-			<button type="button" class="btn btn-primary btn-sm" id="modificamissione" data-target="#finestramodificamissione" data-toggle="modal"><img src="icon/modify.png"  width="18" height="17" alt="immagine modifica missione"/></button>&nbsp;
+				
+				
+			<!--<button type="button" class="btn btn-primary btn-sm" id="modificamissione" data-target="#finestramodificamissione" data-toggle="modal"><img src="icon/modify.png"  width="18" height="17" alt="immagine modifica missione"/></button>&nbsp;
 			<button type="button" class="btn btn-primary btn-sm" id="duplicamissione"><img src="icon/paste.png"  width="18" height="17" alt="immagine duplica missione"/></button>&nbsp;
-			<button type="button" class="btn btn-primary btn-sm" id="eliminamissione" data-target="#finestraeliminamis" data-toggle="modal"><img src="icon/delete.png"  width="18" height="17" alt="immagine elimina missione"/></button>&nbsp;
+			<button type="button" class="btn btn-primary btn-sm" id="eliminamissione" data-target="#finestraeliminamis" data-toggle="modal"><img src="icon/delete.png"  width="18" height="17" alt="immagine elimina missione"/></button>&nbsp;-->
+				
+				
+			<button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="azionemissione" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Azioni</button>
+				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+					<a class="dropdown-item" href="#" data-target="#finestramodificamissione" data-toggle="modal" id="modificamissione">&nbsp;&nbsp;&nbsp;&nbsp;Modifica Missione</a>
+					<a class="dropdown-item" href="#" data-target="#finestraeliminamis" data-toggle="modal">Elimina Missione</a>
+					<a class="dropdown-item" href="#" data-target="#finestracopiamissione" data-toggle="modal">Copia Missione</a>
+					<a class="dropdown-item" href="#" data-target="#finestraspostamissione" data-toggle="modal">Sposta Missione</a>
+					<a class="dropdown-item" href="#" data-target="#finestraattivamissione" data-toggle="modal">Attiva Missione</a>
+					<a class="dropdown-item" href="#" data-target="#finestradisattivamissione" data-toggle="modal">Disattiva Missione</a>
+				</div>	
 			</div>
-			<br>
-			<div id="errormission"></div>
 			<br>
 			<!-- contenitore singole missioni -->	
 			<div id="elencomissioni">
@@ -184,12 +195,24 @@
 			<div class="row" id="pulsantiattivita">
 			&nbsp;
 			<button type="button" class="btn btn-primary btn-sm" data-target="#finestraattivita" data-toggle="modal" id="nuovaattivita">Crea nuova attività</button>&nbsp;
-			<button type="button" class="btn btn-primary btn-sm" id="modificaattivita" data-target="#finestramodificaattivita" data-toggle="modal"><img src="icon/modify.png"  width="18" height="17" alt="immagine modifica attivita"/></button>&nbsp;
+				
+				
+			<!--<button type="button" class="btn btn-primary btn-sm" id="modificaattivita" data-target="#finestramodificaattivita" data-toggle="modal"><img src="icon/modify.png"  width="18" height="17" alt="immagine modifica attivita"/></button>&nbsp;
 			<button type="button" class="btn btn-primary btn-sm" id="duplicaattivita"><img src="icon/paste.png"  width="18" height="17" alt="immagine duplica attività"/></button> &nbsp;
-			<button type="button" data-target="#finestraeliminaatt" data-toggle="modal" class="btn btn-primary btn-sm" id="eliminaattivita" ><img src="icon/delete.png"  width="18" height="17" alt="immagine elimina attività"/></button> &nbsp;
+			<button type="button" data-target="#finestraeliminaatt" data-toggle="modal" class="btn btn-primary btn-sm" id="eliminaattivita" ><img src="icon/delete.png"  width="18" height="17" alt="immagine elimina attività"/></button> &nbsp;-->
+				
+				
+			<button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="azioneattivita" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Azioni</button>
+				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+					<a class="dropdown-item" href="#" data-target="#finestramodificaattivita" data-toggle="modal" id="modificaattivita">&nbsp;&nbsp;&nbsp;&nbsp;Modifica Attività</a>
+					<a class="dropdown-item" href="#" data-target="#finestraeliminaatt" data-toggle="modal">Elimina Attività</a>
+					<a class="dropdown-item" href="#" data-target="#finestracopiattivita" data-toggle="modal">Copia Attività</a>
+					<a class="dropdown-item" href="#" data-target="#finestraspostaattivita" data-toggle="modal">Sposta Attività</a>
+					<a class="dropdown-item" href="#" data-target="#finestraattivaattivita" data-toggle="modal">Attiva Attività</a>
+					<a class="dropdown-item" href="#" data-target="#finestradisattivaattivita" data-toggle="modal">Disattiva Attività</a>
+				</div>		
+				
 			</div>
-			<br>
-			<div id="erroreattivita"></div>
 			<br>
 			<!-- contenitore singole attività -->
 			<div id="elencoattivita">
@@ -468,6 +491,275 @@
 			</div>
 		</div>
 	</div>	
+	
+	<div class="modal fade" id="finestraspostamissione" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Sposta Missione</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" id="listastorie">
+					<i>Per visualizzare le storie, seleziona una singola storia dall'elenco delle storie archiviate.</i>
+					<br><br>
+					<i>Seleziona la storia per spostare la missione.</i><br>
+					<select class="custom-select" id="storiedisponibili" aria-label="Lista Missioni">
+				  </select>
+					<br><br>
+					<div id="errormissionmove"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annullasposta">Annulla</button>
+					<button type="button" class="btn btn-primary" id="confermasposta" data-dismiss="modal">Conferma Spostamento</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="finestracopiamissione" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Copia Missione</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" id="listastoriedisp">
+					<i>Per visualizzare le storie, seleziona una singola storia dall'elenco delle storie archiviate.</i>
+					<br><br>
+					<i>Seleziona la storia per copiare la missione.</i> <br> 
+					<select class="custom-select" id="listastoriedisponibili" aria-label="Lista Missioni">
+				  </select>
+					<br><br>
+					<div id="errormissioncopy"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annullacopia">Annulla</button>
+					<button type="button" class="btn btn-primary" id="confermacopia" data-dismiss="modal">Conferma Copia</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="finestraspostaattivita" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Sposta Attività</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" id="listamissioni">
+					<i>Per visualizzare le storie e le missioni, seleziona una singola storia dall'elenco delle storie archiviate ed una missione dall'elenco delle missioni.</i>
+					<br><br> <br>
+					<i>Seleziona la storia e la missione per spostare l'attività.</i><br><br>
+					<h6>Elenco Storie Disponibili:</h6>
+					<select class="custom-select" id="elencostoriedisp" aria-label="Lista Storie">
+				  </select>
+					<br><br>
+					<div id="errorestorymove"></div>
+					<br>
+					<h6>Elenco Missioni Disponibili:</h6>
+					<select class="custom-select" id="listamissionidisp" aria-label="Lista Missioni">
+				  </select>
+					<br><br>
+				<div id="erroreattivitamove"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annullaspostaatt">Annulla</button>
+					<button type="button" class="btn btn-primary" id="confermaspostaatt" data-dismiss="modal">Conferma Spostamento</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="finestracopiattivita" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Copia Attivita</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" id="copia">
+					<i>Per visualizzare le storie e le missioni, seleziona una singola storia dall'elenco delle storie archiviate ed una missione dall'elenco delle missioni.</i>
+					<br><br> <br>
+					<i>Seleziona la storia e la missione per copiare l'attività.</i> <br> <br>
+					<h6>Elenco Storie Disponibili:</h6>
+					<select class="custom-select" id="elencostorie" aria-label="Lista Storie">
+				  </select>
+					<br><br>
+				<div id="errorestorycopy"></div>
+					<br>
+					<h6>Elenco Missioni Disponibili:</h6>
+					<select class="custom-select" id="listamissionidisponibili" aria-label="Lista Missioni">
+				  </select>
+					<br><br>
+				<div id="erroreattivitacopy"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annullacopiamiss">Annulla</button>
+					<button type="button" class="btn btn-primary" id="confermacopiaattivita" data-dismiss="modal">Conferma Copia</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="finestraattivamissione" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Attiva Missione</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" id="listamissattivare">
+					<i>Per visualizzare le missioni, seleziona una singola storia dall'elenco delle storie archiviate.</i>
+					<br><br>
+					<i>Seleziona la missione che vuoi attivare.</i><br>
+					<select class="custom-select" id="listamissioniattivare" aria-label="Lista Missioni da Attivare">
+				  </select>
+					<br><br>
+					<div id="errormissionactivity"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annullaattivamissione">Annulla</button>
+					<button type="button" class="btn btn-primary" id="confermaattivamissione" data-dismiss="modal">Attiva Missione</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="finestradisattivamissione" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Disattiva Missione</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" id="listamissdisattivare">
+					<i>Per visualizzare le missioni, seleziona una singola storia dall'elenco delle storie archiviate.</i>
+					<br><br>
+					<i>Seleziona la missione che vuoi disattivare.</i><br>
+					<select class="custom-select" id="listamissionidisattivare" aria-label="Lista Missioni">
+				  </select>
+					<br><br>
+					<div id="errormissiondisactivity"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annulladisattiva">Annulla</button>
+					<button type="button" class="btn btn-primary" id="confermadisattiva" data-dismiss="modal">Disattiva Missione</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="finestraattivaattivita" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Attiva Attività</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" id="listaattattivare">
+					<i>Per visualizzare le storie e le missioni, seleziona una singola storia dall'elenco delle storie archiviate ed una missione dall'elenco delle missioni.</i>
+					<br><br>
+					<i>Seleziona l'attività che vuoi attivare.</i><br>
+					<select class="custom-select" id="listaattivitaattivare" aria-label="Lista Missioni da Attivare" size="10">
+				  </select>
+					<br><br>
+					<div id="erroractiveactivity"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annullaattivaattivita">Annulla</button>
+					<button type="button" class="btn btn-primary" id="confermaattivaattivita" data-dismiss="modal">Attiva Attività</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="finestradisattivaattivita" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Disattiva Attività</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" id="listaattdisattivare">
+					<i>Per visualizzare le storie e le missioni, seleziona una singola storia dall'elenco delle storie archiviate ed una missione dall'elenco delle missioni.</i>
+					<br><br>
+					<i>Seleziona l'attività che vuoi disattivare.</i><br>
+					<select class="custom-select" id="listaattivitadisattivare" aria-label="Lista Attività" size="10">
+				  </select>
+					<br><br>
+					<div id="erroractivitydisable"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annulladisattivaatt">Annulla</button>
+					<button type="button" class="btn btn-primary" id="confermadisattivaatt" data-dismiss="modal">Disattiva Attività</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="finestraistruzioni" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<h5 class="modal-title" id="titolobenvenuto">Istruzioni Ambiente Autore</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			  <span aria-hidden="true">&times;</span>
+			</button>
+		  </div>
+		  <div class="modal-body">
+			In questa pagina potrai effettuare una serie di operazioni sulle storie, sulle missioni e sulle attività: <br><br>
+			  Storie:<br>
+			  - Creare una nuova storia.<br>
+			  - Modificare una storia.<br>
+			  - Eliminare una storia.<br>
+			  - Pubblicare una storia.<br>
+			  - Archiviare una storia.
+			  <br><br>
+			  Missioni: <br>
+			  - Creare una nuova missione.<br>
+			  - Modificare una missione.<br>
+			  - Eliminare una missione.<br>
+			  - Copiare una missione.<br>
+			  - Spostare una missione.<br>
+			  - Attivare/Disattivare una missione.<br>
+			  <br>
+			  Attività: <br>
+			  - Creare una nuova attività.<br>
+			  - Modificare una attività.<br>
+			  - Eliminare una attività.<br>
+			  - Copiare una attività.<br>
+			  - Spostare una attività.<br>
+			  - Attivare/Disattivare una attività.<br>
+			  <br>
+			 Per poter visualizzare le missioni associate alle storie, dovrai cliccare su una storia archiviata.<br>
+			 Mentre per visualizzare le attività associate ad una missione, dovrai cliccare su una storia archiviata, e successivamente su una missione. 
+
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	
+	
 </div>
 <br>
 	
@@ -476,6 +768,9 @@
 	<nav class="navbar navbar-fixed-bottom">
 		<button class="navbar-toggler" type="button" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" id="backhome">
 		Torna alla pagina principale
+		</button>
+		<button class="navbar-toggler" type="button" data-target="#finestraistruzioni" data-toggle="modal" id="istruzioni">
+		Istruzioni
 		</button>
 	</nav>
 </footer>

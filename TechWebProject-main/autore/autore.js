@@ -1,7 +1,10 @@
 var xhr, retrievedObjectStory, objStorageStory, indexOfCheckedRadio, retrievedObjectMission, objStorageMission, retrievedObjectActivities, objStorageActivities,radioButtons, selectedMission,selectedStory,titoloMissione,selectedActivity;
 
 $(document).ready(function(){
+	
 	viewStories();
+	
+	//-- Funzioni relative alle storie
 	
 	$("#crea").click(function(){
 		document.getElementById("formattivita").hidden = false;
@@ -95,7 +98,6 @@ $(document).ready(function(){
 		}
 	});
 	
-	//funzione modifica storie
 	$("#salvamodifica").click(function(){
 		var titoloStoria = document.getElementById("titolostoriamod").value;
 		if (titoloStoria === "" || titoloStoria === undefined) {
@@ -176,6 +178,8 @@ $(document).ready(function(){
 		}
 	});
 
+	//-- Funzioni relative alle missioni
+	
 	$("#salvamissione").click(function(){
 		indexOfCheckedRadio = getCheckedRadioId('radioSA');
 		if(indexOfCheckedRadio !== -1){
@@ -204,6 +208,7 @@ $(document).ready(function(){
 		}
 		else{
 			document.getElementById("messageerrormissione").innerHTML = ('<i>&nbspNon è stata selezionata nessuna storia archiviata.</i>');
+			return false;
 		}
 	});
 	
@@ -220,6 +225,7 @@ $(document).ready(function(){
 		}
 		else{
 			document.getElementById("modmessageerrormissione").innerHTML = ('<i>&nbspNon è stata selezionata nessuna missione.</i>');
+			return false;
 		}
 	});
 	
@@ -236,27 +242,66 @@ $(document).ready(function(){
 		}
 		else{
 			document.getElementById("modmessageerrormissione").innerHTML = ('<i>&nbspNon è stata selezionata nessuna missione.</i>');
+			return false;
 		}
 	});
 	
-	$("#duplicamissione").click(function(){
-		xhr = getDuplicaMissioneHTTPReq();
+	
+	$("#confermacopia").click(function(){
+		xhr = getCopiaMissioneHTTPReq();
 		indexOfCheckedRadio = getCheckedRadioId('elencoMissioni');
+		var indexOfSelectStory = document.getElementById('listastoriedisponibili').value;
 		if (indexOfCheckedRadio !== -1){
-			var missioneClone = {
-				id: indexOfCheckedRadio
-			};
-			var objDuplicateMission = JSON.stringify(missioneClone);
-				
-			//richiesta post
-			xhr.open('POST', '/autore/duplicateMission', true);
-			xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-			xhr.send(objDuplicateMission);
+			if(indexOfSelectStory !== ""){
+				var missioneClone = {
+					id: indexOfCheckedRadio,
+					idstoria: parseInt(indexOfSelectStory)
+				};
+				var objDuplicateMission = JSON.stringify(missioneClone);
+
+
+				xhr.open('POST', '/autore/copyMission', true);
+				xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+				xhr.send(objDuplicateMission);
+			}
+			else {
+				document.getElementById("errormissioncopy").innerHTML = ('&nbsp<i>Non è stata selezionata nessuna storia disponibile.</i>');
+				return false;			
+			}
 		}
 		else {
-			document.getElementById("errormission").innerHTML = ('&nbsp<i>Non è stata selezionata nessuna missione.</i>');
+			document.getElementById("errormissioncopy").innerHTML = ('&nbsp<i>Non è stata selezionata nessuna missione.</i>');
+			return false;
 		}
 	});
+	
+	$("#confermasposta").click(function(){
+		xhr = getSpostaMissioneHTTPReq();
+		indexOfCheckedRadio = getCheckedRadioId('elencoMissioni');
+		var indexOfSelectStory = document.getElementById('storiedisponibili').value;
+		if (indexOfCheckedRadio !== -1){
+			if(indexOfSelectStory !== ""){
+				var missionMove = {
+					id: indexOfCheckedRadio,
+					idstoria: parseInt(indexOfSelectStory)
+				};
+				var objMoveMission = JSON.stringify(missionMove);
+
+				xhr.open('POST', '/autore/moveMission', true);
+				xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+				xhr.send(objMoveMission);
+			}
+			else {
+				document.getElementById("errormissionmove").innerHTML = ('&nbsp<i>Non è stata selezionata nessuna storia disponibile.</i>');
+				return false;			
+			}
+		}
+		else {
+			document.getElementById("errormissionmove").innerHTML = ('&nbsp<i>Non è stata selezionata nessuna missione.</i>');
+			return false;
+		}
+	});
+	
 	
 	$("#confermaeliminamis").click(function(){
 		xhr = getEliminaMissioneHTTPReq();
@@ -272,8 +317,50 @@ $(document).ready(function(){
 		}
 		else {
 			document.getElementById("messageerrormissiondelete").innerHTML = ('&nbsp&nbsp<i>Non è stata selezionata nessuna missione.</i>');
+			return false;
 		}
 	});
+	
+	$("#confermadisattiva").click(function(){
+		xhr = getDisattivaMissioneHTTPReq();
+		var indexOfSelectMission = document.getElementById('listamissionidisattivare').value;
+		if(indexOfSelectMission !== ""){
+			var idMission = { 
+				id: parseInt(indexOfSelectMission)
+			}; 
+			
+			var objDisableMission = JSON.stringify(idMission);
+			xhr.open('POST', '/autore/disableMission', true); 
+			xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+			xhr.send(objDisableMission);
+		}
+		else {
+			document.getElementById("errormissiondisactivity").innerHTML = ('&nbsp<i>Non è stata selezionata nessuna missione attiva.</i>');
+			return false;			
+		}
+	});
+	
+	$("#confermaattivamissione").click(function(){
+		xhr = getAttivaMissioneHTTPReq();
+		var indexOfSelectMission = document.getElementById('listamissioniattivare').value;
+		if(indexOfSelectMission !== ""){
+			var idMission = { 
+				id: parseInt(indexOfSelectMission)
+			}; 
+			
+			var objActiveMission = JSON.stringify(idMission);
+			xhr.open('POST', '/autore/activeMission', true); 
+			xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+			xhr.send(objActiveMission);
+		}
+		else {
+			document.getElementById("errormissiondisactivity").innerHTML = ('&nbsp<i>Non è stata selezionata nessuna missione disattiva.</i>');
+			return false;			
+		}
+	});
+	
+	
+	//-- Funzioni relative alle attività
 	
 	$("#confermaeliminaatt").click(function(){
 		xhr = getEliminaAttivitaHTTPReq();
@@ -290,28 +377,107 @@ $(document).ready(function(){
 		}
 		else {
 			document.getElementById("messageerroractivitydelete").innerHTML = ('&nbsp&nbsp<i>Non è stata selezionata nessuna attività.</i>');
+			return false;
 		}
 	});
 	
-	$("#duplicaattivita").click(function(){
-		xhr = getDuplicaAttivitaHTTPReq();
-		indexOfCheckedRadio = getCheckedRadioId('elencoAttivita');
-		var attivitaClone;
-		if (indexOfCheckedRadio !== -1){
-			attivitaClone = {
-				id: indexOfCheckedRadio
-			};
+	$("#confermaattivaattivita").click(function(){
+		xhr = getAttivaAttivitaHTTPReq();
+		var indexOfSelectActivity = document.getElementById('listaattivitaattivare').value;
+		if(indexOfSelectActivity !== ""){
+			var idActivity = { 
+				id: parseInt(indexOfSelectActivity)
+			}; 
 			
-			var objDuplicateActivity = JSON.stringify(attivitaClone);
-
-			xhr.open('POST', '/autore/duplicateActivity', true);
+			var objActiveActivity = JSON.stringify(idActivity);
+			xhr.open('POST', '/autore/activeActivity', true); 
 			xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-			xhr.send(objDuplicateActivity);
+			xhr.send(objActiveActivity);
 		}
 		else {
-			document.getElementById("erroreattivita").innerHTML = ('&nbsp<i>Non è stata selezionata nessuna attività.</i>');
+			document.getElementById("erroractiveactivity").innerHTML = ('&nbsp<i>Non è stata selezionata nessuna attività disattiva.</i>');
+			return false;			
 		}
 	});
+	
+	$("#confermadisattivaatt").click(function(){
+		xhr = getDisattivaAttivitaHTTPReq();
+		var indexOfSelectActivity = document.getElementById('listaattivitadisattivare').value;
+		if(indexOfSelectActivity !== ""){
+			var idActivity = { 
+				id: parseInt(indexOfSelectActivity)
+			}; 
+			
+			var objActiveActivity = JSON.stringify(idActivity);
+			xhr.open('POST', '/autore/disableActivity', true); 
+			xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+			xhr.send(objActiveActivity);
+		}
+		else {
+			document.getElementById("erroractivitydisable").innerHTML = ('&nbsp<i>Non è stata selezionata nessuna attività attiva.</i>');
+			return false;			
+		}
+	});
+	
+	
+	$("#confermacopiaattivita").click(function(){
+		xhr = getCopiaAttivitaHTTPReq();
+		indexOfCheckedRadio = getCheckedRadioId('elencoAttivita');
+		var indexOfSelectMission = document.getElementById('listamissionidisponibili').value;
+		var indexOfSelectStory = document.getElementById('elencostorie').value;
+		var attivitaClone;
+		if (indexOfCheckedRadio !== -1){
+			if(indexOfSelectMission !== "" && indexOfSelectStory !== ""){
+				attivitaClone = {
+					id: indexOfCheckedRadio,
+					idmissione: parseInt(indexOfSelectMission)
+				};
+
+				var objCopyActivity = JSON.stringify(attivitaClone);
+
+				xhr.open('POST', '/autore/copyActivity', true);
+				xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+				xhr.send(objCopyActivity);
+			}
+			else {
+				document.getElementById("erroreattivitacopy").innerHTML = ('&nbsp<i>Non è stata selezionata nessuna storia disponibile/missione disponibile.</i>');
+				return false;			
+			}
+		}
+		else {
+			document.getElementById("erroreattivitacopy").innerHTML = ('&nbsp<i>Non è stata selezionata nessuna attività.</i>');
+			return false;			
+		}
+	});
+	
+	$("#confermaspostaatt").click(function(){
+		xhr = getSpostaAttivitaHTTPReq();
+		indexOfCheckedRadio = getCheckedRadioId('elencoAttivita');
+		var indexOfSelectMission = document.getElementById('listamissionidisp').value;
+		var indexOfSelectStory = document.getElementById('elencostoriedisp').value;
+		if (indexOfCheckedRadio !== -1){
+			if(indexOfSelectMission !== "" && indexOfSelectStory !== ""){
+				var activityMove = {
+					id: indexOfCheckedRadio,
+					idmissione: parseInt(indexOfSelectMission)
+				};
+				var objMoveActivity = JSON.stringify(activityMove);
+
+				xhr.open('POST', '/autore/moveActivity', true);
+				xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+				xhr.send(objMoveActivity);
+			}
+			else {
+				document.getElementById("erroreattivitamove").innerHTML = ('&nbsp<i>Non è stata selezionata nessuna storia disponibile/missione disponibile.</i>');
+				return false;			
+			}
+		}
+		else {
+			document.getElementById("erroreattivitamove").innerHTML = ('&nbsp<i>Non è stata selezionata nessuna missione.</i>');
+			return false;
+		}
+	});
+	
 	
 	$("#modificaattivita").click(function(){
 		indexOfCheckedRadio = getCheckedRadioId('elencoAttivita');
@@ -427,22 +593,42 @@ $(document).ready(function(){
 		}
 	});
 	
+	
+	
 	$("#finestramodificaattivita").on('hidden.bs.modal', function(){ 
 		location.reload(); //ricarico la pagina, quando viene chiusa la finestra 'modifica attività', in modo da cancellare i vecchi dati della attività selezionata in precedenza
 	});
 	
+	//-- Funzioni relative alla visione delle missioni/attività in base alla storie e missione selezionata
+	
 	$("#storiearchiviate").click(function(){
 		viewMission();
+		viewMissionActive();
+		viewMissionDisable();
 	});
 	
 	$("#elencomissioni").click(function(){
 		viewActivities();
+		viewActivitiesActive();
+		viewActivitiesDisable();
 	});
 	
-	$(".navbar-toggler").click(function() {
+	//-- Funzioni relative alla visione missioni/attività disponibili per la copia e spostamento
+	
+	$("#elencostorie").click(function(){
+		viewMissionInCopy();
+	});
+	
+	$("#elencostoriedisp").click(function(){
+		viewMissionMove();
+	});
+
+	$("#backhome").click(function() {
 		cambiaPagina('primaPagina.html');
 	});
 });
+
+//-- Funzione Upload Storia
 
 function readFile(input) {
 
@@ -478,6 +664,8 @@ function readFile(input) {
 	}
 }
 	
+//-- Funzione relativa ai radiobutton nei form nuova/modifica attività
+
 function check(){
 	if(document.getElementById("checkboxrisposte").checked){
 			document.getElementById("rispostacorretta").disabled = false;
@@ -552,6 +740,8 @@ function check(){
 			document.getElementById("modmessaggiorispostasbagliata").disabled = true;
 	}
 }
+
+//-- Funzione form crea nuova attività
 
 function validateForm(e){
 	e.preventDefault(); 
@@ -648,6 +838,8 @@ function validateForm(e){
 	}			
 }
 
+//-- Funzione form modifica attività
+
 function validateModifyForm(e){
 	e.preventDefault(); 
 	var indexOfCheckedRadio = getCheckedRadioId('elencoAttivita');
@@ -728,6 +920,8 @@ function cambiaPagina(url) {
 		window.location.replace(url);
 }
 
+//-- Funzioni relative a XMLHttpRequest
+
 function getCreaAttivitaHTTPReq(){
 	xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function() {
@@ -744,16 +938,32 @@ function getCreaAttivitaHTTPReq(){
 	return xhr;
 }
 
-function getDuplicaAttivitaHTTPReq(){
+function getCopiaAttivitaHTTPReq(){
 	xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === 4 && xhr.status === 200) {
-			document.getElementById("erroreattivita").innerHTML = ('<i>&nbspL\'attività è stata duplicata.</i>');
+			document.getElementById("erroreattivitacopy").innerHTML = ('<i>&nbspL\'attività è stata copiata.</i>');
 			location.reload();
 			return;
 		}
 		else{
-			document.getElementById("erroreattivita").innerHTML = ('<i>&nbspL\'attività non è stata duplicata.</i>');
+			document.getElementById("erroreattivitacopy").innerHTML = ('<i>&nbspL\'attività non è stata copiata.</i>');
+			return;
+		}
+	};
+	return xhr;
+}
+
+function getSpostaAttivitaHTTPReq(){
+	xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === 4 && xhr.status === 200) {
+			document.getElementById("erroreattivitamove").innerHTML = ('<i>&nbspL\'attività è stata spostata.</i>');
+			location.reload();
+			return;
+		}
+		else{
+			document.getElementById("erroreattivitamove").innerHTML = ('<i>&nbspL\'attività non è stata spostata.</i>');
 			return;
 		}
 	};
@@ -777,6 +987,38 @@ function getEliminaAttivitaHTTPReq(){
 				location.reload();
 			}
 		};
+	return xhr;
+}
+
+function getDisattivaAttivitaHTTPReq(){
+	xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === 4 && xhr.status === 200) {
+			document.getElementById("erroractivitydisable").innerHTML = ('<i>&nbspL\'attività è stata disattivata.</i>');
+			location.reload();
+			return;
+		}
+		else{
+			document.getElementById("erroractivitydisable").innerHTML = ('<i>&nbspL\'attività non è stata disattivata.</i>');
+			return;
+		}
+	};
+	return xhr;
+}
+
+function getAttivaAttivitaHTTPReq(){
+	xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === 4 && xhr.status === 200) {
+			document.getElementById("erroractiveactivity").innerHTML = ('<i>&nbspL\'attività è stata attivata.</i>');
+			location.reload();
+			return;
+		}
+		else{
+			document.getElementById("erroractiveactivity").innerHTML = ('<i>&nbspL\'attività non è stata attivata.</i>');
+			return;
+		}
+	};
 	return xhr;
 }
 	
@@ -806,22 +1048,69 @@ function getModificaMissioneHTTPReq(){
 	return xhr;
 }
 
-function getDuplicaMissioneHTTPReq(){
+function getCopiaMissioneHTTPReq(){
 	xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === 4 && xhr.status === 200) {
-			document.getElementById("errormission").innerHTML = ('<i>&nbspLa missione è stata duplicata.</i>');
+			document.getElementById("errormissioncopy").innerHTML = ('<i>&nbspLa missione è stata copiata.</i>');
 			location.reload();
 			return;
 		}
 		else{
-			document.getElementById("errormission").innerHTML = ('<i>&nbspLa missione non è stata duplicata.</i>');
+			document.getElementById("errormissioncopy").innerHTML = ('<i>&nbspLa missione non è stata copiata.</i>');
 			return;
 		}
 	};
 	return xhr;
 }
 
+function getSpostaMissioneHTTPReq(){
+	xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === 4 && xhr.status === 200) {
+			document.getElementById("errormissionmove").innerHTML = ('<i>&nbspLa missione è stata spostata.</i>');
+			location.reload();
+			return;
+		}
+		else{
+			document.getElementById("errormissionmove").innerHTML = ('<i>&nbspLa missione non è stata spostata.</i>');
+			return;
+		}
+	};
+	return xhr;
+}
+
+function getDisattivaMissioneHTTPReq(){
+	xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === 4 && xhr.status === 200) {
+			document.getElementById("errormissionmove").innerHTML = ('<i>&nbspLa missione è stata disattivata.</i>');
+			location.reload();
+			return;
+		}
+		else{
+			document.getElementById("errormissionmove").innerHTML = ('<i>&nbspLa missione non è stata disattivata.</i>');
+			return;
+		}
+	};
+	return xhr;
+}
+
+function getAttivaMissioneHTTPReq(){
+	xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === 4 && xhr.status === 200) {
+			document.getElementById("errormissionmove").innerHTML = ('<i>&nbspLa missione è stata attivata.</i>');
+			location.reload();
+			return;
+		}
+		else{
+			document.getElementById("errormissionmove").innerHTML = ('<i>&nbspLa missione non è stata attivata.</i>');
+			return;
+		}
+	};
+	return xhr;
+}
 
 function getEliminaMissioneHTTPReq(){
 	xhr = new XMLHttpRequest();
@@ -945,6 +1234,8 @@ function getDuplicaStoriaHTTPReq(){
 	return xhr;
 }
 
+//-- Funzione che calcola id radiobutton selezionato
+
 function getCheckedRadioId(radioButtonClass){
 	radioButtons = Array.from(document.getElementsByName(radioButtonClass));
 	if(radioButtons===undefined || radioButtons.length===0){
@@ -953,6 +1244,8 @@ function getCheckedRadioId(radioButtonClass){
 	var checkedRadio = radioButtons.find(radio => radio.checked);
 	return(checkedRadio === undefined ? -1: parseInt(checkedRadio.id));
 }
+
+//-- Funzione modifica missione
 
 function modifyMission(){
 	xhr = getModificaMissioneHTTPReq();
@@ -970,6 +1263,8 @@ function modifyMission(){
 		xhr.send(objModifyMission);
 	}
 }
+
+//-- Funzione modifica storia
 
 function modifyStory(){
 	var xhr, storia, objModifyStory;
@@ -993,6 +1288,7 @@ function modifyStory(){
 	}
 }
 
+//-- Funzioni relative alla visualizzazione delle storie, missioni e attività
 
 function viewStories(){	
 	var xhr = new XMLHttpRequest();
@@ -1010,6 +1306,44 @@ function viewStories(){
 			for (i = 0; i < archived.length; i++){
 				document.getElementById('storiearchiviate').innerHTML += "<div class='form-check radioStoriaA'><input name='radioSA' type='radio' id= "+ archived[i].id + " value= "+ archived[i].nome + ">&nbsp<label class='labelStoriaA' for= "+ archived[i].id + ">" + archived[i].nome + "</label></div>";
 			}
+			
+			if(archived.length >= 1){			
+			//per lo spostamento missioni 
+				document.getElementById('storiedisponibili').innerHTML = "";
+				for (i = 0; i < archived.length; i++){
+					document.getElementById('storiedisponibili').innerHTML += "<option value=" + archived[i].id + ">" + archived[i].nome + "</option>";
+				}
+				//per la copia missioni
+				document.getElementById('listastoriedisponibili').innerHTML = "";
+				document.getElementById('errormissioncopy').innerHTML = "";
+				for (i = 0; i < archived.length; i++){
+					document.getElementById('listastoriedisponibili').innerHTML += "<option value=" + archived[i].id + ">" + archived[i].nome + "</option>";
+				}
+
+				//per la copia attività
+				document.getElementById('elencostorie').innerHTML = "";
+				document.getElementById('errorestorycopy').innerHTML = "";
+				for (i = 0; i < archived.length; i++){
+					document.getElementById('elencostorie').innerHTML += "<option value=" + archived[i].id + ">" + archived[i].nome + "</option>";
+					}
+
+				//per lo spostamento attività
+				document.getElementById('elencostoriedisp').innerHTML = "";
+				document.getElementById('errorestorymove').innerHTML = "";
+				for (i = 0; i < archived.length; i++){
+					document.getElementById('elencostoriedisp').innerHTML += "<option value=" + archived[i].id + ">" + archived[i].nome + "</option>";
+					}
+			}
+			else{
+				document.getElementById('listastoriedisponibili').innerHTML = "";
+				document.getElementById("errormissioncopy").innerHTML = ("<i>&nbspNon ci sono storie, creane una.</i>");
+				document.getElementById('storiedisponibili').innerHTML = "";
+				document.getElementById("errormissionmove").innerHTML = ("<i>&nbspNon ci sono storie, creane una.</i>");
+				document.getElementById('elencostorie').innerHTML = "";
+				document.getElementById("errorestorycopy").innerHTML = ("<i>&nbspNon ci sono storie, creane una.</i>");
+				document.getElementById('elencostoriedisp').innerHTML = "";
+				document.getElementById("errorestorymove").innerHTML = ("<i>&nbspNon ci sono storie, creane una.</i>");
+			}
 		}
 	};
 	xhr.send();
@@ -1020,16 +1354,22 @@ function viewMission(){
 	xhr.open("GET", '/autore/newMission', true);
 	xhr.onreadystatechange = () => {
 		if (xhr.readyState === 4 && xhr.status === 200){
+			var i;
 			var strMission = xhr.responseText;
 			localStorage.setItem('missioni', strMission);
 			var objMission = JSON.parse(strMission);
 			indexOfCheckedRadio = getCheckedRadioId('radioSA');
 			if(indexOfCheckedRadio !== -1){
-				var mission = objMission.missioni.filter(m => m.idstoria === indexOfCheckedRadio);
+				var missionActive = objMission.missioni.filter(m => m.idstoria === indexOfCheckedRadio && m.stato === "attiva");
+				var missionDisable = objMission.missioni.filter(m => m.idstoria === indexOfCheckedRadio && m.stato === "disattiva");
 				document.getElementById('elencomissioni').innerHTML = "";
-				for (var i = 0; i < mission.length; i++){
-					document.getElementById('elencomissioni').innerHTML += "<div class='form-check elencoMissioni'><input name='elencoMissioni' type='radio' id= " + mission[i].id + " value= "+ mission[i].nome + ">&nbsp<label class='labelMissioni' for= " + mission[i].id + ">" + mission[i].nome + "</label></div>";
+				for (i = 0; i < missionActive.length; i++){
+					document.getElementById('elencomissioni').innerHTML += "<div class='form-check elencoMissioni'><input name='elencoMissioni' type='radio' id= " + missionActive[i].id + " value= "+ missionActive[i].nome + ">&nbsp<label class='labelMissioni' for= " + missionActive[i].id + ">" + missionActive[i].nome + "</label></div>";
 				}
+				for (i = 0; i < missionDisable.length; i++){
+					document.getElementById('elencomissioni').innerHTML += "<div class='form-check elencoMissioni'><input name='elencoMissioni' disabled type='radio' id= " + missionDisable[i].id + " value= "+ missionDisable[i].nome + ">&nbsp<label class='labelMissioni' for= " + missionDisable[i].id + ">" + missionDisable[i].nome + "</label></div>";
+				}
+				
 			}
 		}
 	};
@@ -1047,10 +1387,188 @@ function viewActivities(){
 			var indexOfCheckedRadioSA = getCheckedRadioId('radioSA');
 			var indexOfCheckedRadioMission = getCheckedRadioId('elencoMissioni');
 			if(indexOfCheckedRadioSA !== -1 && indexOfCheckedRadioMission !== -1){
-				var activity = objActivity.attivita.filter(a => a.idmissione === indexOfCheckedRadioMission);
+				var activityActive = objActivity.attivita.filter(a => a.idmissione === indexOfCheckedRadioMission && a.stato === "attiva");
+				var activityDisable = objActivity.attivita.filter(a => a.idmissione === indexOfCheckedRadioMission && a.stato === "disattiva");
 				document.getElementById('elencoattivita').innerHTML = "";
-				for (var i = 0; i < activity.length; i++){
-					document.getElementById('elencoattivita').innerHTML += "<div class='form-check elencoAttivita'><input name='elencoAttivita' type='radio' id= " + activity[i].id + " value= "+ activity[i].domanda + ">&nbsp<label class='labelAttivita' for= " + activity[i].id + ">" + activity[i].domanda + "</label></div>";
+				for (var i = 0; i < activityActive.length; i++){
+					document.getElementById('elencoattivita').innerHTML += "<div class='form-check elencoAttivita'><input name='elencoAttivita' type='radio' id= " + activityActive[i].id + " value= "+ activityActive[i].domanda + ">&nbsp<label class='labelAttivita' for= " + activityActive[i].id + ">" + activityActive[i].domanda + "</label></div>";
+				}
+				for (i = 0; i < activityDisable.length; i++){
+					document.getElementById('elencoattivita').innerHTML += "<div class='form-check elencoAttivita'><input name='elencoAttivita' disabled type='radio' id= " + activityDisable[i].id + " value= "+ activityDisable[i].domanda + ">&nbsp<label class='labelAttivita' for= " + activityDisable[i].id + ">" + activityDisable[i].domanda + "</label></div>";
+				}
+			}
+		}
+	};
+	xhr.send();
+}
+
+function viewMissionInCopy(){
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", '/autore/newMission', true);
+	xhr.onreadystatechange = () => {
+		if (xhr.readyState === 4 && xhr.status === 200){
+			var mission, i;
+			var strMission = xhr.responseText;
+			localStorage.setItem('missioni', strMission);
+			var objMission = JSON.parse(strMission);
+			var indexOfSelectStory = parseInt(document.getElementById('elencostorie').value);
+			mission = objMission.missioni.filter(m => m.idstoria === indexOfSelectStory);
+
+			//per la copia
+			if(mission.length >= 1){
+				document.getElementById('listamissionidisponibili').innerHTML = "";
+				document.getElementById('erroreattivitacopy').innerHTML = "";
+				for (i = 0; i < mission.length; i++){
+					document.getElementById('listamissionidisponibili').innerHTML += "<option value=" + mission[i].id + ">" + mission[i].nome + "</option>";
+				}
+			}
+			else {
+				document.getElementById('listamissionidisponibili').innerHTML = "";
+				document.getElementById("erroreattivitacopy").innerHTML = ("<i>&nbspNon ci sono missioni, creane una.</i>");
+			}
+		}
+	};
+	xhr.send();
+}
+
+function viewMissionMove(){
+var xhr = new XMLHttpRequest();
+	xhr.open("GET", '/autore/newMission', true);
+	xhr.onreadystatechange = () => {
+		if (xhr.readyState === 4 && xhr.status === 200){
+			var mission, i;
+			var strMission = xhr.responseText;
+			localStorage.setItem('missioni', strMission);
+			var objMission = JSON.parse(strMission);
+			var indexOfSelectStory = parseInt(document.getElementById('elencostoriedisp').value);
+			mission = objMission.missioni.filter(m => m.idstoria === indexOfSelectStory);
+			
+			// per lo spostamento
+			if(mission.length >= 1){
+				document.getElementById('listamissionidisp').innerHTML = "";
+				document.getElementById('erroreattivitamove').innerHTML = "";
+				for (i = 0; i < mission.length; i++){
+					document.getElementById('listamissionidisp').innerHTML += "<option value=" + mission[i].id + ">" + mission[i].nome + "</option>";
+				}
+			}
+			else{
+				document.getElementById('listamissionidisp').innerHTML = "";
+				document.getElementById("erroreattivitamove").innerHTML = ("<i>&nbspNon ci sono missioni, creane una.</i>");
+			}
+		}
+	};
+	xhr.send();
+}
+
+function viewMissionActive(){
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", '/autore/newMission', true);
+	xhr.onreadystatechange = () => {
+		if (xhr.readyState === 4 && xhr.status === 200){
+			var mission, i;
+			var strMission = xhr.responseText;
+			localStorage.setItem('missioni', strMission);
+			var objMission = JSON.parse(strMission);
+			var indexOfCheckedRadioSA = getCheckedRadioId('radioSA');
+			if(indexOfCheckedRadioSA !== -1){
+				mission = objMission.missioni.filter(m => m.stato === "disattiva" && m.idstoria === indexOfCheckedRadioSA);
+				if(mission.length >= 1){
+					document.getElementById('listamissioniattivare').innerHTML = "";
+					document.getElementById('errormissionactivity').innerHTML = "";
+					for (i = 0; i < mission.length; i++){
+						document.getElementById('listamissioniattivare').innerHTML += "<option value=" + mission[i].id + ">" + mission[i].nome + "</option>";
+					}
+				}
+				else{
+					document.getElementById('listamissioniattivare').innerHTML = "";
+					document.getElementById('errormissionactivity').innerHTML = ("<i>&nbspNon ci sono missioni disattivate.</i>");
+				}
+			}
+		}
+	};
+	xhr.send();
+}
+
+function viewMissionDisable(){
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", '/autore/newMission', true);
+	xhr.onreadystatechange = () => {
+		if (xhr.readyState === 4 && xhr.status === 200){
+			var mission, i;
+			var strMission = xhr.responseText;
+			localStorage.setItem('missioni', strMission);
+			var objMission = JSON.parse(strMission);
+			var indexOfCheckedRadioSA = getCheckedRadioId('radioSA');
+			if(indexOfCheckedRadioSA !== -1){
+				mission = objMission.missioni.filter(m => m.stato === "attiva" && m.idstoria === indexOfCheckedRadioSA);
+				if(mission.length >= 1){
+					document.getElementById('listamissionidisattivare').innerHTML = "";
+					document.getElementById('errormissiondisactivity').innerHTML = "";
+					for (i = 0; i < mission.length; i++){
+						document.getElementById('listamissionidisattivare').innerHTML += "<option value=" + mission[i].id + ">" + mission[i].nome + "</option>";
+					}
+				}
+				else{
+					document.getElementById('listamissionidisattivare').innerHTML = "";
+					document.getElementById('errormissiondisactivity').innerHTML = ("<i>&nbspNon ci sono missioni attive.</i>");
+				}
+			}
+		}
+	};
+	xhr.send();
+}
+
+function viewActivitiesActive(){
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", '/autore/newActivities', true);
+	xhr.onreadystatechange = () => {
+		if (xhr.readyState === 4 && xhr.status === 200){
+			var strActivity = xhr.responseText;
+			localStorage.setItem('attivita', strActivity);
+			var objActivity = JSON.parse(strActivity);
+			var indexOfCheckedRadioSA = getCheckedRadioId('radioSA');
+			var indexOfCheckedRadioMission = getCheckedRadioId('elencoMissioni');
+			if(indexOfCheckedRadioSA !== -1 && indexOfCheckedRadioMission !== -1){
+				var activity = objActivity.attivita.filter(a => a.idmissione === indexOfCheckedRadioMission && a.stato === "disattiva");
+				if(activity.length >= 1){
+					document.getElementById('listaattivitaattivare').innerHTML = "";
+					document.getElementById('erroractiveactivity').innerHTML = "";
+					for (var i = 0; i < activity.length; i++){
+						document.getElementById('listaattivitaattivare').innerHTML += "<option value=" + activity[i].id + ">" + activity[i].domanda + "<br></option>";
+					}
+				}
+				else{
+					document.getElementById('listaattivitaattivare').innerHTML = "";
+					document.getElementById('erroractiveactivity').innerHTML = ("<i>&nbspNon ci sono attività disattivate.</i>");
+				}
+			}
+		}
+	};
+	xhr.send();
+}
+
+function viewActivitiesDisable(){
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", '/autore/newActivities', true);
+	xhr.onreadystatechange = () => {
+		if (xhr.readyState === 4 && xhr.status === 200){
+			var strActivity = xhr.responseText;
+			localStorage.setItem('attivita', strActivity);
+			var objActivity = JSON.parse(strActivity);
+			var indexOfCheckedRadioSA = getCheckedRadioId('radioSA');
+			var indexOfCheckedRadioMission = getCheckedRadioId('elencoMissioni');
+			if(indexOfCheckedRadioSA !== -1 && indexOfCheckedRadioMission !== -1){
+				var activity = objActivity.attivita.filter(a => a.idmissione === indexOfCheckedRadioMission && a.stato === "attiva");
+				if(activity.length >= 1){
+					document.getElementById('listaattivitadisattivare').innerHTML = "";
+					document.getElementById('erroractivitydisable').innerHTML = "";
+					for (var i = 0; i < activity.length; i++){
+						document.getElementById('listaattivitadisattivare').innerHTML += "<option value=" + activity[i].id + ">" + activity[i].domanda + "<br></option>";
+					}
+				}
+				else{
+					document.getElementById('listaattivitadisattivare').innerHTML = "";
+					document.getElementById('erroractivitydisable').innerHTML = ("<i>&nbspNon ci sono attività attive.</i>");
 				}
 			}
 		}
