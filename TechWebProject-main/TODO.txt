@@ -21,7 +21,7 @@ testare progetto su chrome, firefox, safari, opera, edge
 creare file da esportare per punteggio player
 finchè ci sono utenti connessi non va cambiato il nome della storia (server)
 cambiare parola avanzamento con DOMANDA 1/15
-modifica punteggio domanda nelison
+modifica punteggio domanda nel json
 inserire tempo per ogni giocatore (viene azzerato ogni volta che arriva un socket.on di avanzamento)
 cambiare colore in base al socket.on (avanzamento, chat, troppo tempo, valutazioni risposte, salvare dati per reindirizzamento)
 aggiungere legenda dei colori
@@ -33,11 +33,11 @@ MARTI:
 accessibilità
 commentare e pulire codice
 
-togliere codice riguardate login (gestirlo lato server/valutatore)
-cercare background nuvola domanda (anche interrail)
-settare background campo risposta testo
+NON CANCELLARE DAL TODO: cercare background nuvola domanda (anche interrail) - scrivere il codice relativo x poter inserire background nella domanda (commentato)
+NON CANCELLARE DAL TODO: settare background campo risposta testo - scrivere il codice relativo x poter inserire background nel campo risposta (commentato)
 creare bottone per visualizzare/chiudere la chat
 schermata iniziale inserimento nome + cognome
+
 campo sequenziale : si/no (pensare a come gestire il cambio attivita delle storie non sequenziali - modificare il testo delle domande delle attivita)
 
 CRI: 
