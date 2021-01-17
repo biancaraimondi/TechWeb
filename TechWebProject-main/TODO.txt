@@ -19,7 +19,6 @@ accessibilità (scaricare chromevox come estensione e poi utilizzare la guida on
 testare progetto su chrome, firefox, safari, opera, edge
 inserire tempo per ogni giocatore (viene azzerato ogni volta che arriva un socket.on di avanzamento)
 
-messaggi conclusivi più sofisticati (promozione)
 creare file da esportare per punteggio player
 finchè ci sono utenti connessi non va cambiato il nome della storia (server)
 cambiare parola avanzamento con DOMANDA 1/15
