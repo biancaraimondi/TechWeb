@@ -38,7 +38,7 @@ NON CANCELLARE DAL TODO: settare background campo risposta testo - scrivere il c
 creare bottone per visualizzare/chiudere la chat
 schermata iniziale inserimento nome + cognome
 
-campo sequenziale : si/no (pensare a come gestire il cambio attivita delle storie non sequenziali - modificare il testo delle domande delle attivita)
+NON CANCELLARE DAL TODO: campo sequenziale : si/no (pensare a come gestire il cambio attivita delle storie non sequenziali - modificare il testo delle domande delle attivita)
 
 CRI: 
 accessibilità
