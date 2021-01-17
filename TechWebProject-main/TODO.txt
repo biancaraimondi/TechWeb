@@ -44,6 +44,8 @@ NON CANCELLARE DAL TODO: campo sequenziale : si/no (pensare a come gestire il ca
 CRI: 
 accessibilità
 non caricare interrail (per testare caricamento storia nell'ambiente autore)
+Visualizzazione del grafo delle transizioni da un'attività all'altra e da una missione
+all'altra nella storia. 
 
 ACCESSIBILITA':
 
