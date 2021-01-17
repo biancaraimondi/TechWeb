@@ -16,16 +16,17 @@ messaggi conclusivi più sofisticati (promozione)
 
 BIANCA:
 accessibilità (scaricare chromevox come estensione e poi utilizzare la guida online: https://support.google.com/chromebook/answer/7031755#zippy=%2Cscegliere-il-testo-con-il-cursore)
-
 testare progetto su chrome, firefox, safari, opera, edge
+inserire tempo per ogni giocatore (viene azzerato ogni volta che arriva un socket.on di avanzamento)
+
+messaggi conclusivi più sofisticati (promozione)
 creare file da esportare per punteggio player
 finchè ci sono utenti connessi non va cambiato il nome della storia (server)
 cambiare parola avanzamento con DOMANDA 1/15
-modifica punteggio domanda nel json
-inserire tempo per ogni giocatore (viene azzerato ogni volta che arriva un socket.on di avanzamento)
+NON CANCELLARE DAL TODO: modifica punteggio domanda nel json
 cambiare colore in base al socket.on (avanzamento, chat, troppo tempo, valutazioni risposte, salvare dati per reindirizzamento)
 aggiungere legenda dei colori
-servizio server-side black-box
+NON CANCELLARE DAL TODO: servizio server-side black-box
 mettere apposto il problema del non visualizza l'immagine risposta nel valutatore
 gestire problema player disconnesso
 
@@ -33,6 +34,7 @@ MARTI:
 accessibilità
 commentare e pulire codice
 
+gestire attivita/missioni abilitate/disabilitate (nel caso disabilitate proseguire con l'attivita/missione successiva chiamando cambio attivita)
 NON CANCELLARE DAL TODO: cercare background nuvola domanda (anche interrail) - scrivere il codice relativo x poter inserire background nella domanda (commentato)
 NON CANCELLARE DAL TODO: settare background campo risposta testo - scrivere il codice relativo x poter inserire background nel campo risposta (commentato)
 creare bottone per visualizzare/chiudere la chat
