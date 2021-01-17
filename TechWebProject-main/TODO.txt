@@ -20,9 +20,6 @@ MARTI:
 accessibilità
 commentare e pulire codice
 
-crea bottone per chiedere aiuto al valutatore (inserire la domanda corrente in chat)
-modifica: in base al punteggio finale messaggio conclusivo diverso
-
 CRI: 
 accessibilità
 non caricare interrail (per testare caricamento storia nell'ambiente autore)
