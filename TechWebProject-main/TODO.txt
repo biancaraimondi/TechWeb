@@ -10,15 +10,35 @@ installare multer (npm install --save multer)
  
 installare: npm install webcam-easy (gestione fotocamera)
 
+pensare a problema valutatore gestito anche da 6cfuold
+
+messaggi conclusivi più sofisticati (promozione)
+
 BIANCA:
 accessibilità (scaricare chromevox come estensione e poi utilizzare la guida online: https://support.google.com/chromebook/answer/7031755#zippy=%2Cscegliere-il-testo-con-il-cursore)
 
 testare progetto su chrome, firefox, safari, opera, edge
 creare file da esportare per punteggio player
+finchè ci sono utenti connessi non va cambiato il nome della storia (server)
+cambiare parola avanzamento con DOMANDA 1/15
+modifica punteggio domanda nelison
+inserire tempo per ogni giocatore (viene azzerato ogni volta che arriva un socket.on di avanzamento)
+cambiare colore in base al socket.on (avanzamento, chat, troppo tempo, valutazioni risposte, salvare dati per reindirizzamento)
+aggiungere legenda dei colori
+servizio server-side black-box
+mettere apposto il problema del non visualizza l'immagine risposta nel valutatore
+gestire problema player disconnesso
 
 MARTI:
 accessibilità
 commentare e pulire codice
+
+togliere codice riguardate login (gestirlo lato server/valutatore)
+cercare background nuvola domanda (anche interrail)
+settare background campo risposta testo
+creare bottone per visualizzare/chiudere la chat
+schermata iniziale inserimento nome + cognome
+campo sequenziale : si/no (pensare a come gestire il cambio attivita delle storie non sequenziali - modificare il testo delle domande delle attivita)
 
 CRI: 
 accessibilità
