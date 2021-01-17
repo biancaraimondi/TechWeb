@@ -197,6 +197,20 @@ io.on('connection', function (socket) {
 		socket.to(socketUtente).emit('valutazione', domanda, valutazione, commentoValutazione, player);
 		console.log("SERVER: inviata vautazione al player");
 	});
+    
+    //gestisce i dati riassuntivi inviati dal player
+    socket.on('dati riassuntivi', function (datiRiassuntivi, punteggio, player) {
+        console.log("SERVER: dati riassuntivi da: " + player + " con punteggio: " + punteggio + " : " + datiRiassuntivi);
+        var z = 0;
+        var socketUtente = "";
+        for(z=0; z<utenti.length; z++){
+            if(utenti[z].nome == "valutatore"){
+                socketUtente = utenti[z].socket;
+            }
+        }
+        socket.to(socketUtente).emit('dati riassuntivi', datiRiassuntivi, punteggio, player);
+        console.log("SERVER: inviati dati riassuntivi al valutatore");
+    });
 
 	//se un utente si disconnette
 	socket.on('disconnect', function () {
