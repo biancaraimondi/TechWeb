@@ -96,7 +96,17 @@ io.on('connection', function (socket) {
 	console.log('SERVER: user ' + socket.id + ' connected');
 
 	//inserisce nella variabile storiaDaCaricare la storia scelta dal valutatore nella prima pagina
-	socket.on('storia', function (nomeStoria) {//es. storiaDaCaricare = 'interrail'
+	socket.on('storia', function (nomeStoria) {
+		/*inserisci = false;
+		for (i=0; i<utenti.length; i++){
+			if(utenti[i].nome == "valutatore"){
+				//socketUtente = utenti[i].socket;
+				inserisci = true;
+			}
+		}
+		if (storiaDaCaricare == "" || (storiaDaCaricare != "" && utenti.lenght == 1) || (storiaDaCaricare != "" && utenti.lenght == 2 && inserisci)){
+			storiaDaCaricare = nomeStoria;
+		}*/
 		storiaDaCaricare = nomeStoria;
 	});
 
