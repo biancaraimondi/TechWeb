@@ -24,7 +24,6 @@ COLORI : avanzamento - arancione #ff6600, chat - viola #8B008B, valutazioni risp
 creare file da esportare per punteggio player
 finchè ci sono utenti connessi non va cambiato il nome della storia (server)
 NON CANCELLARE DAL TODO: modifica punteggio domanda nel json
-aggiungere legenda dei colori
 NON CANCELLARE DAL TODO: servizio server-side black-box
 mettere apposto il problema del non visualizza l'immagine risposta nel valutatore
 gestire problema player disconnesso
