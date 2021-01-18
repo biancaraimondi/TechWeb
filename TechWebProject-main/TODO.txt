@@ -18,11 +18,12 @@ BIANCA:
 accessibilità (scaricare chromevox come estensione e poi utilizzare la guida online: https://support.google.com/chromebook/answer/7031755#zippy=%2Cscegliere-il-testo-con-il-cursore)
 testare progetto su chrome, firefox, safari, opera, edge
 inserire tempo per ogni giocatore (viene azzerato ogni volta che arriva un socket.on di avanzamento)
+cambiare colore in base al socket.on (troppo tempo - colore # )
+COLORI : avanzamento - arancione #ff6600, chat - viola #8B008B, valutazioni risposte - rosso pagina #8b0000, salvare dati per reindirizzamento - verde #00cc00
 
 creare file da esportare per punteggio player
 finchè ci sono utenti connessi non va cambiato il nome della storia (server)
 NON CANCELLARE DAL TODO: modifica punteggio domanda nel json
-cambiare colore in base al socket.on (avanzamento, chat, troppo tempo, valutazioni risposte, salvare dati per reindirizzamento)
 aggiungere legenda dei colori
 NON CANCELLARE DAL TODO: servizio server-side black-box
 mettere apposto il problema del non visualizza l'immagine risposta nel valutatore
