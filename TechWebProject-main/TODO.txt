@@ -14,16 +14,27 @@ pensare a problema valutatore gestito anche da 6cfuold
 
 messaggi conclusivi più sofisticati (promozione)
 
+ACCESSIBILITA':
+ PLAYER:
+ - Appena si entra nella pagina dell'inserimento del nome, non legge "Torna alla pagina principale"
+ - Appena incomincia la storia, la prima cosa che legge non è il testo della storia ma la zona pulsanti/inserisci campo risposta
+ - Quando legge la storia non la legge tutta per intero ma legge una riga alla volta
+ - Dopo aver cliccato il pulsante della risposta corretta, l'utente non capisce se è cambiata l'interfaccia. Inoltre dopo che l'interfaccia è cambiata 
+   lo screen reader non legge dalla nuvoletta del racconto, ma legge il nuovo pulsante delle risposte che ha sostituito quello della risposta precedente
+ - Dopo aver cliccato il pulsante della risposta sbagliata, l'utente non sa se quella è la risposta giusta o meno, perchè per capire che ha dato la risposta
+   sbagliata dovrebbe scorrere tutti i pulsanti per poi trovare la nuvoletta del messaggio di incorraggiamento
+
+
 BIANCA:
 accessibilità (scaricare chromevox come estensione e poi utilizzare la guida online: https://support.google.com/chromebook/answer/7031755#zippy=%2Cscegliere-il-testo-con-il-cursore)
 testare progetto su chrome, firefox, safari, opera, edge
 inserire tempo per ogni giocatore (viene azzerato ogni volta che arriva un socket.on di avanzamento)
-cambiare colore in base al socket.on (troppo tempo - colore # )
-COLORI : avanzamento - arancione #ff6600, chat - viola #8B008B, valutazioni risposte - rosso pagina #8b0000, salvare dati per reindirizzamento - verde #00cc00
 
 creare file da esportare per punteggio player
 finchè ci sono utenti connessi non va cambiato il nome della storia (server)
 NON CANCELLARE DAL TODO: modifica punteggio domanda nel json
+cambiare colore in base al socket.on (avanzamento, chat, troppo tempo, valutazioni risposte, salvare dati per reindirizzamento)
+aggiungere legenda dei colori
 NON CANCELLARE DAL TODO: servizio server-side black-box
 mettere apposto il problema del non visualizza l'immagine risposta nel valutatore
 gestire problema player disconnesso
@@ -35,6 +46,8 @@ commentare e pulire codice
 gestire attivita/missioni abilitate/disabilitate (nel caso disabilitate proseguire con l'attivita/missione successiva chiamando cambio attivita)
 NON CANCELLARE DAL TODO: cercare background nuvola domanda (anche interrail) - scrivere il codice relativo x poter inserire background nella domanda (commentato)
 NON CANCELLARE DAL TODO: settare background campo risposta testo - scrivere il codice relativo x poter inserire background nel campo risposta (commentato)
+creare bottone per visualizzare/chiudere la chat
+schermata iniziale inserimento nome + cognome
 
 NON CANCELLARE DAL TODO: campo sequenziale : si/no (pensare a come gestire il cambio attivita delle storie non sequenziali - modificare il testo delle domande delle attivita)
 
@@ -43,6 +56,3 @@ accessibilità
 non caricare interrail (per testare caricamento storia nell'ambiente autore)
 Visualizzazione del grafo delle transizioni da un'attività all'altra e da una missione
 all'altra nella storia. 
-
-ACCESSIBILITA':
-
