@@ -35,8 +35,6 @@ commentare e pulire codice
 gestire attivita/missioni abilitate/disabilitate (nel caso disabilitate proseguire con l'attivita/missione successiva chiamando cambio attivita)
 NON CANCELLARE DAL TODO: cercare background nuvola domanda (anche interrail) - scrivere il codice relativo x poter inserire background nella domanda (commentato)
 NON CANCELLARE DAL TODO: settare background campo risposta testo - scrivere il codice relativo x poter inserire background nel campo risposta (commentato)
-creare bottone per visualizzare/chiudere la chat
-schermata iniziale inserimento nome + cognome
 
 NON CANCELLARE DAL TODO: campo sequenziale : si/no (pensare a come gestire il cambio attivita delle storie non sequenziali - modificare il testo delle domande delle attivita)
 
