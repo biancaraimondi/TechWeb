@@ -9,6 +9,8 @@ var idGiocatorePrecendente;//player visualizzato precedentemente
 var socket = io();//utilizzato per gestire la chat
 var rispostaAttuale = null;
 var risposteDaValutare = [];//lista di risposte date dai player ancora da valutare
+var datiDaSalvare = [];//{player : valore, datiRiassuntivi : [{}], punteggio : num}
+var contatoreDisconnessi = 0;
 
 function cambiaPagina(url) {
 	window.location.replace(url);
@@ -18,8 +20,10 @@ function cambiaPagina(url) {
 function modificaAvanzamento(domandeCompletate, domandeEffettive) {
 	//var avanzamentoAttuale = $(".progress-bar").width();
 	var fineMissioni = $(".progress").width();
-	if (domandeEffettive)
+	if (domandeEffettive){
 		$(".progress-bar").width(domandeCompletate * fineMissioni/domandeEffettive);
+		document.getElementById('testoAvanzamento').innerHTML = "DOMANDA " + domandeCompletate + "/" + domandeEffettive;
+	}
 	else
 		$(".progress-bar").width(0);
 }
@@ -36,11 +40,11 @@ $(document).ready( function(){
 					document.getElementById('giocatore').innerHTML += "<div class='form-check'><input name='giocatore' type='radio' value='" + obj[i].nome + "' id='" + obj[i].nome + "'><label for=" + obj[i].nome + ">" + obj[i].nome + "</label></div>";
 				}
 			}
-            var labels = document.getElementsByTagName('LABEL');
-            for (i = 0; i < labels.length; i++) {
-                    labels[i].style.color = "#8b0000";
-                    labels[i].style.textDecoration = "underline";
-            }
+			var labels = document.getElementsByTagName('LABEL');
+			for (i = 0; i < labels.length; i++) {
+				labels[i].style.color = "#8b0000";
+				labels[i].style.textDecoration = "underline";
+			}
 			//mostra i player connessi
 			console.log('VALUTATORE: players: ' + obj);
 			//appena il valutatore si connette crea il relativo utente all'interno del server
@@ -106,7 +110,7 @@ $(document).ready( function(){
 			for (i = 0; i < labels.length; i++) {
 				if (labels[i].htmlFor == idGiocatore) {
 					labels[i].style.color = "black";
-                    labels[i].style.textDecoration = "none";
+					labels[i].style.textDecoration = "none";
 				}
 			}
 			
@@ -130,22 +134,35 @@ $(document).ready( function(){
 			//visualizza le risposte da valutare del giocatore selezionato
 			for (i=0;i<risposteDaValutare.length;i++){
 				if (risposteDaValutare[i].player == idGiocatore){
-                    if(risposteDaValutare[i].immagine == null){
-                        document.getElementById('testoRispostaPlayer').innerHTML = "DOMANDA: " + risposteDaValutare[i].domanda;
-                        document.getElementById('testoRispostaPlayer').innerHTML += "<br>RISPOSTA: " + risposteDaValutare[i].risposta;
-                        rispostaAttuale = risposteDaValutare[i];
-                        document.getElementById('testoRispostaPlayer').hidden = false;
-                    }
-                    else{
-                        document.getElementById('testoRispostaPlayer').innerHTML = "DOMANDA: " + risposteDaValutare[i].domanda;
-                        var immagine = document.getElementById('immagineRispostaPlayer');
-                        immagine.src = risposteDaValutare[i].immagine;
-                        rispostaAttuale = risposteDaValutare[i];
-                        document.getElementById('testoRispostaPlayer').hidden = false;
-                        document.getElementById('immagineRispostaPlayer').hidden = false;
-                    }
-                    i=risposteDaValutare.length;
+					if(risposteDaValutare[i].immagine == null){
+						document.getElementById('testoRispostaPlayer').innerHTML = "DOMANDA: " + risposteDaValutare[i].domanda;
+						document.getElementById('testoRispostaPlayer').innerHTML += "<br>RISPOSTA: " + risposteDaValutare[i].risposta;
+						rispostaAttuale = risposteDaValutare[i];
+						document.getElementById('testoRispostaPlayer').hidden = false;
+					}
+					else{
+						document.getElementById('testoRispostaPlayer').innerHTML = "DOMANDA: " + risposteDaValutare[i].domanda;
+						var immagine = document.getElementById('immagineRispostaPlayer');
+						immagine.src = risposteDaValutare[i].immagine;
+						rispostaAttuale = risposteDaValutare[i];
+						document.getElementById('testoRispostaPlayer').hidden = false;
+						document.getElementById('immagineRispostaPlayer').hidden = false;
+					}
+					i=risposteDaValutare.length;
 				}
+			}
+			
+			//visualizza il bottone per salvare i dati del player se ha concluso la partita
+			inserisci = false;
+			for(i=0; i<datiDaSalvare; i++){
+				if(datiDaSalvare[i].player == idGiocatore){
+					inserisci = true;
+				}
+			}
+			if (inserisci){
+				document.getElementById('salvaDati').hidden = false;
+			}else{
+				document.getElementById('salvaDati').hidden = true;
 			}
 		}
 	});
@@ -256,6 +273,37 @@ $(document).ready( function(){
 		emettiValutazione("10");
 	});
 	
+	$("#salvaDati").click(function(){
+		var text;
+		for(i=0; i<datiDaSalvare.length; i++){
+			if(datiDaSalvare[i].player == idGiocatore){
+				text = JSON.stringify(datiDaSalvare[i]);
+				console.log("text : " + text);
+			}
+		}
+		var data = new Blob([text], {type: 'application/json'});
+		var url = window.URL.createObjectURL(data);
+		document.getElementById('salvaDati').href = url;
+
+		//TODO reindirizza player alla pagina principale
+		//socket.emit('disconnesso', idGiocatore);
+		//TODO setta player a disconnessoX
+		contatoreDisconnessi++;
+		var playersList = document.getElementsByTagName("input");
+		for (i = 0; i < playersList.length; i++) {
+			if (playersList[i].value == idGiocatore) {
+				playersList[i].value = "Disconnesso" + contatoreDisconnessi;
+			}
+		}
+		var labels = document.getElementsByTagName('LABEL');
+		for (i = 0; i < labels.length; i++) {
+			if (labels[i].htmlFor == idGiocatore) {
+				labels[i].innerHTML = "<label for=Disconnesso" + contatoreDisconnessi + ">Disconnesso" + contatoreDisconnessi + "</label>";
+			}
+		}
+		idGiocatore = "Disconnesso" + contatoreDisconnessi;
+	});
+	
 	//funzione che riceve un messaggio dal server e copia il messaggio come message-left e nella lista dei messaggi
 	socket.on('chat message', function(msg, player, valutatore) {
 		console.log('VALUTATORE: messaggio da ' + player + ' per ' + valutatore + ': ' + msg);
@@ -279,13 +327,13 @@ $(document).ready( function(){
 		//aggiunge il messaggio direttamente in chat se corrisponde all'idGiocatore attualmente cliccato
 		if (idGiocatore == player){
 			document.getElementById("messaggiChat").innerHTML += "<div class='message'><div class='message-text-wrapper'><div class='message-text'>" + msg + "</div></div></div>";
-		}else{//cambia il background-color del giocatore per far notare che è in attesa di visualizzazione da parte del valutatore
+		}else{//cambia il color del giocatore per far notare che è in attesa di visualizzazione da parte del valutatore
 			if(msg != "Sono " + player + ". Mi sono connesso"){
 				var labels = document.getElementsByTagName('LABEL');
 				for (i = 0; i < labels.length; i++) {
 					if (labels[i].htmlFor == player) {
-                        labels[i].style.color = "#8b0000";
-                        labels[i].style.textDecoration = "underline";
+						labels[i].style.color = "#8B008B";
+						labels[i].style.textDecoration = "underline";
 					}
 				}
 			}
@@ -299,12 +347,12 @@ $(document).ready( function(){
 		//modifica la barra di avanzamento direttamente se corrisponde all'idGiocatore attualmente cliccato
 		if (idGiocatore == player){
 			modificaAvanzamento(avanzamento, numAttivita);
-		}else{//cambia il background-color del giocatore per far notare che è in attesa di visualizzazione da parte del valutatore
+		}else{//cambia il color del giocatore per far notare che è in attesa di visualizzazione da parte del valutatore
 			var labels = document.getElementsByTagName('LABEL');
 			for (i = 0; i < labels.length; i++) {
 				if (labels[i].htmlFor == player) {
-                    labels[i].style.color = "#8b0000";
-                    labels[i].style.textDecoration = "underline";
+					labels[i].style.color = "#ff6600";
+					labels[i].style.textDecoration = "underline";
 				}
 			}
 		}
@@ -332,12 +380,12 @@ $(document).ready( function(){
 					player : player
 				}
 			}	
-		}else{//cambia il background-color del giocatore per far notare che è in attesa di visualizzazione da parte del valutatore
+		}else{//cambia il color del giocatore per far notare che è in attesa di visualizzazione da parte del valutatore
 			var labels = document.getElementsByTagName('LABEL');
 			for (i = 0; i < labels.length; i++) {
 				if (labels[i].htmlFor == player) {
-                    labels[i].style.color = "#8b0000";
-                    labels[i].style.textDecoration = "underline";
+					labels[i].style.color = "#8b0000";
+					labels[i].style.textDecoration = "underline";
 				}
 			}
 		}
@@ -368,12 +416,12 @@ $(document).ready( function(){
 					player : player
 				}
 			}
-		}else{//cambia il background-color del giocatore per far notare che è in attesa di visualizzazione da parte del valutatore
+		}else{//cambia il color del giocatore per far notare che è in attesa di visualizzazione da parte del valutatore
 			var labels = document.getElementsByTagName('LABEL');
 			for (i = 0; i < labels.length; i++) {
 				if (labels[i].htmlFor == player) {
 					labels[i].style.color = "#8b0000";
-                    labels[i].style.textDecoration = "underline";
+					labels[i].style.textDecoration = "underline";
 				}
 			}
 		}
@@ -385,11 +433,25 @@ $(document).ready( function(){
 		});
 		console.log("VALUTATORE: Risposte ancora da valutare" + JSON.stringify(risposteDaValutare));
 	});
-            
-    socket.on('dati riassuntivi', function(datiRiassuntivi, punteggio, player) {
-        console.log("VALUTATORE: dati riassuntivi da: " + player + " con punteggio: " + punteggio + " : " + datiRiassuntivi);
-        document.getElementById('salvaDati').hidden = false;
-        
-    });
-        
+
+	socket.on('dati riassuntivi', function(datiRiassuntivi, punteggio, player) {
+		console.log("VALUTATORE: dati riassuntivi da: " + player + " con punteggio: " + punteggio + " : " + datiRiassuntivi);
+		if (idGiocatore == player){
+			document.getElementById('salvaDati').hidden = false;
+		}else{//cambia il color del giocatore per far notare che è in attesa di visualizzazione da parte del valutatore
+			var labels = document.getElementsByTagName('LABEL');
+			for (i = 0; i < labels.length; i++) {
+				if (labels[i].htmlFor == player) {
+					labels[i].style.color = "#00cc00";
+					labels[i].style.textDecoration = "underline";
+				}
+			}
+		}
+		datiDaSalvare.push({
+			player : player,
+			datiRiassuntivi : JSON.parse(datiRiassuntivi),
+			punteggio : punteggio
+		});
+	});
+
 });

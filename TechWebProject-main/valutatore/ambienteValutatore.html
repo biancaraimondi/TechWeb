@@ -53,7 +53,17 @@
 			<div id="giocatore">
 				<!-- giocatori inseriti dinamicamente -->
 			</div>
-			
+			<div>
+				Legenda dei colori dei giocatori:
+				<br>
+				- <font color="#ff6600">avanzamento</font>
+				<br>
+				- <font color="#8B008B">chat</font>
+				<br>
+				- <font color="#8b0000">valutazioni risposte</font>
+				<br>
+				- <font color="#00cc00">salvare dati per reindirizzamento</font>
+			</div>
 		</div>
 		
 		<div class="col-sm-12 col-md-12 col-lg-12 col-xl-5" id="aiuto" hidden>
@@ -63,16 +73,16 @@
 					<!-- qui viene inserito in automatico l'avanzamento e le risposte del player-->
 					<br>
 					<div class="progress">
-						<div class="progress-bar progress-bar-striped bg-danger progress-bar-animated" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">AVANZAMENTO</div>
+						<div id="testoAvanzamento" class="progress-bar progress-bar-striped bg-danger progress-bar-animated" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">AVANZAMENTO</div>
 					</div>
 					<br><br>
 					<p id="testoRispostaPlayer" hidden> </p>
 					<br><br>
 					<img  id="immagineRispostaPlayer" src="" class="rounded" width="50%" alt="immagine mandata dal player" hidden>
 				</div>
-                <div id="salvaDati" hidden>
-                    <button type="button" class="btn btn-danger">Salva dati</button>
-                </div>
+				<div>
+					<a class="btn btn-danger" href="" role="button" id="salvaDati" download='file.json' hidden>Salva dati</a>
+				</div>
 				<br>
 				<div class="panel-footer">
 					<div class="btn-group" id="spedisciValutazione">
@@ -93,7 +103,7 @@
 							<a class="dropdown-item" href="#" id="valutazione9">9</a>
 							<a class="dropdown-item" href="#" id="valutazione10">10</a>
 						</div>
-                    </div>
+					</div>
 				</div>
 			</div>
 		</div>
