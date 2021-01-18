@@ -21,7 +21,6 @@ inserire tempo per ogni giocatore (viene azzerato ogni volta che arriva un socke
 
 creare file da esportare per punteggio player
 finchè ci sono utenti connessi non va cambiato il nome della storia (server)
-cambiare parola avanzamento con DOMANDA 1/15
 NON CANCELLARE DAL TODO: modifica punteggio domanda nel json
 cambiare colore in base al socket.on (avanzamento, chat, troppo tempo, valutazioni risposte, salvare dati per reindirizzamento)
 aggiungere legenda dei colori
