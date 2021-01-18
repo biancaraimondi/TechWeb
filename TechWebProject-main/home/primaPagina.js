@@ -40,9 +40,10 @@ $(document).ready( function(){
 			eta = "eta3";
 		}
 
+		document.getElementById("nomiStorie").innerHTML = "";
 		for (var i=0;i<storie.storie.length;i++){
 			if (eta == storie.storie[i].eta && storie.storie[i].stato == "pubblicata"){
-				document.getElementById("nomiStorie").innerHTML += "<div class='form-check'><input name='storia' type='radio' id='" + storie.storie[i].nome + "' value='" + storie.storie[i].nome + "'><label for='" + storie.storie[i].nome + "'>" + storie.storie[i].nome + "</label></div>";
+				document.getElementById("nomiStorie").innerHTML += "<div class='form-check'><input name='storia' type='radio' id='" + storie.storie[i].nome + "' value='" + storie.storie[i].nome + "'>&nbsp<label for='" + storie.storie[i].nome + "'>" + storie.storie[i].nome + "</label></div>";
 			}
 		}
 	});
