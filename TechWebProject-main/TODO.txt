@@ -14,6 +14,8 @@ pensare a problema valutatore gestito anche da 6cfuold
 
 messaggi conclusivi più sofisticati (promozione)
 
+accessibilità (scaricare chromevox come estensione e poi utilizzare la guida online: https://support.google.com/chromebook/answer/7031755#zippy=%2Cscegliere-il-testo-con-il-cursore)
+
 ACCESSIBILITA':
  PLAYER:
  - Appena si entra nella pagina dell'inserimento del nome, non legge "Torna alla pagina principale"
@@ -26,18 +28,20 @@ ACCESSIBILITA':
 
 
 BIANCA:
-accessibilità (scaricare chromevox come estensione e poi utilizzare la guida online: https://support.google.com/chromebook/answer/7031755#zippy=%2Cscegliere-il-testo-con-il-cursore)
+
 testare progetto su chrome, firefox, safari, opera, edge
 inserire tempo per ogni giocatore (viene azzerato ogni volta che arriva un socket.on di avanzamento)
 
 CHIEDERE : creare file da esportare per punteggio player
 CHIEDERE : finchè ci sono utenti connessi non va cambiato il nome della storia (server)
+
 NON CANCELLARE DAL TODO: modifica punteggio domanda nel json
-CHIEDERE : aggiungere legenda dei colori
+
+deve poter accedere un solo valutatore alla volta
+
 NON CANCELLARE DAL TODO: servizio server-side black-box
 GUARDARE : mettere apposto il problema del non visualizza l'immagine risposta nel valutatore (MAC)
-gestire problema player disconnesso
-deve poter accedere un solo valutatore alla volta
+CHIEDERE : aggiungere legenda dei colori
 
 MARTI:
 accessibilità
@@ -53,5 +57,4 @@ NON CANCELLARE DAL TODO: campo sequenziale : si/no (pensare a come gestire il ca
 CRI: 
 accessibilità
 non caricare interrail (per testare caricamento storia nell'ambiente autore)
-Visualizzazione del grafo delle transizioni da un'attività all'altra e da una missione
-all'altra nella storia. 
+Visualizzazione del grafo delle transizioni da un'attività all'altra e da una missione all'altra nella storia
