@@ -269,6 +269,16 @@ io.on('connection', function (socket) {
 			punteggio : punteggio
 		});
 	});
+    
+    socket.on('disconnesso', function(utente){
+        var socketUtente = "";
+        for(z=0; z<utenti.length; z++){
+            if(utenti[z].nome == utente){
+                socketUtente = utenti[z].socket;
+            }
+        }
+        socket.to(socketUtente).emit('disconnesso', utente);
+    });
 
 	//se un utente si disconnette
 	socket.on('disconnect', function () {
