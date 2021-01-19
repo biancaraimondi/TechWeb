@@ -37,6 +37,8 @@ CHIEDERE : aggiungere legenda dei colori
 NON CANCELLARE DAL TODO: servizio server-side black-box
 GUARDARE : mettere apposto il problema del non visualizza l'immagine risposta nel valutatore (MAC)
 gestire problema player disconnesso
+deve poter accedere un solo valutatore alla volta
+server: gestire nome disconnesso
 
 MARTI:
 accessibilità
