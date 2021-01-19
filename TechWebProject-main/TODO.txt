@@ -49,6 +49,7 @@ commentare e pulire codice
 
 ACCESSIBILITA': settare il cursore - capire come muoversi con freccia sx e dx - settare gli alt (+ settare gli attributi nell'html)
 OGGI POME con Baby B: gestire disconnessione lato front player
+OGGI POME con Baby B: gestire punteggio con attivita/missioni disattivate
 ingrandire nuvola domanda per colpa del mio interrail :)
 
 NON CANCELLARE DAL TODO: settare background campo risposta testo - scrivere il codice relativo x poter inserire background nel campo risposta (commentato)
