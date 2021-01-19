@@ -20,12 +20,14 @@ function cambiaPagina(url) {
 function modificaAvanzamento(domandeCompletate, domandeEffettive) {
 	//var avanzamentoAttuale = $(".progress-bar").width();
 	var fineMissioni = $(".progress").width();
-	if (domandeEffettive){
+	if (domandeEffettive != 0 && domandeEffettive!=null){
 		$(".progress-bar").width(domandeCompletate * fineMissioni/domandeEffettive);
 		document.getElementById('testoAvanzamento').innerHTML = "DOMANDA " + domandeCompletate + "/" + domandeEffettive;
 	}
-	else
+	else{
 		$(".progress-bar").width(0);
+		document.getElementById('testoAvanzamento').innerHTML = "AVANZAMENTO";
+	}
 }
 
 $(document).ready( function(){
@@ -86,6 +88,24 @@ $(document).ready( function(){
 	xmlhttp3.open("GET", "/valutatore/risposte", true);
 	xmlhttp3.send();
 	
+	//carica i dati da salvare già spedite dai player nell'array 'datiDaSalvare'
+	var xmlhttp4 = new XMLHttpRequest();
+	xmlhttp4.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			var obj = JSON.parse(this.responseText);
+			for (i=0;i<obj.length;i++){
+				datiDaSalvare.push({
+					player : obj[i].player,
+					datiRiassuntivi : obj[i].datiRiassuntivi,
+					punteggio : obj[i].punteggio
+				});
+			}
+			console.log('VALUTATORE: dati da salvare: ' + obj);
+		}
+	};
+	xmlhttp4.open("GET", "/valutatore/datiDaSalvare", true);
+	xmlhttp4.send();
+	
 	$("#giocatore").click(function() {
 		
 		//visualizza chat, avanzamento e risposte relative al player scelto
@@ -105,7 +125,7 @@ $(document).ready( function(){
 		//se cambia il giocatore selezionato
 		if (idGiocatorePrecendente != idGiocatore) {
 			
-			//cambia il background-color del giocatore per far notare che è in attesa di visualizzazione da parte del valutatore
+			//cambia il background-color del giocatore per far notare che non è più in attesa di visualizzazione da parte del valutatore
 			var labels = document.getElementsByTagName('LABEL');
 			for (i = 0; i < labels.length; i++) {
 				if (labels[i].htmlFor == idGiocatore) {
@@ -128,10 +148,14 @@ $(document).ready( function(){
 			for (i=0;i<utenti.length;i++){
 				if (utenti[i].nome == idGiocatore){
 					modificaAvanzamento(utenti[i].avanzamento, utenti[i].numAttivita);
+					i=utenti.length;
+				}else{
+					modificaAvanzamento(0, 0);
 				}
 			}
 			
 			//visualizza le risposte da valutare del giocatore selezionato
+			inserisci = true;
 			for (i=0;i<risposteDaValutare.length;i++){
 				if (risposteDaValutare[i].player == idGiocatore){
 					if(risposteDaValutare[i].immagine == null){
@@ -149,12 +173,19 @@ $(document).ready( function(){
 						document.getElementById('immagineRispostaPlayer').hidden = false;
 					}
 					i=risposteDaValutare.length;
+					inserisci = false;
 				}
+			}
+			if(inserisci){
+				console.log("Per il momento non ci sono risposte da valutare per questo player");
+				rispostaAttuale = null;
+				var element = document.getElementById('testoRispostaPlayer');
+				element.innerHTML = "";
 			}
 			
 			//visualizza il bottone per salvare i dati del player se ha concluso la partita
 			inserisci = false;
-			for(i=0; i<datiDaSalvare; i++){
+			for(i=0; i<datiDaSalvare.length; i++){
 				if(datiDaSalvare[i].player == idGiocatore){
 					inserisci = true;
 				}
@@ -287,7 +318,6 @@ $(document).ready( function(){
 
 		//TODO reindirizza player alla pagina principale
 		//socket.emit('disconnesso', idGiocatore);
-		//TODO setta player a disconnessoX
 		contatoreDisconnessi++;
 		var playersList = document.getElementsByTagName("input");
 		for (i = 0; i < playersList.length; i++) {
@@ -452,6 +482,62 @@ $(document).ready( function(){
 			datiRiassuntivi : JSON.parse(datiRiassuntivi),
 			punteggio : punteggio
 		});
+	});
+
+	socket.on('disconnesso', function(player) {
+		console.log("VALUTATORE: player: " + player + " disconnesso");
+
+		//cancella i messaggi relativi al player dall'array
+		for (i = 0; i < messaggi.length; i++) {
+			if (messaggi[i].nomeTrasmittente == player || messaggi[i].nomeRicevente == player ){//se il messaggio arriva dal player
+				messaggi.splice(i,1);
+				i--;
+			}
+		}
+
+		//cancella le risposte da valutare relative al player dall'array
+		for (i = 0; i < risposteDaValutare.length; i++) {
+			if (risposteDaValutare[i].player == player){//se il messaggio arriva dal player
+				risposteDaValutare.splice(i,1);
+				i--;
+			}
+		}
+
+		//cancella i dati da salvare relativi al player dall'array
+		for (i = 0; i < datiDaSalvare.length; i++) {
+			if (datiDaSalvare[i].player == player){//se il messaggio arriva dal player
+				datiDaSalvare.splice(i,1);
+				i--;
+			}
+		}
+
+		//cancella l'utente relativo al player dall'array
+		for (i = 0; i < utenti.length; i++) {
+			if (utenti[i].nome == player){//se il messaggio arriva dal player
+				utenti.splice(i,1);
+				i--;
+			}
+		}
+
+		if (idGiocatore == player){
+			document.getElementById('salvaDati').hidden = true;
+			modificaAvanzamento(0, 0);
+			idGiocatore = "Disconnesso" + contatoreDisconnessi;
+		}
+		
+		contatoreDisconnessi++;
+		var playersList = document.getElementsByTagName("input");
+		for (i = 0; i < playersList.length; i++) {
+			if (playersList[i].value == player) {
+				playersList[i].value = "Disconnesso" + contatoreDisconnessi;
+			}
+		}
+		var labels = document.getElementsByTagName('LABEL');
+		for (i = 0; i < labels.length; i++) {
+			if (labels[i].htmlFor == player) {
+				labels[i].innerHTML = "<label for=Disconnesso" + contatoreDisconnessi + ">Disconnesso" + contatoreDisconnessi + "</label>";
+			}
+		}
 	});
 
 });
