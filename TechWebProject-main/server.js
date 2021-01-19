@@ -28,6 +28,7 @@ var risposteDaValutare = [];//lista delle risposte da valutare {domanda: val, ri
 var nomeDisconnesso;
 var inserisci = true;
 var storiaDaCaricare = "";
+var datiDaSalvare = [];
 
 app.use(express.static(__dirname));//utilizzato per includere css e js
 
@@ -35,16 +36,8 @@ app.get('/', function (req, res) {
 	res.sendFile(__dirname + '/primaPagina.html');
 });
 
-app.get('/valutatore', function (req, res) {
-	res.sendFile(__dirname + '/ambienteValutatore.html');
-});
-
 app.get('/autore', function (req, res) {
 	res.sendFile(__dirname + '/autore.html');
-});
-
-app.get('/player', function (req, res) {
-	res.sendFile(__dirname + '/player.html');
 });
 
 app.get("/valutatore/utenti", function(req,res){
@@ -61,6 +54,12 @@ app.get("/valutatore/messaggi", function(req,res){
 
 app.get("/valutatore/risposte", function(req,res){
 	var loadRisposte = JSON.stringify(risposteDaValutare);
+	res.setHeader('Content-Type', 'application/json; charset=UTF-8');
+	res.end(loadRisposte);
+});
+
+app.get("/valutatore/datiDaSalvare", function(req,res){
+	var loadRisposte = JSON.stringify(datiDaSalvare);
 	res.setHeader('Content-Type', 'application/json; charset=UTF-8');
 	res.end(loadRisposte);
 });
@@ -95,6 +94,35 @@ app.get("/player/ottienistoria", function(req,res){
 io.on('connection', function (socket) {
 	console.log('SERVER: user ' + socket.id + ' connected');
 
+	//gestisce la connessione degli utenti (player e valutatore)
+	/*socket.on('connesso', function (nome) {
+		for (i=0;i<utenti.length;i++){
+			if(utenti[i].nome == nome){
+				
+			}
+		}
+		if (inserisci){
+			utenti.push({nome : trasmittente, socket : socket.id, avanzamento : null, attivita : null});
+			console.log("SERVER: utenti: " + JSON.stringify(utenti));
+		}
+		
+		for (i=0;i<utenti.length;i++){
+			if(utenti[i].nome == trasmittente){
+				//se l'utente ha inserito un nome che è già nella lista allora gli spediamo un messaggio con scritto di cambiare nome
+				if(utenti[i].socket !== socket.id){
+					nomeCorretto = false;
+					io.to(socket.id).emit('nomeErrato');
+					console.log("SERVER: spedito al player un messaggio per cambiare nome");
+				}
+				inserisci = false;
+			}
+		}
+		if (inserisci){
+			utenti.push({nome : trasmittente, socket : socket.id, avanzamento : null, attivita : null});
+			console.log("SERVER: utenti: " + JSON.stringify(utenti));
+		}
+	});*/
+
 	//inserisce nella variabile storiaDaCaricare la storia scelta dal valutatore nella prima pagina
 	socket.on('storia', function (nomeStoria) {
 		/*inserisci = false;
@@ -113,36 +141,42 @@ io.on('connection', function (socket) {
 	//gestisce la chat tra valutatore e player
 	socket.on('chat message', function (msg, trasmittente, ricevente) {
 		console.log('SERVER: message from ' + trasmittente + ' to ' + ricevente + ': ' + msg);
-		//se l'utente non è già connesso, lo inseriamo nella lista degli utenti connessi
-		inserisci = true;
-		var nomeCorretto = true;
-		for (i=0;i<utenti.length;i++){
-			if(utenti[i].nome == trasmittente){
-				//se l'utente ha inserito un nome che è già nella lista allora gli spediamo un messaggio con scritto di cambiare nome
-				if(utenti[i].socket !== socket.id){
-					nomeCorretto = false;
-					io.to(socket.id).emit('nomeErrato');
-					console.log("SERVER: spedito al player un messaggio per cambiare nome");
-				}
-				inserisci = false;
-			}
-		}
-		if (inserisci){
-			utenti.push({nome : trasmittente, socket : socket.id, avanzamento : null, attivita : null});
-			console.log("SERVER: utenti: " + JSON.stringify(utenti));
-		}
-
-		//invia il messaggio al destinatario 'ricevente'
-		var socketUtente = '';
-		if(nomeCorretto){
-			messaggi.push({messaggio : msg, trasmittente : trasmittente, ricevente : ricevente});
+		
+		var x = trasmittente.substr(0, 11);
+		if(x != "Disconnesso" && x != "disconnesso"){
+			//se l'utente non è già connesso, lo inseriamo nella lista degli utenti connessi
+			inserisci = true;
+			var nomeCorretto = true;
 			for (i=0;i<utenti.length;i++){
-				if (utenti[i].nome == ricevente){
-					socketUtente = utenti[i].socket;
-					socket.to(socketUtente).emit('chat message', msg, trasmittente, ricevente);
-					console.log("MESSAGGIO SPEDITO");
+				if(utenti[i].nome == trasmittente){
+					//se l'utente ha inserito un nome che è già nella lista allora gli spediamo un messaggio con scritto di cambiare nome
+					if(utenti[i].socket !== socket.id){
+						nomeCorretto = false;
+						io.to(socket.id).emit('nomeErrato');
+						console.log("SERVER: spedito al player un messaggio per cambiare nome");
+					}
+					inserisci = false;
 				}
 			}
+			if (inserisci){
+				utenti.push({nome : trasmittente, socket : socket.id, avanzamento : null, attivita : null});
+				console.log("SERVER: utenti: " + JSON.stringify(utenti));
+			}
+
+			//invia il messaggio al destinatario 'ricevente'
+			var socketUtente = '';
+			if(nomeCorretto){
+				messaggi.push({messaggio : msg, trasmittente : trasmittente, ricevente : ricevente});
+				for (i=0;i<utenti.length;i++){
+					if (utenti[i].nome == ricevente){
+						socketUtente = utenti[i].socket;
+						socket.to(socketUtente).emit('chat message', msg, trasmittente, ricevente);
+						console.log("MESSAGGIO SPEDITO");
+					}
+				}
+			}
+		} else {
+			io.to(socket.id).emit('nomeErrato');
 		}
 
 	});
@@ -207,20 +241,25 @@ io.on('connection', function (socket) {
 		socket.to(socketUtente).emit('valutazione', domanda, valutazione, commentoValutazione, player);
 		console.log("SERVER: inviata vautazione al player");
 	});
-    
-    //gestisce i dati riassuntivi inviati dal player
-    socket.on('dati riassuntivi', function (datiRiassuntivi, punteggio, player) {
-        console.log("SERVER: dati riassuntivi da: " + player + " con punteggio: " + punteggio + " : " + datiRiassuntivi);
-        var z = 0;
-        var socketUtente = "";
-        for(z=0; z<utenti.length; z++){
-            if(utenti[z].nome == "valutatore"){
-                socketUtente = utenti[z].socket;
-            }
-        }
-        socket.to(socketUtente).emit('dati riassuntivi', datiRiassuntivi, punteggio, player);
-        console.log("SERVER: inviati dati riassuntivi al valutatore");
-    });
+
+	//gestisce i dati riassuntivi inviati dal player
+	socket.on('dati riassuntivi', function (datiRiassuntivi, punteggio, player) {
+		console.log("SERVER: dati riassuntivi da: " + player + " con punteggio: " + punteggio + " : " + datiRiassuntivi);
+		var z = 0;
+		var socketUtente = "";
+		for(z=0; z<utenti.length; z++){
+			if(utenti[z].nome == "valutatore"){
+				socketUtente = utenti[z].socket;
+			}
+		}
+		socket.to(socketUtente).emit('dati riassuntivi', datiRiassuntivi, punteggio, player);
+		console.log("SERVER: inviati dati riassuntivi al valutatore");
+		datiDaSalvare.push({
+			player : player,
+			datiRiassuntivi : JSON.parse(datiRiassuntivi),
+			punteggio : punteggio
+		});
+	});
 
 	//se un utente si disconnette
 	socket.on('disconnect', function () {
@@ -245,6 +284,7 @@ io.on('connection', function (socket) {
 					}
 				}
 				socket.to(socketValutatore).emit('chat message', msg, nomeDisconnesso, 'valutatore');
+				socket.to(socketValutatore).emit('disconnesso', nomeDisconnesso);
 			} else {//invia un messaggio ai players se il disconnesso è il valutatore
 				socket.broadcast.emit('chat message', msg, nomeDisconnesso, '');
 			}
