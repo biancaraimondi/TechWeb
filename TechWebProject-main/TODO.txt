@@ -4,17 +4,15 @@ modificare inclusione libreria socket.io prima della consegna (cambiare porta in
 
 creare QRcode
 
-rendere accessibili tutte le pagine (guardare funzionamento chromevox x accessibilità)
+accessibilità (scaricare chromevox come estensione e poi utilizzare la guida online: https://support.google.com/chromebook/answer/7031755#zippy=%2Cscegliere-il-testo-con-il-cursore)
 
 installare multer (npm install --save multer)
  
 installare: npm install webcam-easy (gestione fotocamera)
 
-pensare a problema valutatore gestito anche da 6cfuold
+discutere problema valutatore gestito anche da 6cfuold
 
 messaggi conclusivi più sofisticati (promozione)
-
-accessibilità (scaricare chromevox come estensione e poi utilizzare la guida online: https://support.google.com/chromebook/answer/7031755#zippy=%2Cscegliere-il-testo-con-il-cursore)
 
 ACCESSIBILITA':
  PLAYER:
