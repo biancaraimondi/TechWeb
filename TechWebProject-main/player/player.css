@@ -73,6 +73,14 @@ div#row4 {
     text-shadow: 2px 2px 4px black;
 }
 
+#bottoneChat {
+    float: right;
+}
+
+#chiudiChat {
+    float: right;
+}
+
 label {
     font-family: Baskerville, "Palatino Linotype", Palatino, "Century Schoolbook L", "Times New Roman", "serif";
     width: 300px; /* Larghezza della label*/
