@@ -317,7 +317,8 @@ $(document).ready( function(){
 		document.getElementById('salvaDati').href = url;
 
 		//TODO reindirizza player alla pagina principale
-		//socket.emit('disconnesso', idGiocatore);
+		socket.emit('disconnesso', idGiocatore);
+		
 		contatoreDisconnessi++;
 		var playersList = document.getElementsByTagName("input");
 		for (i = 0; i < playersList.length; i++) {
