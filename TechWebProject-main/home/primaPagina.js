@@ -19,6 +19,11 @@ $(document).ready( function(){
 	var nomeStoria = "";
 	var eta = "";
 	var i = 0;
+	
+	//gestisce l'accesso al valutatore
+	socket.on('nomeErrato', function() {
+		
+	});
 
 	$("#eta").click(function() {
 		document.getElementById("autore").hidden = true;
@@ -74,5 +79,21 @@ $(document).ready( function(){
 	
 	$("#qrlink").click(function() {
 		cambiaPagina('player.html');
+	});
+	
+	$("#valutatore").click(function() {
+		socket.emit('connesso', 'valutatore', 'home');
+		setTimeout(function(){
+			if(document.getElementById('nomeValutatore').hidden == true){
+				cambiaPagina('ambienteValutatore.html');
+			}else{
+				console.log("PRIMA PAGINA: valutatore gia connesso");
+			}
+		}, 5000);
+	});
+	
+	socket.on('nomeErrato', function(){
+		console.log("PRIMA PAGINA: Nome Errato");
+		document.getElementById('nomeValutatore').hidden = false;
 	});
 })
