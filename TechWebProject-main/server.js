@@ -95,33 +95,42 @@ io.on('connection', function (socket) {
 	console.log('SERVER: user ' + socket.id + ' connected');
 
 	//gestisce la connessione degli utenti (player e valutatore)
-	/*socket.on('connesso', function (nome) {
+	socket.on('connesso', function (nome, pagina) {
+		inserisci = true;
 		for (i=0;i<utenti.length;i++){
-			if(utenti[i].nome == nome){
-				
-			}
-		}
-		if (inserisci){
-			utenti.push({nome : trasmittente, socket : socket.id, avanzamento : null, attivita : null});
-			console.log("SERVER: utenti: " + JSON.stringify(utenti));
-		}
-		
-		for (i=0;i<utenti.length;i++){
-			if(utenti[i].nome == trasmittente){
-				//se l'utente ha inserito un nome che è già nella lista allora gli spediamo un messaggio con scritto di cambiare nome
-				if(utenti[i].socket !== socket.id){
-					nomeCorretto = false;
-					io.to(socket.id).emit('nomeErrato');
-					console.log("SERVER: spedito al player un messaggio per cambiare nome");
-				}
+			if(utenti[i].nome == 'valutatore' && pagina=='home'){
 				inserisci = false;
 			}
 		}
-		if (inserisci){
-			utenti.push({nome : trasmittente, socket : socket.id, avanzamento : null, attivita : null});
-			console.log("SERVER: utenti: " + JSON.stringify(utenti));
+		if(inserisci){
+			
+			var x = nome.substr(0, 11);
+			if(x != "Disconnesso" && x != "disconnesso"){
+				//se l'utente non è già connesso, lo inseriamo nella lista degli utenti connessi
+				inserisci = true;
+				var nomeCorretto = true;
+				for (i=0;i<utenti.length;i++){
+					if(utenti[i].nome == nome){
+						//se l'utente ha inserito un nome che è già nella lista allora gli spediamo un messaggio con scritto di cambiare nome
+						if(utenti[i].socket !== socket.id){
+							nomeCorretto = false;
+							io.to(socket.id).emit('nomeErrato');
+							console.log("SERVER: spedito al player un messaggio per cambiare nome");
+						}
+						inserisci = false;
+					}
+				}
+				if (inserisci){
+					utenti.push({nome : nome, socket : socket.id, avanzamento : null, attivita : null});
+					console.log("SERVER: utenti: " + JSON.stringify(utenti));
+				}
+			}
+			
+		}else{
+			io.to(socket.id).emit('nomeErrato');
 		}
-	});*/
+		
+	});
 
 	//inserisce nella variabile storiaDaCaricare la storia scelta dal valutatore nella prima pagina
 	socket.on('storia', function (nomeStoria) {
