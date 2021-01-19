@@ -45,6 +45,9 @@ MARTI:
 commentare e pulire codice
 
 ACCESSIBILITA': settare il cursore - capire come muoversi con freccia sx e dx - settare gli alt (+ settare gli attributi nell'html)
+- cercare attributo per attribuire descrizione agli elementi della pagina (che cosa fa quell'elemento)
+- cercare codice js per settare il cursore ogni volta che viene caricata un'attivita
+- testare VoiceOver su chat
 
 gestire css bottoni (spazio vuoto sotto)
 NON CANCELLARE DAL TODO: settare background campo risposta testo - scrivere il codice relativo x poter inserire background nel campo risposta (commentato)
