@@ -37,7 +37,7 @@ label {
 
 p {
 	color: black;
-	text-decoration: underline;
+	/*text-decoration: underline;*/
 }
 
 .navbar-toggler {

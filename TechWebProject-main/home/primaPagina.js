@@ -83,13 +83,14 @@ $(document).ready( function(){
 	
 	$("#valutatore").click(function() {
 		socket.emit('connesso', 'valutatore', 'home');
-		setTimeout(function(){
+        document.getElementById('nomeValutatore').hidden = true;
+        setTimeout(function(){
 			if(document.getElementById('nomeValutatore').hidden == true){
 				cambiaPagina('ambienteValutatore.html');
 			}else{
 				console.log("PRIMA PAGINA: valutatore gia connesso");
 			}
-		}, 5000);
+		}, 100);
 	});
 	
 	socket.on('nomeErrato', function(){
