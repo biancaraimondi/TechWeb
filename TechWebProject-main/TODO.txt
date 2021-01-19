@@ -42,11 +42,12 @@ GUARDARE : mettere apposto il problema del non visualizza l'immagine risposta ne
 CHIEDERE : aggiungere legenda dei colori
 
 MARTI:
-accessibilità
 commentare e pulire codice
 
 ACCESSIBILITA': settare il cursore - capire come muoversi con freccia sx e dx - settare gli alt (+ settare gli attributi nell'html)
 OGGI POME con Baby B: gestire punteggio con attivita/missioni disattivate
+
+gestire css bottoni
 
 NON CANCELLARE DAL TODO: settare background campo risposta testo - scrivere il codice relativo x poter inserire background nel campo risposta (commentato)
 NON CANCELLARE DAL TODO: campo sequenziale : si/no (pensare a come gestire il cambio attivita delle storie non sequenziali - modificare il testo delle domande delle attivita)
