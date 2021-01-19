@@ -36,7 +36,6 @@ CHIEDERE : finchè ci sono utenti connessi non va cambiato il nome della storia 
 NON CANCELLARE DAL TODO: modifica punteggio domanda nel json
 
 gestire connessione player/valutatore con socket 'connesso'
-gestire pulsante chat (se si riclicca si chiude)
 
 NON CANCELLARE DAL TODO: servizio server-side black-box
 GUARDARE : mettere apposto il problema del non visualizza l'immagine risposta nel valutatore (MAC)
@@ -46,10 +45,8 @@ MARTI:
 commentare e pulire codice
 
 ACCESSIBILITA': settare il cursore - capire come muoversi con freccia sx e dx - settare gli alt (+ settare gli attributi nell'html)
-OGGI POME con Baby B: gestire punteggio con attivita/missioni disattivate
 
-gestire css bottoni
-
+gestire css bottoni (spazio vuoto sotto)
 NON CANCELLARE DAL TODO: settare background campo risposta testo - scrivere il codice relativo x poter inserire background nel campo risposta (commentato)
 NON CANCELLARE DAL TODO: campo sequenziale : si/no (pensare a come gestire il cambio attivita delle storie non sequenziali - modificare il testo delle domande delle attivita)
 
