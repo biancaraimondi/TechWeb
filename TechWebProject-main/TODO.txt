@@ -36,10 +36,8 @@ CHIEDERE : finchè ci sono utenti connessi non va cambiato il nome della storia 
 NON CANCELLARE DAL TODO: modifica punteggio domanda nel json
 
 gestire connessione player/valutatore con socket 'connesso'
-
 NON CANCELLARE DAL TODO: servizio server-side black-box
 GUARDARE : mettere apposto il problema del non visualizza l'immagine risposta nel valutatore (MAC)
-CHIEDERE : aggiungere legenda dei colori
 
 MARTI:
 commentare e pulire codice
