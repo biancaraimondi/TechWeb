@@ -53,16 +53,16 @@
 			<div id="giocatore">
 				<!-- giocatori inseriti dinamicamente -->
 			</div>
-			<div>
-				Legenda dei colori dei giocatori:
+			<div id="contenitoreLegenda">
+				<b>Legenda dei colori dei giocatori:</b>
 				<br>
-				- <font color="#ff6600">avanzamento</font>
+                - <font color="#8b0000">valutazioni risposte</font>
+                <br>
+                - <font color="#ff3333">salvare dati per reindirizzamento</font> <!-- 00cc00 -->
+                <br>
+				- <font color="#ff8000">avanzamento</font> <!-- ff6600 -->
 				<br>
-				- <font color="#8B008B">chat</font>
-				<br>
-				- <font color="#8b0000">valutazioni risposte</font>
-				<br>
-				- <font color="#00cc00">salvare dati per reindirizzamento</font>
+				- <font color="#bf8040">chat</font> <!-- 8B008B -->
 			</div>
 		</div>
 		
@@ -73,7 +73,7 @@
 					<!-- qui viene inserito in automatico l'avanzamento e le risposte del player-->
 					<br>
 					<div class="progress">
-						<div id="testoAvanzamento" class="progress-bar progress-bar-striped bg-danger progress-bar-animated" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">AVANZAMENTO</div>
+						<div id="testoAvanzamento" class="progress-bar progress-bar-striped btn-danger progress-bar-animated" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">AVANZAMENTO</div>
 					</div>
 					<br><br>
 					<p id="testoRispostaPlayer" hidden> </p>
@@ -86,7 +86,7 @@
 				<br>
 				<div class="panel-footer">
 					<div class="btn-group" id="spedisciValutazione">
-						<input type="text" class="form-control" id="testoValutazione" placeholder="Inserisci qui eventuali commenti alla tua valutazione">
+						<input type="text" class="form-control" id="testoValutazione" placeholder="Commenta la tua valutazione">
 						<button type="button" class="btn btn-danger">Valuta</button>
 						<button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							<span class="sr-only">Toggle Dropdown</span>
@@ -120,7 +120,7 @@
 					<div class="input-group">
 						<input type="text" placeholder="inserisci qui il tuo messaggio" class="form-control primary" id="testoDaInviare">
 						<span class="input-group-btn">
-							<button class="btn bg-danger" type="button" id="invia">Invia</button>
+							<button class="btn btn-danger" type="button" id="invia">Invia</button>
 						</span>
 					</div>
 				</div>

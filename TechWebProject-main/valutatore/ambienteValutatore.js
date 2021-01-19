@@ -363,7 +363,7 @@ $(document).ready( function(){
 				var labels = document.getElementsByTagName('LABEL');
 				for (i = 0; i < labels.length; i++) {
 					if (labels[i].htmlFor == player) {
-						labels[i].style.color = "#8B008B";
+						labels[i].style.color = "#bf8040";
 						labels[i].style.textDecoration = "underline";
 					}
 				}
@@ -382,7 +382,7 @@ $(document).ready( function(){
 			var labels = document.getElementsByTagName('LABEL');
 			for (i = 0; i < labels.length; i++) {
 				if (labels[i].htmlFor == player) {
-					labels[i].style.color = "#ff6600";
+					labels[i].style.color = "#ff8000";
 					labels[i].style.textDecoration = "underline";
 				}
 			}
@@ -473,7 +473,7 @@ $(document).ready( function(){
 			var labels = document.getElementsByTagName('LABEL');
 			for (i = 0; i < labels.length; i++) {
 				if (labels[i].htmlFor == player) {
-					labels[i].style.color = "#00cc00";
+					labels[i].style.color = "#ff3333";
 					labels[i].style.textDecoration = "underline";
 				}
 			}
