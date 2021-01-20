@@ -317,7 +317,6 @@ $(document).ready( function(){
 		var url = window.URL.createObjectURL(data);
 		document.getElementById('salvaDati').href = url;
 
-		//TODO reindirizza player alla pagina principale
 		socket.emit('disconnesso', idGiocatore);
 		
 		contatoreDisconnessi++;
@@ -336,10 +335,7 @@ $(document).ready( function(){
 		idGiocatore = "Disconnesso" + contatoreDisconnessi;
 	});
 	
-	//funzione che riceve un messaggio dal server e copia il messaggio come message-left e nella lista dei messaggi
-	socket.on('chat message', function(msg, player, valutatore) {
-		console.log('VALUTATORE: messaggio da ' + player + ' per ' + valutatore + ': ' + msg);
-		
+	socket.on('connesso', function(player, pagina) {
 		//inserisce il player nella lista dei players 'utenti'
 		inserisci = true;
 		for (i=0;i<utenti.length;i++){
@@ -351,6 +347,11 @@ $(document).ready( function(){
 			utenti.push({nome : player, avanzamento : null, numAttivita : null});
 			document.getElementById('giocatore').innerHTML += "<div class='form-check'><input name='giocatore' type='radio' value='" + player + "' id='" + player + "'><label for=" + player + ">" + player + "</label></div>";
 		}
+	});
+	
+	//funzione che riceve un messaggio dal server e copia il messaggio come message-left e nella lista dei messaggi
+	socket.on('chat message', function(msg, player, valutatore) {
+		console.log('VALUTATORE: messaggio da ' + player + ' per ' + valutatore + ': ' + msg);
 
 		//aggiunge il messaggio nella lista dei messaggi
 		messaggi.push({nomeTrasmittente : player, nomeRicevente: valutatore, messaggio : msg});
@@ -360,13 +361,11 @@ $(document).ready( function(){
 		if (idGiocatore == player){
 			document.getElementById("messaggiChat").innerHTML += "<div class='message'><div class='message-text-wrapper'><div class='message-text'>" + msg + "</div></div></div>";
 		}else{//cambia il color del giocatore per far notare che è in attesa di visualizzazione da parte del valutatore
-			if(msg != "Sono " + player + ". Mi sono connesso"){
-				var labels = document.getElementsByTagName('LABEL');
-				for (i = 0; i < labels.length; i++) {
-					if (labels[i].htmlFor == player) {
-						labels[i].style.color = "#bf8040";
-						labels[i].style.textDecoration = "underline";
-					}
+			var labels = document.getElementsByTagName('LABEL');
+			for (i = 0; i < labels.length; i++) {
+				if (labels[i].htmlFor == player) {
+					labels[i].style.color = "#bf8040";
+					labels[i].style.textDecoration = "underline";
 				}
 			}
 		}
@@ -394,7 +393,18 @@ $(document).ready( function(){
 				utenti[i].numAttivita = numAttivita;
 			}
 		}
+
+		var d = new Date();
+		var secondiArrivoAvanzamento = d.getTime();
+		var x = document.getElementById('timer');
+		x.innerHTML=parseInt(secondiArrivoAvanzamento/1000)-ora;
+		ora=parseInt(secondiArrivoAvanzamento/1000);
 	});
+
+	var d = new Date();
+	var ora = parseInt(d.getTime()/1000);
+	var x = document.getElementById('timer');
+	x.innerHTML=0;
 
 	socket.on('risposta testo', function(domanda, risposta, player) {
 		console.log('VALUTATORE: risposta di testo dal player ' + player + ": domanda: " + domanda + ", risposta: " + risposta);
