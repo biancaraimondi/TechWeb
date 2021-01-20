@@ -44,6 +44,11 @@ ACCESSIBILITA': settare il cursore - capire come muoversi con freccia sx e dx - 
 - cercare attributo per attribuire descrizione agli elementi della pagina (che cosa fa quell'elemento)
 - cercare codice js per settare il cursore ogni volta che viene caricata un'attivita
 - testare VoiceOver su chat
+- usare focus() per settare il focus ad un elemento (se un elemento non è focalizzato utilizzare l'attributo tabindex="0";) => 
+var domanda = document.getElementById('domanda'); 
+        domanda.setAttribute('tabindex', '0'); //rende focalizzabile l'elemento (campi solo lettura non sono focalizzabili di default)
+        domanda.focus(); //setta il focus ad un certo elemento
+- usare role per settare il ruolo che ha un determinato tag html (in modo tale che lo screenReader lo interpreti in un certo modo)
 
 gestire css bottoni (spazio vuoto sotto)
 NON CANCELLARE DAL TODO: settare background campo risposta testo - scrivere il codice relativo x poter inserire background nel campo risposta (commentato)
