@@ -122,6 +122,17 @@ io.on('connection', function (socket) {
 				}
 				if (inserisci){
 					utenti.push({nome : nome, socket : socket.id, avanzamento : null, attivita : null});
+					var socketUtente = '';
+					for (i=0;i<utenti.length;i++){
+						if(utenti[i].nome == 'valutatore'){
+							socketUtente = utenti[i].socket;
+						}
+					}
+					if (nome != 'valutatore'){
+						socket.to(socketUtente).emit('connesso', nome, pagina);
+					}else{
+						socket.broadcast.emit('chat message', 'mi sono connesso', nome, '');
+					}
 					console.log("SERVER: utenti: " + JSON.stringify(utenti));
 				}
 			}
@@ -333,9 +344,9 @@ io.on('connection', function (socket) {
 				}
 				socket.to(socketValutatore).emit('chat message', msg, nomeDisconnesso, 'valutatore');
 				socket.to(socketValutatore).emit('disconnesso', nomeDisconnesso);
-			} /*else {//invia un messaggio ai players se il disconnesso è il valutatore
+			} else {//invia un messaggio ai players se il disconnesso è il valutatore
 				socket.broadcast.emit('chat message', msg, nomeDisconnesso, '');
-			}*/
+			}
 		}
 	});
 
