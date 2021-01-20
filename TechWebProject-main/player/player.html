@@ -49,7 +49,7 @@
                 <div id="campoNomeGiocatore">
                     <input type="text" placeholder="Inserisci il tuo nome" class="form-control-sm" id="nomeGiocatore">
                     <span class="input-group-btn">
-                        <button class="btn btn-dark btn-sm" type="button" id="nome">OK</button>
+                        <button class="btn btn-dark btn-sm" type="button" id="nome" role="button">OK</button>
                     </span>
                     <p id="nomeUtenteErrato" hidden> Nome utente già presente! Inserirne un altro. </p>
                 </div>
@@ -61,7 +61,7 @@
                     <label for="name">Inserisci qui il testo della risposta:</label>
                     <br>
                     <input type="text" placeholder="Inserisci la risposta" class="form-control-sm" id="nameTextArea" name="name" size="35">
-                    <button class="btn btn-dark btn-sm" type="button" id="inviaRisposta">Invia risposta al valutatore</button>
+                    <button class="btn btn-dark btn-sm" type="button" id="inviaRisposta" role="button">Invia risposta</button>
                 </div>
                 <div class="col-sm-6 col-md-6 col-lg-6" id="campoFoto" hidden>
                     <p id="testoBottoneFoto"> Clicca l'icona della macchina fotografica per avviare la fotocamera <img id="bottoneFoto" src="icon/cameraWhite.png" width="50em" height="40em" alt="Bottone attiva fotocamera" role="button"/></p>
@@ -70,34 +70,34 @@
                         <!-- anteprima foto -->
                     </div>
                     <br>
-                    <button class="btn btn-dark btn-sm" type="button" id="scattaFoto">Scatta Foto</button>
-                    <button class="btn btn-dark btn-sm" type="button" id="inviaRispostaFoto">Invia foto al valutatore</button>
+                    <button class="btn btn-dark btn-sm" type="button" id="scattaFoto" role="button">Scatta Foto</button>
+                    <button class="btn btn-dark btn-sm" type="button" id="inviaRispostaFoto" role="button">Invia foto al valutatore</button>
                     <video id="webcam" autoplay playsinline width="620" height="480"></video>
                     <canvas id="canvas" class="d-none">
                 </div>
                 <!-- colonna bottoni risposte -->
                 <div class="col-sm-6 col-md-6 col-lg-6" id="campoRisposte" hidden>
                     <div class="button-answer">
-                        <button type="button" class="btn btn-dark btn-sm" value="" id="risposta1"> </button>
+                        <button type="button" class="btn btn-dark btn-sm" value="" id="risposta1" role="button"> </button>
                     </div>
                     <br>
                     <div class="button-answer">
-                        <button type="button" class="btn btn-dark btn-sm" value="" id="risposta2"> </button>
+                        <button type="button" class="btn btn-dark btn-sm" value="" id="risposta2" role="button"> </button>
                     </div>
                     <br>
                     <div class="button-answer">
-                        <button type="button" class="btn btn-dark btn-sm" value="" id="risposta3"> </button>
+                        <button type="button" class="btn btn-dark btn-sm" value="" id="risposta3" role="button"> </button>
                     </div>
                     <br>
                     <div class="button-answer">
-                        <button type="button" class="btn btn-dark btn-sm" value="" id="risposta4"> </button>
+                        <button type="button" class="btn btn-dark btn-sm" value="" id="risposta4" role="button"> </button>
                     </div>
                     <br>
                     <div>
-                        <button type="button" class="btn btn-dark btn-sm" id="aiuto"> Aiuto </button>
+                        <button type="button" class="btn btn-dark btn-sm" id="aiuto" role="button"> Aiuto </button>
                     </div>
                     <div>
-                        <button type="button" class="btn btn-dark btn-sm" id="aiutoChat"> Chiedi aiuto tramite chat </button>
+                        <button type="button" class="btn btn-dark btn-sm" id="aiutoChat" role="button"> Chiedi aiuto tramite chat </button>
                     </div>
                     <br>
                     <div class="message-camp">
@@ -108,7 +108,7 @@
                 <div class="col-sm-6 col-md-6 col-lg-6" id="campoChat" hidden>
                     <div class="panel panel-default chat-widget">
                         <div class="panel-heading">
-                            <h3 class="panel-title"><i class="fa fa-comments"></i> Chat</h3>
+                            <h3 class="panel-title"><i class="fa fa-comments" id="intestazioneChat"></i> Chat</h3>
                         </div>
                         <div class="panel-body" id="messaggiChat">
                             <!-- qui viene inserito in automatico il testo della chat -->
@@ -118,7 +118,7 @@
                             <div class="input-group">
                                 <input type="text" placeholder="Inserisci il messaggio" class="form-control-sm" id="testoDaInviare">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-dark btn-sm" type="button" id="invia">Invia</button>
+                                    <button class="btn btn-dark btn-sm" type="button" id="invia" role="button">Invia</button>
                                 </span>
                             </div>
                         </div>
@@ -127,7 +127,7 @@
             </div>
             <div class="row" id="row4" hidden>
                 <div id="campoAvanti">
-                    <button class="btn btn-dark btn-sm" type="button" id="avanti">Avanti</button>
+                    <button class="btn btn-dark btn-sm" type="button" id="avanti" role="button">Avanti</button>
                 </div>
             </div>
         </div>
@@ -135,13 +135,12 @@
         <!-- navbar inferiore -->
         <footer>
             <nav class="navbar fixed-bottom" id="footer">
-                <button class="navbar-toggler" id="paginaPrincipale" type="button" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"> Torna alla pagina principale
+                <button class="navbar-toggler" id="paginaPrincipale" type="button" role="button" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"> Torna alla pagina principale
                 </button>
-                <button class="navbar-toggler" id="inviaDatiRiassuntivi" type="button" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" hidden> Invia dati riassuntivi al valutatore
+                <button class="navbar-toggler" id="inviaDatiRiassuntivi" type="button" role="button" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" hidden> Invia dati riassuntivi al valutatore
                 </button>
-                <button type="button" class="btn btn-dark btn-sm" id="bottoneChat" hidden><img src="icon/chat.png" width="16" height="15" alt="Logo messaggistica-chat"/> Chat
+                <button type="button" class="btn btn-dark btn-sm" id="bottoneChat" role="button" hidden><img src="icon/chat.png" width="16" height="15" alt="Logo messaggistica-chat"/> Chat
                 </button>
-               
             </nav>
         </footer>
         

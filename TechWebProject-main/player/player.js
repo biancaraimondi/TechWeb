@@ -111,7 +111,7 @@ $(document).ready(function () {
             }
         }
         console.log("Messaggio ricevuto dal valutatore: " + valutazione);
-        if(i == (numMissioni-1) && j == (numAttivita-1)){
+        if(i == (numMissioni-1) && j == (numAttivita-1)){ //se siamo nell'ultima attivita dell'ultima missione
             visualizzaValutazioni();
         }
     });
@@ -241,7 +241,6 @@ $(document).ready(function () {
     $('#inviaRisposta').click(function(){
         var risposta = document.getElementById('nameTextArea').value;
         var domanda = storia.missioni[i].attivita[j].domanda;
-        socket.emit('risposta testo', domanda, risposta, nomeGiocatore);
         valutazioni.push({
             domanda : domanda,
             risposta : risposta,
@@ -249,6 +248,14 @@ $(document).ready(function () {
             valutazione : null,
             commentoValutazione : null
         });
+        
+        if(storia.missioni[i].attivita[j].camporisposta == ""){
+            socket.emit('risposta testo', domanda, risposta, nomeGiocatore);
+        }
+        else{
+            var rispostaCorretta = storia.missioni[i].attivita[j].camporisposta;
+            socket.emit('black-box', domanda, risposta, rispostaCorretta, nomeGiocatore);
+        }
         cambioAttivita();
     });
     
@@ -333,9 +340,17 @@ $(document).ready(function () {
                 document.getElementById('campoTextArea').hidden = false;
             }
             else{
-                console.log("Entrato nell'else del campo risposta");
-                document.getElementById('nameTextArea').value = "";
-                document.getElementById('campoTextArea').hidden = true;
+                if(storia.missioni[i].attivita[j].camporisposta != null && storia.missioni[i].attivita[j].camporisposta != ""){
+                    contatoreValutazioni++;
+                    punteggioTotale += 1;
+                    console.log("Entrato nell'if del campo risposta");
+                    document.getElementById('campoTextArea').hidden = false;
+                }
+                else{
+                    console.log("Entrato nell'else del campo risposta");
+                    document.getElementById('nameTextArea').value = "";
+                    document.getElementById('campoTextArea').hidden = true;
+                }
             }
             //caso in cui è presente il campo di inserimento foto per la valutazione della risposta in amb. val.
             if(storia.missioni[i].attivita[j].camporispostafoto != null && storia.missioni[i].attivita[j].camporispostafoto == ""){
@@ -420,6 +435,9 @@ $(document).ready(function () {
     } //chiusura function caricaAttivita
     
     function cambioAttivita(){
+        var domanda = document.getElementById('domanda');
+        domanda.setAttribute('tabindex', '0');
+        domanda.focus();
         if (storia.missioni[i] && storia.missioni[i].attivita[j].rispostebottoni && (storia.missioni[i].attivita[j].stato == "attiva" && storia.missioni[i].stato == "attiva")){
             var tentativi = 0;
             console.log(punteggioIntermedio);
@@ -488,7 +506,7 @@ $(document).ready(function () {
                 document.getElementById('campoChat').hidden = true;
                 document.getElementById('footer').hidden = true;
                 document.getElementById('campoAvanti').hidden = true;
-                document.getElementById('domanda').innerHTML = "Complimenti! Hai terminato con successo la storia. Sotto potrai vedere visualizzate tutte le tue valutazioni che prima erano in attesa di valutazione. Quando tutte le tue risposte saranno state valutate potrai ritornare alla pagina principale cliccando il pulsante in basso a sinistra.";
+                document.getElementById('domanda').innerHTML = "Complimenti! Hai terminato con successo la storia. Sotto potrai vedere visualizzate tutte le tue valutazioni che prima erano in attesa di una valutazione. Quando tutte le tue risposte saranno state valutate potrai inviare i tuoi dati riassuntivi attraverso l'apposito bottone in basso a sinistra.";
                 inserisciMargine = true;
                 visualizzaValutazioni();
             }
@@ -577,6 +595,7 @@ $(document).ready(function () {
     $("#bottoneChat").click(function(){
         if(document.getElementById('campoChat').hidden == true){
             document.getElementById('campoChat').hidden = false;
+            document.getElementById("messaggiChat").focus();
         }
         else{
             document.getElementById('campoChat').hidden = true;
