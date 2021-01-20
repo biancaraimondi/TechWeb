@@ -54,10 +54,12 @@ $(document).ready(function () {
         document.getElementById('nomeUtenteErrato').hidden = true;
         nomeGiocatore = document.getElementById('nomeGiocatore').value;
         document.getElementById('nomeGiocatore').value = "";
-        messaggioPlayer = "Sono " + nomeGiocatore + ". Mi sono connesso";
-        socket.emit('chat message', messaggioPlayer, nomeGiocatore, valutatore);
+        socket.emit('connesso', nomeGiocatore, 'player');
+
         setTimeout(function(){
             if(document.getElementById('nomeUtenteErrato').hidden == true){
+                messaggioPlayer = "Sono " + nomeGiocatore + ". Mi sono connesso";
+                socket.emit('chat message', messaggioPlayer, nomeGiocatore, valutatore);
                 document.getElementById('campoNomeGiocatore').hidden = true;
                 document.getElementById('campoTestoIniz').hidden = true;
                 document.getElementById('row1').hidden = false;
