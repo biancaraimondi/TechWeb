@@ -26,16 +26,14 @@ ACCESSIBILITA':
 
 
 BIANCA:
-
 testare progetto su chrome, firefox, safari, opera, edge
-inserire tempo per ogni giocatore (viene azzerato ogni volta che arriva un socket.on di avanzamento)
 
 CHIEDERE : creare file da esportare per punteggio player
 CHIEDERE : finchè ci sono utenti connessi non va cambiato il nome della storia (server)
 NON CANCELLARE DAL TODO: modifica punteggio domanda nel json
 NON CANCELLARE DAL TODO: servizio server-side black-box
 
-GUARDARE : mettere apposto il problema del non visualizza l'immagine risposta nel valutatore (MAC)
+inserire tempo per ogni giocatore (viene azzerato ogni volta che arriva un socket.on di avanzamento)
 
 MARTI:
 commentare e pulire codice
