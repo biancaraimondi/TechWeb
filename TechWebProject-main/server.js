@@ -151,7 +151,7 @@ io.on('connection', function (socket) {
 	socket.on('chat message', function (msg, trasmittente, ricevente) {
 		console.log('SERVER: message from ' + trasmittente + ' to ' + ricevente + ': ' + msg);
 		
-		var x = trasmittente.substr(0, 11);
+		/*var x = trasmittente.substr(0, 11);
 		if(x != "Disconnesso" && x != "disconnesso"){
 			//se l'utente non è già connesso, lo inseriamo nella lista degli utenti connessi
 			inserisci = true;
@@ -186,6 +186,16 @@ io.on('connection', function (socket) {
 			}
 		} else {
 			io.to(socket.id).emit('nomeErrato');
+		}*/
+		
+		var socketUtente = '';
+		messaggi.push({messaggio : msg, trasmittente : trasmittente, ricevente : ricevente});
+		for (i=0;i<utenti.length;i++){
+			if (utenti[i].nome == ricevente){
+				socketUtente = utenti[i].socket;
+				socket.to(socketUtente).emit('chat message', msg, trasmittente, ricevente);
+				i=utenti.length;
+			}
 		}
 
 	});
@@ -290,6 +300,25 @@ io.on('connection', function (socket) {
 				i--;
 			}
 		}
+		for (i=0;i<messaggi.length;i++){
+			if (messaggi[i].trasmittente == nomeDisconnesso || messaggi[i].ricevente == nomeDisconnesso ){
+				messaggi.splice(i, 1);
+				i--;
+			}
+		}
+		for (i=0;i<risposteDaValutare.length;i++){
+			if (risposteDaValutare[i].player == nomeDisconnesso){
+				risposteDaValutare.splice(i, 1);
+				i--;
+			}
+		}
+		for (i=0;i<datiDaSalvare.length;i++){
+			if (datiDaSalvare[i].player == nomeDisconnesso){
+				datiDaSalvare.splice(i, 1);
+				i--;
+			}
+		}
+
 		console.log('SERVER: user ' + socket.id + ' disconnected. (' + nomeDisconnesso + ')');
 		console.log('SERVER: utenti: ' + JSON.stringify(utenti));
 		var msg='Mi sono disconnesso, non riuscirò più a ricevere i tuoi messaggi';
@@ -304,9 +333,9 @@ io.on('connection', function (socket) {
 				}
 				socket.to(socketValutatore).emit('chat message', msg, nomeDisconnesso, 'valutatore');
 				socket.to(socketValutatore).emit('disconnesso', nomeDisconnesso);
-			} else {//invia un messaggio ai players se il disconnesso è il valutatore
+			} /*else {//invia un messaggio ai players se il disconnesso è il valutatore
 				socket.broadcast.emit('chat message', msg, nomeDisconnesso, '');
-			}
+			}*/
 		}
 	});
 
