@@ -50,8 +50,9 @@ $(document).ready( function(){
 			//mostra i player connessi
 			console.log('VALUTATORE: players: ' + obj);
 			//appena il valutatore si connette crea il relativo utente all'interno del server
-			messaggioValutatore = nomeValutatore + " connesso";
-			socket.emit('chat message', messaggioValutatore, nomeValutatore, idGiocatore);
+			socket.emit('connesso', 'valutatore', 'valutatore');
+			//messaggioValutatore = nomeValutatore + " connesso";
+			//socket.emit('chat message', messaggioValutatore, nomeValutatore, idGiocatore);
 		}
 	};
 	xmlhttp.open("GET", "/valutatore/utenti", true);
