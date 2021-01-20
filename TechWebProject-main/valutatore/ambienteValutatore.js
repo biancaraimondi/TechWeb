@@ -249,7 +249,7 @@ $(document).ready( function(){
 					document.getElementById('immagineRispostaPlayer').hidden = false;
 					document.getElementById('testoRispostaPlayer').innerHTML = "DOMANDA: " + risposteDaValutare[i].domanda;
 					var immagine = document.getElementById('immagineRispostaPlayer');
-					immagine.src = risposteDaValutare[i].picture;
+					immagine.src = risposteDaValutare[i].immagine;
 					rispostaAttuale = risposteDaValutare[i];
 				}
 				i=risposteDaValutare.length;
