@@ -271,6 +271,25 @@ io.on('connection', function (socket) {
 		socket.to(socketUtente).emit('valutazione', domanda, valutazione, commentoValutazione, player);
 		console.log("SERVER: inviata vautazione al player");
 	});
+    
+    //gestisce le rispsote con metodo server black-box
+    socket.on('black-box', function (domanda, risposta, rispostaCorretta, player) {
+        console.log("SERVER: risposta da valutare nel server: " + risposta + ", risposta corretta: " + rispostaCorretta);
+        var z = 0;
+        var socketUtente = "";
+        for(z=0; z<utenti.length; z++){
+            if(utenti[z].nome == player){
+                socketUtente = utenti[z].socket;
+            }
+        }
+        if(risposta == rispostaCorretta){
+            io.to(socketUtente).emit('valutazione', domanda, 1, "Risposta corretta", player);
+        }
+        else{
+            io.to(socketUtente).emit('valutazione', domanda, 0, "Risposta sbagliata", player);
+        }
+        console.log("SERVER: inviata vautazione del server al player");
+    });
 
 	//gestisce i dati riassuntivi inviati dal player
 	socket.on('dati riassuntivi', function (datiRiassuntivi, punteggio, player) {
