@@ -102,7 +102,7 @@ io.on('connection', function (socket) {
 				inserisci = false;
 			}
 		}
-		if(inserisci){
+		if(inserisci && nome!=""){
 			
 			var x = nome.substr(0, 11);
 			if(x != "Disconnesso" && x != "disconnesso"){
@@ -121,7 +121,10 @@ io.on('connection', function (socket) {
 					}
 				}
 				if (inserisci){
-					utenti.push({nome : nome, socket : socket.id, avanzamento : null, attivita : null});
+					var d = new Date();
+					var secondiConnessione = d.getTime();//millisecondi passati dal 1970
+					secondiConnessione = parseInt(secondiConnessione/1000);//trasformo in secondi e tolgo la virgola
+					utenti.push({nome : nome, socket : socket.id, avanzamento : null, attivita : null, tempo : secondiConnessione});
 					var socketUtente = '';
 					for (i=0;i<utenti.length;i++){
 						if(utenti[i].nome == 'valutatore'){
@@ -223,9 +226,18 @@ io.on('connection', function (socket) {
 			if(utenti[z].nome == player){
 				utenti[z].avanzamento = contatoreAvanzamento;
 				utenti[z].attivita = contatoreAttivita;
+				var d = new Date();
+				var secondiAvanzamento = d.getTime();//millisecondi passati dal 1970
+				secondiAvanzamento = parseInt(secondiAvanzamento/1000);//trasformo in secondi e tolgo la virgola
+				utenti[z].tempo = secondiAvanzamento;
 			}
 		}
-		socket.to(socketUtente).emit('avanzamento', contatoreAvanzamento, contatoreAttivita, player);
+		if(socketUtente != ""){
+			socket.to(socketUtente).emit('avanzamento', contatoreAvanzamento, contatoreAttivita, player);
+		}else{
+			//console.log("SERVER: Nessun valutatore a cui inviare l'avanzamento");
+		}
+
 		console.log("SERVER: avanzamento spedito al valutatore");
 	});
 
