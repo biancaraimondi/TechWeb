@@ -6,7 +6,7 @@ input[type='radio'] {
 	border-radius:50%;
 	outline:none; /*non visualizza contorno */ 
 	box-shadow:0 0 5px 0px gray inset;
-	margin-right:0.5em;
+	margin-right:0.2em;
 }
 input[type='radio']:enabled:hover {
 	box-shadow:0 0 5px 0px orange inset;
