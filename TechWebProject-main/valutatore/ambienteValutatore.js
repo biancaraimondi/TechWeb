@@ -1,6 +1,6 @@
 var idGiocatore = "";//player visualizzato attualmente
 var nomeValutatore = "valutatore";//il valutatore può essere solo uno
-var utenti = [];//lista dei nomi dei player -> {nome, avanzamento, numAttivita}
+var utenti = [];//lista dei nomi dei player -> {nome, avanzamento, numAttivita, tempo}
 var messaggi = [];//lista dei messaggi in chat non ancora visualizzati dal valutatore -> {nomeTrasmittente, nomeRicevente, messaggio}
 var inserisci;//booleano utilizzato per i cicli for
 var playersList;//variabile utilizzata nell'ottenere il valore del player da visualizzare
@@ -8,7 +8,7 @@ var i;//iteratore per cicli for
 var idGiocatorePrecendente;//player visualizzato precedentemente
 var socket = io();//utilizzato per gestire la chat
 var rispostaAttuale = null;
-var risposteDaValutare = [];//lista di risposte date dai player ancora da valutare
+var risposteDaValutare = [];//lista di risposte date dai player ancora da valutare {domanda: val, risposta : val, immagine : src, player : val }
 var datiDaSalvare = [];//{player : valore, datiRiassuntivi : [{}], punteggio : num}
 var contatoreDisconnessi = 0;
 
@@ -31,6 +31,16 @@ function modificaAvanzamento(domandeCompletate, domandeEffettive) {
 }
 
 $(document).ready( function(){
+
+	//setta il timer a 0
+	var x = document.getElementById('timer');
+	x.innerHTML=0;
+	//incrementa timer ogni secondo
+	setInterval(function(){
+		var x = document.getElementById('timer');
+		x.innerHTML = parseInt(x.innerHTML) + 1;
+	}, 1000);
+
 	//carica i player già connessi nell'array 'utenti'
 	var xmlhttp = new XMLHttpRequest();
 	xmlhttp.onreadystatechange = function() {
@@ -38,7 +48,7 @@ $(document).ready( function(){
 			var obj = JSON.parse(this.responseText);
 			for (i=0;i<obj.length;i++){
 				if (obj[i].nome != 'valutatore'){//non carico anche il nome di un eventuale altro valutatore
-					utenti.push({nome : obj[i].nome, avanzamento : obj[i].avanzamento, numAttivita : obj[i].attivita});
+					utenti.push({nome : obj[i].nome, avanzamento : obj[i].avanzamento, numAttivita : obj[i].attivita, tempo : obj[i].tempo});
 					document.getElementById('giocatore').innerHTML += "<div class='form-check'><input name='giocatore' type='radio' value='" + obj[i].nome + "' id='" + obj[i].nome + "'><label for=" + obj[i].nome + ">" + obj[i].nome + "</label></div>";
 				}
 			}
@@ -196,6 +206,19 @@ $(document).ready( function(){
 			}else{
 				document.getElementById('salvaDati').hidden = true;
 			}
+			
+			//setta il timer
+			var d = new Date();
+			var secondiArrivoAvanzamento = d.getTime();//millisecondi passati dal 1970
+			secondiArrivoAvanzamento = parseInt(secondiArrivoAvanzamento/1000);//trasformo in secondi e tolgo la virgola
+			var ora = secondiArrivoAvanzamento;
+			for (i=0;i<utenti.length;i++){
+				if (utenti[i].nome == idGiocatore){
+					ora = utenti[i].tempo;
+				}
+			}
+			var x = document.getElementById('timer');
+			x.innerHTML=secondiArrivoAvanzamento-ora;
 		}
 	});
 	
@@ -344,7 +367,11 @@ $(document).ready( function(){
 			}
 		}
 		if (inserisci && player!=""){
-			utenti.push({nome : player, avanzamento : null, numAttivita : null});
+			var d = new Date();
+			var secondiConnessione = d.getTime();//millisecondi passati dal 1970
+			secondiConnessione = parseInt(secondiConnessione/1000);//trasformo in secondi e tolgo la virgola
+			
+			utenti.push({nome : player, avanzamento : null, numAttivita : null, tempo:secondiConnessione});
 			document.getElementById('giocatore').innerHTML += "<div class='form-check'><input name='giocatore' type='radio' value='" + player + "' id='" + player + "'><label for=" + player + ">" + player + "</label></div>";
 		}
 	});
@@ -375,9 +402,21 @@ $(document).ready( function(){
 	socket.on('avanzamento', function(avanzamento, numAttivita, player) {
 		console.log('VALUTATORE: messaggio di avanzamento dal player ' + player + " " + avanzamento + " " + numAttivita);
 		
+		var d = new Date();
+		var secondiArrivoAvanzamento = d.getTime();//millisecondi passati dal 1970
+		secondiArrivoAvanzamento = parseInt(secondiArrivoAvanzamento/1000);//trasformo in secondi e tolgo la virgola
+		
 		//modifica la barra di avanzamento direttamente se corrisponde all'idGiocatore attualmente cliccato
 		if (idGiocatore == player){
 			modificaAvanzamento(avanzamento, numAttivita);
+			var ora;
+			for (i=0;i<utenti.length;i++){
+				if (utenti[i].nome == player){
+					ora = utenti[i].tempo;
+				}
+			}
+			var x = document.getElementById('timer');
+			x.innerHTML=secondiArrivoAvanzamento-ora;
 		}else{//cambia il color del giocatore per far notare che è in attesa di visualizzazione da parte del valutatore
 			var labels = document.getElementsByTagName('LABEL');
 			for (i = 0; i < labels.length; i++) {
@@ -391,20 +430,16 @@ $(document).ready( function(){
 			if (utenti[i].nome == player){
 				utenti[i].avanzamento = avanzamento;
 				utenti[i].numAttivita = numAttivita;
+				utenti[i].tempo = secondiArrivoAvanzamento;
 			}
 		}
 
-		var d = new Date();
+		/*var d = new Date();
 		var secondiArrivoAvanzamento = d.getTime();
 		var x = document.getElementById('timer');
 		x.innerHTML=parseInt(secondiArrivoAvanzamento/1000)-ora;
-		ora=parseInt(secondiArrivoAvanzamento/1000);
+		ora=parseInt(secondiArrivoAvanzamento/1000);*/
 	});
-
-	var d = new Date();
-	var ora = parseInt(d.getTime()/1000);
-	var x = document.getElementById('timer');
-	x.innerHTML=0;
 
 	socket.on('risposta testo', function(domanda, risposta, player) {
 		console.log('VALUTATORE: risposta di testo dal player ' + player + ": domanda: " + domanda + ", risposta: " + risposta);
