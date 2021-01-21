@@ -14,56 +14,51 @@ function cambiaPagina(url) {
 	window.location.replace(url);
 }
 
+function scegliEta(eta) {
+	document.getElementById("autore").hidden = true;
+	document.getElementById("storie").hidden = false;
+	document.getElementById("valutatore").hidden = true;
+	
+	//inserisce in eta l'età cliccata nell'html
+	document.getElementById("nomiStorie").innerHTML = "";
+	for (var i=0;i<storie.storie.length;i++){
+		if (eta == storie.storie[i].eta && storie.storie[i].stato == "pubblicata"){
+			document.getElementById("nomiStorie").innerHTML += "<div class='form-check'><input name='storia' type='radio' id='" + storie.storie[i].nome + "' value='" + storie.storie[i].nome + "'>&nbsp<label for='" + storie.storie[i].nome + "'>" + storie.storie[i].nome + "</label></div>";
+		}
+	}
+}
+
 $(document).ready( function(){
 	var socket = io();
-	var nomeStoria = "";
-	var eta = "";
 	var i = 0;
-	
-	//gestisce l'accesso al valutatore
-	socket.on('nomeErrato', function() {
-		
+
+	$("#eta1").click(function() {
+		scegliEta("eta1");
 	});
-
-	$("#eta").click(function() {
-		document.getElementById("autore").hidden = true;
-		document.getElementById("storie").hidden = false;
-		document.getElementById("valutatore").hidden = true;
-		
-		//inserisce in eta l'età cliccata nell'html
-		var etaList = document.getElementsByName("eta");
-		for (i = 0; i < etaList.length; i++) {
-			if (etaList[i].checked) {
-				eta = i;
-			}
-		}
-		if(eta == 0){
-			eta = "eta1";
-		} else if(eta == 1){
-			eta = "eta2";
-		} else {
-			eta = "eta3";
-		}
-
-		document.getElementById("nomiStorie").innerHTML = "";
-		for (var i=0;i<storie.storie.length;i++){
-			if (eta == storie.storie[i].eta && storie.storie[i].stato == "pubblicata"){
-				document.getElementById("nomiStorie").innerHTML += "<div class='form-check'><input name='storia' type='radio' id='" + storie.storie[i].nome + "' value='" + storie.storie[i].nome + "'>&nbsp<label for='" + storie.storie[i].nome + "'>" + storie.storie[i].nome + "</label></div>";
-			}
-		}
+	
+	$("#eta2").click(function() {
+		scegliEta("eta2");
+	});
+	
+	$("#eta3").click(function() {
+		scegliEta("eta3");
 	});
 	
 	$("#nomiStorie").click(function() {
-		document.getElementById("buttonQRcode").disabled = false;
+
+		var nomeStoria = "";
 		var storiesList = document.getElementsByName("storia");
-		console.log(storiesList);
 		for (i = 0; i < storiesList.length; i++) {
 			if (storiesList[i].checked) {
 				nomeStoria = storiesList[i].value;
 			}
 		}
-		console.log(nomeStoria);
-		socket.emit('storia', nomeStoria);
+
+		if(nomeStoria != ""){
+			document.getElementById("buttonQRcode").disabled = false;
+			socket.emit('storia', nomeStoria);
+		}
+
 	});
 	
 	$("#buttonQRcode").click(function() {
@@ -83,8 +78,8 @@ $(document).ready( function(){
 	
 	$("#valutatore").click(function() {
 		socket.emit('connesso', 'valutatore', 'home');
-        document.getElementById('nomeValutatore').hidden = true;
-        setTimeout(function(){
+		document.getElementById('nomeValutatore').hidden = true;
+		setTimeout(function(){
 			if(document.getElementById('nomeValutatore').hidden == true){
 				cambiaPagina('ambienteValutatore.html');
 			}else{

@@ -1,25 +1,26 @@
 input[type='radio'] {
-    -webkit-appearance:none; /* utilizzato per poter modificare liberamente il radio button senza venga applicato alcun stile del SO in uso dall'utente */
-    width:20px;
-    height:20px;
-    border:1px solid darkgray;
-    border-radius:50%;
-    outline:none; /*non visualizza contorno */ 
-    box-shadow:0 0 5px 0px gray inset;
+	-webkit-appearance:none; /* utilizzato per poter modificare liberamente il radio button senza venga applicato alcun stile del SO in uso dall'utente */
+	width:20px;
+	height:20px;
+	border:1px solid darkgray;
+	border-radius:50%;
+	outline:none; /*non visualizza contorno */ 
+	box-shadow:0 0 5px 0px gray inset;
+	margin-right:0.2em;
 }
 input[type='radio']:enabled:hover {
-    box-shadow:0 0 5px 0px orange inset;
+	box-shadow:0 0 5px 0px orange inset;
 }
 input[type='radio']:before { /*all'interno del radio button viene creato un sottile spazio bianco*/
-    content:'';
-    display:block;
-    width:60%;
-    height:60%;
-    margin: 20% auto;    
-    border-radius:50%;    
+	content:'';
+	display:block;
+	width:60%;
+	height:60%;
+	margin: 20% auto;
+	border-radius:50%;
 }
 input[type='radio']:checked:before { /*coloro l'interno del radio button*/
-    background:#8b0000;
+	background:#8b0000;
 }
 
 .btn.btn-lg {
