@@ -32,6 +32,9 @@ function modificaAvanzamento(domandeCompletate, domandeEffettive) {
 
 $(document).ready( function(){
 
+	//accessibilità
+	//document.getElementById('timer');
+
 	//setta il timer a 0
 	var x = document.getElementById('timer');
 	x.innerHTML=0;
@@ -136,6 +139,9 @@ $(document).ready( function(){
 		//se cambia il giocatore selezionato
 		if (idGiocatorePrecendente != idGiocatore) {
 			
+			var x = idGiocatore.substr(0, 11);
+			if(x != "Disconnesso"){
+			
 			//cambia il background-color del giocatore per far notare che non è più in attesa di visualizzazione da parte del valutatore
 			var labels = document.getElementsByTagName('LABEL');
 			for (i = 0; i < labels.length; i++) {
@@ -176,7 +182,7 @@ $(document).ready( function(){
 						document.getElementById('testoRispostaPlayer').hidden = false;
 					}
 					else{
-						document.getElementById('testoRispostaPlayer').innerHTML = "DOMANDA: " + risposteDaValutare[i].domanda;
+						document.getElementById('testoRispostaPlayer').innerHTML = "DOMANDA: " + risposteDaValutare[i].domanda + "<br>RISPOSTA:";
 						var immagine = document.getElementById('immagineRispostaPlayer');
 						immagine.src = risposteDaValutare[i].immagine;
 						rispostaAttuale = risposteDaValutare[i];
@@ -208,17 +214,25 @@ $(document).ready( function(){
 			}
 			
 			//setta il timer
-			var d = new Date();
-			var secondiArrivoAvanzamento = d.getTime();//millisecondi passati dal 1970
-			secondiArrivoAvanzamento = parseInt(secondiArrivoAvanzamento/1000);//trasformo in secondi e tolgo la virgola
-			var ora = secondiArrivoAvanzamento;
-			for (i=0;i<utenti.length;i++){
-				if (utenti[i].nome == idGiocatore){
-					ora = utenti[i].tempo;
+				document.getElementById('contenitoreTimer').hidden = false;
+				var d = new Date();
+				var secondiArrivoAvanzamento = d.getTime();//millisecondi passati dal 1970
+				secondiArrivoAvanzamento = parseInt(secondiArrivoAvanzamento/1000);//trasformo in secondi e tolgo la virgola
+				var ora = secondiArrivoAvanzamento;
+				for (i=0;i<utenti.length;i++){
+					if (utenti[i].nome == idGiocatore){
+						ora = utenti[i].tempo;
+					}
 				}
+				var x = document.getElementById('timer');
+				x.innerHTML=secondiArrivoAvanzamento-ora;
+
 			}
-			var x = document.getElementById('timer');
-			x.innerHTML=secondiArrivoAvanzamento-ora;
+			else{
+				document.getElementById('contenitoreTimer').hidden = true;
+				document.getElementById("aiuto").hidden = true;
+				document.getElementById("chat").hidden = true;
+			}
 		}
 	});
 	
@@ -270,7 +284,7 @@ $(document).ready( function(){
 				else{
 					document.getElementById('testoRispostaPlayer').hidden = false;
 					document.getElementById('immagineRispostaPlayer').hidden = false;
-					document.getElementById('testoRispostaPlayer').innerHTML = "DOMANDA: " + risposteDaValutare[i].domanda;
+					document.getElementById('testoRispostaPlayer').innerHTML = "DOMANDA: " + risposteDaValutare[i].domanda + "<br>RISPOSTA:";
 					var immagine = document.getElementById('immagineRispostaPlayer');
 					immagine.src = risposteDaValutare[i].immagine;
 					rispostaAttuale = risposteDaValutare[i];
@@ -481,7 +495,7 @@ $(document).ready( function(){
 		//modifica il campo risposte da valutare direttamente se corrisponde all'idGiocatore attualmente cliccato
 		if (idGiocatore == player){
 			if(rispostaAttuale == null){
-				document.getElementById('testoRispostaPlayer').innerHTML = "DOMANDA: " + domanda;
+				document.getElementById('testoRispostaPlayer').innerHTML = "DOMANDA: " + domanda + "<br>RISPOSTA:";
 				var immagine = document.getElementById('immagineRispostaPlayer');
 				immagine.src = picture;
 				document.getElementById('testoRispostaPlayer').hidden = false;
@@ -570,6 +584,7 @@ $(document).ready( function(){
 			document.getElementById('salvaDati').hidden = true;
 			modificaAvanzamento(0, 0);
 			idGiocatore = "Disconnesso" + contatoreDisconnessi;
+			document.getElementById('contenitoreTimer').hidden = true;
 		}
 		
 		contatoreDisconnessi++;
