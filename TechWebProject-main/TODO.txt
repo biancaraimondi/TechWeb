@@ -33,8 +33,6 @@ CHIEDERE : finchè ci sono utenti connessi non va cambiato il nome della storia 
 NON CANCELLARE DAL TODO: modifica punteggio domanda nel json
 NON CANCELLARE DAL TODO: servizio server-side black-box
 
-inserire tempo per ogni giocatore (viene azzerato ogni volta che arriva un socket.on di avanzamento)
-
 MARTI:
 commentare e pulire codice
 
