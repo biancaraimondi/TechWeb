@@ -10,10 +10,6 @@ installare multer (npm install --save multer)
  
 installare: npm install webcam-easy (gestione fotocamera)
 
-discutere problema valutatore gestito anche da 6cfuold
-
-messaggi conclusivi più sofisticati (promozione)
-
 ACCESSIBILITA':
  PLAYER:
  - Appena si entra nella pagina dell'inserimento del nome, non legge "Torna alla pagina principale"
@@ -28,11 +24,8 @@ ACCESSIBILITA':
 BIANCA:
 testare progetto su chrome, firefox, safari, opera, edge
 
-CHIEDERE : creare file da esportare per punteggio player
-CHIEDERE : finchè ci sono utenti connessi non va cambiato il nome della storia (server)
-NON CANCELLARE DAL TODO: modifica punteggio domanda nel json
-NON CANCELLARE DAL TODO: servizio server-side black-box
-
+modificare punteggio risposte bottoni nella storia json
+messaggi conclusivi più sofisticati (promozione)
 modificare colore rosso dei player se valutatore si connette dopo
 salvataggio file con immagine vuoto
 
@@ -49,11 +42,16 @@ var domanda = document.getElementById('domanda');
         domanda.focus(); //setta il focus ad un certo elemento
 - usare role per settare il ruolo che ha un determinato tag html (in modo tale che lo screenReader lo interpreti in un certo modo)
 
+modificare punteggio risposte bottoni nella storia json
+"punteggio" : 3 (come campo nell'oggetto js "rispostebottoni")
+messaggi conclusivi più sofisticati (promozione)
 gestire css bottoni (spazio vuoto sotto)
-NON CANCELLARE DAL TODO: settare background campo risposta testo - scrivere il codice relativo x poter inserire background nel campo risposta (commentato)
-NON CANCELLARE DAL TODO: campo sequenziale : si/no (pensare a come gestire il cambio attivita delle storie non sequenziali - modificare il testo delle domande delle attivita)
 
 CRI: 
-accessibilità
+"camporisposta": "strisce pedonali" (se camporisposta è vuoto -> checkbox, altrimenti textarea in cui inserire la risposta ----> se c'è una non c'è l'altra)
+testare progetto su opera
+messaggi conclusivi più sofisticati (promozione)
 non caricare interrail (per testare caricamento storia nell'ambiente autore)
 Visualizzazione del grafo delle transizioni da un'attività all'altra e da una missione all'altra nella storia
+"punteggio" : 3 (come campo nell'oggetto js "rispostebottoni")
+modificare punteggio risposte bottoni nella storia json
