@@ -92,7 +92,7 @@ messaggi conclusivi più sofisticati (promozione)
 gestire css bottoni (spazio vuoto sotto)
 
 CRI: 
-fissare il "torna alla pagina principale"
+
 "camporisposta": "strisce pedonali" (se camporisposta è vuoto -> checkbox, altrimenti textarea in cui inserire la risposta ----> se c'è una non c'è l'altra)
 testare progetto su opera
 messaggi conclusivi più sofisticati (promozione)
