@@ -33,6 +33,9 @@ CHIEDERE : finchè ci sono utenti connessi non va cambiato il nome della storia 
 NON CANCELLARE DAL TODO: modifica punteggio domanda nel json
 NON CANCELLARE DAL TODO: servizio server-side black-box
 
+modificare colore rosso dei player se valutatore si connette dopo
+salvataggio file con immagine vuoto
+
 MARTI:
 commentare e pulire codice
 
