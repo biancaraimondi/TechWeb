@@ -13,6 +13,37 @@ installare: npm install webcam-easy (gestione fotocamera)
 VITALI : non caricare interrail (per testare caricamento storia nell'ambiente autore)
 VITALI : nel SistemaSolare c'è una attività disattivata
 
+COMANDI PER ATTIVARE PROGETTO:
+- ssh bianca.raimondi2@eva.cs.unibo.it
+-  cd /home/web/site192015/html
+- ssh gocker.cs.unibo.it
+- create node site192015 server.js (collegandosi a http://site192015.tw.cs.unibo.it:8000/ OPPURE http://site192015.tw.cs.unibo.it trovate il nostro progetto)
+(
+  cd $home
+  nano .bash_profile
+  Aggiungete la seguente riga: export PATH=/usr/local/node/bin/:$PATH
+  Riavviate la shell, lanciando il comando: exit
+  
+  OPPURE
+  
+  /usr/local/node/bin/node index.js
+  /usr/local/node/bin/npm install express
+)
+
+- npm init
+- npm install express
+- npm install http
+- npm install fs
+- npm install body-parser
+- npm install multer (se non funziona prima del comando lanciare: npm cache clean --force)
+- npm install socket.io (se non funziona prima del comando lanciare: npm cache clean --force)
+- node server.js
+
+COMANDI PER ACCEDERE AL PROGETTO:
+- ssh bianca.raimondi2@eva.cs.unibo.it
+-  cd /home/web/site192015/html
+- node server.js
+
 ACCESSIBILITA':
  PLAYER:
  - Appena si entra nella pagina dell'inserimento del nome, non legge "Torna alla pagina principale"
