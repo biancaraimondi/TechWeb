@@ -41,8 +41,16 @@ COMANDI PER ATTIVARE PROGETTO:
 
 COMANDI PER ACCEDERE AL PROGETTO:
 - ssh bianca.raimondi2@eva.cs.unibo.it
--  cd /home/web/site192015/html
+- cd /home/web/site192015/html
 - node server.js
+
+COMANDI PER MODIFICARE FILE NELLA CARTELLA CONDIVISA IN LAB:
+- vi prova.html (apre il contenuto del file)
+"scrivete il contenuto del file"
+- esc
+- :w (per salvare)
+- :q (per salvare e uscire)
+- :q! (per uscire senza apportare modifiche)
 
 ACCESSIBILITA':
  PLAYER:
