@@ -27,6 +27,7 @@ ACCESSIBILITA':
 BIANCA:
 testare progetto su chrome, firefox, safari, opera, edge
 
+modificare css titolo pagina ambiente valutatore
 modificare punteggio risposte bottoni nella storia json
 messaggi conclusivi più sofisticati (promozione)
 modificare colore rosso dei player se valutatore si connette dopo
