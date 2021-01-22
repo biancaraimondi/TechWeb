@@ -10,6 +10,9 @@ installare multer (npm install --save multer)
  
 installare: npm install webcam-easy (gestione fotocamera)
 
+VITALI : non caricare interrail (per testare caricamento storia nell'ambiente autore)
+VITALI : nel SistemaSolare c'è una attività disattivata
+
 ACCESSIBILITA':
  PLAYER:
  - Appena si entra nella pagina dell'inserimento del nome, non legge "Torna alla pagina principale"
