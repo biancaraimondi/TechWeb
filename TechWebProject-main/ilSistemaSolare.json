@@ -92,7 +92,7 @@
                         "incoraggiamento": "Mh! Ci sei andato vicino, pensaci ancora un po' e prova a cambiare la risposta. E se hai bisogno puoi sempre visualizzare l'aiuto.",
                         "aiuto": "Il suo nome è dovuto al fatto che il pianeta è piccolo piccolo."
                     },
-					"stato": "attiva"
+					"stato": "disattiva"
                 },
                 {
 					"checkboxbottoni": true,
