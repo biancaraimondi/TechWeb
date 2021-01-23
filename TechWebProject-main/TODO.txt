@@ -66,8 +66,8 @@ ACCESSIBILITA':
 BIANCA:
 testare progetto su chrome, firefox, edge
 
-messaggi conclusivi più sofisticati (promozione)
-modificare colore rosso dei player se valutatore si connette dopo
+immagine bimbo nero cri
+problema timer
 salvataggio file con immagine vuoto
 
 MARTI:
