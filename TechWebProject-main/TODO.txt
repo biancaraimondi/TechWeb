@@ -66,10 +66,6 @@ ACCESSIBILITA':
 BIANCA:
 testare progetto su chrome, firefox, edge
 
-immagine bimbo nero cri
-problema timer
-salvataggio file con immagine vuoto
-
 MARTI:
 commentare e pulire codice
 testare progetto su safari
