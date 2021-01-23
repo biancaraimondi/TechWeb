@@ -1,13 +1,17 @@
 GENERALE:
 
-Modifiche alle porte di ascolto su lab:
+Modifiche alle porte di ascolto su lab usando Docker:
 - tutti i file html che usano socket.io -> <script src="/socket.io/socket.io.js"></script>
 - tutti i file js che usano socket.io -> var socket = io.();
 - server -> http.listen(8000, function () {
 	              console.log("SERVER ROOT: " + __dirname);
 	              console.log('SERVER: listening on *:8000');
             });
+- aprire il sito al link: http://site192015.tw.cs.unibo.it/
+
+Modifiche alle porte di ascolto su lab usando linea di comando (node server.js):
 - 
+- aprire il sito al link: http://giovanna.cs.unibo.it:8000/
 
 modificare inclusione libreria socket.io prima della consegna (cambiare porta in 8000)
 
