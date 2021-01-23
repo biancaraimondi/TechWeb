@@ -21,7 +21,8 @@
 						"sbagliata2" : "Firenze",
 						"sbagliata3" : "Oslo",
 						"incoraggiamento": "Mmmh, anche se siete stanchi provate a cambiare la vostra risposta",
-						"aiuto":"Marco vi ha appena detto che dall'aereo è riuscito a vedere la Sagrada Familia!"
+						"aiuto":"Marco vi ha appena detto che dall'aereo è riuscito a vedere la Sagrada Familia!",
+						"punteggio" : 3
 					},
 					"stato": "attiva"
 				},
@@ -35,7 +36,8 @@
 						"sbagliata2" : "Venezia",
 						"sbagliata3" : "Marsiglia",
 						"incoraggiamento": "In questa città sono famose le baguette, provate a cambiare la vostra risposta",
-						"aiuto":"Giada ha appena visto passare una signora con il basco, e ha escalamato: 'J'adore Paris!'"
+						"aiuto":"Giada ha appena visto passare una signora con il basco, e ha escalamato: 'J'adore Paris!'",
+						"punteggio" : 4
 					},
 					"stato": "attiva"
 				},
@@ -49,7 +51,8 @@
 						"sbagliata2" : "Siviglia",
 						"sbagliata3" : "Oxford",
 						"incoraggiamento": "Andrete a visitare Buckingham Palace, provate a cambiare la vostra risposta",
-						"aiuto":"Sul treno c'è un signore che assomiglia tantissimo a Sherlock Holmes!"
+						"aiuto":"Sul treno c'è un signore che assomiglia tantissimo a Sherlock Holmes!",
+						"punteggio" : 2
 					},
 					"stato": "attiva"
 				},
@@ -81,7 +84,8 @@
 						"sbagliata2" : "Monaco",
 						"sbagliata3" : "Bruxelles",
 						"incoraggiamento": "Qui in città è pieno di ragazzi che utilizzano la bici, dovremmo cominciare ad utilizzarla un po' di più anche noi in Italia. Provate a cambiare la vostra risposta",
-						"aiuto":"Giada è contrariata all'idea di passare nel quartiere a luci rosse"
+						"aiuto":"Giada è contrariata all'idea di passare nel quartiere a luci rosse",
+						"punteggio" : 1
 					},
 					"stato": "attiva"
 				},
@@ -95,7 +99,8 @@
 						"sbagliata2" : "Madrid",
 						"sbagliata3" : "Zagabria",
 						"incoraggiamento": "Dietro l'angolo c'è il famoso quartiere di Cristiania. Provate a cambiare la vostra risposta",
-						"aiuto":"La statua della Sirenetta è la principale attrazione di questa città"
+						"aiuto":"La statua della Sirenetta è la principale attrazione di questa città",
+						"punteggio" : 5
 					},
 					"stato": "attiva"
 				},
@@ -109,7 +114,8 @@
 						"sbagliata2" : "Dresda",
 						"sbagliata3" : "Amburgo",
 						"incoraggiamento": "Sul muro che fu costruito sono presenti dei bellissimi murales",
-						"aiuto":"Negli anni della guerra fredda in questa città è stato costruito un famoso muro"
+						"aiuto":"Negli anni della guerra fredda in questa città è stato costruito un famoso muro",
+						"punteggio" : 3
 					},
 					"stato": "attiva"
 				},
@@ -141,7 +147,8 @@
 						"sbagliata2" : "Varsavia",
 						"sbagliata3" : "Brno",
 						"incoraggiamento": "E' vicino a Brno, forza riprovateci",
-						"aiuto":"In questa città i turisti vanno sempre a visitare Ponte Carlo"
+						"aiuto":"In questa città i turisti vanno sempre a visitare Ponte Carlo",
+						"punteggio" : 3
 					},
 					"stato": "attiva"
 				},
@@ -155,7 +162,8 @@
 						"sbagliata2" : "Salisburgo",
 						"sbagliata3" : "Trieste",
 						"incoraggiamento": "La parte della città chiamata Buda conta diverse colline da cui si può ammirare tutta la città",
-						"aiuto":"Giada vi ha portati a mangiare il famoso Gulash"
+						"aiuto":"Giada vi ha portati a mangiare il famoso Gulash",
+						"punteggio" : 4
 					},
 					"stato": "attiva"
 				},
@@ -169,7 +177,8 @@
 						"sbagliata2" : "Anversa",
 						"sbagliata3" : "Dublino",
 						"incoraggiamento": "E' la città di Mozart, forza riprovateci",
-						"aiuto":"Avete portato Marco e Giada a bere un ottimo succo di mela"
+						"aiuto":"Avete portato Marco e Giada a bere un ottimo succo di mela",
+						"punteggio" : 5
 					},
 					"stato": "attiva"
 				},
