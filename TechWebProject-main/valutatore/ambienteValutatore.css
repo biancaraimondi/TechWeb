@@ -46,6 +46,10 @@ h2{
 	text-shadow: 1px 2px 3px black;
 }
 
+#titoloPagina{
+	color: white;
+}
+
 .btn-danger{
     color: white;
     background-color: #8b0000;

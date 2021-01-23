@@ -57,7 +57,7 @@ $(document).ready( function(){
 			}
 			var labels = document.getElementsByTagName('LABEL');
 			for (i = 0; i < labels.length; i++) {
-				labels[i].style.color = "#8b0000";
+				labels[i].style.color = "#ff8000";
 				labels[i].style.textDecoration = "underline";
 			}
 			//mostra i player connessi
@@ -139,9 +139,6 @@ $(document).ready( function(){
 		//se cambia il giocatore selezionato
 		if (idGiocatorePrecendente != idGiocatore) {
 			
-			var x = idGiocatore.substr(0, 11);
-			if(x != "Disconnesso"){
-			
 			//cambia il background-color del giocatore per far notare che non è più in attesa di visualizzazione da parte del valutatore
 			var labels = document.getElementsByTagName('LABEL');
 			for (i = 0; i < labels.length; i++) {
@@ -150,6 +147,9 @@ $(document).ready( function(){
 					labels[i].style.textDecoration = "none";
 				}
 			}
+			
+			var x = idGiocatore.substr(0, 11);
+			if(x != "Disconnesso"){
 			
 			//inseriamo nella chat i messaggi corrispondenti al nuovo giocatore selezionato
 			document.getElementById("messaggiChat").innerHTML = "";
@@ -370,6 +370,7 @@ $(document).ready( function(){
 			}
 		}
 		idGiocatore = "Disconnesso" + contatoreDisconnessi;
+		document.getElementById("salvaDati").hidden=true;
 	});
 	
 	socket.on('connesso', function(player, pagina) {
@@ -415,22 +416,32 @@ $(document).ready( function(){
 	//funzione che modifica l'avanzamento del player
 	socket.on('avanzamento', function(avanzamento, numAttivita, player) {
 		console.log('VALUTATORE: messaggio di avanzamento dal player ' + player + " " + avanzamento + " " + numAttivita);
-		
+
 		var d = new Date();
 		var secondiArrivoAvanzamento = d.getTime();//millisecondi passati dal 1970
 		secondiArrivoAvanzamento = parseInt(secondiArrivoAvanzamento/1000);//trasformo in secondi e tolgo la virgola
-		
+
+		for (i=0;i<utenti.length;i++){
+			if (utenti[i].nome == player){
+				utenti[i].avanzamento = avanzamento;
+				utenti[i].numAttivita = numAttivita;
+				utenti[i].tempo = secondiArrivoAvanzamento;
+			}
+		}
+
 		//modifica la barra di avanzamento direttamente se corrisponde all'idGiocatore attualmente cliccato
 		if (idGiocatore == player){
 			modificaAvanzamento(avanzamento, numAttivita);
-			var ora;
+			/*var ora;
 			for (i=0;i<utenti.length;i++){
 				if (utenti[i].nome == player){
 					ora = utenti[i].tempo;
 				}
 			}
 			var x = document.getElementById('timer');
-			x.innerHTML=secondiArrivoAvanzamento-ora;
+			x.innerHTML=secondiArrivoAvanzamento-ora;*/
+			var x = document.getElementById('timer');
+			x.innerHTML=0;
 		}else{//cambia il color del giocatore per far notare che è in attesa di visualizzazione da parte del valutatore
 			var labels = document.getElementsByTagName('LABEL');
 			for (i = 0; i < labels.length; i++) {
@@ -440,19 +451,7 @@ $(document).ready( function(){
 				}
 			}
 		}
-		for (i=0;i<utenti.length;i++){
-			if (utenti[i].nome == player){
-				utenti[i].avanzamento = avanzamento;
-				utenti[i].numAttivita = numAttivita;
-				utenti[i].tempo = secondiArrivoAvanzamento;
-			}
-		}
 
-		/*var d = new Date();
-		var secondiArrivoAvanzamento = d.getTime();
-		var x = document.getElementById('timer');
-		x.innerHTML=parseInt(secondiArrivoAvanzamento/1000)-ora;
-		ora=parseInt(secondiArrivoAvanzamento/1000);*/
 	});
 
 	socket.on('risposta testo', function(domanda, risposta, player) {
