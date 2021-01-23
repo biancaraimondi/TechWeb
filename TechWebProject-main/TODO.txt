@@ -52,8 +52,9 @@ COMANDI PER MODIFICARE FILE NELLA CARTELLA CONDIVISA IN LAB:
 - :q (per salvare e uscire)
 - :q! (per uscire senza apportare modifiche)
 
-COMANDI PER FARE UPLOAD DI FILE SUI COMPUTER IN LAB:
+COMANDI PER FARE UPLOAD DI FILE E CARTELLE SUI COMPUTER IN LAB:
 - scp ilBravoPedone.json bianca.raimondi2@giovanna.cs.unibo.it:"/home/web/site192015/html/"
+- scp -r image bianca.raimondi2@giovanna.cs.unibo.it:"/home/web/site192015/html/"
 
 ACCESSIBILITA':
  PLAYER:
