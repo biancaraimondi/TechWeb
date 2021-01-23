@@ -7,10 +7,10 @@ Modifiche alle porte di ascolto su lab usando Docker:
 	              console.log("SERVER ROOT: " + __dirname);
 	              console.log('SERVER: listening on *:8000');
             });
+- nel file server tutti i nomi dei file devono essere preceduti da __dirname/ (es __dirname + "/" + "storie.json")
 - aprire il sito al link: http://site192015.tw.cs.unibo.it/
 
 Modifiche alle porte di ascolto su lab usando linea di comando (node server.js):
-- 
 - aprire il sito al link: http://giovanna.cs.unibo.it:8000/
 
 modificare inclusione libreria socket.io prima della consegna (cambiare porta in 8000)
