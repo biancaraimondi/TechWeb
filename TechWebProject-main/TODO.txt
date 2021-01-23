@@ -64,9 +64,8 @@ ACCESSIBILITA':
 
 
 BIANCA:
-testare progetto su chrome, firefox, safari, opera, edge
+testare progetto su chrome, firefox, edge
 
-modificare css titolo pagina ambiente valutatore
 modificare punteggio risposte bottoni nella storia json
 messaggi conclusivi più sofisticati (promozione)
 modificare colore rosso dei player se valutatore si connette dopo
@@ -74,6 +73,7 @@ salvataggio file con immagine vuoto
 
 MARTI:
 commentare e pulire codice
+testare progetto su safari
 
 ACCESSIBILITA': settare il cursore - capire come muoversi con freccia sx e dx - settare gli alt (+ settare gli attributi nell'html)
 - cercare attributo per attribuire descrizione agli elementi della pagina (che cosa fa quell'elemento)
