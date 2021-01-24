@@ -383,9 +383,11 @@ io.on('connection', function (socket) {
 
 });
 
+
+
 //-- Funzioni
 function openAndParseJsonFile(nameOfFile){
-	var object = fs.readFileSync(nameOfFile, err => {
+	var object = fs.readFileSync(__dirname + "/" + nameOfFile, err => {
 		return undefined;
 	});
 	return object === undefined ? undefined : JSON.parse(object);
@@ -393,7 +395,7 @@ function openAndParseJsonFile(nameOfFile){
 
 function writeJsonFile(whichFile, content){
 	var result = true;
-	fs.writeFileSync(whichFile, JSON.stringify(content,null,4), 'utf8', (err) => { 
+	fs.writeFileSync(__dirname + "/" + whichFile, JSON.stringify(content,null,4), 'utf8', (err) => { 
 			if (err){
 				console.log(err);
 				result = false;
@@ -437,6 +439,7 @@ function createAndSaveActivity(activityToAdd){
 	return writeJsonFile("attivita.json", x);
 }
 
+
 //-----------------
 app.get('/autore', function (req, res) {
 	res.sendFile(__dirname + '/autore.html');
@@ -465,8 +468,7 @@ app.post("/autore/newStory", function(req,res){
 		return;
 	}
 	
-	//scrivo la 'singola storia'
-	fs.appendFile(newStory.nome + '.json', JSON.stringify({"accessibile":newStory.accessibile,"eta":newStory.eta,"missioni":[]}, null, 4), (err) => { 
+	fs.appendFile(__dirname + "/" + newStory.nome + '.json', JSON.stringify({"accessibile":newStory.accessibile,"eta":newStory.eta,"missioni":[]}, null, 4), (err) => { 
   		if (err) {
 			console.log(err);
 			res.status(500).send('Non è stata aggiunta la nuova storia nel file della singola storia');
@@ -522,8 +524,7 @@ app.post("/autore/deleteStory", function(req,res){
 	
 	var target = stories.storie.find(storia => storia.id === idStoryToRemove);
 	
-	//elimino definitivamente il file dal pc
-	fs.unlink(target.nome + '.json', (err) => {
+	fs.unlink(__dirname + "/" + target.nome + '.json', (err) => {
 		if (err) {
 			console.log(err);
 			res.status(500).send('Non è stato possibile eliminare il file della storia.');
@@ -601,8 +602,7 @@ app.post("/autore/modifiedStory", function(req,res){
 		return;
 	}
 	
-	//rinomino il file della singola storia con il nuovo nome
-	fs.renameSync(originalName + '.json', name + '.json', (err) => {
+	fs.renameSync(__dirname + "/" + originalName + '.json', __dirname + "/" + name + '.json', (err) => {
 		if (err) {
 			resOp = false;
 			console.log(err);
@@ -815,7 +815,7 @@ app.post("/autore/duplicateStory", function(req,res){
 		}	
 		
 		//creo file 'nomestoria_numerosequenziale.json'
-		fs.appendFileSync(story.nome + '.json', JSON.stringify(singleStory,null,4), (err) => { 
+		fs.appendFileSync(__dirname + "/" + story.nome + '.json', JSON.stringify(singleStory,null,4), (err) => { 
 			if (err) {
 				console.log(err);
 				res.status(500).send('Non è stata aggiunta la nuova storia nel file della singola storia');
@@ -956,7 +956,7 @@ app.post("/autore/copyMission", function(req,res){
 	var storyName = story.nome; //nome storia dove incolla missione
 	
 	try{
-		//Aggiorno file missioni, attività e singola storia
+		
 		var missionsOut = [];
 		var cloneID;
 		missions.missioni.forEach(m => {
@@ -996,7 +996,6 @@ app.post("/autore/copyMission", function(req,res){
 			return;
 		}	
 
-		//Fase incolla missione nel file storia di destinazione
 		var outSingleStory = openAndParseJsonFile(storyName+".json"); //storia dove incollare missione
 		outSingleStory.missioni = outSingleStory.missioni.concat(singleStoryCopyMission.missioni.filter(m => m.id === cloneID));
 		
@@ -1034,7 +1033,7 @@ app.post("/autore/moveMission", function(req,res){
 	var storyName = story.nome; //nome storia dove incollare missione
 	
 	try{
-		//Aggiorno file missioni.json con la missione e attività spostate
+		
 		var out = {"missioni": missions.missioni.filter(m => m.id !== missionID)};
 		
 		missions.missioni.forEach(m => {
@@ -1058,7 +1057,6 @@ app.post("/autore/moveMission", function(req,res){
 			return;
 		}	
 
-		//Fase spostamento da storia originaria a quella di destinazione
 		var singleStoryCopyMission = openAndParseJsonFile(storyNameCopyMission+".json"); //storia da dove copiare missione
 		
 		var outMove = singleStoryCopyMission.missioni.find(m => m.id === missionID); //intera missione da spostare
@@ -1316,29 +1314,19 @@ app.post('/autore/newActivities', upload.any(), function (req, res) {
 		newActivityInStory.checkboxcampo = newActivity.checkboxcampo;
 		newActivityObj.checkboxcampo = newActivity.checkboxcampo;
 		newActivityInStory.camporisposta = "";
-		newActivityInStory.aiuto = newActivity.aiuto;
-		newActivityInStory.incoraggiamento = newActivity.incoraggiamento;
 		newActivityObj.camporisposta = "";
-		newActivityObj.aiuto = newActivity.aiuto;
-		newActivityObj.incoraggiamento = newActivity.incoraggiamento;
-		if(helpimage!==undefined){
-			newActivityInStory.immagineaiuto = baseImagePath+helpimage.filename;
-			newActivityObj.immagineaiuto = baseImagePath+helpimage.filename;
-		}
+	}
+	else if(newActivity.hasOwnProperty('checkboxcampoauto')){
+		newActivityInStory.checkboxcampoauto = newActivity.checkboxcampoauto;
+		newActivityObj.checkboxcampoauto = newActivity.checkboxcampoauto;
+		newActivityInStory.camporisposta = newActivity.camporisposta;
+		newActivityObj.camporisposta = newActivity.camporisposta;
 	}
 	else if(newActivity.hasOwnProperty('checkboxfoto')){
 		newActivityInStory.checkboxfoto = newActivity.checkboxfoto;
 		newActivityObj.checkboxfoto = newActivity.checkboxfoto;
 		newActivityInStory.camporispostafoto = "";
-		newActivityInStory.aiuto = newActivity.aiuto;
-		newActivityInStory.incoraggiamento = newActivity.incoraggiamento;
 		newActivityObj.camporispostafoto = "";
-		newActivityObj.aiuto = newActivity.aiuto;
-		newActivityObj.incoraggiamento = newActivity.incoraggiamento;
-		if(helpimage!==undefined){
-			newActivityInStory.immagineaiuto = baseImagePath+helpimage.filename;
-			newActivityObj.immagineaiuto = baseImagePath+helpimage.filename;
-		}
 	}
 	else if(newActivity.hasOwnProperty('checkboxbottoni')){
 		newActivityInStory.checkboxbottoni = newActivity.checkboxbottoni;
@@ -1348,7 +1336,8 @@ app.post('/autore/newActivities', upload.any(), function (req, res) {
 			sbagliata2 : newActivity.rispostebottoni.sbagliata2,
 			sbagliata3 : newActivity.rispostebottoni.sbagliata3,
 			aiuto: newActivity.rispostebottoni.aiuto,
-			incoraggiamento: newActivity.rispostebottoni.incoraggiamento
+			incoraggiamento: newActivity.rispostebottoni.incoraggiamento,
+			punteggio: newActivity.rispostebottoni.punteggio
 		};
 		newActivityObj.checkboxbottoni = newActivity.checkboxbottoni;
 		newActivityObj.rispostebottoni = {
@@ -1357,7 +1346,8 @@ app.post('/autore/newActivities', upload.any(), function (req, res) {
 			sbagliata2 : newActivity.rispostebottoni.sbagliata2,
 			sbagliata3 : newActivity.rispostebottoni.sbagliata3,
 			aiuto: newActivity.rispostebottoni.aiuto,
-			incoraggiamento: newActivity.rispostebottoni.incoraggiamento
+			incoraggiamento: newActivity.rispostebottoni.incoraggiamento,
+			punteggio: newActivity.rispostebottoni.punteggio
 		};
 		if(helpimage!==undefined){
 			newActivityInStory.rispostebottoni.immagineaiuto = baseImagePath+helpimage.filename;
@@ -1456,7 +1446,6 @@ app.post("/autore/copyActivity", function(req,res){
 	
 	var _utils = readUtils();
 	
-	//Inserisco l'attività copiata in attività.json 
 	var outActivities = [];
 	activities.attivita.forEach(a => {
 		outActivities.push(a);
@@ -1485,7 +1474,6 @@ app.post("/autore/copyActivity", function(req,res){
 		return;
 	}
 	
-	//Fase Copia singola attività dal file storia originario
 	var singleStoryToCopy = openAndParseJsonFile(nameStoryToCopy + ".json"); //storia dove copiare attività
 	
 	var activitiesOut;
@@ -1501,7 +1489,6 @@ app.post("/autore/copyActivity", function(req,res){
 		}
 	});
 	
-	//Fase Incolla singola attività file storia destinazione
 	var singleStoryToPaste = openAndParseJsonFile(nameStoryToPaste + ".json"); //storia dove incollare attività
 	
 	singleStoryToPaste.missioni.forEach(m =>{
@@ -1545,7 +1532,6 @@ app.post("/autore/moveActivity", function(req,res){
 	
 	try{
 		
-		//Aggiorno file attività.json con i nuovi valore dell'attività spostata
 		var out = {"attivita": activities.attivita.filter(a => a.id !== activityIDToMove)};
 		activities.attivita.forEach(a => {
 			if(a.id === activityIDToMove){
@@ -1566,7 +1552,6 @@ app.post("/autore/moveActivity", function(req,res){
 			return;
 		}	
 
-		//Rimuovo attività dalla storia originaria
 		var singleStoryCopyActivity = openAndParseJsonFile(storyNameCopyActivity + ".json"); //storia da dove copiare attivita
 		
 		var singleActivity; //singola attività da spostare
@@ -1588,7 +1573,6 @@ app.post("/autore/moveActivity", function(req,res){
 			return;
 		}
 		
-		//Inserisco attività nella storia di destinazione spostamento
 		var singleStoryPasteActivity = openAndParseJsonFile(storyName + ".json"); //storia dove incollare attivita
 		var missionToPasteActivity = singleStoryPasteActivity.missioni.find(m => m.id === missionID);
 		missionToPasteActivity.attivita.push(singleActivity);
@@ -1626,6 +1610,7 @@ app.post('/autore/modifyActivities', upload.any(), function (req, res) {
 	var activities = openAndParseJsonFile("attivita.json");
 	
 	var out = activities.attivita.find(a => a.id === activityID);
+	
 	var missionID = out.idmissione;
 	var storyName = out.nomestoria;
 	var storyID = out.idstoria;
@@ -1649,6 +1634,7 @@ app.post('/autore/modifyActivities', upload.any(), function (req, res) {
 	modifyActivity.nomestoria = storyName;
 	modifyActivity.idstoria = storyID;
 	modifyActivity.nomemissione = missionTitle;
+	modifyActivity.stato = "attiva";
 	
 	if(background!==undefined){
 		modifyActivity.immaginesfondo = baseImagePath+background.filename;
@@ -1683,6 +1669,7 @@ app.post('/autore/modifyActivities', upload.any(), function (req, res) {
 	
 	var singleStory = openAndParseJsonFile(storyName + ".json");
 	var modifyActivity = JSON.parse(formDataString);
+	modifyActivity.stato = "attiva";
 
 	if(background!==undefined){
 		modifyActivity.immaginesfondo = baseImagePath+background.filename;
@@ -1733,7 +1720,6 @@ app.post("/autore/activeActivity", function(req,res){
 	var nameStory = activity.nomestoria;
 	var missionID = activity.idmissione;
 
-	
 	activities.attivita.forEach(a =>{
 		if (a.id === activityIDToActive){
 			a.stato = "attiva";
@@ -1891,6 +1877,71 @@ app.post('/autore/uploadStory', function (req, res) {
 });
 
 
+function newEdge(index, u, v){
+	return {"data": {"id": index, "source": u ,"target": v}};
+}
+
+function newSubGraph(data, source, settings){ //source default = NULL
+	var actualNode = "M"+settings.missionId; 
+	if(source){
+		data.push(newEdge("e"+(++settings.indexEdge),source,actualNode));
+	}
+	for(var i=0;i<settings.maxActivityId;i++){
+		var newNode = "a"+(settings.indexEdgeActivity++);
+		data.push(newEdge("e"+(++settings.indexEdge),actualNode,newNode));
+		actualNode = newNode;
+		if(settings.indexEdgeActivity===settings.lastNode){
+			break;
+		}
+	}
+	return actualNode;
+}
+
+app.get('/autore/graphStory', function (req, res) {
+	console.log("Ricevuto richiesta visualizza grafo storia");
+	var storyID = parseInt(req.query.id);
+	var stories = openAndParseJsonFile("storie.json");
+	var story = stories.storie.find(s => s.id === storyID);
+	var storyName = story.nome;
+		
+	var singleStory = openAndParseJsonFile(storyName + ".json");
+	
+	var nodes = [];
+	var idMission = 0;
+	var idActivity = 0;
+
+	singleStory.missioni.forEach(m =>{
+		nodes.push({"data":{"id":"M"+ idMission++}});
+		 m.attivita.forEach(a =>{
+			nodes.push({"data":{"id":"a"+ idActivity++}});
+		});
+	});
+
+	var edges = [];
+	
+	var maxIndexMissions = singleStory.missioni.length;
+	var maxIndexesActivities = singleStory.missioni.map(m => m.attivita.length);
+	
+	var node = null;
+	var settings = {
+		indexEdge: 0, 
+		indexEdgeActivity: 0,
+		lastNode: idActivity
+	};
+	
+	for(var k=0; k < maxIndexMissions; k++){
+		settings.missionId = k;
+		settings.maxActivityId = maxIndexesActivities[k];
+		node = newSubGraph(edges,node,settings);
+	}
+	
+	var data = {};
+	data.nodes = nodes;
+	data.edges = edges;
+	
+	res.setHeader('Content-Type', 'application/json; charset=UTF-8');
+	res.end(JSON.stringify(data));
+});
 
 // Main server
 http.listen(3000, function () {
