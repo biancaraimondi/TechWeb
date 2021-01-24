@@ -95,7 +95,6 @@ testare progetto su safari
 
 
 "punteggio" : 3 (come campo nell'oggetto js "rispostebottoni")
-messaggi conclusivi più sofisticati (promozione)
 gestire css bottoni (spazio vuoto sotto)
 
 CRI: 
