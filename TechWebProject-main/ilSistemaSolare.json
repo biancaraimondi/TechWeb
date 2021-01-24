@@ -55,8 +55,6 @@
                     "domanda": "Forza! Troviamo questo codice così da poter ripartire al più presto! Per decifrarlo abbiamo bisogno che tu risolva questi tre piccoli test scientifici: Quanto vale x in 2(x-1)=0? Invece quanto vale y in 3y=2+4? E invece z quanto vale se è il doppio di x? Scrivi in ordine il valore di x, y e z così avremo il nostro codice e i tecnici a bordo potranno inserirlo nel pannello di controllo per far ripartire Jupiter.",
                     "immaginesfondo": "./image/SfondoFormule.jpg",
                     "camporisposta": "",
-                    "aiuto": "",
-                    "incoraggiamento": "",
 					"stato": "attiva"
                 },
                 {
@@ -79,8 +77,6 @@
                     "domanda": "Wow! Abbiamo quasi sfiorato il Sole per raggiungere Mercurio, che caldo eh!? Ma torniamo a noi: abbiamo parlato di Mercurio e della Terra, in tutto i pianeti però sono 8. Prova a disegnarli su un foglio di carta scrivendo il loro nome in ordine da quello più vicino al Sole a quello più lontano. Poi scatta una foto e yuhuuu, continuiamo il viaggio su Jupiter!",
                     "immaginesfondo": "./image/SistemaSolare.jpg",
                     "camporispostafoto": "",
-                    "aiuto": "",
-                    "incoraggiamento": "",
 					"stato": "attiva"
                 },
                 {
@@ -96,7 +92,7 @@
                         "aiuto": "Il suo nome è dovuto al fatto che il pianeta è piccolo piccolo.",
                         "punteggio" : "4"
                     },
-					"stato": "disattiva"
+					"stato": "attiva"
                 },
                 {
 					"checkboxbottoni": true,
