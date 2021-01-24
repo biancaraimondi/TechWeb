@@ -97,8 +97,6 @@ var domanda = document.getElementById('domanda');
         domanda.focus(); //setta il focus ad un certo elemento
 - usare role per settare il ruolo che ha un determinato tag html (in modo tale che lo screenReader lo interpreti in un certo modo)
 
-aggiungere commento accessibilità nel html del player
-modificare punteggio risposte bottoni nella storia json
 "punteggio" : 3 (come campo nell'oggetto js "rispostebottoni")
 messaggi conclusivi più sofisticati (promozione)
 gestire css bottoni (spazio vuoto sotto)
