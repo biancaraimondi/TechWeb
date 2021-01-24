@@ -93,9 +93,6 @@ MARTI:
 commentare e pulire codice
 testare progetto su safari
 
-ACCESSIBILITA': 
-- settare gli attributi nell'html
-- cercare attributo per attribuire descrizione agli elementi della pagina (che cosa fa quell'elemento)
 
 "punteggio" : 3 (come campo nell'oggetto js "rispostebottoni")
 messaggi conclusivi più sofisticati (promozione)
