@@ -105,10 +105,5 @@ gestire css bottoni (spazio vuoto sotto)
 
 CRI: 
 
-"camporisposta": "strisce pedonali" (se camporisposta è vuoto -> checkbox, altrimenti textarea in cui inserire la risposta ----> se c'è una non c'è l'altra)
 testare progetto su opera
-messaggi conclusivi più sofisticati (promozione)
 non caricare interrail (per testare caricamento storia nell'ambiente autore)
-Visualizzazione del grafo delle transizioni da un'attività all'altra e da una missione all'altra nella storia
-"punteggio" : 3 (come campo nell'oggetto js "rispostebottoni")
-modificare punteggio risposte bottoni nella storia json
