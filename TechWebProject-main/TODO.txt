@@ -24,7 +24,7 @@ installare multer (npm install --save multer)
 installare: npm install webcam-easy (gestione fotocamera)
 
 VITALI : non caricare interrail (per testare caricamento storia nell'ambiente autore)
-VITALI : nel SistemaSolare c'è una attività disattivata
+VITALI : nel SistemaSolare c'è una attività disattivata (Bravissimo! Hai elencato i nomi di tutti gli otto pianeti del nostro Sistema Solare. Ma lo sai perchè sono 8 e non più 9? Perchè Plutone prima faceva parte del Sistema Solare ed era il nono pianeta, il più lontano dal sole, ma nel 2006, a seguito della scoperta di peculiarità del pianeta, è stato declassato. Ora infatti Plutone è un..?) -> disattivarla tramite autore, perchè quando viene caricata l'attività è attiva
 
 COMANDI PER ATTIVARE PROGETTO:
 - ssh bianca.raimondi2@eva.cs.unibo.it
