@@ -24,6 +24,7 @@
                         "incoraggiamento": "Mhh! Prova a pensarci meglio e cambia la tua risposta. Se hai difficoltà puoi sempre visualizzare l'aiuto.",
                         "aiuto": "Prova ad aiutarti guardando questa foto che rappresenta l'emblema della missione: ",
                         "immagineaiuto": "./image/Apollo11.jpg"
+                        "punteggio" : "3"
                     },
 					"stato": "attiva"
                 },
@@ -38,6 +39,7 @@
                         "sbagliata3": "Giove",
                         "incoraggiamento": "Sei sicuro della risposta? Pensa bene a dove noi abitiamo e riprovaci. E se hai bisogno puoi sempre visualizzare l'aiuto.",
                         "aiuto": "Questo pianeta è per noi Casa."
+                        "punteggio" : "2"
                     },
 					"stato": "attiva"
                 },
@@ -68,6 +70,7 @@
                         "sbagliata3": "Venere",
                         "incoraggiamento": "Accidenti! Non è questa la risposta corretta, che ne dici di riprovarci? Puoi sempre visualizzare l'aiuto se hai difficoltà a trovare la risposta.",
                         "aiuto": "Ha lo stesso nome del liquido contenuto nel termometro che usi per misurarti la febbre."
+                        "punteggio" : "3"
                     },
 					"stato": "attiva"
                 },
@@ -91,6 +94,7 @@
                         "sbagliata3": "Cometa",
                         "incoraggiamento": "Mh! Ci sei andato vicino, pensaci ancora un po' e prova a cambiare la risposta. E se hai bisogno puoi sempre visualizzare l'aiuto.",
                         "aiuto": "Il suo nome è dovuto al fatto che il pianeta è piccolo piccolo."
+                        "punteggio" : "4"
                     },
 					"stato": "disattiva"
                 },
@@ -106,6 +110,7 @@
                         "incoraggiamento": "Dai che sei arrivato alla fine! Un ultimo sforzo per riprovarci e indovinare l'ultima rispsota. Se hai difficoltà guarda l'aiuto.",
                         "aiuto": "I due gruppi prendono il nome perchè simili alla Terra (Mercurio, Venere, Terra e Marte) e perchè simili a Giove (Giove, Saturno, Urano, Nettuno).",
                         "immagineaiuto": "./image/aiutoGruppi.jpg"
+                        "punteggio" : "5"
                     },
 					"stato": "attiva"
                 },
