@@ -78,6 +78,12 @@ ACCESSIBILITA':
    lo screen reader non legge dalla nuvoletta del racconto, ma legge il nuovo pulsante delle risposte che ha sostituito quello della risposta precedente
  - Dopo aver cliccato il pulsante della risposta sbagliata, l'utente non sa se quella è la risposta giusta o meno, perchè per capire che ha dato la risposta
    sbagliata dovrebbe scorrere tutti i pulsanti per poi trovare la nuvoletta del messaggio di incorraggiamento
+								----------------- 
+- Usare focus() per settare il focus ad un elemento (se un elemento non è focalizzato utilizzare l'attributo tabindex="0";) => 
+	var domanda = document.getElementById('domanda'); 
+        	domanda.setAttribute('tabindex', '0'); //rende focalizzabile l'elemento (campi solo lettura non sono focalizzabili di default)
+        	domanda.focus(); //setta il focus ad un certo elemento
+- Usare role per settare il ruolo che ha un determinato tag html (in modo tale che lo screenReader lo interpreti in un certo modo).
 
 
 BIANCA:
@@ -87,15 +93,9 @@ MARTI:
 commentare e pulire codice
 testare progetto su safari
 
-ACCESSIBILITA': settare il cursore - capire come muoversi con freccia sx e dx - settare gli alt (+ settare gli attributi nell'html)
+ACCESSIBILITA': 
+- settare gli attributi nell'html
 - cercare attributo per attribuire descrizione agli elementi della pagina (che cosa fa quell'elemento)
-- cercare codice js per settare il cursore ogni volta che viene caricata un'attivita
-- testare VoiceOver su chat
-- usare focus() per settare il focus ad un elemento (se un elemento non è focalizzato utilizzare l'attributo tabindex="0";) => 
-var domanda = document.getElementById('domanda'); 
-        domanda.setAttribute('tabindex', '0'); //rende focalizzabile l'elemento (campi solo lettura non sono focalizzabili di default)
-        domanda.focus(); //setta il focus ad un certo elemento
-- usare role per settare il ruolo che ha un determinato tag html (in modo tale che lo screenReader lo interpreti in un certo modo)
 
 "punteggio" : 3 (come campo nell'oggetto js "rispostebottoni")
 messaggi conclusivi più sofisticati (promozione)
