@@ -6,7 +6,6 @@
             "nome": "Passeggiando verso il parco con la mamma",
             "attivita": [
                 {
-                    
                     "checkboxnorisposta": true,
                     "domanda": "Ciao amico pedone, oggi affronterai una lunga passeggiata con la mamma che ti porterà alla scoperta dei segnali stradali, di come ci si comporta quando si è sulla strada e insieme conosceremo l'amico vigile.",
                     "avanti": "Avanti",
@@ -14,16 +13,11 @@
 					"stato": "attiva"
                 },
                 {
-                    
-                    "checkboxcampo": true,
+                    "checkboxcampoauto": true,
                     "domanda": "Sei appena uscito di casa con la mamma e ti ha detto che andrete al parco per incontrare i tuoi amici di scuola. Per raggiungere il parco, però, dovete attraversare una strada dove passano tante macchine. Come si chiama quella parte di strada dedicata al passaggio dei pedoni?",
 					"immaginesfondo": "./image/sfondoattraversamento.jpg",
-                    "camporisposta": "",
-                    "aiuto": "",
-                    "incoraggiamento": "",
-                    "immagineaiuto": "",
+                    "camporisposta": "strisce pedonali",
 					"stato": "attiva"
-					
                 },
                 {
                     "domanda": "Bravo amico pedone, hai appena attraversato sulle strisce pedonali raggiungendo l'altra parte della strada. Ora però, per raggiungere il parco, devi percorrere uno spazio che si trova vicino alla strada. Come si chiama quest'area dove possono camminare i pedoni?",
@@ -36,7 +30,8 @@
                         "sbagliata3": "Isola Spartitraffico",
                         "aiuto": "Di solito è più alto rispetto alla strada.",
                         "incoraggiamento": "Accipigna! Amico pedone, mi sembra che la risposta che hai dato non sia quella giusta. Se hai bisogno puoi sempre guardare l'aiuto.",
-                        "immagineaiuto": "./image/marciapiede.jpg"
+                        "immagineaiuto": "./image/marciapiede.jpg",
+						"punteggio": "2"
                     },
 					"stato": "attiva"
                 },
@@ -51,7 +46,8 @@
                         "sbagliata3": "Blu",
                         "aiuto": "Il colore è uguale a quello del prato.",
                         "incoraggiamento": "Oh Oh, mio caro amico pedone sei sicuro della risposta che hai inserito? Ricordati che puoi guardare l'aiuto!",
-                        "immagineaiuto": "./image/semaforoverde.jpg"
+                        "immagineaiuto": "./image/semaforoverde.jpg",
+						"punteggio": "4"
                     },
 					"stato": "attiva"
                 },
@@ -81,7 +77,8 @@
                         "sbagliata3": "Salto sul sedile",
                         "aiuto": "E' una cinta che ti può salvare la vita.",
                         "incoraggiamento": "Oh, sembra proprio che la risposta che hai dato, non sia quella giusta. Se hai difficoltà puoi sempre guardare l'aiuto.",
-                        "immagineaiuto": "./image/cintura.jpg"
+                        "immagineaiuto": "./image/cintura.jpg",
+						"punteggio": "5"
                     },
 					"stato": "attiva"
                 },
@@ -97,7 +94,8 @@
                         "sbagliata3": "Rettangolo",
                         "aiuto": "Il segnale ha un colore blu con delle frecce all'interno.",
                         "incoraggiamento": "Mio amico pedone a quanto pare la risposta che hai dato non è quella giusta...",
-                        "immagineaiuto": "./image/rotatoria.jpg"
+                        "immagineaiuto": "./image/rotatoria.jpg",
+						"punteggio": "1"
                     },
 					"stato": "attiva"
                 },
@@ -112,7 +110,8 @@
                         "sbagliata2": "Bisogna girare a sinistra",
                         "sbagliata3": "Bisogna girare a destra",
                         "aiuto": "Il vigile ti sta dicendo che non si può attraversare la strada.",
-                        "incoraggiamento": "Caro amico pedone la risposta che hai dato non è quella corretta... Vorrei ricordati che puoi sempre visualizzare l'aiuto, se ne hai bisogno."
+                        "incoraggiamento": "Caro amico pedone la risposta che hai dato non è quella corretta... Vorrei ricordati che puoi sempre visualizzare l'aiuto, se ne hai bisogno.",
+						"punteggio": "3"
                     },
 					"stato": "attiva"
                 },
@@ -128,13 +127,14 @@
                         "sbagliata3": "Indicazione",
                         "aiuto": "Il segnale che ha la forma di un triangolo ci dice che dobbiamo fare attenzione a qualcosa...",
                         "incoraggiamento": "Caspiterina, sembra proprio che la risposta inserita non sia quella giusta... Guarda pure l'aiuto, se sei in difficoltà!",
-                        "immagineaiuto": "./image/pericolobimbi.jpg"
+                        "immagineaiuto": "./image/pericolobimbi.jpg",
+						"punteggio": "3"
                     },
 					"stato": "attiva"
                 },
                 {
                     
-                    "domanda": "Congratulazioni amico pedone! Finalmente sei tornato a casa con mamma e papà, imparando nuove cose sui segnali stradali e su come ci si comporta sulla strada. Abbiamo inoltre conosciuto l'amico vigile. Alla prossima passeggiata!",
+                    "domanda": "Congratulazioni amico pedone! Finalmente sei tornato a casa con mamma e papà, imparando nuove cose sui segnali stradali e su come ci si comporta sulla strada. Abbiamo inoltre conosciuto l'amico vigile che ti ha assegnato la spilla di Miglior Pedone! Alla prossima passeggiata!",
                     "checkboxnorisposta": true,
                     "avanti": "Avanti",
 					"stato": "attiva"
