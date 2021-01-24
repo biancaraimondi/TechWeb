@@ -2,7 +2,7 @@ GENERALE:
 
 Modifiche alle porte di ascolto su lab usando Docker:
 - tutti i file html che usano socket.io -> <script src="/socket.io/socket.io.js"></script>
-- tutti i file js che usano socket.io -> var socket = io.();
+- tutti i file js che usano socket.io -> var socket = io();
 - server -> http.listen(8000, function () {
 	              console.log("SERVER ROOT: " + __dirname);
 	              console.log('SERVER: listening on *:8000');
