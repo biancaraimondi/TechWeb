@@ -1,5 +1,4 @@
 var idGiocatore = "";//player visualizzato attualmente
-var nomeValutatore = "valutatore";//il valutatore può essere solo uno
 var utenti = [];//lista dei nomi dei player -> {nome, avanzamento, numAttivita, tempo}
 var messaggi = [];//lista dei messaggi in chat non ancora visualizzati dal valutatore -> {nomeTrasmittente, nomeRicevente, messaggio}
 var inserisci;//booleano utilizzato per i cicli for
@@ -156,7 +155,7 @@ $(document).ready( function(){
 			for (i = 0; i < messaggi.length; i++) {
 				if (messaggi[i].nomeTrasmittente == idGiocatore){//se il messaggio arriva dal player
 					document.getElementById("messaggiChat").innerHTML += "<div class='message'><div class='message-text-wrapper'><div class='message-text'>" + messaggi[i].messaggio + "</div></div></div>";
-				} else if(messaggi[i].nomeTrasmittente == nomeValutatore && messaggi[i].nomeRicevente == idGiocatore ) {//se il messaggio arriva dal valutatore
+				} else if(messaggi[i].nomeTrasmittente == "valutatore" && messaggi[i].nomeRicevente == idGiocatore ) {//se il messaggio arriva dal valutatore
 					document.getElementById("messaggiChat").innerHTML += "<div class='message message-right'> <div class='message-text-wrapper'> <div class='message-text'>" + messaggi[i].messaggio + "</div></div></div>";
 				}
 			}
@@ -244,9 +243,9 @@ $(document).ready( function(){
 	//funzione che al click di "invia" invia il messaggio al player e copia il messaggio come message-right e nella lista dei messaggi
 	$('#invia').click(function(){
 		messaggioValutatore = document.getElementById('testoDaInviare').value;
-		socket.emit('chat message', messaggioValutatore, nomeValutatore, idGiocatore);
+		socket.emit('chat message', messaggioValutatore, "valutatore", idGiocatore);
 		document.getElementById("messaggiChat").innerHTML += "<div class='message message-right'> <div class='message-text-wrapper'> <div class='message-text'>" + messaggioValutatore + "</div></div></div>";
-		messaggi.push({nomeTrasmittente : nomeValutatore, nomeRicevente: idGiocatore, messaggio : messaggioValutatore});
+		messaggi.push({nomeTrasmittente : "valutatore", nomeRicevente: idGiocatore, messaggio : messaggioValutatore});
 		document.getElementById('testoDaInviare').value = '';
 	});
 
