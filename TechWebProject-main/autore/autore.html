@@ -54,7 +54,7 @@
 				&nbsp; 
 				<button class="btn btn-secondary dropdown-toggle" type="button" id="azionearchivio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Azioni</button>
 				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton"><a class="dropdown-item" href="#" id="modificastoria">Modifica Storia</a>
-					<a class="dropdown-item" href="#" data-target="#finestraeliminaS" data-toggle="modal" >Elimina Storia</a>
+					<a class="dropdown-item" href="#" data-target="#finestraeliminaS" id="eliminastoria">Elimina Storia</a>
 					<a class="dropdown-item" href="#" id="duplicastoria">Duplica Storia</a>
 					<a class="dropdown-item" href="#" id="pubblicastoria">Pubblica Storia</a>
 				</div>
@@ -104,7 +104,7 @@
 					<div id="messageerror"></div>
 					<br>
 					<button type="button" id="salva" class="btn">Salva</button> 
-					<button type="button" id="annullacrea" class="btn">Annulla</button>
+					<button type="button" id="annullacrea" class="btn btn-secondary">Annulla</button>
 				</div>
 			</div>
 		</div>
@@ -133,7 +133,7 @@
 					<br>
 					<br>
 					<button type="button" id="salvamodifica" class="btn">Salva Modifica</button> 
-					<button type="button" id="annullamod" class="btn">Annulla</button>
+					<button type="button" id="annullamod" class="btn btn-secondary">Annulla</button>
 				</div>
 			</div>
 		</div>
@@ -166,20 +166,21 @@
 			<br>
 			<div class="row" id="pulsantimissioni">
 			&nbsp;
-			<button type="button" class="btn btn-primary btn-sm" id="nuovamissione" data-target="#finestramissione" data-toggle="modal">Crea nuova missione</button>&nbsp;
+			<button type="button" class="btn btn-primary btn-sm" id="nuovamissione" data-target="#finestramissione">Crea nuova missione</button>&nbsp;
 				
 				
 			<button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="azionemissione" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Azioni</button>
 				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-					<a class="dropdown-item" href="#" data-target="#finestramodificamissione" data-toggle="modal" id="modificamissione">&nbsp;&nbsp;&nbsp;&nbsp;Modifica Missione</a>
-					<a class="dropdown-item" href="#" data-target="#finestraeliminamis" data-toggle="modal">Elimina Missione</a>
-					<a class="dropdown-item" href="#" data-target="#finestracopiamissione" data-toggle="modal">Copia Missione</a>
-					<a class="dropdown-item" href="#" data-target="#finestraspostamissione" data-toggle="modal">Sposta Missione</a>
-					<a class="dropdown-item" href="#" data-target="#finestraattivamissione" data-toggle="modal">Attiva Missione</a>
-					<a class="dropdown-item" href="#" data-target="#finestradisattivamissione" data-toggle="modal">Disattiva Missione</a>
+					<a class="dropdown-item" href="#" data-target="#finestramodificamissione" id="modificamissione">Modifica Missione</a>
+					<a class="dropdown-item" href="#" data-target="#finestraeliminamis" id="eliminamissione">Elimina Missione</a>
+					<a class="dropdown-item" href="#" data-target="#finestracopiamissione" id="copiamissione">Copia Missione</a>
+					<a class="dropdown-item" href="#" data-target="#finestraspostamissione" id="spostamissione">Sposta Missione</a>
+					<a class="dropdown-item" href="#" data-target="#finestraattivamissione" id="attivamissione">Attiva Missione</a>
+					<a class="dropdown-item" href="#" data-target="#finestradisattivamissione" id="disattivamissione">Disattiva Missione</a>
 				</div>	
 			</div>
 			<br>
+			<div id="errormission"></div><br>
 			<!-- contenitore singole missioni -->	
 			<div id="elencomissioni">
 				<!-- create in modo dinamico -->
@@ -195,21 +196,22 @@
 			<h2><center> Attività </center></h2><br>
 			<div class="row" id="pulsantiattivita">
 			&nbsp;
-			<button type="button" class="btn btn-primary btn-sm" data-target="#finestraattivita" data-toggle="modal" id="nuovaattivita">Crea nuova attività</button>&nbsp;
+			<button type="button" class="btn btn-primary btn-sm" data-target="#finestraattivita" id="nuovaattivita">Crea nuova attività</button>&nbsp;
 				
 				
 			<button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="azioneattivita" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Azioni</button>
 				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-					<a class="dropdown-item" href="#" data-target="#finestramodificaattivita" data-toggle="modal" id="modificaattivita">&nbsp;&nbsp;&nbsp;&nbsp;Modifica Attività</a>
-					<a class="dropdown-item" href="#" data-target="#finestraeliminaatt" data-toggle="modal">Elimina Attività</a>
-					<a class="dropdown-item" href="#" data-target="#finestracopiattivita" data-toggle="modal">Copia Attività</a>
-					<a class="dropdown-item" href="#" data-target="#finestraspostaattivita" data-toggle="modal">Sposta Attività</a>
-					<a class="dropdown-item" href="#" data-target="#finestraattivaattivita" data-toggle="modal">Attiva Attività</a>
-					<a class="dropdown-item" href="#" data-target="#finestradisattivaattivita" data-toggle="modal">Disattiva Attività</a>
+					<a class="dropdown-item" href="#" data-target="#finestramodificaattivita" id="modificaattivita">Modifica Attività</a>
+					<a class="dropdown-item" href="#" data-target="#finestraeliminaatt" id="eliminaattivita">Elimina Attività</a>
+					<a class="dropdown-item" href="#" data-target="#finestracopiattivita" id="copiaattivita">Copia Attività</a>
+					<a class="dropdown-item" href="#" data-target="#finestraspostaattivita" id="spostaattivita">Sposta Attività</a>
+					<a class="dropdown-item" href="#" data-target="#finestraattivaattivita" id="attivaattivita">Attiva Attività</a>
+					<a class="dropdown-item" href="#" data-target="#finestradisattivaattivita" id="disattivaattivita">Disattiva Attività</a>
 				</div>		
 				
 			</div>
 			<br>
+			<div id="errorattivita"></div><br>
 			<!-- contenitore singole attività -->
 			<div id="elencoattivita">
 				<!-- create in modo dinamico -->

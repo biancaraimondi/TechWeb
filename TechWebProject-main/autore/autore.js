@@ -47,6 +47,23 @@ $(document).ready(function(){
 		document.getElementById("titolo1").hidden = false;
 		document.getElementById('formmodifica').hidden = true;
 	});
+	
+	$("#eliminastoria").click(function(){
+		var indexOfCheckedRadioSA = getCheckedRadioId('radioSA');
+		if(indexOfCheckedRadioSA !== -1){
+			document.getElementById("messageerrorfunction").innerHTML = "";
+			document.getElementById("titolo1").hidden = false;
+			document.getElementById("formmodifica").hidden = true;
+			document.getElementById("formattivita").hidden = true;
+			$("#finestraeliminaS").modal("show");
+		}
+		else{
+			document.getElementById("messageerrorfunction").innerHTML = ('<i>&nbspNon è stata selezionata nessuna storia archiviata.</i>');
+			document.getElementById("titolo1").hidden = true;
+			document.getElementById("formmodifica").hidden = true;
+			document.getElementById("formattivita").hidden = true;
+		}
+	});
 
 	$("#confermaelimina").click(function(){
 		xhr = getEliminaStoriaHTTPReq();
@@ -180,54 +197,72 @@ $(document).ready(function(){
 
 	//-- Funzioni relative alle missioni
 	
-	$("#salvamissione").click(function(){
+	$("#nuovamissione").click(function(){
 		indexOfCheckedRadio = getCheckedRadioId('radioSA');
 		if(indexOfCheckedRadio !== -1){
-			titoloMissione = document.getElementById('titolomissione').value;
-			if (titoloMissione === "" || titoloMissione === undefined) {
-    			document.getElementById("messageerrormissione").innerHTML = ('<i>Titolo missione vuoto, inserire un nuovo titolo.</i>');
-  			}
-			else{
-				xhr = getCreaMissioneHTTPReq();
-				retrievedObjectStory = localStorage.getItem('storie');
-				objStorageStory = JSON.parse(retrievedObjectStory);
-				var story = objStorageStory.storie.find(s => s.id === indexOfCheckedRadio);
-				var titleStory = story.nome;
-				var idStory = story.id;
-				var mission = {
-					titolostoria: titleStory,
-					idstoria: idStory,
-					nome: titoloMissione
-				};
-				var objMission = JSON.stringify(mission);
-				
-				xhr.open('POST', '/autore/newMission', true);
-				xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-				xhr.send(objMission);
-			}
+			document.getElementById("errormission").innerHTML = "";
+			$("#finestramissione").modal("show");
 		}
 		else{
-			document.getElementById("messageerrormissione").innerHTML = ('<i>&nbspNon è stata selezionata nessuna storia archiviata.</i>');
+			document.getElementById("errormission").innerHTML = ('<i>&nbspNon è stata selezionata nessuna storia archiviata.</i>');
 			return false;
+		}
+	});
+
+	
+	$("#salvamissione").click(function(){
+		titoloMissione = document.getElementById('titolomissione').value;
+		if (titoloMissione === "" || titoloMissione === undefined) {
+			document.getElementById("messageerrormissione").innerHTML = ('<i>Titolo missione vuoto, inserire un nuovo titolo.</i>');
+		}
+		else{
+			xhr = getCreaMissioneHTTPReq();
+			retrievedObjectStory = localStorage.getItem('storie');
+			objStorageStory = JSON.parse(retrievedObjectStory);
+			var story = objStorageStory.storie.find(s => s.id === indexOfCheckedRadio);
+			var titleStory = story.nome;
+			var idStory = story.id;
+			var mission = {
+				titolostoria: titleStory,
+				idstoria: idStory,
+				nome: titoloMissione
+			};
+			var objMission = JSON.stringify(mission);
+
+			xhr.open('POST', '/autore/newMission', true);
+			xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+			xhr.send(objMission);
 		}
 	});
 	
- 
-	$("#modificamissione").click(function(){
-		indexOfCheckedRadio = getCheckedRadioId('elencoMissioni');
-		if (indexOfCheckedRadio !== -1){
-			retrievedObjectMission = localStorage.getItem('missioni');
-			objStorageMission = JSON.parse(retrievedObjectMission);
-			selectedMission = objStorageMission.missioni.find(mission => mission.id === indexOfCheckedRadio);
-			if(selectedMission !== undefined){
-				document.getElementById('modtitolomissione').value = selectedMission.nome;
+	 $("#modificamissione").click(function(){
+			var indexOfCheckedRadioSA = getCheckedRadioId('radioSA');
+			if(indexOfCheckedRadioSA !== -1){
+				indexOfCheckedRadio = getCheckedRadioId('elencoMissioni');
+				if (indexOfCheckedRadio !== -1){
+					document.getElementById("errormission").innerHTML = "";
+					$("#finestramodificamissione").modal("show");
+					retrievedObjectMission = localStorage.getItem('missioni');
+					objStorageMission = JSON.parse(retrievedObjectMission);
+					selectedMission = objStorageMission.missioni.find(mission => mission.id === indexOfCheckedRadio);
+					if(selectedMission !== undefined){
+						document.getElementById('modtitolomissione').value = selectedMission.nome;
+					}
+					else{
+						document.getElementById("modmessageerrormissione").innerHTML = ('<i>Missione non trovata.</i>');
+					}
+				}
+				else{
+					document.getElementById("errormission").innerHTML = ('<i>&nbspNon è stata selezionata nessuna missione.</i>');
+					return false;
+				}
 			}
-		}
-		else{
-			document.getElementById("modmessageerrormissione").innerHTML = ('<i>&nbspNon è stata selezionata nessuna missione.</i>');
-			return false;
-		}
-	});
+			else{
+				document.getElementById("errormission").innerHTML = ('<i>&nbspNon è stata selezionata nessuna storia archiviata.</i>');
+				return false;
+			}
+		});
+	
 	
 	$("#salvamodmis").click(function(){
 		indexOfCheckedRadio = getCheckedRadioId('elencoMissioni');
@@ -246,6 +281,24 @@ $(document).ready(function(){
 		}
 	});
 	
+	$("#copiamissione").click(function(){
+		var indexOfCheckedRadioSA = getCheckedRadioId('radioSA');
+		if(indexOfCheckedRadioSA !== -1){
+			indexOfCheckedRadio = getCheckedRadioId('elencoMissioni');
+			if (indexOfCheckedRadio !== -1){
+				document.getElementById("errormission").innerHTML = "";
+				$("#finestracopiamissione").modal("show");
+			}
+			else{
+				document.getElementById("errormission").innerHTML = ('<i>&nbspNon è stata selezionata nessuna missione.</i>');
+				return false;
+			}
+		}
+		else{
+			document.getElementById("errormission").innerHTML = ('<i>&nbspNon è stata selezionata nessuna storia archiviata.</i>');
+			return false;
+		}
+	});
 	
 	$("#confermacopia").click(function(){
 		xhr = getCopiaMissioneHTTPReq();
@@ -271,6 +324,25 @@ $(document).ready(function(){
 		}
 		else {
 			document.getElementById("errormissioncopy").innerHTML = ('&nbsp<i>Non è stata selezionata nessuna missione.</i>');
+			return false;
+		}
+	});
+	
+	$("#spostamissione").click(function(){
+		var indexOfCheckedRadioSA = getCheckedRadioId('radioSA');
+		if(indexOfCheckedRadioSA !== -1){
+			indexOfCheckedRadio = getCheckedRadioId('elencoMissioni');
+			if (indexOfCheckedRadio !== -1){
+				document.getElementById("errormission").innerHTML = "";
+				$("#finestraspostamissione").modal("show");
+			}
+			else{
+				document.getElementById("errormission").innerHTML = ('<i>&nbspNon è stata selezionata nessuna missione.</i>');
+				return false;
+			}
+		}
+		else{
+			document.getElementById("errormission").innerHTML = ('<i>&nbspNon è stata selezionata nessuna storia archiviata.</i>');
 			return false;
 		}
 	});
@@ -302,6 +374,25 @@ $(document).ready(function(){
 		}
 	});
 	
+	$("#eliminamissione").click(function(){
+		var indexOfCheckedRadioSA = getCheckedRadioId('radioSA');
+		if(indexOfCheckedRadioSA !== -1){
+			indexOfCheckedRadio = getCheckedRadioId('elencoMissioni');
+			if (indexOfCheckedRadio !== -1){
+				document.getElementById("errormission").innerHTML = "";
+				$("#finestraeliminamis").modal("show");
+			}
+			else{
+				document.getElementById("errormission").innerHTML = ('<i>&nbspNon è stata selezionata nessuna missione.</i>');
+				return false;
+			}
+		}
+		else{
+			document.getElementById("errormission").innerHTML = ('<i>&nbspNon è stata selezionata nessuna storia archiviata.</i>');
+			return false;
+		}
+	});
+	
 	
 	$("#confermaeliminamis").click(function(){
 		xhr = getEliminaMissioneHTTPReq();
@@ -317,6 +408,18 @@ $(document).ready(function(){
 		}
 		else {
 			document.getElementById("messageerrormissiondelete").innerHTML = ('&nbsp&nbsp<i>Non è stata selezionata nessuna missione.</i>');
+			return false;
+		}
+	});
+	
+	$("#disattivamissione").click(function(){
+		var indexOfCheckedRadioSA = getCheckedRadioId('radioSA');
+		if(indexOfCheckedRadioSA !== -1){
+			document.getElementById("errormission").innerHTML = "";
+			$("#finestradisattivamissione").modal("show");
+		}
+		else{
+			document.getElementById("errormission").innerHTML = ('<i>&nbspNon è stata selezionata nessuna storia archiviata.</i>');
 			return false;
 		}
 	});
@@ -337,6 +440,18 @@ $(document).ready(function(){
 		else {
 			document.getElementById("errormissiondisactivity").innerHTML = ('&nbsp<i>Non è stata selezionata nessuna missione attiva.</i>');
 			return false;			
+		}
+	});
+	
+	$("#attivamissione").click(function(){
+		var indexOfCheckedRadioSA = getCheckedRadioId('radioSA');
+		if(indexOfCheckedRadioSA !== -1){
+			document.getElementById("errormission").innerHTML = "";
+			$("#finestraattivamissione").modal("show");
+		}
+		else{
+			document.getElementById("errormission").innerHTML = ('<i>&nbspNon è stata selezionata nessuna storia archiviata.</i>');
+			return false;
 		}
 	});
 	
@@ -362,21 +477,62 @@ $(document).ready(function(){
 	
 	//-- Funzioni relative alle attività
 	
+	$("#eliminaattivita").click(function(){
+		var indexOfCheckedRadioSA = getCheckedRadioId('radioSA');
+		if(indexOfCheckedRadioSA !== -1){
+			var indexOfCheckedRadioMission = getCheckedRadioId('elencoMissioni');
+			if (indexOfCheckedRadioMission !== -1){
+				indexOfCheckedRadio = getCheckedRadioId('elencoAttivita');
+				if(indexOfCheckedRadio !== -1){
+					document.getElementById("errorattivita").innerHTML = "";
+					$("#finestraeliminaatt").modal("show");
+				}
+				else{
+					document.getElementById("errorattivita").innerHTML = ('<i>&nbspNon è stata selezionata nessuna attività.</i>');
+					return false;
+				}
+			}
+			else{
+				document.getElementById("errorattivita").innerHTML = ('<i>&nbspNon è stata selezionata nessuna missione.</i>');
+				return false;
+			}
+		}
+		else{
+			document.getElementById("errorattivita").innerHTML = ('<i>&nbspNon è stata selezionata nessuna storia archiviata.</i>');
+			return false;
+		}
+	});
+	
+	
 	$("#confermaeliminaatt").click(function(){
 		xhr = getEliminaAttivitaHTTPReq();
 		indexOfCheckedRadio = getCheckedRadioId('elencoAttivita');
-		if (indexOfCheckedRadio !== -1){
-			var idAttivita = { 
-				id: indexOfCheckedRadio
-			};
-			var objDeleteActivity = JSON.stringify(idAttivita);
-			
-			xhr.open('POST', '/autore/deleteActivity', true); 
-			xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-			xhr.send(objDeleteActivity);
+		var idAttivita = { 
+			id: indexOfCheckedRadio
+		};
+		var objDeleteActivity = JSON.stringify(idAttivita);
+
+		xhr.open('POST', '/autore/deleteActivity', true); 
+		xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+		xhr.send(objDeleteActivity);
+		
+	});
+	
+	$("#attivaattivita").click(function(){
+		var indexOfCheckedRadioSA = getCheckedRadioId('radioSA');
+		if(indexOfCheckedRadioSA !== -1){
+			var indexOfCheckedRadioMission = getCheckedRadioId('elencoMissioni');
+			if (indexOfCheckedRadioMission !== -1){
+				document.getElementById("errorattivita").innerHTML = "";
+				$("#finestraattivaattivita").modal("show");
+			}
+			else{
+				document.getElementById("errorattivita").innerHTML = ('<i>&nbspNon è stata selezionata nessuna missione.</i>');
+				return false;
+			}
 		}
-		else {
-			document.getElementById("messageerroractivitydelete").innerHTML = ('&nbsp&nbsp<i>Non è stata selezionata nessuna attività.</i>');
+		else{
+			document.getElementById("errorattivita").innerHTML = ('<i>&nbspNon è stata selezionata nessuna storia archiviata.</i>');
 			return false;
 		}
 	});
@@ -400,6 +556,25 @@ $(document).ready(function(){
 		}
 	});
 	
+	$("#disattivaattivita").click(function(){
+		var indexOfCheckedRadioSA = getCheckedRadioId('radioSA');
+		if(indexOfCheckedRadioSA !== -1){
+			var indexOfCheckedRadioMission = getCheckedRadioId('elencoMissioni');
+			if (indexOfCheckedRadioMission !== -1){
+				document.getElementById("errorattivita").innerHTML = "";
+				$("#finestradisattivaattivita").modal("show");
+			}
+			else{
+				document.getElementById("errorattivita").innerHTML = ('<i>&nbspNon è stata selezionata nessuna missione.</i>');
+				return false;
+			}
+		}
+		else{
+			document.getElementById("errorattivita").innerHTML = ('<i>&nbspNon è stata selezionata nessuna storia archiviata.</i>');
+			return false;
+		}
+	});
+	
 	$("#confermadisattivaatt").click(function(){
 		xhr = getDisattivaAttivitaHTTPReq();
 		var indexOfSelectActivity = document.getElementById('listaattivitadisattivare').value;
@@ -419,184 +594,277 @@ $(document).ready(function(){
 		}
 	});
 	
+	$("#copiaattivita").click(function(){
+		var indexOfCheckedRadioSA = getCheckedRadioId('radioSA');
+		if(indexOfCheckedRadioSA !== -1){
+			var indexOfCheckedRadioMission = getCheckedRadioId('elencoMissioni');
+			if (indexOfCheckedRadioMission !== -1){
+				indexOfCheckedRadio = getCheckedRadioId('elencoAttivita');
+				if(indexOfCheckedRadio !== -1){
+					document.getElementById("errorattivita").innerHTML = "";
+					$("#finestracopiattivita").modal("show");
+				}
+				else{
+					document.getElementById("errorattivita").innerHTML = ('<i>&nbspNon è stata selezionata nessuna attività.</i>');
+					return false;
+				}
+			}
+			else{
+				document.getElementById("errorattivita").innerHTML = ('<i>&nbspNon è stata selezionata nessuna missione.</i>');
+				return false;
+			}
+		}
+		else{
+			document.getElementById("errorattivita").innerHTML = ('<i>&nbspNon è stata selezionata nessuna storia archiviata.</i>');
+			return false;
+		}
+	});
 	
 	$("#confermacopiaattivita").click(function(){
 		xhr = getCopiaAttivitaHTTPReq();
-		indexOfCheckedRadio = getCheckedRadioId('elencoAttivita');
 		var indexOfSelectMission = document.getElementById('listamissionidisponibili').value;
 		var indexOfSelectStory = document.getElementById('elencostorie').value;
 		var attivitaClone;
-		if (indexOfCheckedRadio !== -1){
-			if(indexOfSelectMission !== "" && indexOfSelectStory !== ""){
-				attivitaClone = {
-					id: indexOfCheckedRadio,
-					idmissione: parseInt(indexOfSelectMission)
-				};
+		if(indexOfSelectMission !== "" && indexOfSelectStory !== ""){
+			indexOfCheckedRadio = getCheckedRadioId('elencoAttivita');
+			attivitaClone = {
+				id: indexOfCheckedRadio,
+				idmissione: parseInt(indexOfSelectMission)
+			};
 
-				var objCopyActivity = JSON.stringify(attivitaClone);
+			var objCopyActivity = JSON.stringify(attivitaClone);
 
-				xhr.open('POST', '/autore/copyActivity', true);
-				xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-				xhr.send(objCopyActivity);
-			}
-			else {
-				document.getElementById("erroreattivitacopy").innerHTML = ('&nbsp<i>Non è stata selezionata nessuna storia disponibile/missione disponibile.</i>');
-				return false;			
-			}
+			xhr.open('POST', '/autore/copyActivity', true);
+			xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+			xhr.send(objCopyActivity);
 		}
 		else {
-			document.getElementById("erroreattivitacopy").innerHTML = ('&nbsp<i>Non è stata selezionata nessuna attività.</i>');
+			document.getElementById("erroreattivitacopy").innerHTML = ('&nbsp<i>Non è stata selezionata nessuna storia disponibile/missione disponibile.</i>');
 			return false;			
+		}
+	});
+	
+	$("#spostaattivita").click(function(){
+		var indexOfCheckedRadioSA = getCheckedRadioId('radioSA');
+		if(indexOfCheckedRadioSA !== -1){
+			var indexOfCheckedRadioMission = getCheckedRadioId('elencoMissioni');
+			if (indexOfCheckedRadioMission !== -1){
+				indexOfCheckedRadio = getCheckedRadioId('elencoAttivita');
+				if(indexOfCheckedRadio !== -1){
+					document.getElementById("errorattivita").innerHTML = "";
+					$("#finestraspostaattivita").modal("show");
+				}
+				else{
+					document.getElementById("errorattivita").innerHTML = ('<i>&nbspNon è stata selezionata nessuna attività.</i>');
+					return false;
+				}
+			}
+			else{
+				document.getElementById("errorattivita").innerHTML = ('<i>&nbspNon è stata selezionata nessuna missione.</i>');
+				return false;
+			}
+		}
+		else{
+			document.getElementById("errorattivita").innerHTML = ('<i>&nbspNon è stata selezionata nessuna storia archiviata.</i>');
+			return false;
 		}
 	});
 	
 	$("#confermaspostaatt").click(function(){
 		xhr = getSpostaAttivitaHTTPReq();
-		indexOfCheckedRadio = getCheckedRadioId('elencoAttivita');
 		var indexOfSelectMission = document.getElementById('listamissionidisp').value;
 		var indexOfSelectStory = document.getElementById('elencostoriedisp').value;
-		if (indexOfCheckedRadio !== -1){
-			if(indexOfSelectMission !== "" && indexOfSelectStory !== ""){
-				var activityMove = {
-					id: indexOfCheckedRadio,
-					idmissione: parseInt(indexOfSelectMission)
-				};
-				var objMoveActivity = JSON.stringify(activityMove);
+		if(indexOfSelectMission !== "" && indexOfSelectStory !== ""){
+			indexOfCheckedRadio = getCheckedRadioId('elencoAttivita');
+			var activityMove = {
+				id: indexOfCheckedRadio,
+				idmissione: parseInt(indexOfSelectMission)
+			};
+			var objMoveActivity = JSON.stringify(activityMove);
 
-				xhr.open('POST', '/autore/moveActivity', true);
-				xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-				xhr.send(objMoveActivity);
-			}
-			else {
-				document.getElementById("erroreattivitamove").innerHTML = ('&nbsp<i>Non è stata selezionata nessuna storia disponibile/missione disponibile.</i>');
-				return false;			
-			}
+			xhr.open('POST', '/autore/moveActivity', true);
+			xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+			xhr.send(objMoveActivity);
 		}
 		else {
-			document.getElementById("erroreattivitamove").innerHTML = ('&nbsp<i>Non è stata selezionata nessuna missione.</i>');
+			document.getElementById("erroreattivitamove").innerHTML = ('&nbsp<i>Non è stata selezionata nessuna storia disponibile/missione disponibile.</i>');
+			return false;			
+		}
+	});
+	
+	$("#modificaattivita").click(function(){
+		var indexOfCheckedRadioSA = getCheckedRadioId('radioSA');
+		if(indexOfCheckedRadioSA !== -1){
+			var indexOfCheckedRadioMission = getCheckedRadioId('elencoMissioni');
+			if (indexOfCheckedRadioMission !== -1){
+				indexOfCheckedRadio = getCheckedRadioId('elencoAttivita');
+				if(indexOfCheckedRadio !== -1){
+					document.getElementById("errorattivita").innerHTML = "";
+					$("#finestramodificaattivita").modal("show");
+					retrievedObjectActivities = localStorage.getItem('attivita');
+					objStorageActivities = JSON.parse(retrievedObjectActivities);
+					selectedActivity = objStorageActivities.attivita.find(activity => activity.id === indexOfCheckedRadio);
+					if(selectedActivity !== undefined){
+						var newPathHelpImage, newPathBackground;
+						document.getElementById('moddomandaattivita').value = selectedActivity.domanda;
+						if(selectedActivity.hasOwnProperty('checkboxbottoni')){
+							document.getElementById("modrispostacorretta").disabled = false;
+							document.getElementById("modrispostasbagliata1").disabled = false;
+							document.getElementById("modrispostasbagliata2").disabled = false;
+							document.getElementById("modrispostasbagliata3").disabled = false;
+							document.getElementById("modaiutorisposta").disabled = false;
+							document.getElementById("modificaaiutoimmagine").disabled = false;
+							document.getElementById("modmessaggiorispostasbagliata").disabled = false;
+							document.getElementById('modpunteggio').disabled = false;
+							document.getElementById('modcheckboxrisposte').checked = selectedActivity.checkboxbottoni; document.getElementById('modrispostasbagliata1').value = selectedActivity.rispostebottoni.sbagliata1;
+							document.getElementById('modrispostacorretta').value = selectedActivity.rispostebottoni.giusta;
+							document.getElementById('modrispostasbagliata2').value = selectedActivity.rispostebottoni.sbagliata2;
+							document.getElementById('modrispostasbagliata3').value = selectedActivity.rispostebottoni.sbagliata3;
+							document.getElementById('modaiutorisposta').value = selectedActivity.rispostebottoni.aiuto;
+							document.getElementById('modmessaggiorispostasbagliata').value = selectedActivity.rispostebottoni.incoraggiamento;
+							document.getElementById('modpunteggio').value = selectedActivity.rispostebottoni.punteggio;
+							if (selectedActivity.rispostebottoni.hasOwnProperty('immagineaiuto')){
+								newPathHelpImage = selectedActivity.rispostebottoni.immagineaiuto.replace("./image/", "");
+								document.getElementById('imgaiutocaricato').innerHTML = "Hai caricato la seguente immagine aiuto: " + "<i>"+ newPathHelpImage + "</i><br> Ricarica l'immagine aiuto se la vuoi riutilizzare.";
+							}
+							else{
+								document.getElementById('imgaiutocaricato').innerHTML = "Non hai caricato in precedenza nessun immagine aiuto.";
+							}
+							if(selectedActivity.hasOwnProperty('immaginesfondo')){
+								newPathBackground = selectedActivity.immaginesfondo.replace("./image/", "");
+								document.getElementById('sfondocaricato').innerHTML = "Hai caricato il seguente sfondo: " + "<i>"+ newPathBackground + "</i><br> Ricarica lo sfondo se lo vuoi riutilizzare.";
+							}
+							else{
+									document.getElementById('sfondocaricato').innerHTML = "Non hai caricato in precedenza nessun sfondo.";
+							}
+						}		
+						else if(selectedActivity.hasOwnProperty('checkboxcampo')){
+							document.getElementById("modrispostacorretta").disabled = true;
+							document.getElementById("modrispostasbagliata1").disabled = true;
+							document.getElementById("modrispostasbagliata2").disabled = true;
+							document.getElementById("modrispostasbagliata3").disabled = true;
+							document.getElementById("modaiutorisposta").disabled = true;
+							document.getElementById("modificaaiutoimmagine").disabled = true;
+							document.getElementById("modmessaggiorispostasbagliata").disabled = true;
+							document.getElementById("modpunteggio").disabled = true;
+							document.getElementById("modrispostamanuale").disabled = true;
+							document.getElementById('modcheckboxcampo').checked = selectedActivity.checkboxcampo;
+							if(selectedActivity.hasOwnProperty('immaginesfondo')){
+								newPathBackground = selectedActivity.immaginesfondo.replace("./image/", "");
+								document.getElementById('sfondocaricato').innerHTML = "Hai caricato il seguente sfondo: " + "<i>"+ newPathBackground + "</i><br> Ricarica lo sfondo se lo vuoi riutilizzare.";
+							}
+							else{
+									document.getElementById('sfondocaricato').innerHTML = "Non hai caricato in precedenza nessun sfondo.";
+							}
+						}
+						else if(selectedActivity.hasOwnProperty('checkboxcampoauto')){
+							document.getElementById("modrispostacorretta").disabled = true;
+							document.getElementById("modrispostasbagliata1").disabled = true;
+							document.getElementById("modrispostasbagliata2").disabled = true;
+							document.getElementById("modrispostasbagliata3").disabled = true;
+							document.getElementById("modaiutorisposta").disabled = true;
+							document.getElementById("modificaaiutoimmagine").disabled = true;
+							document.getElementById("modmessaggiorispostasbagliata").disabled = true;
+							document.getElementById("modpunteggio").disabled = true;
+							document.getElementById("modrispostamanuale").disabled = false;
+							document.getElementById('modcheckboxcampoauto').checked = selectedActivity.checkboxcampoauto;
+							document.getElementById('modrispostamanuale').value = selectedActivity.camporisposta;
+
+							if(selectedActivity.hasOwnProperty('immaginesfondo')){
+								newPathBackground = selectedActivity.immaginesfondo.replace("./image/", "");
+								document.getElementById('sfondocaricato').innerHTML = "Hai caricato il seguente sfondo: " + "<i>"+ newPathBackground + "</i><br> Ricarica lo sfondo se lo vuoi riutilizzare.";
+							}
+							else{
+									document.getElementById('sfondocaricato').innerHTML = "Non hai caricato in precedenza nessun sfondo.";
+							}
+						}
+						else if(selectedActivity.hasOwnProperty('checkboxfoto')){
+							document.getElementById("modrispostacorretta").disabled = true;
+							document.getElementById("modrispostasbagliata1").disabled = true;
+							document.getElementById("modrispostasbagliata2").disabled = true;
+							document.getElementById("modrispostasbagliata3").disabled = true;
+							document.getElementById("modaiutorisposta").disabled = true;
+							document.getElementById("modificaaiutoimmagine").disabled = true;
+							document.getElementById("modmessaggiorispostasbagliata").disabled = true;
+							document.getElementById("modpunteggio").disabled = true;
+							document.getElementById("modrispostamanuale").disabled = true;
+							document.getElementById('modcheckboxfoto').checked = selectedActivity.checkboxfoto;
+							if(selectedActivity.hasOwnProperty('immaginesfondo')){
+								newPathBackground = selectedActivity.immaginesfondo.replace("./image/", "");
+								document.getElementById('sfondocaricato').innerHTML = "Avevi caricato il seguente sfondo: " + "<i>" + newPathBackground + "</i><br> Ricarica lo sfondo se lo vuoi riutilizzare.";
+							}
+							else{
+									document.getElementById('sfondocaricato').innerHTML = "Non hai caricato in precedenza nessun sfondo.";
+							}
+						}
+						else if(selectedActivity.hasOwnProperty('checkboxnorisposta')){
+							document.getElementById("modrispostacorretta").disabled = true;
+							document.getElementById("modrispostasbagliata1").disabled = true;
+							document.getElementById("modrispostasbagliata2").disabled = true;
+							document.getElementById("modrispostasbagliata3").disabled = true;
+							document.getElementById("modaiutorisposta").disabled = true;
+							document.getElementById("modificaaiutoimmagine").disabled = true;
+							document.getElementById("modmessaggiorispostasbagliata").disabled = true;
+							document.getElementById("modpunteggio").disabled = true;
+							document.getElementById("modrispostamanuale").disabled = true;
+							document.getElementById('modcheckboxniente').checked = selectedActivity.checkboxnorisposta;
+							if(selectedActivity.hasOwnProperty('immaginesfondo')){
+								newPathBackground = selectedActivity.immaginesfondo.replace("./image/", "");
+								document.getElementById('sfondocaricato').innerHTML = "Hai caricato il seguente sfondo: " + "<i>"+ newPathBackground + "</i><br> Ricarica lo sfondo se lo vuoi riutilizzare.";
+							}
+							else{
+									document.getElementById('sfondocaricato').innerHTML = "Non hai caricato in precedenza nessun sfondo.";
+							}
+						}
+					}
+				}
+				else{
+					document.getElementById("errorattivita").innerHTML = ('<i>&nbspNon è stata selezionata nessuna attività.</i>');
+					return false;
+				}
+			}
+			else{
+				document.getElementById("errorattivita").innerHTML = ('<i>&nbspNon è stata selezionata nessuna missione.</i>');
+				return false;
+			}
+		}
+		else{
+			document.getElementById("errorattivita").innerHTML = ('<i>&nbspNon è stata selezionata nessuna storia archiviata.</i>');
+			return false;
+		}
+	});
+	
+	$("#nuovaattivita").click(function(){
+		var indexOfCheckedRadioSA = getCheckedRadioId('radioSA');
+		if(indexOfCheckedRadioSA !== -1){
+			var indexOfCheckedRadioMission = getCheckedRadioId('elencoMissioni');
+			if (indexOfCheckedRadioMission !== -1){
+				document.getElementById("errorattivita").innerHTML = "";
+				$("#finestraattivita").modal("show");
+			}
+			else{
+				document.getElementById("errorattivita").innerHTML = ('<i>&nbspNon è stata selezionata nessuna missione.</i>');
+				return false;
+			}
+		}
+		else{
+			document.getElementById("errorattivita").innerHTML = ('<i>&nbspNon è stata selezionata nessuna storia archiviata.</i>');
 			return false;
 		}
 	});
 	
 	
-	$("#modificaattivita").click(function(){
-		indexOfCheckedRadio = getCheckedRadioId('elencoAttivita');
-		if (indexOfCheckedRadio !== -1){
-			retrievedObjectActivities = localStorage.getItem('attivita');
-			objStorageActivities = JSON.parse(retrievedObjectActivities);
-			selectedActivity = objStorageActivities.attivita.find(activity => activity.id === indexOfCheckedRadio);
-			if(selectedActivity !== undefined){
-				var newPathHelpImage, newPathBackground;
-				document.getElementById('moddomandaattivita').value = selectedActivity.domanda;
-				if(selectedActivity.hasOwnProperty('checkboxbottoni')){
-					document.getElementById("modrispostacorretta").disabled = false;
-					document.getElementById("modrispostasbagliata1").disabled = false;
-					document.getElementById("modrispostasbagliata2").disabled = false;
-					document.getElementById("modrispostasbagliata3").disabled = false;
-					document.getElementById("modaiutorisposta").disabled = false;
-					document.getElementById("modificaaiutoimmagine").disabled = false;
-					document.getElementById("modmessaggiorispostasbagliata").disabled = false;
-					document.getElementById('modcheckboxrisposte').checked = selectedActivity.checkboxbottoni; document.getElementById('modrispostasbagliata1').value = selectedActivity.rispostebottoni.sbagliata1;
-					document.getElementById('modrispostacorretta').value = selectedActivity.rispostebottoni.giusta;
-					document.getElementById('modrispostasbagliata2').value = selectedActivity.rispostebottoni.sbagliata2;
-					document.getElementById('modrispostasbagliata3').value = selectedActivity.rispostebottoni.sbagliata3;
-					document.getElementById('modaiutorisposta').value = selectedActivity.rispostebottoni.aiuto;
-					document.getElementById('modmessaggiorispostasbagliata').value = selectedActivity.rispostebottoni.incoraggiamento;
-					if (selectedActivity.rispostebottoni.hasOwnProperty('immagineaiuto')){
-						newPathHelpImage = selectedActivity.rispostebottoni.immagineaiuto.replace("./image/", "");
-						document.getElementById('imgaiutocaricato').innerHTML = "Hai caricato la seguente immagine aiuto: " + "<i>"+ newPathHelpImage + "</i><br> Ricarica l'immagine aiuto se la vuoi riutilizzare.";
-					}
-					else{
-						document.getElementById('imgaiutocaricato').innerHTML = "Non hai caricato in precedenza nessun immagine aiuto.";
-					}
-					if(selectedActivity.hasOwnProperty('immaginesfondo')){
-						newPathBackground = selectedActivity.immaginesfondo.replace("./image/", "");
-						document.getElementById('sfondocaricato').innerHTML = "Hai caricato il seguente sfondo: " + "<i>"+ newPathBackground + "</i><br> Ricarica lo sfondo se lo vuoi riutilizzare.";
-					}
-					else{
-							document.getElementById('sfondocaricato').innerHTML = "Non hai caricato in precedenza nessun sfondo.";
-						}
-				}
-				else if(selectedActivity.hasOwnProperty('checkboxcampo')){
-					document.getElementById("modrispostacorretta").disabled = true;
-					document.getElementById("modrispostasbagliata1").disabled = true;
-					document.getElementById("modrispostasbagliata2").disabled = true;
-					document.getElementById("modrispostasbagliata3").disabled = true;
-					document.getElementById("modaiutorisposta").disabled = false;
-					document.getElementById("modificaaiutoimmagine").disabled = false;
-					document.getElementById("modmessaggiorispostasbagliata").disabled = false;
-					document.getElementById('modcheckboxcampo').checked = selectedActivity.checkboxcampo;
-					document.getElementById('modaiutorisposta').value = selectedActivity.aiuto;
-					document.getElementById('modmessaggiorispostasbagliata').value = selectedActivity.incoraggiamento;
-					if (selectedActivity.hasOwnProperty('immagineaiuto')){
-						newPathHelpImage = selectedActivity.immagineaiuto.replace("./image/", "");
-						document.getElementById('imgaiutocaricato').innerHTML = "Avevi caricato la seguente immagine aiuto: " + "<i>" + newPathHelpImage + "</i><br> Ricarica l'immagine aiuto se la vuoi riutilizzare.";
-					}
-					else{
-						document.getElementById('imgaiutocaricato').innerHTML = "Non hai caricato in precedenza nessun immagine aiuto.";
-					}
-					if(selectedActivity.hasOwnProperty('immaginesfondo')){
-						newPathBackground = selectedActivity.immaginesfondo.replace("./image/", "");
-						document.getElementById('sfondocaricato').innerHTML = "Avevi caricato il seguente sfondo: " + "<i>" + newPathBackground + "</i><br> Ricarica lo sfondo se lo vuoi riutilizzare.";
-					}
-					else{
-							document.getElementById('sfondocaricato').innerHTML = "Non hai caricato in precedenza nessun sfondo.";
-						}
-				}
-				else if(selectedActivity.hasOwnProperty('checkboxfoto')){
-					document.getElementById("modrispostacorretta").disabled = true;
-					document.getElementById("modrispostasbagliata1").disabled = true;
-					document.getElementById("modrispostasbagliata2").disabled = true;
-					document.getElementById("modrispostasbagliata3").disabled = true;
-					document.getElementById("modaiutorisposta").disabled = false;
-					document.getElementById("modificaaiutoimmagine").disabled = false;
-					document.getElementById("modmessaggiorispostasbagliata").disabled = false;
-					document.getElementById('modcheckboxfoto').checked = selectedActivity.checkboxfoto;
-					document.getElementById('modaiutorisposta').value = selectedActivity.aiuto;
-					document.getElementById('modmessaggiorispostasbagliata').value = selectedActivity.incoraggiamento;
-					if (selectedActivity.hasOwnProperty('immagineaiuto')){
-						newPathHelpImage = selectedActivity.immagineaiuto.replace("./image/", "");
-						document.getElementById('imgaiutocaricato').innerHTML = "Avevi caricato la seguente immagine aiuto: " + "<i>" + newPathHelpImage + "</i><br> Ricarica l'immagine aiuto se la vuoi riutilizzare.";
-					}
-					else{
-						document.getElementById('imgaiutocaricato').innerHTML = "Non hai caricato in precedenza nessun immagine aiuto.";
-					}
-					if(selectedActivity.hasOwnProperty('immaginesfondo')){
-						newPathBackground = selectedActivity.immaginesfondo.replace("./image/", "");
-						document.getElementById('sfondocaricato').innerHTML = "Avevi caricato il seguente sfondo: " + "<i>" + newPathBackground + "</i><br> Ricarica lo sfondo se lo vuoi riutilizzare.";
-					}
-					else{
-							document.getElementById('sfondocaricato').innerHTML = "Non hai caricato in precedenza nessun sfondo.";
-						}
-				}
-				else if(selectedActivity.hasOwnProperty('checkboxnorisposta')){
-					document.getElementById("modrispostacorretta").disabled = true;
-					document.getElementById("modrispostasbagliata1").disabled = true;
-					document.getElementById("modrispostasbagliata2").disabled = true;
-					document.getElementById("modrispostasbagliata3").disabled = true;
-					document.getElementById("modaiutorisposta").disabled = true;
-					document.getElementById("modificaaiutoimmagine").disabled = true;
-					document.getElementById("modmessaggiorispostasbagliata").disabled = true;
-					document.getElementById('modcheckboxniente').checked = selectedActivity.checkboxnorisposta;
-					if(selectedActivity.hasOwnProperty('immaginesfondo')){
-						newPathBackground = selectedActivity.immaginesfondo.replace("./image/", "");
-						document.getElementById('sfondocaricato').innerHTML = "Hai caricato il seguente sfondo: " + "<i>"+ newPathBackground + "</i><br> Ricarica lo sfondo se lo vuoi riutilizzare.";
-					}
-					else{
-							document.getElementById('sfondocaricato').innerHTML = "Non hai caricato in precedenza nessun sfondo.";
-						}
-				}
-			}
-		}
-		else{
-			document.getElementById("messageerrmodattivita").innerHTML = ("<i>&nbsp&nbspNon è stata selezionata nessuna attività.</i>");
-		}
+	$("#grafostoria").click(function(){
+		viewGraphStory();
 	});
-	
 	
 	
 	$("#finestramodificaattivita").on('hidden.bs.modal', function(){ 
 		location.reload(); //ricarico la pagina, quando viene chiusa la finestra 'modifica attività', in modo da cancellare i vecchi dati della attività selezionata in precedenza
+	});
+	
+	$("#finestragrafo").on('hidden.bs.modal', function(){ 
+		location.reload();
 	});
 	
 	//-- Funzioni relative alla visione delle missioni/attività in base alla storie e missione selezionata
@@ -675,24 +943,41 @@ function check(){
 			document.getElementById("aiutorisposta").disabled = false;
 			document.getElementById("aiutoimmagine").disabled = false;
 			document.getElementById("messaggiorispostasbagliata").disabled = false;
+			document.getElementById("punteggio").disabled = false;
+			document.getElementById("rispostamanuale").disabled = true;
 		}
 	 else if(document.getElementById("checkboxcampo").checked){
-		document.getElementById("rispostacorretta").disabled = true;
+			document.getElementById("rispostacorretta").disabled = true;
 			document.getElementById("rispostasbagliata1").disabled = true;
 			document.getElementById("rispostasbagliata2").disabled = true;
 			document.getElementById("rispostasbagliata3").disabled = true;
-			document.getElementById("aiutorisposta").disabled = false;
-			document.getElementById("aiutoimmagine").disabled = false;
-			document.getElementById("messaggiorispostasbagliata").disabled = false;
+		 	document.getElementById("punteggio").disabled = true;
+			document.getElementById("aiutorisposta").disabled = true;
+			document.getElementById("aiutoimmagine").disabled = true;
+			document.getElementById("messaggiorispostasbagliata").disabled = true;
+		 	document.getElementById("rispostamanuale").disabled = true;
+	}
+	 else if(document.getElementById("checkboxcampoauto").checked){
+			document.getElementById("rispostacorretta").disabled = true;
+			document.getElementById("rispostasbagliata1").disabled = true;
+			document.getElementById("rispostasbagliata2").disabled = true;
+			document.getElementById("rispostasbagliata3").disabled = true;
+		 	document.getElementById("punteggio").disabled = true;
+			document.getElementById("aiutorisposta").disabled = true;
+			document.getElementById("aiutoimmagine").disabled = true;
+			document.getElementById("messaggiorispostasbagliata").disabled = true;
+			document.getElementById("rispostamanuale").disabled = false;
 	}
 	 else if(document.getElementById("checkboxfoto").checked){
 		document.getElementById("rispostacorretta").disabled = true;
 			document.getElementById("rispostasbagliata1").disabled = true;
 			document.getElementById("rispostasbagliata2").disabled = true;
 			document.getElementById("rispostasbagliata3").disabled = true;
-			document.getElementById("aiutorisposta").disabled = false;
-			document.getElementById("aiutoimmagine").disabled = false;
-			document.getElementById("messaggiorispostasbagliata").disabled = false;
+			document.getElementById("aiutorisposta").disabled = true;
+			document.getElementById("aiutoimmagine").disabled = true;
+			document.getElementById("messaggiorispostasbagliata").disabled = true;
+		 	document.getElementById("punteggio").disabled = true;
+		 	document.getElementById("rispostamanuale").disabled = true;
 	}
 	else if(document.getElementById("checkboxniente").checked){
 			document.getElementById("rispostacorretta").disabled = true;
@@ -702,6 +987,8 @@ function check(){
 			document.getElementById("aiutorisposta").disabled = true;
 			document.getElementById("aiutoimmagine").disabled = true;
 			document.getElementById("messaggiorispostasbagliata").disabled = true;
+			document.getElementById("punteggio").disabled = true;
+			document.getElementById("rispostamanuale").disabled = true;
 		}
 	if(document.getElementById("modcheckboxrisposte").checked){
 			document.getElementById("modrispostacorretta").disabled = false;
@@ -711,33 +998,52 @@ function check(){
 			document.getElementById("modaiutorisposta").disabled = false;
 			document.getElementById("modificaaiutoimmagine").disabled = false;
 			document.getElementById("modmessaggiorispostasbagliata").disabled = false;
+			document.getElementById("modpunteggio").disabled = false;
+			document.getElementById("modrispostamanuale").disabled = true;
 		}
 	else if(document.getElementById("modcheckboxcampo").checked){
-		document.getElementById("modrispostacorretta").disabled = true;
-			document.getElementById("modrispostasbagliata1").disabled = true;
-			document.getElementById("modrispostasbagliata2").disabled = true;
-			document.getElementById("modrispostasbagliata3").disabled = true;
-			document.getElementById("modaiutorisposta").disabled = false;
-			document.getElementById("modificaaiutoimmagine").disabled = false;
-			document.getElementById("modmessaggiorispostasbagliata").disabled = false;
-	}
-	else if(document.getElementById("modcheckboxfoto").checked){
-		document.getElementById("modrispostacorretta").disabled = true;
-			document.getElementById("modrispostasbagliata1").disabled = true;
-			document.getElementById("modrispostasbagliata2").disabled = true;
-			document.getElementById("modrispostasbagliata3").disabled = true;
-			document.getElementById("modaiutorisposta").disabled = false;
-			document.getElementById("modificaaiutoimmagine").disabled = false;
-			document.getElementById("modmessaggiorispostasbagliata").disabled = false;
-	}
-	else if(document.getElementById("modcheckboxniente").checked){
-		document.getElementById("modrispostacorretta").disabled = true;
+			document.getElementById("modrispostacorretta").disabled = true;
 			document.getElementById("modrispostasbagliata1").disabled = true;
 			document.getElementById("modrispostasbagliata2").disabled = true;
 			document.getElementById("modrispostasbagliata3").disabled = true;
 			document.getElementById("modaiutorisposta").disabled = true;
 			document.getElementById("modificaaiutoimmagine").disabled = true;
 			document.getElementById("modmessaggiorispostasbagliata").disabled = true;
+			document.getElementById("modpunteggio").disabled = true;
+			document.getElementById("modrispostamanuale").disabled = true;
+	}
+	else if(document.getElementById("modcheckboxcampoauto").checked){
+			document.getElementById("modrispostacorretta").disabled = true;
+			document.getElementById("modrispostasbagliata1").disabled = true;
+			document.getElementById("modrispostasbagliata2").disabled = true;
+			document.getElementById("modrispostasbagliata3").disabled = true;
+			document.getElementById("modaiutorisposta").disabled = true;
+			document.getElementById("modificaaiutoimmagine").disabled = true;
+			document.getElementById("modmessaggiorispostasbagliata").disabled = true;
+			document.getElementById("modpunteggio").disabled = true;
+			document.getElementById("modrispostamanuale").disabled = false;
+	}
+	else if(document.getElementById("modcheckboxfoto").checked){
+			document.getElementById("modrispostacorretta").disabled = true;
+			document.getElementById("modrispostasbagliata1").disabled = true;
+			document.getElementById("modrispostasbagliata2").disabled = true;
+			document.getElementById("modrispostasbagliata3").disabled = true;
+			document.getElementById("modaiutorisposta").disabled = true;
+			document.getElementById("modificaaiutoimmagine").disabled = true;
+			document.getElementById("modmessaggiorispostasbagliata").disabled = true;
+			document.getElementById("modpunteggio").disabled = true;
+			document.getElementById("modrispostamanuale").disabled = true;
+	}
+	else if(document.getElementById("modcheckboxniente").checked){
+			document.getElementById("modrispostacorretta").disabled = true;
+			document.getElementById("modrispostasbagliata1").disabled = true;
+			document.getElementById("modrispostasbagliata2").disabled = true;
+			document.getElementById("modrispostasbagliata3").disabled = true;
+			document.getElementById("modaiutorisposta").disabled = true;
+			document.getElementById("modificaaiutoimmagine").disabled = true;
+			document.getElementById("modmessaggiorispostasbagliata").disabled = true;
+			document.getElementById("modpunteggio").disabled = true;
+			document.getElementById("modrispostamanuale").disabled = true;
 	}
 }
 
@@ -745,96 +1051,95 @@ function check(){
 
 function validateForm(e){
 	e.preventDefault(); 
-	var indexOfCheckedRadioSA = getCheckedRadioId('radioSA'); 
-	var indexOfCheckedRadioMission = getCheckedRadioId('elencoMissioni');
-	if(indexOfCheckedRadioSA !== -1 && indexOfCheckedRadioMission !== -1){
-		var domandaAttivita = document.forms.formAttivita.domandaattivita.value;
-		if (domandaAttivita === "" || domandaAttivita === undefined) {
-			document.getElementById("messageerrattivita").innerHTML = ('<i>&nbspTitolo attività vuoto, inserire un nuovo titolo.</i>');
-			return false;
-		}
-		else{
-			var attivita;
-			xhr = getCreaAttivitaHTTPReq();
-			retrievedObjectMission = localStorage.getItem('missioni');
-			objStorageMission = JSON.parse(retrievedObjectMission);
-			var selectedMission = objStorageMission.missioni.find(mission => mission.id === indexOfCheckedRadioMission);
-			var idMission = selectedMission.id;
-			var idStory = selectedMission.idstoria;
-			var missionTitle = selectedMission.nome;
-			var storyTitle = selectedMission.nomestoria;
-			var radioButtonAnswer = document.getElementById("checkboxrisposte").checked;
-			var radioAnswer = document.getElementById("checkboxcampo").checked;
-			var radioPhotoAnswer = document.getElementById("checkboxfoto").checked;
-			var radioNoAnswer = document.getElementById("checkboxniente").checked;
-			
-			if(radioButtonAnswer){
-				attivita = {
-					checkboxbottoni: radioButtonAnswer,
-					idstoria: idStory,
-					nomestoria: storyTitle,
-					idmissione: idMission,
-					nomemissione: missionTitle,
-					domanda: document.getElementById("domandaattivita").value, 
-					rispostebottoni:{
-						sbagliata1 : document.getElementById("rispostasbagliata1").value,
-						giusta : document.getElementById("rispostacorretta").value,
-						sbagliata2 : document.getElementById("rispostasbagliata2").value,
-						sbagliata3 : document.getElementById("rispostasbagliata3").value,
-						aiuto:document.getElementById("aiutorisposta").value,
-						incoraggiamento: document.getElementById("messaggiorispostasbagliata").value
-					}
-				};
-			}
-			else if(radioAnswer){
-				attivita = {
-					checkboxcampo: radioAnswer,
-					idstoria: idStory,
-					nomestoria: storyTitle,
-					idmissione: idMission,
-					nomemissione: missionTitle,
-					domanda: document.getElementById("domandaattivita").value, 
-					camporisposta: "",
-					aiuto:document.getElementById("aiutorisposta").value,
-					incoraggiamento: document.getElementById("messaggiorispostasbagliata").value
-					};
-				}
-			else if(radioPhotoAnswer){
-				attivita = {
-					checkboxfoto: radioPhotoAnswer,
-					idstoria: idStory,
-					nomestoria: storyTitle,
-					idmissione: idMission,
-					nomemissione: missionTitle,
-					domanda: document.getElementById("domandaattivita").value, 
-					camporispostafoto: "",
-					aiuto:document.getElementById("aiutorisposta").value,
-					incoraggiamento: document.getElementById("messaggiorispostasbagliata").value
-					};
-				}
-			else if (radioNoAnswer){
-				attivita = {
-					checkboxnorisposta: radioNoAnswer,
-					idstoria: idStory,
-					nomestoria: storyTitle,
-					idmissione: idMission,
-					nomemissione: missionTitle,
-					domanda: document.getElementById("domandaattivita").value, 
-					avanti: "Avanti"
-				};
-			}
-			var objNewActivity = JSON.stringify(attivita);
-
-			var formData = new FormData(document.getElementById("newActivityForm")); //formdata che contenente le immagini uploadate dall'utente
-			formData.append("data", objNewActivity); //aggiungo al formdata l'oggetto attività con i valore testuali
-			xhr.open('POST', '/autore/newActivities', true);
-			xhr.send(formData);
-			return true;
-		}
+	var domandaAttivita = document.forms.formAttivita.domandaattivita.value;
+	if (domandaAttivita === "" || domandaAttivita === undefined) {
+		document.getElementById("messageerrattivita").innerHTML = ('<i>&nbspTitolo attività vuoto, inserire un nuovo titolo.</i>');
+		return false;
 	}
 	else{
-		document.getElementById("messageerrattivita").innerHTML = ('<i>&nbsp &nbspNon è stata selezionata una storia archiviata ed una missione.</i>');
-		return false;
+		var attivita;
+		var indexOfCheckedRadioMission = getCheckedRadioId('elencoMissioni');
+		xhr = getCreaAttivitaHTTPReq();
+		retrievedObjectMission = localStorage.getItem('missioni');
+		objStorageMission = JSON.parse(retrievedObjectMission);
+		var selectedMission = objStorageMission.missioni.find(mission => mission.id === indexOfCheckedRadioMission);
+		var idMission = selectedMission.id;
+		var idStory = selectedMission.idstoria;
+		var missionTitle = selectedMission.nome;
+		var storyTitle = selectedMission.nomestoria;
+		var radioButtonAnswer = document.getElementById("checkboxrisposte").checked;
+		var radioAnswer = document.getElementById("checkboxcampo").checked;
+		var radioAnswerAuto = document.getElementById("checkboxcampoauto").checked;
+		var radioPhotoAnswer = document.getElementById("checkboxfoto").checked;
+		var radioNoAnswer = document.getElementById("checkboxniente").checked;
+
+		if(radioButtonAnswer){
+			attivita = {
+				checkboxbottoni: radioButtonAnswer,
+				idstoria: idStory,
+				nomestoria: storyTitle,
+				idmissione: idMission,
+				nomemissione: missionTitle,
+				domanda: document.getElementById("domandaattivita").value, 
+				rispostebottoni:{
+					sbagliata1 : document.getElementById("rispostasbagliata1").value,
+					giusta : document.getElementById("rispostacorretta").value,
+					sbagliata2 : document.getElementById("rispostasbagliata2").value,
+					sbagliata3 : document.getElementById("rispostasbagliata3").value,
+					aiuto:document.getElementById("aiutorisposta").value,
+					incoraggiamento: document.getElementById("messaggiorispostasbagliata").value,
+					punteggio: document.getElementById("punteggio").value
+				}
+			};
+		}
+		else if(radioAnswer){
+			attivita = {
+				checkboxcampo: radioAnswer,
+				idstoria: idStory,
+				nomestoria: storyTitle,
+				idmissione: idMission,
+				nomemissione: missionTitle,
+				domanda: document.getElementById("domandaattivita").value
+				};
+			}
+		else if(radioAnswerAuto){
+			attivita = {
+				checkboxcampoauto: radioAnswerAuto,
+				idstoria: idStory,
+				nomestoria: storyTitle,
+				idmissione: idMission,
+				nomemissione: missionTitle,
+				domanda: document.getElementById("domandaattivita").value, 
+				camporisposta: document.getElementById("rispostamanuale").value
+				};
+			}
+		else if(radioPhotoAnswer){
+			attivita = {
+				checkboxfoto: radioPhotoAnswer,
+				idstoria: idStory,
+				nomestoria: storyTitle,
+				idmissione: idMission,
+				nomemissione: missionTitle,
+				domanda: document.getElementById("domandaattivita").value
+				};
+			}
+		else if (radioNoAnswer){
+			attivita = {
+				checkboxnorisposta: radioNoAnswer,
+				idstoria: idStory,
+				nomestoria: storyTitle,
+				idmissione: idMission,
+				nomemissione: missionTitle,
+				domanda: document.getElementById("domandaattivita").value
+			};
+		}
+		var objNewActivity = JSON.stringify(attivita);
+
+		var formData = new FormData(document.getElementById("newActivityForm")); //formdata che contenente le immagini uploadate dall'utente
+		formData.append("data", objNewActivity); //aggiungo al formdata l'oggetto attività con i valore testuali
+		xhr.open('POST', '/autore/newActivities', true);
+		xhr.send(formData);
+		return true;
 	}			
 }
 
@@ -842,82 +1147,80 @@ function validateForm(e){
 
 function validateModifyForm(e){
 	e.preventDefault(); 
-	var indexOfCheckedRadio = getCheckedRadioId('elencoAttivita');
-	if (indexOfCheckedRadio !== -1){
-		var domandaAttivita = document.forms.formModificaAttivita.moddomandaattivita.value;
-		if (domandaAttivita === "" || domandaAttivita === undefined) {
-			document.getElementById("messageerrmodattivita").innerHTML = ('<i>&nbsp&nbspTitolo attività vuoto, inserire un nuovo titolo.</i>');
-			return false;
-		}
-		else{	
-			var attivita;
-			xhr = getModificaAttivitaHTTPReq();
-			var radioButtonAnswer = document.getElementById("modcheckboxrisposte").checked;
-			var radioAnswer = document.getElementById("modcheckboxcampo").checked;
-			var radioPhotoAnswer = document.getElementById("modcheckboxfoto").checked;
-			var radioNoAnswer = document.getElementById("modcheckboxniente").checked;
-			if(radioButtonAnswer){
-				attivita = {
-					id: indexOfCheckedRadio,
-					checkboxbottoni: radioButtonAnswer,
-					domanda: document.getElementById("moddomandaattivita").value, 
-					rispostebottoni:{
-						sbagliata1 : document.getElementById("modrispostasbagliata1").value,
-						giusta : document.getElementById("modrispostacorretta").value,
-						sbagliata2 : document.getElementById("modrispostasbagliata2").value,
-						sbagliata3 : document.getElementById("modrispostasbagliata3").value,
-						aiuto:document.getElementById("modaiutorisposta").value,
-						incoraggiamento: document.getElementById("modmessaggiorispostasbagliata").value
-					}
-				};
-			}
-			else if(radioAnswer){
-				attivita = {
-					id: indexOfCheckedRadio,
-					checkboxcampo: radioAnswer,
-					domanda: document.getElementById("moddomandaattivita").value, 
-					camporisposta: "",
-					aiuto:document.getElementById("modaiutorisposta").value,
-					incoraggiamento: document.getElementById("modmessaggiorispostasbagliata").value
-				};
-			}
-			else if(radioPhotoAnswer){
-				attivita = {
-					id: indexOfCheckedRadio,
-					checkboxfoto: radioPhotoAnswer,
-					domanda: document.getElementById("moddomandaattivita").value, 
-					camporispostafoto: "",
-					aiuto:document.getElementById("modaiutorisposta").value,
-					incoraggiamento: document.getElementById("modmessaggiorispostasbagliata").value
-				};
-			}
-			else if(radioNoAnswer){
-				attivita = {
-					id: indexOfCheckedRadio,
-					checkboxnorisposta: radioNoAnswer,
-					domanda: document.getElementById("moddomandaattivita").value, 
-					avanti: "Avanti"
-				};
-			}
-			
-			var objModifyActivity = JSON.stringify(attivita);
-			
-			var formData = new FormData(document.getElementById("modifyActivityForm")); //formdata che contenente le immagini uploadate dall'utente
-			formData.append("data", objModifyActivity); //aggiungo al formdata l'oggetto attività con i valore testuali
-			xhr.open('POST', '/autore/modifyActivities', true);
-			xhr.send(formData);
-			return true;
-		}
-	}
-	
-	else{
-		document.getElementById("messageerrmodattivita").innerHTML = ("<i>&nbspNon è stata selezionata nessuna attività.</i>");
+	var domandaAttivita = document.forms.formModificaAttivita.moddomandaattivita.value;
+	if (domandaAttivita === "" || domandaAttivita === undefined) {
+		document.getElementById("messageerrmodattivita").innerHTML = ('<i>&nbsp&nbspTitolo attività vuoto, inserire un nuovo titolo.</i>');
 		return false;
+	}
+	else{	
+		var attivita;
+		var indexOfCheckedRadio = getCheckedRadioId('elencoAttivita');
+		xhr = getModificaAttivitaHTTPReq();
+		var radioButtonAnswer = document.getElementById("modcheckboxrisposte").checked;
+		var radioAnswer = document.getElementById("modcheckboxcampo").checked;
+		var radioAnswerAuto = document.getElementById("modcheckboxcampoauto").checked;
+		var radioPhotoAnswer = document.getElementById("modcheckboxfoto").checked;
+		var radioNoAnswer = document.getElementById("modcheckboxniente").checked;
+		if(radioButtonAnswer){
+			attivita = {
+				id: indexOfCheckedRadio,
+				checkboxbottoni: radioButtonAnswer,
+				domanda: document.getElementById("moddomandaattivita").value, 
+				rispostebottoni:{
+					sbagliata1 : document.getElementById("modrispostasbagliata1").value,
+					giusta : document.getElementById("modrispostacorretta").value,
+					sbagliata2 : document.getElementById("modrispostasbagliata2").value,
+					sbagliata3 : document.getElementById("modrispostasbagliata3").value,
+					aiuto:document.getElementById("modaiutorisposta").value,
+					incoraggiamento: document.getElementById("modmessaggiorispostasbagliata").value,
+					punteggio: document.getElementById("modpunteggio").value
+				}
+			};
+		}
+		else if(radioAnswer){
+			attivita = {
+				id: indexOfCheckedRadio,
+				checkboxcampo: radioAnswer,
+				domanda: document.getElementById("moddomandaattivita").value,
+				camporisposta: ""
+			};
+		}
+		else if(radioAnswerAuto){
+			attivita = {
+				id: indexOfCheckedRadio,
+				checkboxcampoauto: radioAnswerAuto,
+				domanda: document.getElementById("moddomandaattivita").value, 
+				camporisposta: document.getElementById("modrispostamanuale").value
+			};
+		}
+		else if(radioPhotoAnswer){
+			attivita = {
+				id: indexOfCheckedRadio,
+				checkboxfoto: radioPhotoAnswer,
+				domanda: document.getElementById("moddomandaattivita").value,
+				camporispostafoto: ""
+			};
+		}
+		else if(radioNoAnswer){
+			attivita = {
+				id: indexOfCheckedRadio,
+				checkboxnorisposta: radioNoAnswer,
+				domanda: document.getElementById("moddomandaattivita").value,
+				avanti: "Avanti"
+			};
+		}
+
+		var objModifyActivity = JSON.stringify(attivita);
+		var formData = new FormData(document.getElementById("modifyActivityForm")); //formdata che contenente le immagini uploadate dall'utente
+		formData.append("data", objModifyActivity); //aggiungo al formdata l'oggetto attività con i valore testuali
+		xhr.open('POST', '/autore/modifyActivities', true);
+		xhr.send(formData);
+		return true;
 	}			
 }
 
 function cambiaPagina(url) {
-		window.location.replace(url);
+	window.location.replace(url);
 }
 
 //-- Funzioni relative a XMLHttpRequest
@@ -1234,7 +1537,18 @@ function getDuplicaStoriaHTTPReq(){
 	return xhr;
 }
 
-//-- Funzione che calcola id radiobutton selezionato
+function getGrafoStoriaHTTPReq(){
+	xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function() {
+    		if (xhr.readyState === 4 && xhr.status === 200) {
+				
+				return;
+			}
+		};
+	return xhr;
+}
+
+//-- Funzione che ottiene id radiobutton selezionato
 
 function getCheckedRadioId(radioButtonClass){
 	radioButtons = Array.from(document.getElementsByName(radioButtonClass));
@@ -1250,18 +1564,16 @@ function getCheckedRadioId(radioButtonClass){
 function modifyMission(){
 	xhr = getModificaMissioneHTTPReq();
 	indexOfCheckedRadio = getCheckedRadioId('elencoMissioni');
-	if (indexOfCheckedRadio !== -1){
-		var titoloMissione = document.getElementById('modtitolomissione').value;
-		var missione = {
-			id: indexOfCheckedRadio,
-			nome: titoloMissione
-		};
-		var objModifyMission = JSON.stringify(missione);
-		
-		xhr.open('POST', '/autore/modifiedMission', true);
-		xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-		xhr.send(objModifyMission);
-	}
+	var titoloMissione = document.getElementById('modtitolomissione').value;
+	var missione = {
+		id: indexOfCheckedRadio,
+		nome: titoloMissione
+	};
+	var objModifyMission = JSON.stringify(missione);
+
+	xhr.open('POST', '/autore/modifiedMission', true);
+	xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+	xhr.send(objModifyMission);
 }
 
 //-- Funzione modifica storia
@@ -1273,19 +1585,17 @@ function modifyStory(){
 	var accessibile = document.getElementById('accessibilemodifica').checked;
 	var eta = document.getElementById("modificaetastoria").value;
 	indexOfCheckedRadio = getCheckedRadioId('radioSA');
-	if(indexOfCheckedRadio !== -1){
-		storia = {
-			id: indexOfCheckedRadio,
-			nome: titolostoriavalore,
-			accessibile: accessibile,
-			eta: eta
-		};
-		objModifyStory = JSON.stringify(storia);
-		
-		xhr.open('POST', '/autore/modifiedStory', true);
-		xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-		xhr.send(objModifyStory);
-	}
+	storia = {
+		id: indexOfCheckedRadio,
+		nome: titolostoriavalore,
+		accessibile: accessibile,
+		eta: eta
+	};
+	objModifyStory = JSON.stringify(storia);
+
+	xhr.open('POST', '/autore/modifiedStory', true);
+	xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+	xhr.send(objModifyStory);
 }
 
 //-- Funzioni relative alla visualizzazione delle storie, missioni e attività
@@ -1308,7 +1618,7 @@ function viewStories(){
 			}
 			
 			if(archived.length >= 1){			
-			//per lo spostamento missioni 
+				//per lo spostamento missioni 
 				document.getElementById('storiedisponibili').innerHTML = "";
 				for (i = 0; i < archived.length; i++){
 					document.getElementById('storiedisponibili').innerHTML += "<option value=" + archived[i].id + ">" + archived[i].nome + "</option>";
@@ -1369,7 +1679,6 @@ function viewMission(){
 				for (i = 0; i < missionDisable.length; i++){
 					document.getElementById('elencomissioni').innerHTML += "<div class='form-check elencoMissioni'><input name='elencoMissioni' disabled type='radio' id= " + missionDisable[i].id + " value= "+ missionDisable[i].nome + ">&nbsp<label class='labelMissioni' for= " + missionDisable[i].id + ">" + missionDisable[i].nome + "</label></div>";
 				}
-				
 			}
 		}
 	};
@@ -1414,7 +1723,7 @@ function viewMissionInCopy(){
 			var indexOfSelectStory = parseInt(document.getElementById('elencostorie').value);
 			mission = objMission.missioni.filter(m => m.idstoria === indexOfSelectStory);
 
-			//per la copia
+			//per la copia, ottengo missioni in base alla storia selezionata
 			if(mission.length >= 1){
 				document.getElementById('listamissionidisponibili').innerHTML = "";
 				document.getElementById('erroreattivitacopy').innerHTML = "";
@@ -1443,7 +1752,7 @@ var xhr = new XMLHttpRequest();
 			var indexOfSelectStory = parseInt(document.getElementById('elencostoriedisp').value);
 			mission = objMission.missioni.filter(m => m.idstoria === indexOfSelectStory);
 			
-			// per lo spostamento
+			// per lo spostamento, ottengo missioni in base alla storia selezionata
 			if(mission.length >= 1){
 				document.getElementById('listamissionidisp').innerHTML = "";
 				document.getElementById('erroreattivitamove').innerHTML = "";
@@ -1472,6 +1781,7 @@ function viewMissionActive(){
 			var indexOfCheckedRadioSA = getCheckedRadioId('radioSA');
 			if(indexOfCheckedRadioSA !== -1){
 				mission = objMission.missioni.filter(m => m.stato === "disattiva" && m.idstoria === indexOfCheckedRadioSA);
+				
 				if(mission.length >= 1){
 					document.getElementById('listamissioniattivare').innerHTML = "";
 					document.getElementById('errormissionactivity').innerHTML = "";
@@ -1501,6 +1811,7 @@ function viewMissionDisable(){
 			var indexOfCheckedRadioSA = getCheckedRadioId('radioSA');
 			if(indexOfCheckedRadioSA !== -1){
 				mission = objMission.missioni.filter(m => m.stato === "attiva" && m.idstoria === indexOfCheckedRadioSA);
+				
 				if(mission.length >= 1){
 					document.getElementById('listamissionidisattivare').innerHTML = "";
 					document.getElementById('errormissiondisactivity').innerHTML = "";
@@ -1530,6 +1841,7 @@ function viewActivitiesActive(){
 			var indexOfCheckedRadioMission = getCheckedRadioId('elencoMissioni');
 			if(indexOfCheckedRadioSA !== -1 && indexOfCheckedRadioMission !== -1){
 				var activity = objActivity.attivita.filter(a => a.idmissione === indexOfCheckedRadioMission && a.stato === "disattiva");
+				
 				if(activity.length >= 1){
 					document.getElementById('listaattivitaattivare').innerHTML = "";
 					document.getElementById('erroractiveactivity').innerHTML = "";
@@ -1559,6 +1871,7 @@ function viewActivitiesDisable(){
 			var indexOfCheckedRadioMission = getCheckedRadioId('elencoMissioni');
 			if(indexOfCheckedRadioSA !== -1 && indexOfCheckedRadioMission !== -1){
 				var activity = objActivity.attivita.filter(a => a.idmissione === indexOfCheckedRadioMission && a.stato === "attiva");
+				
 				if(activity.length >= 1){
 					document.getElementById('listaattivitadisattivare').innerHTML = "";
 					document.getElementById('erroractivitydisable').innerHTML = "";
@@ -1574,4 +1887,54 @@ function viewActivitiesDisable(){
 		}
 	};
 	xhr.send();
+}
+
+function viewGraphStory(){
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = () => {
+		if (xhr.readyState === 4 && xhr.status === 200){
+			var strGraphStory = xhr.responseText;
+			var objGraphStory = JSON.parse(strGraphStory);			
+			
+			var cy = cytoscape({
+        		container: document.getElementById('grafo'),
+				elements: objGraphStory,
+				zoom: 1,
+  				pan: { x: 450, y: 495 },
+				zoomingEnabled: false,
+				style: [{
+					selector: 'node',
+					style: {
+						'background-color': '#8b0000',
+						label: 'data(id)'
+					}
+				}]
+      		});
+			
+			var layout = cy.layout({
+  				'name': 'circle',
+				'startAngle': -15 * 1/6,
+				'sweep': 3.14 * 2/3
+			});
+			layout.run();
+		}
+	};
+	
+	indexOfCheckedRadio = getCheckedRadioId('radioSA');
+	if(indexOfCheckedRadio!==-1){
+		document.getElementById("titolo1").hidden = false;
+		document.getElementById("formmodifica").hidden = true;
+		document.getElementById("formattivita").hidden = true;
+		document.getElementById("messageerrorfunction").innerHTML = "";
+		
+		xhr.open("GET", '/autore/graphStory?id='+indexOfCheckedRadio, true);
+		xhr.send();
+		$("#finestragrafo").modal("show");
+	}
+	else {
+		document.getElementById("messageerrorfunction").innerHTML = ('<i>&nbspNon è stata selezionata nessuna storia archiviata.</i>');
+		document.getElementById("titolo1").hidden = true;
+		document.getElementById("formmodifica").hidden = true;
+		document.getElementById("formattivita").hidden = true;
+	}
 }

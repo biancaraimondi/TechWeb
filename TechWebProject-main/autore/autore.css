@@ -1,5 +1,4 @@
 @charset "utf-8";
-/* CSS Document */
 
 input[type='radio'] {
     -webkit-appearance:none; /* utilizzato per poter modificare liberamente il radio button senza venga applicato alcun stile del SO in uso dall'utente */
@@ -10,9 +9,11 @@ input[type='radio'] {
     outline:none; /*non visualizza contorno */ 
     box-shadow:0 0 5px 0px gray inset;
 }
+
 input[type='radio']:enabled:hover {
     box-shadow:0 0 5px 0px orange inset;
 }
+
 input[type='radio']:before { /*all'interno del radio button viene creato un sottile spazio bianco*/
     content:'';
     display:block;
@@ -21,6 +22,7 @@ input[type='radio']:before { /*all'interno del radio button viene creato un sott
     margin: 20% auto;    
     border-radius:50%;    
 }
+
 input[type='radio']:checked:before { /*coloro l'interno del radio button*/
     background:#8b0000;
 }
@@ -37,33 +39,25 @@ input[type='radio']:disabled {
 	border-left: 2px solid #8b0000;
 	opacity: 0.6;
 }
+
 #titolopagina{
 	color: white;
+	font-size: 29px;
 }
 
 #titolo {
 	color: #8b0000;
 }
 
-#logoprogetto{
-	width: "80";
-	height: "80";
-}
-
-#crea, #salva, #annullacrea, #salvamodifica, #annullamod, #nuovamissione, #confermasposta, #confermaspostaatt, #nuovaattivita, #confermacopia, #confermacopiaattivita, #eliminaattivita, #confermaelimina, #salvaat, #confermaeliminaatt, #confermaeliminamis, #salvamissione, #salvamodat, #salvamodmis, #backhome, #confermaattivamissione, #confermadisattiva, #confermaattivaattivita, #confermadisattivaatt, #istruzioni  {
+#crea, #salva, #salvamodifica, #nuovamissione, #confermasposta, #confermaspostaatt, #nuovaattivita, #confermacopia, #confermacopiaattivita, #confermaelimina, #salvaat, #confermaeliminaatt, #confermaeliminamis, #salvamissione, #salvamodat, #salvamodmis, #backhome, #confermaattivamissione, #confermadisattiva, #confermaattivaattivita, #confermadisattivaatt, #istruzioni  {
 	background-color: #8b0000; 
 	color: white;
-}
-
-#inviadomandaimg, #inviasfondo {
-	background-color: #8b0000; 
-	color: white;
-	float: right;
 }
 
 h6, h5, .form-check-label {
 	color: #8b0000;
 }
+
 .dropdown-item:active {
   	color: white;
 	background-color: #8b0000;
@@ -90,69 +84,25 @@ h4 {
 	box-shadow: 2px 2px 2px black;
 }
 
-@media (min-width: 320px) and (max-width: 375px){
-	#titolo1, #messageerrorfunction, #formattivita, #formmodifica {
-		padding: 20px 5px;
-	}
-	#logoprogetto{
-		width: 50px;
-		height: 50px;
-	}
-	#titolopagina{
-		font-size: 25px;
-	}
-	.lineaverticale
-	{
-		display:none;
-	}
-}
+#grafo {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+    }
 
-@media (min-width: 376px) and (max-width: 425px){
-	
-	#titolo1, #messageerrorfunction, #formattivita, #formmodifica {
-		padding: 30px 5px;
-	}
-	#logoprogetto{
+#bodygrafo{
+        width: 1100px;
+        height: 500px;
+
+    }
+
+#logoprogetto{
 		width: 70px;
 		height: 70px;
 	}
-	#titolopagina{
-		font-size: 29px;
-	}
-	.lineaverticale
-	{
-		display:none;
-	}
-}
 
-@media (min-width: 426px) and (max-width: 768px){
-	#logoprogetto{
-		width: 70px;
-		height: 70px;
-	}
-	#titolopagina{
-		font-size: 29px;
-	}
-	#azionepubblico, #crea, #azionearchivio {
-		padding: 5px 5px;
-	}
-	#eliminaattivita, #eliminamissione, #nuovamissione, #incollamissione, #nuovaattivita, #incollaattivita, #modificaattivita, #modificamissione {
-		padding: 5px 5px;
-	}
-}
-
-@media (min-width: 769px){
-	#logoprogetto{
-		width: 70px;
-		height: 70px;
-	}
-	#titolopagina{
-		font-size: 29px;
-	}
-	#azionepubblico, #crea, #azionearchivio {
-		padding: 5px 5px;
-	}
-	#eliminaattivita, #eliminamissione, #nuovamissione, #incollamissione, #nuovaattivita, #incollaattivita, #modificaattivita, #modificamissione {
-		padding: 5px 5px;
-	}
+#attivita, #missioni, #storiapub {
+	margin-bottom: 3em;
 }
