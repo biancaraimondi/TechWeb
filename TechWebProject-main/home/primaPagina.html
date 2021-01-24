@@ -63,10 +63,9 @@
 			</div>
 			<br>
 			<div>
-				<button id="valutatore" type="button" class="btn btn-lg">Valuta le risposte</button> <!-- style="position: absolute" -->
+				<button id="valutatore" type="button" class="btn btn-lg">Valuta le risposte</button>
 			</div>
 			<div>
-				<!-- <input id="nomeValutatore" type="text">Valutatore già connesso, aspettare che si scolleghi</input> -->
 				<p id="nomeValutatore" hidden>Valutatore già connesso, aspettare che si scolleghi</p>
 			</div>
 		</div>
@@ -79,20 +78,17 @@
 				<!-- verranno inseriti automaticamente i nomi delle storie -->
 			</div>
 			<br>
+			<div>
+				<p id="storiaSbagliata" hidden>Per il momento non e' possibile giocare a questa storia. Puoi proseguire giocando alla storia già caricata oppure ricaricare la pagina e sceglierne un'altra.</p>
+			</div>
+			<br>
 			<button id="buttonQRcode" type="button" class="btn btn-lg" disabled>Genera il tuo QR code!</button>
 		</div>
 
 		<div id="imageQRcode" hidden>
 			<h5 id="idt">Inquadra il Qr code con il tuo smartphone</h5>
-			<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/QR_URL_itmwiki_Main_Page.png/220px-QR_URL_itmwiki_Main_Page.png"  alt="Qrcode" class="immm" id="qr">
+			<img src="qrCode.jpg"  alt="Qrcode" id="qr">
 			<p><a href="player.html" id="qrlink">oppure se stai utilizzando un PC clicca qui</a></p>
-			<!--
-			https://it.qr-code-generator.com/qr-code-api/ 
-			<div id="qrcode"></div>
-			<script type="text/javascript">
-				new QRCode(document.getElementById("qrcode"), "http://localhost:3000/player");
-			</script>
-			-->
 		</div>
 	</div>
 </div>

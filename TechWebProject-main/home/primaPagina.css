@@ -81,3 +81,9 @@ h2 {
 #qr {
 	margin-top: 1%;
 }
+
+@media (max-width: 768px) {
+	#row1{
+		margin-bottom: 4em;
+	}
+}

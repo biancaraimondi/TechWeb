@@ -55,13 +55,18 @@ $(document).ready( function(){
 		}
 
 		if(nomeStoria != ""){
-			document.getElementById("buttonQRcode").disabled = false;
 			socket.emit('storia', nomeStoria);
+			document.getElementById("buttonQRcode").disabled = false;
 		}
 
 	});
 	
+	socket.on('storia non caricabile', function(){
+		document.getElementById('storiaSbagliata').hidden = false;
+	});
+	
 	$("#buttonQRcode").click(function() {
+		document.getElementById('storiaSbagliata').hidden = true;
 		document.getElementById("buttonQRcode").hidden = true;
 		document.getElementById("imageQRcode").hidden = false;
 		document.getElementById("eta").hidden = true;
