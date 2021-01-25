@@ -92,12 +92,10 @@ testare progetto su chrome, firefox, edge
 MARTI:
 commentare e pulire codice
 testare progetto su safari (iphone - voiceOver, ipad)
-
-contatoreAttività
-"punteggio" : 3 (come campo nell'oggetto js "rispostebottoni")
 gestire css bottoni (spazio vuoto sotto)
-fotocamera
 aggiustare mediaquery smartphone
+
+fotocamera
 
 CRI: 
 
