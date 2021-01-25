@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
     <head>
+        
+        <!-- Pagina accessibile per non vedenti -->
+        
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <!-- per garantire un rendering corretto e lo zoom al tocco per tutti i dispositivi -->
         <meta name="DC.Creator" content="Bianca Raimondi, Martina Ceccarelli Canali, Cristina Volpicella">
@@ -28,6 +31,7 @@
             
         <!-- inclusione icona pagina-->
         <link rel="icon" type="image/png" sizes="16x16" href="icon/logow.png">
+            
     </head>
     
     <body>
@@ -39,7 +43,7 @@
             </div>
             
             <div id="campoTestoIniz">
-                <h1> Benvenuto su M&M - Mistero al Museo. </h1>
+                <h1 id="primoElemento"> Benvenuto su M&M - Mistero al Museo. </h1>
                 <p> Sei pronto ad iniziare la tua storia? Inserisci il tuo Nome e Cognome e poi inizia a giocare! </p>
             </div>
             
@@ -57,26 +61,26 @@
             
             <div class="row" id="row3">
                 <!-- campo risposte testuali e campo risposte con foto -->
-                <div class="col-sm-6 col-md-6 col-lg-6" id="campoTextArea" hidden>
+                <div class="col-sm-12 col-md-12 col-lg-6" id="campoTextArea" hidden>
                     <label for="name">Inserisci qui il testo della risposta:</label>
                     <br>
                     <input type="text" placeholder="Inserisci la risposta" class="form-control-sm" id="nameTextArea" name="name" size="35">
-                    <button class="btn btn-dark btn-sm" type="button" id="inviaRisposta" role="button">Invia risposta</button>
+                    <button class="btn btn-dark btn-sm" type="button" id="inviaRisposta" role="button" aria-label="Bottone per inviare la risposta">Invia risposta</button>
                 </div>
-                <div class="col-sm-6 col-md-6 col-lg-6" id="campoFoto" hidden>
+                <div class="col-sm-12 col-md-12 col-lg-6" id="campoFoto" hidden>
                     <p id="testoBottoneFoto"> Clicca l'icona della macchina fotografica per avviare la fotocamera <img id="bottoneFoto" src="icon/cameraWhite.png" width="50em" height="40em" alt="Bottone attiva fotocamera" role="button"/></p>
                     <p id="testoAnteprimaFoto"> Di seguito potrai vedere l'anteprima della foto scattata: </p>
                     <div id="fotoAnteprima">
                         <!-- anteprima foto -->
                     </div>
                     <br>
-                    <button class="btn btn-dark btn-sm" type="button" id="scattaFoto" role="button">Scatta Foto</button>
-                    <button class="btn btn-dark btn-sm" type="button" id="inviaRispostaFoto" role="button">Invia foto al valutatore</button>
+                    <button class="btn btn-dark btn-sm" type="button" id="scattaFoto" role="button" aria-label="Bottone per scattare la foto">Scatta Foto</button>
+                    <button class="btn btn-dark btn-sm" type="button" id="inviaRispostaFoto" role="button" aria-label="Bottone per inviare la foto al valutatore">Invia foto al valutatore</button>
                     <video id="webcam" autoplay playsinline width="620" height="480"></video>
                     <canvas id="canvas" class="d-none">
                 </div>
                 <!-- colonna bottoni risposte -->
-                <div class="col-sm-6 col-md-6 col-lg-6" id="campoRisposte" hidden>
+                <div class="col-sm-12 col-md-12 col-lg-6" id="campoRisposte" hidden>
                     <div class="button-answer">
                         <button type="button" class="btn btn-dark btn-sm" value="" id="risposta1" role="button"> </button>
                     </div>
@@ -94,10 +98,10 @@
                     </div>
                     <br>
                     <div>
-                        <button type="button" class="btn btn-dark btn-sm" id="aiuto" role="button"> Aiuto </button>
+                        <button type="button" class="btn btn-dark btn-sm" id="aiuto" role="button" aria-label="Bottone per visualizzare l'aiuto"> Aiuto </button>
                     </div>
                     <div>
-                        <button type="button" class="btn btn-dark btn-sm" id="aiutoChat" role="button"> Chiedi aiuto tramite chat </button>
+                        <button type="button" class="btn btn-dark btn-sm" id="aiutoChat" role="button" aria-label="Bottone per chiedere un aiuto tramite la chat"> Chiedi aiuto tramite chat </button>
                     </div>
                     <br>
                     <div class="message-camp">
@@ -105,12 +109,13 @@
                     </div>
                 </div> 
                 <!-- colonna chat -->
-                <div class="col-sm-6 col-md-6 col-lg-6" id="campoChat" hidden>
+                <div class="col-sm-12 col-md-12 col-lg-6" id="campoChat" hidden>
                     <div class="panel panel-default chat-widget">
                         <div class="panel-heading">
                             <h3 class="panel-title"><i class="fa fa-comments" id="intestazioneChat"></i> Chat</h3>
                         </div>
                         <div class="panel-body" id="messaggiChat">
+                            <p id="messaggioStaticoChat"> Questa è la chat: scrivi qui ogni domanda o dubbio. </p>
                             <!-- qui viene inserito in automatico il testo della chat -->
                         </div>
                         <br>
@@ -118,9 +123,12 @@
                             <div class="input-group">
                                 <input type="text" placeholder="Inserisci il messaggio" class="form-control-sm" id="testoDaInviare">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-dark btn-sm" type="button" id="invia" role="button">Invia</button>
+                                    <button class="btn btn-dark btn-sm" type="button" id="invia" role="button" aria-label="Bottone per inviare il messaggio in chat">Invia</button>
                                 </span>
                             </div>
+                            <span class="input-group-btn">
+                                <button class="btn btn-dark btn-sm" type="button" id="bottoneChiudiChat" role="button" aria-label="Bottone per chiudere la chat">Chiudi chat</button>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -134,12 +142,12 @@
     
         <!-- navbar inferiore -->
         <footer>
-            <nav class="navbar fixed-bottom" id="footer">
-                <button class="navbar-toggler" id="paginaPrincipale" type="button" role="button" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"> Torna alla pagina principale
+            <nav class="navbar fixed-bottom" id="footer" role="navigation" aria-label="Area footer con bottoni">
+                <button class="navbar-toggler" id="paginaPrincipale" type="button" role="button" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Bottone torna alla pagina principale"> Torna alla pagina principale
                 </button>
-                <button class="navbar-toggler" id="inviaDatiRiassuntivi" type="button" role="button" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" hidden> Invia dati riassuntivi al valutatore
+                <button class="navbar-toggler" id="inviaDatiRiassuntivi" type="button" role="button" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Bottone invia dati riassuntivi al valutatore" hidden> Invia dati riassuntivi al valutatore
                 </button>
-                <button type="button" class="btn btn-dark btn-sm" id="bottoneChat" role="button" hidden><img src="icon/chat.png" width="16" height="15" alt="Logo messaggistica-chat"/> Chat
+                <button type="button" class="btn btn-dark btn-sm" id="bottoneChat" role="button" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Bottone apertura chat" hidden><img src="icon/chat.png" width="16" height="15" alt="Chat"/> Chat
                 </button>
             </nav>
         </footer>

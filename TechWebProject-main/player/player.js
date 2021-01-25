@@ -48,6 +48,10 @@ $(document).ready(function () {
         }
     ]*/
     
+    var primoElemento = document.getElementById('primoElemento');
+    primoElemento.setAttribute("tabindex", "0");
+    primoElemento.focus();
+    
 	//appena il player si connette manda un messaggio al valutatore
 	$('#nome').click(function(){
         document.getElementById('bottoneChat').hidden = false;
@@ -126,6 +130,9 @@ $(document).ready(function () {
     });
     
     $('#aiuto').click(function(){
+        var campoMessaggio = document.getElementById('campoMessaggio');
+        campoMessaggio.setAttribute('tabindex', '0');
+        campoMessaggio.focus();
         document.getElementById('campoMessaggio').hidden = false;
         document.getElementById('campoMessaggio').innerHTML = storia.missioni[i].attivita[j].rispostebottoni.aiuto;
         if(storia.missioni[i].attivita[j].rispostebottoni.immagineaiuto){
@@ -143,6 +150,8 @@ $(document).ready(function () {
            .catch(err => {
                console.log(err);
            });
+        var bottoneScattaFoto = document.getElementById('scattaFoto');
+        bottoneScattaFoto.focus();
     });
     
     $('#scattaFoto').click(function(){
@@ -158,6 +167,9 @@ $(document).ready(function () {
         console.log("Acquisita immagine.");
         webcam.stop();
         console.log("Webcam stopped.");
+        var testoAnteprimaFoto = document.getElementById('testoAnteprimaFoto');
+        testoAnteprimaFoto.setAttribute('tabindex', '0');
+        testoAnteprimaFoto.focus();
     });
     
     $('#avanti').click(function(){
@@ -181,6 +193,9 @@ $(document).ready(function () {
             console.log(punteggio);
             document.getElementById('campoMessaggio').hidden = false;
             document.getElementById('campoMessaggio').innerHTML = storia.missioni[i].attivita[j].rispostebottoni.incoraggiamento;
+            var campoMessaggio = document.getElementById('campoMessaggio');
+            campoMessaggio.setAttribute('tabindex', '0');
+            campoMessaggio.focus();
         }
     });
     
@@ -199,6 +214,9 @@ $(document).ready(function () {
             console.log(punteggio);
             document.getElementById('campoMessaggio').hidden = false;
             document.getElementById('campoMessaggio').innerHTML = storia.missioni[i].attivita[j].rispostebottoni.incoraggiamento;
+            var campoMessaggio = document.getElementById('campoMessaggio');
+            campoMessaggio.setAttribute('tabindex', '0');
+            campoMessaggio.focus();
         }
     });
     
@@ -217,6 +235,9 @@ $(document).ready(function () {
             console.log(punteggio);
             document.getElementById('campoMessaggio').hidden = false;
             document.getElementById('campoMessaggio').innerHTML = storia.missioni[i].attivita[j].rispostebottoni.incoraggiamento;
+            var campoMessaggio = document.getElementById('campoMessaggio');
+            campoMessaggio.setAttribute('tabindex', '0');
+            campoMessaggio.focus();
         }
     });
     
@@ -235,6 +256,9 @@ $(document).ready(function () {
             console.log(punteggio);
             document.getElementById('campoMessaggio').hidden = false;
             document.getElementById('campoMessaggio').innerHTML = storia.missioni[i].attivita[j].rispostebottoni.incoraggiamento;
+            var campoMessaggio = document.getElementById('campoMessaggio');
+            campoMessaggio.setAttribute('tabindex', '0');
+            campoMessaggio.focus();
         }
     });
     
@@ -285,6 +309,11 @@ $(document).ready(function () {
     xhr.send();
     
     function caricaAttivita(){
+        if(i == 0 && j == 0){
+            var domanda = document.getElementById('domanda');
+            domanda.setAttribute('tabindex', '0');
+            domanda.focus();
+        }
         if(storia.missioni[i].attivita[j].stato == "attiva" && storia.missioni[i].stato == "attiva"){
             console.log("Entrato nell'if dello stato: ATTIVA");
             contatoreAvanzamento++;
@@ -506,6 +535,7 @@ $(document).ready(function () {
                 document.getElementById('campoChat').hidden = true;
                 document.getElementById('footer').hidden = true;
                 document.getElementById('campoAvanti').hidden = true;
+                document.getElementById('bottoneChat').hidden = true;
                 document.getElementById('domanda').innerHTML = "Complimenti! Hai terminato con successo la storia. Sotto potrai vedere visualizzate tutte le tue valutazioni che prima erano in attesa di una valutazione. Quando tutte le tue risposte saranno state valutate potrai inviare i tuoi dati riassuntivi attraverso l'apposito bottone in basso a sinistra.";
                 inserisciMargine = true;
                 visualizzaValutazioni();
@@ -567,7 +597,7 @@ $(document).ready(function () {
     $("#inviaDatiRiassuntivi").click(function(){
         socket.emit("dati riassuntivi", JSON.stringify(datiRiassuntivi), punteggioTotale, nomeGiocatore);
         var myNode = document.getElementById("row1");
-        //elimina la visualizzazione delle valutazioni
+        //elimina la visualizzazione dalle valutazioni
         while (myNode.children[1]) { //elimina tutti i figli a partire dal secondo
                myNode.removeChild(myNode.children[1]);
         }
@@ -584,22 +614,42 @@ $(document).ready(function () {
             document.getElementById('domanda').innerHTML = "Hai totalizzato: " + punteggio + " punti su " + punteggioTotale + ". Sei stato bravissimo! Ottima partita! <br> Resta in attesa fino a quando non verrai reindirizzato alla pagina principale.";
         }
         document.getElementById('inviaDatiRiassuntivi').hidden = true;
+        var domanda = document.getElementById('domanda');
+        domanda.setAttribute('tabindex', '0');
+        domanda.focus();
     });
     
     $("#aiutoChat").click(function(){
         var messaggioPlayer = "RICHIESTA AIUTO: " + storia.missioni[i].attivita[j].domanda;
         socket.emit('chat message', messaggioPlayer, nomeGiocatore, valutatore);
         document.getElementById('messaggiChat').innerHTML += "<div class='message message-right'> <div class='message-text-wrapper'> <div class='message-text'>" + messaggioPlayer + "</div></div></div>";
+        document.getElementById('campoChat').hidden = false;
+        var messaggioStaticoChat = document.getElementById('messaggioStaticoChat');
+        messaggioStaticoChat.setAttribute('tabindex', '0');
+        messaggioStaticoChat.focus();
     });
     
     $("#bottoneChat").click(function(){
         if(document.getElementById('campoChat').hidden == true){
             document.getElementById('campoChat').hidden = false;
-            document.getElementById("messaggiChat").focus();
+            var messaggioStaticoChat = document.getElementById('messaggioStaticoChat');
+            messaggioStaticoChat.setAttribute('tabindex', '0');
+            messaggioStaticoChat.focus();
         }
         else{
             document.getElementById('campoChat').hidden = true;
         }
+    });
+    
+    $("#bottoneChiudiChat").click(function(){
+        document.getElementById('campoChat').hidden = true;
+        var domanda = document.getElementById('domanda');
+        domanda.setAttribute('tabindex', '0');
+        domanda.focus();
+    });
+
+    $("#campoMessaggio").keydown(function(e){
+       document.getElementById('risposta1').focus();
     });
 
     $("#paginaPrincipale").click(function() {
