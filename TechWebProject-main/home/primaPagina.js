@@ -26,11 +26,15 @@ function scegliEta(eta) {
 			document.getElementById("nomiStorie").innerHTML += "<div class='form-check'><input name='storia' type='radio' id='" + storie.storie[i].nome + "' value='" + storie.storie[i].nome + "'>&nbsp<label for='" + storie.storie[i].nome + "'>" + storie.storie[i].nome + "</label></div>";
 		}
 	}
+    var focusEta = document.getElementById('t2');
+    focusEta.setAttribute("tabindex", "0");
+    focusEta.focus();
 }
 
 $(document).ready( function(){
 	var socket = io();
 	var i = 0;
+    document.getElementById('bottoneAutore').focus();
 
 	$("#eta1").click(function() {
 		scegliEta("eta1");
@@ -56,7 +60,17 @@ $(document).ready( function(){
 
 		if(nomeStoria != ""){
 			socket.emit('storia', nomeStoria);
-			document.getElementById("buttonQRcode").disabled = false;
+            document.getElementById("buttonQRcode").disabled = false;
+            setTimeout(function(){
+                if(document.getElementById('storiaSbagliata').hidden == false){
+                    var focusStoriaSbagliata = document.getElementById('storiaSbagliata');
+                    focusStoriaSbagliata.setAttribute("tabindex", "0");
+                    focusStoriaSbagliata.focus();
+                }
+                else{
+                    document.getElementById("buttonQRcode").focus();
+                }
+            }, 100);
 		}
 
 	});
@@ -71,6 +85,9 @@ $(document).ready( function(){
 		document.getElementById("imageQRcode").hidden = false;
 		document.getElementById("eta").hidden = true;
 		document.getElementById("storie").hidden = true;
+        var focusQRCode = document.getElementById('idt');
+        focusQRCode.setAttribute("tabindex", "0");
+        focusQRCode.focus();
 	});
 	
 	$(".navbar-toggler").click(function() {

@@ -1,5 +1,5 @@
 input[type='radio'] {
-	-webkit-appearance:none; /* utilizzato per poter modificare liberamente il radio button senza venga applicato alcun stile del SO in uso dall'utente */
+	-webkit-appearance:none; /*utilizzato per poter modificare liberamente il radio button senza venga applicato alcun stile del SO in uso dall'utente*/
 	width:20px;
 	height:20px;
 	border:1px solid darkgray;
