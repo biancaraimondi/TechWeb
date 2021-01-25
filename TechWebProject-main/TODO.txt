@@ -91,13 +91,15 @@ testare progetto su chrome, firefox, edge
 
 MARTI:
 commentare e pulire codice
-testare progetto su safari
+testare progetto su safari (iphone - voiceOver, ipad)
 
-
+contatoreAttività
 "punteggio" : 3 (come campo nell'oggetto js "rispostebottoni")
 gestire css bottoni (spazio vuoto sotto)
+fotocamera
+aggiustare mediaquery smartphone
 
 CRI: 
 
-testare progetto su opera
+testare progetto su opera e su smartphone android (noi due abbiamo solo apple)
 non caricare interrail (per testare caricamento storia nell'ambiente autore)
