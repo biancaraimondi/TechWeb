@@ -29,7 +29,7 @@ $(document).ready(function () {
     ]*/
     var inserisciMargine;
     var punteggio = 0.0;
-    var punteggioIntermedio = 1.0;
+    var punteggioIntermedio = 0.0;
     var punteggioTotale = 0;
     let picture;
     const webcamElement = document.getElementById('webcam');
@@ -76,8 +76,14 @@ $(document).ready(function () {
                 j = 0; //contatore per le attivita
                 numMissioni = storia.missioni.length; //lunghezza missioni -> numero delle missioni
                 numAttivita = storia.missioni[0].attivita.length; //lunghezza attivita -> numero delle attivita della missione i
-                for(z = 0; z < numMissioni; z++){
-                    contatoreAttivita += storia.missioni[z].attivita.length; //contiene il numero di tutte le attività che son presenti nella storia
+                for (z=0; z<storia.missioni.length; z++){
+                    if (storia.missioni[z].stato == "attiva"){
+                        for(var y=0; y<storia.missioni[z].attivita.length; y++){
+                            if(storia.missioni[z].attivita[y].stato == "attiva"){
+                                contatoreAttivita++;
+                            }
+                        }
+                    }
                 }
                 caricaAttivita();
             }
@@ -185,11 +191,10 @@ $(document).ready(function () {
             punteggio += punteggioIntermedio;
             console.log(punteggio);
             cambioAttivita();
-            punteggioIntermedio = 1;
         }
         else{
             //messaggio di incitamento nel caso di risposta sbagliata
-            punteggioIntermedio -= 0.25;
+            punteggioIntermedio -= parseFloat(storia.missioni[i].attivita[j].rispostebottoni.punteggio)/4.0;
             console.log(punteggio);
             document.getElementById('campoMessaggio').hidden = false;
             document.getElementById('campoMessaggio').innerHTML = storia.missioni[i].attivita[j].rispostebottoni.incoraggiamento;
@@ -206,11 +211,10 @@ $(document).ready(function () {
             punteggio += punteggioIntermedio;
             console.log(punteggio);
             cambioAttivita();
-            punteggioIntermedio = 1;
         }
         else{
             //messaggio di incitamento nel caso di risposta sbagliata
-            punteggioIntermedio -= 0.25;
+            punteggioIntermedio -= parseFloat(storia.missioni[i].attivita[j].rispostebottoni.punteggio)/4.0;
             console.log(punteggio);
             document.getElementById('campoMessaggio').hidden = false;
             document.getElementById('campoMessaggio').innerHTML = storia.missioni[i].attivita[j].rispostebottoni.incoraggiamento;
@@ -227,11 +231,10 @@ $(document).ready(function () {
             punteggio += punteggioIntermedio;
             console.log(punteggio);
             cambioAttivita();
-            punteggioIntermedio = 1;
         }
         else{
             //messaggio di incitamento nel caso di risposta sbagliata
-            punteggioIntermedio -= 0.25;
+            punteggioIntermedio -= parseFloat(storia.missioni[i].attivita[j].rispostebottoni.punteggio)/4.0;
             console.log(punteggio);
             document.getElementById('campoMessaggio').hidden = false;
             document.getElementById('campoMessaggio').innerHTML = storia.missioni[i].attivita[j].rispostebottoni.incoraggiamento;
@@ -248,11 +251,10 @@ $(document).ready(function () {
             punteggio += punteggioIntermedio;
             console.log(punteggio);
             cambioAttivita();
-            punteggioIntermedio = 1;
         }
         else{
             //messaggio di incitamento nel caso di risposta sbagliata
-            punteggioIntermedio -= 0.25;
+            punteggioIntermedio -= parseFloat(storia.missioni[i].attivita[j].rispostebottoni.punteggio)/4.0;
             console.log(punteggio);
             document.getElementById('campoMessaggio').hidden = false;
             document.getElementById('campoMessaggio').innerHTML = storia.missioni[i].attivita[j].rispostebottoni.incoraggiamento;
@@ -394,7 +396,8 @@ $(document).ready(function () {
             }
             //caso in cui è presente la scelta delle risposte (rispsote bottoni) nella storia json
             if(storia.missioni[i] && storia.missioni[i].attivita[j].rispostebottoni){
-                punteggioTotale++;
+                punteggioIntermedio = parseFloat(storia.missioni[i].attivita[j].rispostebottoni.punteggio);
+                punteggioTotale += punteggioIntermedio;
                 console.log("Entrato nell'if del risposta bottoni");
                 document.getElementById('campoRisposte').hidden = false;
                 var numeroCasuale = Math.round(Math.random() * (4 - 1) + 1);
@@ -458,7 +461,6 @@ $(document).ready(function () {
         }
         else{
             console.log("Entrato nell'if dello stato: DISATTIVA");
-            contatoreAttivita--;
             cambioAttivita();
         }
     } //chiusura function caricaAttivita
