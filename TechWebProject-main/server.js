@@ -141,23 +141,27 @@ io.on('connection', function (socket) {
 		}else{
 			io.to(socket.id).emit('nomeErrato');
 		}
+        console.log(JSON.stringify(utenti));
+                                                
 		
 	});
 
 	//inserisce nella variabile storiaDaCaricare la storia scelta dal valutatore nella prima pagina
 	socket.on('storia', function (nomeStoria) {
-		inserisci = false;
+		/*inserisci = false;
 		for (i=0; i<utenti.length; i++){
-			if(utenti[i].nome == "valutatore"){
+			if(utenti[i].nome !== "valutatore"){
 				inserisci = true;
 			}
 		}
-		if (storiaDaCaricare == "" || storiaDaCaricare == nomeStoria || (storiaDaCaricare != "" && utenti.lenght == 0) || (storiaDaCaricare != "" && utenti.lenght == 1 && inserisci)){
+        console.log("Storia da caricare: " + storiaDaCaricare);
+        console.log("Nome storia: " + nomeStoria);
+		if (storiaDaCaricare == "" || storiaDaCaricare == nomeStoria || (storiaDaCaricare !== nomeStoria && utenti.lenght == 0) || (storiaDaCaricare !== nomeStoria && utenti.lenght == 1 && inserisci)){
 			storiaDaCaricare = nomeStoria;
 		}else{
 			io.to(socket.id).emit('storia non caricabile');
-		}
-		//storiaDaCaricare = nomeStoria;
+		}*/
+		storiaDaCaricare = nomeStoria;
 	});
 
 	//gestisce la chat tra valutatore e player
