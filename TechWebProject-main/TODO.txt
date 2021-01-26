@@ -90,14 +90,10 @@ BIANCA:
 testare progetto su chrome, firefox, edge
 
 MARTI:
-commentare e pulire codice
 testare progetto su safari (iphone - voiceOver, ipad)
 gestire css bottoni (spazio vuoto sotto)
 aggiustare mediaquery smartphone
 
-fotocamera
-
 CRI: 
-
 testare progetto su opera e su smartphone android (noi due abbiamo solo apple)
 non caricare interrail (per testare caricamento storia nell'ambiente autore)
