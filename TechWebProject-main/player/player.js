@@ -3,15 +3,16 @@ function cambiaPagina(url) {
 }
 
 $(document).ready(function () {
+    
 	var nomeGiocatore = "";
 	var messaggioPlayer = "";
 	var valutatore = "valutatore";
 	var socket = io();
-	var i; //contatore missioni
-    var j; //contatore attivita
+	var i; //Contatore missioni
+    var j; //Contatore attivita
 	var storia = {};
-	var numMissioni; //lunghezza missioni -> numero delle missioni
-    var numAttivita; //lunghezza attivita -> numero delle attivita della missione i
+	var numMissioni; //Numero delle missioni (lunghezza missioni)
+    var numAttivita; //Numero delle attivita della missione i (lunghezza attivita)
     var contatoreAvanzamento = 0;
     var contatoreAttivita = 0;
     var z = 0;
@@ -48,11 +49,12 @@ $(document).ready(function () {
         }
     ]*/
     
+    //Setta il focus al primo paragrafo della pagina iniziale del player
     var primoElemento = document.getElementById('primoElemento');
     primoElemento.setAttribute("tabindex", "0");
     primoElemento.focus();
     
-	//appena il player si connette manda un messaggio al valutatore
+	//Appena il player si connette manda un messaggio al valutatore
 	$('#nome').click(function(){
         document.getElementById('bottoneChat').hidden = false;
         document.getElementById('nomeUtenteErrato').hidden = true;
@@ -67,15 +69,14 @@ $(document).ready(function () {
                 document.getElementById('campoNomeGiocatore').hidden = true;
                 document.getElementById('campoTestoIniz').hidden = true;
                 document.getElementById('row1').hidden = false;
-                //document.getElementById('campoRisposte').hidden = false;
                 document.getElementById('campoChat').hidden = false;
                 document.getElementById('row4').hidden = false;
                 document.getElementById('footer').hidden = false;
                 
-                i = 0; //contatore per le missioni
-                j = 0; //contatore per le attivita
-                numMissioni = storia.missioni.length; //lunghezza missioni -> numero delle missioni
-                numAttivita = storia.missioni[0].attivita.length; //lunghezza attivita -> numero delle attivita della missione i
+                i = 0;
+                j = 0;
+                numMissioni = storia.missioni.length;
+                numAttivita = storia.missioni[0].attivita.length;
                 for (z=0; z<storia.missioni.length; z++){
                     if (storia.missioni[z].stato == "attiva"){
                         for(var y=0; y<storia.missioni[z].attivita.length; y++){
@@ -90,16 +91,15 @@ $(document).ready(function () {
         }, 100);
 	});
     
-    //chat tra player e valutatore
-	$('#invia').click(function(/*e*/){
-		//e.preventDefault(); //previene il reload della pagina
+    //Chat tra player e valutatore
+	$('#invia').click(function(){
 		messaggioPlayer = document.getElementById('testoDaInviare').value;
 		socket.emit('chat message', messaggioPlayer, nomeGiocatore, valutatore);
 		document.getElementById('messaggiChat').innerHTML += "<div class='message message-right'> <div class='message-text-wrapper'> <div class='message-text'>" + messaggioPlayer + "</div></div></div>";
 		document.getElementById('testoDaInviare').value = "";
-		//return false;
 	});
     
+    //-- Socket-on
 	socket.on('chat message', function(msg, trasmittente, ricevente){
         document.getElementById('messaggiChat').innerHTML += "<div class='message'><div class='message-text-wrapper'><div class='message-text'>" + msg + "</div></div></div>";
 	});
@@ -107,7 +107,6 @@ $(document).ready(function () {
     socket.on('valutazione', function(domanda, valutazione, commentoValutazione, player){
         contatoreValutazioniEffettive++;
         punteggio += parseFloat(valutazione);
-        console.log(punteggio);
         for(z=0; z < valutazioni.length; z++){
             if(valutazioni[z].domanda == domanda){
                 valutazioni[z].valutazione = valutazione;
@@ -121,7 +120,7 @@ $(document).ready(function () {
             }
         }
         console.log("Messaggio ricevuto dal valutatore: " + valutazione);
-        if(i == (numMissioni-1) && j == (numAttivita-1)){ //se siamo nell'ultima attivita dell'ultima missione
+        if(i == (numMissioni-1) && j == (numAttivita-1)){ //Se siamo nell'ultima attivita dell'ultima missione allora visualizza le valutazioni
             visualizzaValutazioni();
         }
     });
@@ -139,15 +138,15 @@ $(document).ready(function () {
         var campoMessaggio = document.getElementById('campoMessaggio');
         campoMessaggio.setAttribute('tabindex', '0');
         campoMessaggio.focus();
+        
         document.getElementById('campoMessaggio').hidden = false;
         document.getElementById('campoMessaggio').innerHTML = storia.missioni[i].attivita[j].rispostebottoni.aiuto;
         if(storia.missioni[i].attivita[j].rispostebottoni.immagineaiuto){
-            //document.getElementById('campoMessaggio').innerHTML += storia.missioni[i].attivita[j].rispostebottoni.immagineaiuto;
             document.getElementById('campoMessaggio').innerHTML += "<br> <img height='200em' src='"+storia.missioni[i].attivita[j].rispostebottoni.immagineaiuto+"' alt='Immagine inerente al messaggio di aiuto'>"
         }
     });
     
-    //gestione fotocamera from https://www.npmjs.com/package/webcam-easy
+    //Gestione fotocamera from https://www.npmjs.com/package/webcam-easy
     $('#bottoneFoto').click(function(){
         webcam.start()
            .then(result =>{
@@ -156,6 +155,7 @@ $(document).ready(function () {
            .catch(err => {
                console.log(err);
            });
+        
         var bottoneScattaFoto = document.getElementById('scattaFoto');
         bottoneScattaFoto.focus();
     });
@@ -168,11 +168,11 @@ $(document).ready(function () {
         newImg.setAttribute("src", picture);
         newImg.setAttribute("alt", "Anteprima foto scattata");
         var immagineJson = JSON.stringify(newImg);
-        console.log(immagineJson);
         newDiv.appendChild(newImg);
         console.log("Acquisita immagine.");
         webcam.stop();
         console.log("Webcam stopped.");
+        
         var testoAnteprimaFoto = document.getElementById('testoAnteprimaFoto');
         testoAnteprimaFoto.setAttribute('tabindex', '0');
         testoAnteprimaFoto.focus();
@@ -187,17 +187,16 @@ $(document).ready(function () {
     $('#risposta1').click(function(){
         document.getElementById('campoMessaggio').innerHTML = "";
         document.getElementById('campoMessaggio').hidden = true;
-        if(storia.missioni[i].attivita[j].rispostebottoni.giusta == document.getElementById('risposta1').value){ //metodo js che prende il valore contenuto nel bottone
+        if(storia.missioni[i].attivita[j].rispostebottoni.giusta == document.getElementById('risposta1').value){ //Metodo js che prende il valore contenuto nel bottone
             punteggio += punteggioIntermedio;
-            console.log(punteggio);
             cambioAttivita();
         }
         else{
-            //messaggio di incitamento nel caso di risposta sbagliata
+            //Messaggio di incitamento nel caso di risposta sbagliata
             punteggioIntermedio -= parseFloat(storia.missioni[i].attivita[j].rispostebottoni.punteggio)/4.0;
-            console.log(punteggio);
             document.getElementById('campoMessaggio').hidden = false;
             document.getElementById('campoMessaggio').innerHTML = storia.missioni[i].attivita[j].rispostebottoni.incoraggiamento;
+            
             var campoMessaggio = document.getElementById('campoMessaggio');
             campoMessaggio.setAttribute('tabindex', '0');
             campoMessaggio.focus();
@@ -207,17 +206,16 @@ $(document).ready(function () {
     $('#risposta2').click(function(){
         document.getElementById('campoMessaggio').innerHTML = "";
         document.getElementById('campoMessaggio').hidden = true;
-        if(storia.missioni[i].attivita[j].rispostebottoni.giusta == document.getElementById('risposta2').value){ //metodo js che prende il valore contenuto nel bottone
+        if(storia.missioni[i].attivita[j].rispostebottoni.giusta == document.getElementById('risposta2').value){
             punteggio += punteggioIntermedio;
-            console.log(punteggio);
             cambioAttivita();
         }
         else{
-            //messaggio di incitamento nel caso di risposta sbagliata
+            //Messaggio di incitamento nel caso di risposta sbagliata
             punteggioIntermedio -= parseFloat(storia.missioni[i].attivita[j].rispostebottoni.punteggio)/4.0;
-            console.log(punteggio);
             document.getElementById('campoMessaggio').hidden = false;
             document.getElementById('campoMessaggio').innerHTML = storia.missioni[i].attivita[j].rispostebottoni.incoraggiamento;
+            
             var campoMessaggio = document.getElementById('campoMessaggio');
             campoMessaggio.setAttribute('tabindex', '0');
             campoMessaggio.focus();
@@ -227,17 +225,16 @@ $(document).ready(function () {
     $('#risposta3').click(function(){
         document.getElementById('campoMessaggio').innerHTML = "";
         document.getElementById('campoMessaggio').hidden = true;
-        if(storia.missioni[i].attivita[j].rispostebottoni.giusta == document.getElementById('risposta3').value){ //metodo js che prende il valore contenuto nel bottone
+        if(storia.missioni[i].attivita[j].rispostebottoni.giusta == document.getElementById('risposta3').value){
             punteggio += punteggioIntermedio;
-            console.log(punteggio);
             cambioAttivita();
         }
         else{
-            //messaggio di incitamento nel caso di risposta sbagliata
+            //Messaggio di incitamento nel caso di risposta sbagliata
             punteggioIntermedio -= parseFloat(storia.missioni[i].attivita[j].rispostebottoni.punteggio)/4.0;
-            console.log(punteggio);
             document.getElementById('campoMessaggio').hidden = false;
             document.getElementById('campoMessaggio').innerHTML = storia.missioni[i].attivita[j].rispostebottoni.incoraggiamento;
+            
             var campoMessaggio = document.getElementById('campoMessaggio');
             campoMessaggio.setAttribute('tabindex', '0');
             campoMessaggio.focus();
@@ -247,17 +244,16 @@ $(document).ready(function () {
     $('#risposta4').click(function(){
         document.getElementById('campoMessaggio').innerHTML = "";
         document.getElementById('campoMessaggio').hidden = true;
-        if(storia.missioni[i].attivita[j].rispostebottoni.giusta == document.getElementById('risposta4').value){ //metodo js che prende il valore contenuto nel bottone
+        if(storia.missioni[i].attivita[j].rispostebottoni.giusta == document.getElementById('risposta4').value){
             punteggio += punteggioIntermedio;
-            console.log(punteggio);
             cambioAttivita();
         }
         else{
-            //messaggio di incitamento nel caso di risposta sbagliata
+            //Messaggio di incitamento nel caso di risposta sbagliata
             punteggioIntermedio -= parseFloat(storia.missioni[i].attivita[j].rispostebottoni.punteggio)/4.0;
-            console.log(punteggio);
             document.getElementById('campoMessaggio').hidden = false;
             document.getElementById('campoMessaggio').innerHTML = storia.missioni[i].attivita[j].rispostebottoni.incoraggiamento;
+            
             var campoMessaggio = document.getElementById('campoMessaggio');
             campoMessaggio.setAttribute('tabindex', '0');
             campoMessaggio.focus();
@@ -267,6 +263,7 @@ $(document).ready(function () {
     $('#inviaRisposta').click(function(){
         var risposta = document.getElementById('nameTextArea').value;
         var domanda = storia.missioni[i].attivita[j].domanda;
+        //Inserisco l'oggetto js dentro l'array, settando i valori dei rispettivi campi
         valutazioni.push({
             domanda : domanda,
             risposta : risposta,
@@ -275,10 +272,11 @@ $(document).ready(function () {
             commentoValutazione : null
         });
         
+        //Se il campo risposta è vuoto allora la risposta testuale sarà valutata dall'Ambiente Valutatore
         if(storia.missioni[i].attivita[j].camporisposta == ""){
             socket.emit('risposta testo', domanda, risposta, nomeGiocatore);
         }
-        else{
+        else{ //Se il campo risposta contiene un valore allora la risposta testuale sarà valutata automaticamente dal server
             var rispostaCorretta = storia.missioni[i].attivita[j].camporisposta;
             socket.emit('black-box', domanda, risposta, rispostaCorretta, nomeGiocatore);
         }
@@ -288,6 +286,7 @@ $(document).ready(function () {
     $('#inviaRispostaFoto').click(function(){
         var domanda = storia.missioni[i].attivita[j].domanda;
         socket.emit('risposta immagine', domanda, picture, nomeGiocatore);
+        //Inserisco l'oggetto js dentro l'array, settando i valori dei rispettivi campi
         valutazioni.push({
             domanda : domanda,
             risposta : null,
@@ -298,18 +297,55 @@ $(document).ready(function () {
         cambioAttivita();
     });
     
+    $("#aiutoChat").click(function(){
+        var messaggioPlayer = "RICHIESTA AIUTO: " + storia.missioni[i].attivita[j].domanda;
+        socket.emit('chat message', messaggioPlayer, nomeGiocatore, valutatore);
+        document.getElementById('messaggiChat').innerHTML += "<div class='message message-right'> <div class='message-text-wrapper'> <div class='message-text'>" + messaggioPlayer + "</div></div></div>";
+        document.getElementById('campoChat').hidden = false;
+        
+        var messaggioStaticoChat = document.getElementById('messaggioStaticoChat');
+        messaggioStaticoChat.setAttribute('tabindex', '0');
+        messaggioStaticoChat.focus();
+    });
+    
+    $("#bottoneChat").click(function(){
+        if(document.getElementById('campoChat').hidden == true){
+            document.getElementById('campoChat').hidden = false;
+            
+            var messaggioStaticoChat = document.getElementById('messaggioStaticoChat');
+            messaggioStaticoChat.setAttribute('tabindex', '0');
+            messaggioStaticoChat.focus();
+        }
+        else{
+            document.getElementById('campoChat').hidden = true;
+        }
+    });
+    
+    $("#bottoneChiudiChat").click(function(){
+        document.getElementById('campoChat').hidden = true;
+        
+        var domanda = document.getElementById('domanda');
+        domanda.setAttribute('tabindex', '0');
+        domanda.focus();
+    });
+
+    $("#campoMessaggio").keydown(function(e){
+       document.getElementById('risposta1').focus();
+    });
+    
+    //Richiedo la storia al server
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', '/player/ottienistoria', true); //apro connessione tipo GET
+    xhr.open('GET', '/player/ottienistoria', true); //Apro connessione tipo GET
     xhr.onreadystatechange = function() {
     	if (xhr.readyState === 4 && xhr.status === 200){
-    		var storiaJson = xhr.responseText; //ottengo storia in formato json	
+    		var storiaJson = xhr.responseText; //Ottengo storia in formato json
     		console.log(storiaJson);
-            storia = JSON.parse(storiaJson); //ottengo storia in js
-    		//console.log(JSON.stringify(storia));
+            storia = JSON.parse(storiaJson); //Ottengo storia in js
     	}
     };
     xhr.send();
     
+    //-- Funzione per caricare le attività presenti nella storia
     function caricaAttivita(){
         if(i == 0 && j == 0){
             var domanda = document.getElementById('domanda');
@@ -317,89 +353,70 @@ $(document).ready(function () {
             domanda.focus();
         }
         if(storia.missioni[i].attivita[j].stato == "attiva" && storia.missioni[i].stato == "attiva"){
-            console.log("Entrato nell'if dello stato: ATTIVA");
             contatoreAvanzamento++;
-            console.log("contatori: " + contatoreAvanzamento + " " + contatoreAttivita + " " + nomeGiocatore);
+            console.log("CONTATORI: Avanzamento " + contatoreAvanzamento + " di " + contatoreAttivita + " attività, nome giocatore: " + nomeGiocatore);
             socket.emit('avanzamento', contatoreAvanzamento, contatoreAttivita, nomeGiocatore);
             document.getElementById('campoChat').hidden = true;
-            //document.getElementById('campoMessaggio').hidden = true;
-            //caso in cui è presente una domanda nella storia json
+            //Caso in cui è presente una domanda nella storia json
             if (storia.missioni[i] && storia.missioni[i].attivita[j].domanda){
-                console.log("Entrato nell'if del campo domanda");
                 document.getElementById('domanda').innerHTML = storia.missioni[i].attivita[j].domanda;
-                var altezzaDomanda = document.getElementById('domanda').offsetHeight;
-                console.log(altezzaDomanda);
+                var altezzaDomanda = document.getElementById('domanda').offsetHeight; //Prende l'altezza della nuvola della domanda
                 altezzaDomanda = altezzaDomanda + 20;
-                console.log(altezzaDomanda);
                 var domanda = document.getElementById('row1');
-                domanda.style.height = altezzaDomanda.toString() + "px";
-                console.log(altezzaDomanda.toString() + "px");
+                domanda.style.height = altezzaDomanda.toString() + "px"; //Converte in stringa il valore dell'altezza della domanda (intero)
             }
             else {
-                console.log("Entrato nell'else del campo domanda");
                 document.getElementById('domanda').innerHTML = "";
-                //document.getElementById('domanda').hidden = true;
             }
-            //caso in cui è presente il bottone avanti nella storia json
+            //Caso in cui è presente il bottone avanti nella storia json
             if (storia.missioni[i] && storia.missioni[i].attivita[j].avanti){
-                console.log("Entrato nell'if del pulsante avanti");
                 document.getElementById('campoAvanti').hidden = false;
             }
             else {
-                console.log("Entrato nell'else del pulsante avanti");
                 document.getElementById('campoAvanti').hidden = true;
             }
-            //caso in cui è presente l'immagine sfondo
+            //Caso in cui è presente l'immagine dello sfondo
             if(storia.missioni[i] && storia.missioni[i].attivita[j].immaginesfondo){
-                console.log("Entrato nell'if dell'immagine sfondo");
                 document.body.style.background = "url('"+storia.missioni[i].attivita[j].immaginesfondo+"') no-repeat fixed";
-                var altezzaFinestra = window.outerHeight;
-                var larghezzaFinestra = window.outerWidth;
-                console.log("Altezza Finestra: " + altezzaFinestra);
-                console.log("Larghezza Finestra: " + larghezzaFinestra);
+                var altezzaFinestra = window.outerHeight; //Restituisce l'altezza dell'intera finestra del browser, incluse eventuali barre laterali e bordi di ridimensionamento delle finestre.
+                var larghezzaFinestra = window.outerWidth; //Restituisce la larghezza dell'intera finestra del browser, inclusa la barra laterale (se espansa) e i bordi di ridimensionamento della finestra.
                 document.body.style.backgroundSize = larghezzaFinestra + "px " + altezzaFinestra + "px";
             }
             else {
-                console.log("Entrato nell'else dell'immagine sfondo");
                 document.body.style.background = "white";
             }
-            //caso in cui è presente il campo di inserimento testo per la valutazione della risposta in amb. val.
+            //Caso in cui è presente il campo di inserimento testo per la valutazione della risposta
             if(storia.missioni[i].attivita[j].camporisposta != null && storia.missioni[i].attivita[j].camporisposta == ""){
                 contatoreValutazioni++;
                 punteggioTotale += 10;
-                console.log("Entrato nell'if del campo risposta");
                 document.getElementById('campoTextArea').hidden = false;
             }
             else{
                 if(storia.missioni[i].attivita[j].camporisposta != null && storia.missioni[i].attivita[j].camporisposta != ""){
                     contatoreValutazioni++;
                     punteggioTotale += 1;
-                    console.log("Entrato nell'if del campo risposta");
                     document.getElementById('campoTextArea').hidden = false;
                 }
                 else{
-                    console.log("Entrato nell'else del campo risposta");
                     document.getElementById('nameTextArea').value = "";
                     document.getElementById('campoTextArea').hidden = true;
                 }
             }
-            //caso in cui è presente il campo di inserimento foto per la valutazione della risposta in amb. val.
+            //Caso in cui è presente il campo di inserimento foto per la valutazione della risposta
             if(storia.missioni[i].attivita[j].camporispostafoto != null && storia.missioni[i].attivita[j].camporispostafoto == ""){
                 contatoreValutazioni++;
                 punteggioTotale += 10;
-                console.log("Entrato nell'if del campo risposta foto");
                 document.getElementById('campoFoto').hidden = false;
             }
             else{
-                console.log("Entrato nell'else del campo risposta foto");
                 document.getElementById('campoFoto').hidden = true;
             }
-            //caso in cui è presente la scelta delle risposte (rispsote bottoni) nella storia json
+            //Caso in cui è presente la scelta delle risposte (rispsote bottoni)
             if(storia.missioni[i] && storia.missioni[i].attivita[j].rispostebottoni){
                 punteggioIntermedio = parseFloat(storia.missioni[i].attivita[j].rispostebottoni.punteggio);
                 punteggioTotale += punteggioIntermedio;
-                console.log("Entrato nell'if del risposta bottoni");
                 document.getElementById('campoRisposte').hidden = false;
+                //Randomizza l'ordine dei bottoni delle risposte
                 var numeroCasuale = Math.round(Math.random() * (4 - 1) + 1);
                 switch(numeroCasuale){
                         case 1 :
@@ -445,33 +462,31 @@ $(document).ready(function () {
                 }
             }
             else {
-                console.log("Entrato nell'else del risposta bottoni");
                 document.getElementById('campoRisposte').hidden = true;
             }
-            //caso in cui è presente l'aiuto nella storia json
+            //Caso in cui è presente l'aiuto
             if(storia.missioni[i] && storia.missioni[i].attivita[j].rispostebottoni && storia.missioni[i].attivita[j].rispostebottoni.aiuto){
-                console.log("Entrato nell'if dell'aiuto");
                 document.getElementById('aiuto').hidden = false;
             }
             else{
-                console.log("Entrato nell'else dell'aiuto");
                 document.getElementById('aiuto').hidden = true;
                 document.getElementById('campoMessaggio').innerHTML = "";
             }
         }
         else{
-            console.log("Entrato nell'if dello stato: DISATTIVA");
+            //Stato: disattiva
             cambioAttivita();
         }
-    } //chiusura function caricaAttivita
+    }
     
+    //-- Funzione per cambiare attività
     function cambioAttivita(){
         var domanda = document.getElementById('domanda');
         domanda.setAttribute('tabindex', '0');
         domanda.focus();
+        
         if (storia.missioni[i] && storia.missioni[i].attivita[j].rispostebottoni && (storia.missioni[i].attivita[j].stato == "attiva" && storia.missioni[i].stato == "attiva")){
             var tentativi = 0;
-            console.log(punteggioIntermedio);
             switch(punteggioIntermedio){
                     case 1 :
                         tentativi = 1;
@@ -486,6 +501,7 @@ $(document).ready(function () {
                         tentativi = 4;
                         break;
             }
+            //Inserisco l'oggetto js dentro l'array, settando i valori dei rispettivi campi (risposta bottoni)
             datiRiassuntivi.push({
                 domanda: storia.missioni[i].attivita[j].domanda,
                 rispostaTesto: null,
@@ -497,6 +513,7 @@ $(document).ready(function () {
             });
         }
         if (storia.missioni[i].attivita[j].camporisposta != null && storia.missioni[i].attivita[j].camporisposta == "" && (storia.missioni[i].attivita[j].stato == "attiva" && storia.missioni[i].stato == "attiva")){
+            //Inserisco l'oggetto js dentro l'array, settando i valori dei rispettivi campi (risposta testo)
             datiRiassuntivi.push({
                 domanda: storia.missioni[i].attivita[j].domanda,
                 rispostaTesto: document.getElementById('nameTextArea').value,
@@ -508,6 +525,7 @@ $(document).ready(function () {
             });
         }
         if(storia.missioni[i].attivita[j].camporispostafoto != null && storia.missioni[i].attivita[j].camporispostafoto == "" && (storia.missioni[i].attivita[j].stato == "attiva" && storia.missioni[i].stato == "attiva")){
+            //Inserisco l'oggetto js dentro l'array, settando i valori dei rispettivi campi (risposta foto)
             datiRiassuntivi.push({
                 domanda: storia.missioni[i].attivita[j].domanda,
                 rispostaTesto: null,
@@ -529,7 +547,7 @@ $(document).ready(function () {
                 numAttivita = storia.missioni[i].attivita.length;
                 caricaAttivita();
             }
-            else{ //messaggio di conclusione storia
+            else{ //Messaggio di conclusione storia
                 document.getElementById('campoNomeGiocatore').hidden = true;
                 document.getElementById('row1').hidden = false;
                 document.getElementById('campoTestoIniz').hidden = true;
@@ -539,14 +557,15 @@ $(document).ready(function () {
                 document.getElementById('campoAvanti').hidden = true;
                 document.getElementById('bottoneChat').hidden = true;
                 document.getElementById('domanda').innerHTML = "Complimenti! Hai terminato con successo la storia. Sotto potrai vedere visualizzate tutte le tue valutazioni che prima erano in attesa di una valutazione. Quando tutte le tue risposte saranno state valutate potrai inviare i tuoi dati riassuntivi attraverso l'apposito bottone in basso a sinistra.";
-                inserisciMargine = true;
+                inserisciMargine = true; //Settato solo per la prima volta che chiamo visualizzaValutazioni
                 visualizzaValutazioni();
             }
         }
-    } //chiusura function cambioAttivita
+    }
     
+    //-- Funzione per visualizzare le valutazioni
     function visualizzaValutazioni(){
-        //le info da visualizzare le prendo dall'array valutazioni[]
+        //Informazioni da visualizzare le prendo dall'array valutazioni[]
         for(z=0; z < valutazioni.length; z++){
             var newDiv = document.createElement("div");
             if (valutazioni[z].valutazione != null && valutazioni[z].commentoValutazione != null){
@@ -559,11 +578,13 @@ $(document).ready(function () {
                     Img.src = valutazioni[z].immagine;
                     Img.setAttribute("width", "150em");
                     Img.setAttribute("alt", "Foto scattata con fotocamera per la risposta");
-                    newDiv.appendChild(Img);
+                    newDiv.appendChild(Img); //Aggiunge un nodo alla fine dell'elenco di figli di un nodo genitore specificato
                     newDiv.innerHTML += "<br>" + "Valutazione: " + valutazioni[z].valutazione + "<br>" + "Commento alla valutazione: " + valutazioni[z].commentoValutazione + "<br>" + "<br>";
                 }
-                if(inserisciMargine == true){
-                    newDiv.style.marginTop = "180px";
+                if(inserisciMargine == true){ //Se è la prima volta che chiamo visualizzaValutazioni allora setto il margine superiore
+                    var altezzaDomanda = document.getElementById('domanda').offsetHeight; //Prende l'altezza della nuvola della domanda
+                    altezzaDomanda = altezzaDomanda + 20;
+                    newDiv.style.marginTop = altezzaDomanda.toString() + "px"; //Converte in stringa il valore dell'altezza della domanda (intero)
                 }
                 inserisciMargine = false;
                 newDiv.style.marginBottom = "50px";
@@ -573,7 +594,7 @@ $(document).ready(function () {
                 var oldDiv = document.getElementById('row1');
                 oldDiv.appendChild(newDiv);
                 window.scroll();
-                valutazioni.splice(z,1);
+                valutazioni.splice(z,1); //Elimino un solo oggetto in posizione z
                 z--;
             }
             if(contatoreValutazioniEffettive == contatoreValutazioni && z == valutazioni.length-1){
@@ -592,70 +613,41 @@ $(document).ready(function () {
             document.getElementById('footer').hidden = false;
             document.getElementById('paginaPrincipale').hidden = true;
             document.getElementById('inviaDatiRiassuntivi').hidden = false;
-            console.log(JSON.stringify(datiRiassuntivi));
+            console.log("Dati riassuntivi inviati: " + JSON.stringify(datiRiassuntivi));
         }
-    } //chiusura function visualizzaValutazioni
+    }
     
     $("#inviaDatiRiassuntivi").click(function(){
         socket.emit("dati riassuntivi", JSON.stringify(datiRiassuntivi), punteggioTotale, nomeGiocatore);
         var myNode = document.getElementById("row1");
-        //elimina la visualizzazione dalle valutazioni
-        while (myNode.children[1]) { //elimina tutti i figli a partire dal secondo
+        
+        //Elimina la visualizzazione dalle valutazioni
+        while (myNode.children[1]) { //Elimina tutti i figli a partire dal secondo
                myNode.removeChild(myNode.children[1]);
         }
+        
         //punteggio : punteggioTotale = x : 10 -> x = (punteggio * 10) / punteggioTotale
         var x = punteggio * 10 / punteggioTotale;
-        console.log(x);
+        
         if(x > 0 && x < 4){
             document.getElementById('domanda').innerHTML = "Hai totalizzato: " + punteggio + " punti su " + punteggioTotale + ". Sei riuscito a portare a termine la tua partita ma la prossima volta prova ad impegnarti di più! <br> Resta in attesa fino a quando non verrai reindirizzato alla pagina principale.";
         }
         else if(x >= 4 && x < 7){
-            document.getElementById('domanda').innerHTML = "Hai totalizzato: " + punteggio + " punti su " + punteggioTotale + ". Sei stato bravo nel portare a termine la partita ma sappiamo che puoi dare di più! <br> Resta in attesa fino a quando non verrai reindirizzato alla pagina principale.";
+            document.getElementById('domanda').innerHTML = "Hai totalizzato: " + punteggio + " punti su " + punteggioTotale + ". Sei stato bravo nel portare a termine la partita ma sappiamo che puoi dare molto di più! <br> Resta in attesa fino a quando non verrai reindirizzato alla pagina principale.";
         }
         else{
             document.getElementById('domanda').innerHTML = "Hai totalizzato: " + punteggio + " punti su " + punteggioTotale + ". Sei stato bravissimo! Ottima partita! <br> Resta in attesa fino a quando non verrai reindirizzato alla pagina principale.";
         }
+        
         document.getElementById('inviaDatiRiassuntivi').hidden = true;
+        
         var domanda = document.getElementById('domanda');
         domanda.setAttribute('tabindex', '0');
         domanda.focus();
-    });
-    
-    $("#aiutoChat").click(function(){
-        var messaggioPlayer = "RICHIESTA AIUTO: " + storia.missioni[i].attivita[j].domanda;
-        socket.emit('chat message', messaggioPlayer, nomeGiocatore, valutatore);
-        document.getElementById('messaggiChat').innerHTML += "<div class='message message-right'> <div class='message-text-wrapper'> <div class='message-text'>" + messaggioPlayer + "</div></div></div>";
-        document.getElementById('campoChat').hidden = false;
-        var messaggioStaticoChat = document.getElementById('messaggioStaticoChat');
-        messaggioStaticoChat.setAttribute('tabindex', '0');
-        messaggioStaticoChat.focus();
-    });
-    
-    $("#bottoneChat").click(function(){
-        if(document.getElementById('campoChat').hidden == true){
-            document.getElementById('campoChat').hidden = false;
-            var messaggioStaticoChat = document.getElementById('messaggioStaticoChat');
-            messaggioStaticoChat.setAttribute('tabindex', '0');
-            messaggioStaticoChat.focus();
-        }
-        else{
-            document.getElementById('campoChat').hidden = true;
-        }
-    });
-    
-    $("#bottoneChiudiChat").click(function(){
-        document.getElementById('campoChat').hidden = true;
-        var domanda = document.getElementById('domanda');
-        domanda.setAttribute('tabindex', '0');
-        domanda.focus();
-    });
-
-    $("#campoMessaggio").keydown(function(e){
-       document.getElementById('risposta1').focus();
     });
 
     $("#paginaPrincipale").click(function() {
         cambiaPagina('primaPagina.html');
     });
     
-}); //chiusura document.ready
+});

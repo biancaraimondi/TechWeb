@@ -41,7 +41,7 @@ div#row4 {
     font-family: Baskerville, "Palatino Linotype", Palatino, "Century Schoolbook L", "Times New Roman", "serif";
     background-color: lightgrey;
     border-radius: 30px;
-    border-color: transparent;
+    border:solid transparent;
     opacity: 0.8;
     width: 90%;
     font-size: 22px;
@@ -49,17 +49,12 @@ div#row4 {
     position: absolute;
 }
 
-/*
-#domanda:focus {
-    border-color: transparent;
-}
- */
-
 #campoMessaggio {
     font-family: Baskerville, "Palatino Linotype", Palatino, "Century Schoolbook L", "Times New Roman", "serif";
     background-color: lightgrey;
     margin-top: 10px;
     border-radius: 20px;
+    border:solid transparent;
     opacity: 0.8;
     width: 90%;
     font-size: 18px;
@@ -71,9 +66,13 @@ div#row4 {
     margin-bottom: 10px;
 }
 
-#row4 {
-    margin-bottom: 500px;
+#invia, #bottoneChiudiChat {
+    margin-bottom: 30px;
 }
+
+/*#row4 {
+    margin-bottom: 450px;
+}*/
 
 #testoBottoneFoto, #testoAnteprimaFoto {
     font-family: Baskerville, "Palatino Linotype", Palatino, "Century Schoolbook L", "Times New Roman", "serif";
@@ -123,23 +122,16 @@ label {
 
 #messaggioStaticoChat {
     background: white;
-    padding:15px;
+    padding:10px;
     border-radius:4px;
-    border-color: transparent;
+    border:solid transparent;
     border:1px solid #ddd;
     border:1px solid rgba(221,221,221,0.68);
     position:relative;
-    width:85%;
     left:2em;
     -webkit-box-shadow: 0 1px 4px 0 rgba(0,0,0,0.37);
     box-shadow: 0 1px 4px 0 rgba(0,0,0,0.37);
 }
-
-/*
-#messaggioStaticoChat:focus {
-    border-color: transparent;
-}
- */
 
 #bottoneChiudiChat {
     float: right;
@@ -153,8 +145,7 @@ label {
     color: white;
 }
 
-/*Chat widget*/
-/*chat style from https://www.bootdey.com/snippets/view/messages-chat-with-tabs#css*/
+/*Chat widget - chat style from https://www.bootdey.com/snippets/view/messages-chat-with-tabs#css*/
 .chat-widget .message {
     display:block;
     margin-bottom:20px;
@@ -240,7 +231,6 @@ label {
 
 .panel-body{
     margin-top: 7%;
-    width: 35em;
     height: 8em;
     position: relative;
     bottom: 1em;
@@ -258,14 +248,14 @@ label {
         position: fixed;
         width: 100px;
         height: 100px;
-        left: 11em;
+        left: 10em;
         top: 22em;
     }
     
     div#row1 {
         margin-top: 30px;
         margin-right: 10px;
-        margin-bottom: 20px;
+        margin-bottom: 50px;
         margin-left: 2px;
     }
     
@@ -279,14 +269,24 @@ label {
     
     #campoMessaggio {
         font-size: 16px;
+        margin-bottom: 90px;
     }
     
     #testoBottoneFoto, #testoAnteprimaFoto {
         font-size: 16px;
     }
+    
+    .panel-title {
+        padding-left: 2px;
+    }
+    
+    #avanti, #inviaRisposta, #bottoneChiudiChat {
+        margin-bottom: 100px;
+    }
+    
 }
 
-@media (min-width: 361px) and (max-width: 415px) {
+@media (min-width: 361px) and (max-width: 400px) {
     
     h1{
         font-size: 24px;
@@ -303,7 +303,7 @@ label {
     div#row1 {
         margin-top: 30px;
         margin-right: 10px;
-        margin-bottom: 20px;
+        margin-bottom: 50px;
         margin-left: 2px;
     }
     
@@ -322,4 +322,60 @@ label {
     #testoBottoneFoto, #testoAnteprimaFoto {
         font-size: 16px;
     }
+    
+    #inviaRisposta, #bottoneChiudiChat {
+        margin-bottom: 70px;
+    }
+    
+}
+
+@media (min-width: 401px) and (max-width: 415px) {
+    
+    h1{
+        font-size: 24px;
+    }
+    
+    div#row2 {
+        position: fixed;
+        width: 100px;
+        height: 100px;
+        left: 14em;
+        top: 25em;
+    }
+    
+    div#row1 {
+        margin-top: 30px;
+        margin-right: 10px;
+        margin-bottom: 50px;
+        margin-left: 2px;
+    }
+    
+    #domanda {
+        font-size: 20px;
+    }
+    
+    label {
+        font-size: 16px;
+    }
+    
+    #campoMessaggio {
+        font-size: 16px;
+    }
+    
+    #testoBottoneFoto, #testoAnteprimaFoto {
+        font-size: 16px;
+    }
+    
+    #bottoneChiudiChat {
+        margin-bottom: 70px;
+    }
+    
+}
+
+@media (min-width: 416px) and (max-width: 992px) {
+    
+    #bottoneChiudiChat {
+        margin-bottom: 70px;
+    }
+    
 }

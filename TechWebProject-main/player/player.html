@@ -2,7 +2,7 @@
 <html>
     <head>
         
-        <!-- Pagina accessibile per non vedenti -->
+        <!-- pagina accessibile per non vedenti -->
         
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <!-- per garantire un rendering corretto e lo zoom al tocco per tutti i dispositivi -->
@@ -20,7 +20,7 @@
             integrity="sha512-AcZyhRP/tbAEsXCCGlziPun5iFvcSUpEz2jKkx0blkYKbxU81F+iq8FURwPn1sYFeksJ+sDDrI5XujsqSobWdQ==" crossorigin="anonymous"></script> -->
         <script src="http://localhost:3000/socket.io/socket.io.js"></script>
         
-        <!-- inclusione script per webcam -->
+        <!-- inclusione script per webcam -->   <!-- usare https per il funzionamento della webcam con gocker -->
         <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
 
         <!-- inclusione funzioni js -->
@@ -39,7 +39,7 @@
         <div class="container-fluid" id="contenitorePagina">
             
             <div class="row" id="row1" hidden>
-                <p id="domanda"> <!-- Inserimento testo domanda in modo automatico --> </p>
+                <p id="domanda"> <!-- inserimento testo domanda in modo dinamico --> </p>
             </div>
             
             <div id="campoTestoIniz">
@@ -47,13 +47,12 @@
                 <p> Sei pronto ad iniziare la tua storia? Inserisci il tuo Nome e Cognome e poi inizia a giocare! </p>
             </div>
             
-            
             <div class="row" id="row2">
                 <!-- campo inserimento nome giocatore -->
                 <div id="campoNomeGiocatore">
                     <input type="text" placeholder="Inserisci il tuo nome" class="form-control-sm" id="nomeGiocatore">
                     <span class="input-group-btn">
-                        <button class="btn btn-dark btn-sm" type="button" id="nome" role="button">OK</button>
+                        <button class="btn btn-dark btn-sm" type="button" id="nome" role="button"> OK </button>
                     </span>
                     <p id="nomeUtenteErrato" hidden> Nome utente già presente! Inserirne un altro. </p>
                 </div>
@@ -65,19 +64,19 @@
                     <label for="name">Inserisci qui il testo della risposta:</label>
                     <br>
                     <input type="text" placeholder="Inserisci la risposta" class="form-control-sm" id="nameTextArea" name="name" size="35">
-                    <button class="btn btn-dark btn-sm" type="button" id="inviaRisposta" role="button" aria-label="Bottone per inviare la risposta">Invia risposta</button>
+                    <button class="btn btn-dark btn-sm" type="button" id="inviaRisposta" role="button" aria-label="Bottone per inviare la risposta"> Invia risposta </button>
                 </div>
                 <div class="col-sm-12 col-md-12 col-lg-6" id="campoFoto" hidden>
                     <p id="testoBottoneFoto"> Clicca l'icona della macchina fotografica per avviare la fotocamera <img id="bottoneFoto" src="icon/cameraWhite.png" width="50em" height="40em" alt="Bottone attiva fotocamera" role="button"/></p>
                     <p id="testoAnteprimaFoto"> Di seguito potrai vedere l'anteprima della foto scattata: </p>
                     <div id="fotoAnteprima">
-                        <!-- anteprima foto -->
+                        <!-- anteprima foto scattata -->
                     </div>
                     <br>
-                    <button class="btn btn-dark btn-sm" type="button" id="scattaFoto" role="button" aria-label="Bottone per scattare la foto">Scatta Foto</button>
-                    <button class="btn btn-dark btn-sm" type="button" id="inviaRispostaFoto" role="button" aria-label="Bottone per inviare la foto al valutatore">Invia foto al valutatore</button>
+                    <button class="btn btn-dark btn-sm" type="button" id="scattaFoto" role="button" aria-label="Bottone per scattare la foto"> Scatta Foto </button>
+                    <button class="btn btn-dark btn-sm" type="button" id="inviaRispostaFoto" role="button" aria-label="Bottone per inviare la foto al valutatore"> Invia foto al valutatore </button>
                     <video id="webcam" autoplay playsinline width="620" height="480"></video>
-                    <canvas id="canvas" class="d-none">
+                    <canvas id="canvas" class="d-none"></canvas>
                 </div>
                 <!-- colonna bottoni risposte -->
                 <div class="col-sm-12 col-md-12 col-lg-6" id="campoRisposte" hidden>
@@ -105,7 +104,7 @@
                     </div>
                     <br>
                     <div class="message-camp">
-                        <p id="campoMessaggio" hidden> <!-- Inserimento testo aiuto o incitamento in modo automatico --> </p>
+                        <p id="campoMessaggio" hidden> <!-- inserimento testo aiuto o messaggio d'incitamento in modo dinamico --> </p>
                     </div>
                 </div> 
                 <!-- colonna chat -->
@@ -116,18 +115,18 @@
                         </div>
                         <div class="panel-body" id="messaggiChat">
                             <p id="messaggioStaticoChat"> Questa è la chat: scrivi qui ogni domanda o dubbio. </p>
-                            <!-- qui viene inserito in automatico il testo della chat -->
+                            <!-- qui viene inserito dinamicamente il testo della chat -->
                         </div>
                         <br>
                         <div class="panel-footer">
                             <div class="input-group">
                                 <input type="text" placeholder="Inserisci il messaggio" class="form-control-sm" id="testoDaInviare">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-dark btn-sm" type="button" id="invia" role="button" aria-label="Bottone per inviare il messaggio in chat">Invia</button>
+                                    <button class="btn btn-dark btn-sm" type="button" id="invia" role="button" aria-label="Bottone per inviare il messaggio in chat"> Invia </button>
                                 </span>
                             </div>
                             <span class="input-group-btn">
-                                <button class="btn btn-dark btn-sm" type="button" id="bottoneChiudiChat" role="button" aria-label="Bottone per chiudere la chat">Chiudi chat</button>
+                                <button class="btn btn-dark btn-sm" type="button" id="bottoneChiudiChat" role="button" aria-label="Bottone per chiudere la chat"> Chiudi chat </button>
                             </span>
                         </div>
                     </div>
@@ -135,7 +134,7 @@
             </div>
             <div class="row" id="row4" hidden>
                 <div id="campoAvanti">
-                    <button class="btn btn-dark btn-sm" type="button" id="avanti" role="button">Avanti</button>
+                    <button class="btn btn-dark btn-sm" type="button" id="avanti" role="button"> Avanti </button>
                 </div>
             </div>
         </div>
