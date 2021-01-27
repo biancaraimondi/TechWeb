@@ -178,6 +178,14 @@ $(document).ready(function () {
         testoAnteprimaFoto.focus();
     });
     
+    $('#bottoneRuotaFotocamera').click(function(){
+        webcam.flip();
+        webcam.start();
+        
+        var bottoneScattaFoto = document.getElementById('scattaFoto');
+        bottoneScattaFoto.focus();
+    });
+    
     $('#avanti').click(function(){
         document.getElementById('campoMessaggio').innerHTML = "";
         document.getElementById('campoMessaggio').hidden = true;

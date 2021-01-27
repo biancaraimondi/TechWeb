@@ -70,19 +70,24 @@ div#row4 {
     margin-bottom: 30px;
 }
 
-/*#row4 {
-    margin-bottom: 450px;
-}*/
-
-#testoBottoneFoto, #testoAnteprimaFoto {
+#testoBottoneFoto, #testoAnteprimaFoto, #testoRuotaFotocamera {
     font-family: Baskerville, "Palatino Linotype", Palatino, "Century Schoolbook L", "Times New Roman", "serif";
     font-size: 18px;
     color: white;
     text-shadow: 2px 2px 4px black;
 }
 
+/*#bottoneRuotaFotocamera {
+    
+}*/
+
 #bottoneChat {
     float: right;
+}
+
+#bottoneChiudiChat {
+    float: right;
+    margin-bottom: 80px;
 }
 
 label {
@@ -131,10 +136,6 @@ label {
     left:2em;
     -webkit-box-shadow: 0 1px 4px 0 rgba(0,0,0,0.37);
     box-shadow: 0 1px 4px 0 rgba(0,0,0,0.37);
-}
-
-#bottoneChiudiChat {
-    float: right;
 }
 
 .navbar-toggler {
