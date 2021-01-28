@@ -53,17 +53,17 @@ h2 {
 
 #imageQRcode{
 	margin-top: 5%;
-	margin-left: 25%;
+	margin-left: 35%;
 }
 
 #autore {
 	margin-top: 5%;
-	margin-left: 25%;
+	margin-left: 35%;
 }
 
 #storie {
 	margin-top: 5%;
-	margin-left: 25%;
+	margin-left: 35%;
 }
 
 #buttonQRcode {
@@ -85,5 +85,16 @@ h2 {
 @media (max-width: 768px) {
 	#row1{
 		margin-bottom: 4em;
+	}
+	#imageQRcode{
+		margin-left: 5%;
+	}
+
+	#autore {
+		margin-left: 5%;
+	}
+
+	#storie {
+		margin-left: 5%;
 	}
 }
