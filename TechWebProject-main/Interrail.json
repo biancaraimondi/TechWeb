@@ -42,18 +42,10 @@
 					"stato": "attiva"
 				},
 				{
-					"checkboxbottoni": true,
+					"checkboxcampoauto": true,
 					"domanda": "Finalmente avete terminato i giorni nella città dell'amore, e voi non vedete l'ora di partire per la nuova città. Prima di salire sull'Eurostar - il famoso treno che viaggia sott'acqua - notate che c'è da mostrare i documenti per poter passare la dogana inglese. Mentre siete in fila senti Marco e Giada organizzare il giorno seguente per andare a visitare il Big Ben. Siete felicissimi, quella città era proprio nella vostra lista delle cose da fare almento una volta nella vita! Di che città stanno parlando i vostri amici?",
 					"immaginesfondo": "./image/Londra.jpg",
-					"rispostebottoni" : {
-						"sbagliata1" : "Firenze",
-						"giusta" : "Londra",
-						"sbagliata2" : "Siviglia",
-						"sbagliata3" : "Oxford",
-						"incoraggiamento": "Andrete a visitare Buckingham Palace, provate a cambiare la vostra risposta",
-						"aiuto":"Sul treno c'è un signore che assomiglia tantissimo a Sherlock Holmes!",
-						"punteggio" : "2"
-					},
+					 "camporisposta": "londra",
 					"stato": "attiva"
 				},
 				{
