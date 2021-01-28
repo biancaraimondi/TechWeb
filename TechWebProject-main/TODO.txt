@@ -10,19 +10,6 @@ Modifiche alle porte di ascolto su lab usando Docker:
 - nel file server tutti i nomi dei file devono essere preceduti da __dirname/ (es __dirname + "/" + "storie.json")
 - aprire il sito al link: http://site192015.tw.cs.unibo.it/
 
-Modifiche alle porte di ascolto su lab usando linea di comando (node server.js):
-- aprire il sito al link: http://giovanna.cs.unibo.it:8000/
-
-modificare inclusione libreria socket.io prima della consegna (cambiare porta in 8000)
-
-creare QRcode
-
-accessibilità (scaricare chromevox come estensione e poi utilizzare la guida online: https://support.google.com/chromebook/answer/7031755#zippy=%2Cscegliere-il-testo-con-il-cursore)
-
-installare multer (npm install --save multer)
- 
-installare: npm install webcam-easy (gestione fotocamera)
-
 VITALI : non caricare interrail (per testare caricamento storia nell'ambiente autore)
 VITALI : nel SistemaSolare c'è una attività disattivata (Bravissimo! Hai elencato i nomi di tutti gli otto pianeti del nostro Sistema Solare. Ma lo sai perchè sono 8 e non più 9? Perchè Plutone prima faceva parte del Sistema Solare ed era il nono pianeta, il più lontano dal sole, ma nel 2006, a seguito della scoperta di peculiarità del pianeta, è stato declassato. Ora infatti Plutone è un..?) -> disattivarla tramite autore, perchè quando viene caricata l'attività è attiva
 
@@ -30,29 +17,10 @@ COMANDI PER ATTIVARE PROGETTO:
 - ssh bianca.raimondi2@eva.cs.unibo.it
 -  cd /home/web/site192015/html
 - ssh gocker.cs.unibo.it
-- create node site192015 server.js (collegandosi a http://site192015.tw.cs.unibo.it:8000/ OPPURE http://site192015.tw.cs.unibo.it trovate il nostro progetto)
-(
-  cd $home
-  nano .bash_profile
-  Aggiungete la seguente riga: export PATH=/usr/local/node/bin/:$PATH
-  Riavviate la shell, lanciando il comando: exit
-  
-  OPPURE
-  
-  /usr/local/node/bin/node index.js
-  /usr/local/node/bin/npm install express
-)
+- create node site192015 server.js (collegandosi a http://site192015.tw.cs.unibo.it trovate il nostro progetto)
+- nella cartella /home/web/site192015/log sono presenti file di console.log e errori dato dal server (aprirli con comando vi)
 
-- npm init
-- npm install express
-- npm install http
-- npm install fs
-- npm install body-parser
-- npm install multer (se non funziona prima del comando lanciare: npm cache clean --force)
-- npm install socket.io (se non funziona prima del comando lanciare: npm cache clean --force)
-- node server.js
-
-COMANDI PER ACCEDERE AL PROGETTO:
+COMANDI PER ACCEDERE AL CARTELLA DEL PROGETTO:
 - ssh bianca.raimondi2@eva.cs.unibo.it
 - cd /home/web/site192015/html
 - node server.js
@@ -68,30 +36,3 @@ COMANDI PER MODIFICARE FILE NELLA CARTELLA CONDIVISA IN LAB:
 COMANDI PER FARE UPLOAD DI FILE E CARTELLE SUI COMPUTER IN LAB:
 - scp ilBravoPedone.json bianca.raimondi2@giovanna.cs.unibo.it:"/home/web/site192015/html/"
 - scp -r image bianca.raimondi2@giovanna.cs.unibo.it:"/home/web/site192015/html/"
-
-ACCESSIBILITA':
- PLAYER:
- - Appena si entra nella pagina dell'inserimento del nome, non legge "Torna alla pagina principale"
- - Appena incomincia la storia, la prima cosa che legge non è il testo della storia ma la zona pulsanti/inserisci campo risposta
- - Quando legge la storia non la legge tutta per intero ma legge una riga alla volta
- - Dopo aver cliccato il pulsante della risposta corretta, l'utente non capisce se è cambiata l'interfaccia. Inoltre dopo che l'interfaccia è cambiata 
-   lo screen reader non legge dalla nuvoletta del racconto, ma legge il nuovo pulsante delle risposte che ha sostituito quello della risposta precedente
- - Dopo aver cliccato il pulsante della risposta sbagliata, l'utente non sa se quella è la risposta giusta o meno, perchè per capire che ha dato la risposta
-   sbagliata dovrebbe scorrere tutti i pulsanti per poi trovare la nuvoletta del messaggio di incorraggiamento
-								----------------- 
-- Usare focus() per settare il focus ad un elemento (se un elemento non è focalizzato utilizzare l'attributo tabindex="0";) => 
-	var domanda = document.getElementById('domanda'); 
-        	domanda.setAttribute('tabindex', '0'); //rende focalizzabile l'elemento (campi solo lettura non sono focalizzabili di default)
-        	domanda.focus(); //setta il focus ad un certo elemento
-- Usare role per settare il ruolo che ha un determinato tag html (in modo tale che lo screenReader lo interpreti in un certo modo).
-
-
-BIANCA:
-testare progetto su chrome, firefox, edge
-
-MARTI:
-testare progetto su safari (iphone - voiceOver, ipad)
-
-CRI: 
-testare progetto su opera e su smartphone android (noi due abbiamo solo apple)
-non caricare interrail (per testare caricamento storia nell'ambiente autore)
