@@ -36,4 +36,4 @@ COMANDI PER MODIFICARE FILE NELLA CARTELLA CONDIVISA IN LAB:
 COMANDI PER FARE UPLOAD DI FILE E CARTELLE SUI COMPUTER IN LAB:
 - scp ilBravoPedone.json bianca.raimondi2@giovanna.cs.unibo.it:"/home/web/site192015/html/"
 - scp -r image bianca.raimondi2@giovanna.cs.unibo.it:"/home/web/site192015/html/"
-- scp -r bianca.raimondi2@giovanna.cs.unibo.it:"/home/students/bianca.raimondi2/Desktop/html" TechWebGocker
+- scp -r bianca.raimondi2@giovanna.cs.unibo.it:"/home/web/site192015/html" TechWebGocker
