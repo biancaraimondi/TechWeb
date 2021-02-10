@@ -1,0 +1,189 @@
+input[type='radio'] {
+	-webkit-appearance:none; /* utilizzato per poter modificare liberamente il radio button senza venga applicato alcun stile del SO in uso dall'utente */
+	width:20px;
+	height:20px;
+	border:1px solid darkgray;
+	border-radius:50%;
+	outline:none; /*non visualizza contorno */ 
+	box-shadow:0 0 5px 0px gray inset;
+	margin-right:0.2em;
+}
+input[type='radio']:enabled:hover {
+	box-shadow:0 0 5px 0px orange inset;
+}
+input[type='radio']:before { /*all'interno del radio button viene creato un sottile spazio bianco*/
+	content:'';
+	display:block;
+	width:60%;
+	height:60%;
+	margin: 20% auto;    
+	border-radius:50%;    
+}
+input[type='radio']:checked:before { /*coloro l'interno del radio button*/
+	background:#8b0000;
+}
+
+.navbar {
+	background-color: #8b0000;
+}
+
+button {
+	background-color: #8b0000;
+	color: white;
+}
+
+.dropdown {
+	float: right;
+}
+
+.navbar-toggler{
+	border-radius: 5px;
+	box-shadow: 2px 2px 2px black;
+}
+
+h2{
+	color: #8b0000;
+	text-shadow: 1px 2px 3px black;
+}
+
+#titoloPagina{
+	color: white;
+}
+
+.btn-danger{
+	color: white;
+	background-color: #8b0000;
+	border-color: #8b0000;
+}
+
+.btn-danger:hover{
+	color: white;
+	background-color: #9c0000;
+	border-color: #9c0000;
+}
+
+#contenitoreLegenda{
+	background-color: lightgrey;
+	border-radius: 1em;
+	padding: 1em;
+	margin-bottom: 2em;
+	font-style: italic;
+}
+
+/*chat style from https://www.bootdey.com/snippets/view/messages-chat-with-tabs#css*/
+.chat-widget .message {
+	display:block;
+	margin-bottom:20px;
+}
+
+.chat-widget .message .message-text-wrapper {
+	display:table-cell;
+	width:1%;
+}
+
+.chat-widget .message .message-text {
+	padding:15px;
+	border-radius:4px;
+	border:1px solid #ddd;
+	border:1px solid rgba(221,221,221,0.68);
+	position:relative;
+	width:85%;
+	left:2em;
+	-webkit-box-shadow: 0 1px 4px 0 rgba(0,0,0,0.37);
+	box-shadow: 0 1px 4px 0 rgba(0,0,0,0.37);
+}
+
+.chat-widget .message.message-right .message-text {
+	background:#fbfbfb;
+}
+
+.chat-widget .message .message-text:before,.chat-widget .message .message-text:after {
+	right:100%;
+	top:30px;
+	border:solid transparent;
+	content:" ";
+	height:0;
+	width:0;
+	position:absolute;
+	pointer-events:none;
+}
+
+.chat-widget .message .message-text:before {
+	border-color:rgba(0,0,0,0);
+	border-right-color:#ddd;
+	border-width:10px;
+	margin-top:-19px;
+}
+
+.chat-widget .message .message-text:after {
+	border-color:rgba(213,71,28,0);
+	border-right-color:#fff;
+	border-width:9px;
+	margin-top:-18px;
+}
+
+.chat-widget .message.message-right .message-text:before,.chat-widget .message.message-right .message-text:after {
+	left:100%;
+	top:30px;
+	border:solid transparent;
+	content:" ";
+	height:0;
+	width:0;
+	position:absolute;
+	pointer-events:none;
+}
+
+.chat-widget .message.message-right .message-text:before {
+	border-color:rgba(0,0,0,0);
+	border-left-color:#ddd;
+	border-width:10px;
+	margin-top:-19px;
+}
+
+.chat-widget .message.message-right .message-text:after {
+	border-left-color:#fbfbfb;
+	border-width:9px;
+	margin-top:-18px;
+}
+
+.chat-widget .panel-footer {
+	border:none;
+	background:transparent;
+}
+
+.progress-bar{
+	width: 0;
+}
+
+#giocatore{
+	width: 18em;
+	height: 15em;
+	position: relative;
+	bottom: 1em;
+	overflow-x: visible;
+	overflow-y: scroll;
+}
+
+.panel-body{
+	height: 20em;
+	position: relative;
+	bottom: 1em;
+	overflow-x: visible;
+	overflow-y: scroll;
+}
+
+#avanzamento{
+	height: 20em;
+	position: relative;
+	bottom: 0em;
+	overflow-y : auto;
+	overflow-x : auto;
+}
+
+#spedisciValutazione{
+	width: 22em;
+}
+
+.col-sm-12 div.chat-widget, .col-md-12 div.chat-widget, .col-lg-12 div.chat-widget{
+	margin-bottom: 4em;
+}
