@@ -1,0 +1,154 @@
+{
+    "accessibile": false,
+    "eta": "eta1",
+    "missioni": [
+        {
+            "nome": "Passeggiando verso il parco con la mamma",
+            "attivita": [
+                {
+                    "checkboxnorisposta": true,
+                    "domanda": "Ciao amico pedone, oggi affronterai una lunga passeggiata con la mamma che ti porterà alla scoperta dei segnali stradali, di come ci si comporta quando si è sulla strada e insieme conosceremo l'amico vigile.",
+                    "avanti": "Avanti",
+                    "immaginesfondo": "./image/sfondoiniziale.jpg",
+                    "stato": "attiva",
+                    "id": 100115
+                },
+                {
+                    "checkboxcampoauto": true,
+                    "domanda": "Sei appena uscito di casa con la mamma e ti ha detto che andrete al parco per incontrare i tuoi amici di scuola. Per raggiungere il parco, però, dovete attraversare una strada dove passano tante macchine. Come si chiama quella parte di strada dedicata al passaggio dei pedoni?",
+                    "immaginesfondo": "./image/sfondoattraversamento.jpg",
+                    "camporisposta": "strisce pedonali",
+                    "stato": "attiva",
+                    "id": 100116
+                },
+                {
+                    "domanda": "Bravo amico pedone, hai appena attraversato sulle strisce pedonali raggiungendo l'altra parte della strada. Ora però, per raggiungere il parco, devi percorrere uno spazio che si trova vicino alla strada. Come si chiama quest'area dove possono camminare i pedoni?",
+                    "immaginesfondo": "./image/sfondomarciapiede.jpg",
+                    "checkboxbottoni": true,
+                    "rispostebottoni": {
+                        "sbagliata1": "Strada",
+                        "giusta": "Marciapiede",
+                        "sbagliata2": "Pista Ciclabile",
+                        "sbagliata3": "Isola Spartitraffico",
+                        "aiuto": "Di solito è più alto rispetto alla strada.",
+                        "incoraggiamento": "Accipigna! Amico pedone, mi sembra che la risposta che hai dato non sia quella giusta. Se hai bisogno puoi sempre guardare l'aiuto.",
+                        "immagineaiuto": "./image/marciapiede.jpg",
+                        "punteggio": "2"
+                    },
+                    "stato": "attiva",
+                    "id": 100117
+                },
+                {
+                    "domanda": "Bravo amico pedone, utilizzando il marciapiede sei arrivato al parco. Alla fine dovrai di nuovo attraversare la strada sulle strisce pedonali, dove però, questa volta, c'è il semaforo. Con quale colore si può passare dall'altro lato?",
+                    "immaginesfondo": "./image/sfondosemaforo.jpg",
+                    "checkboxbottoni": true,
+                    "rispostebottoni": {
+                        "sbagliata1": "Rosso",
+                        "giusta": "Verde",
+                        "sbagliata2": "Giallo",
+                        "sbagliata3": "Blu",
+                        "aiuto": "Il colore è uguale a quello del prato.",
+                        "incoraggiamento": "Oh Oh, mio caro amico pedone sei sicuro della risposta che hai inserito? Ricordati che puoi guardare l'aiuto!",
+                        "immagineaiuto": "./image/semaforoverde.jpg",
+                        "punteggio": "4"
+                    },
+                    "stato": "attiva",
+                    "id": 100118
+                },
+                {
+                    "domanda": "Evviva! Finalmente sei riuscito a raggiungere il parco con la mamma, rispettando le regole dei pedoni. Ora ti sei proprio meritato un po' di tempo per giocare con i tuoi amici!",
+                    "immaginesfondo": "./image/sfondoparco.jpg",
+                    "checkboxnorisposta": true,
+                    "avanti": "Avanti",
+                    "stato": "attiva",
+                    "id": 100119
+                }
+            ],
+            "stato": "attiva",
+            "id": 10030
+        },
+        {
+            "nome": "Tornando a casa in macchina con mamma e papà",
+            "attivita": [
+                {
+                    "domanda": "E' quasi ora di cena e papà è venuto a prenderci al parco. Qual è la prima cosa che fai quando ti siedi sul seggiolino nella macchina?",
+                    "immaginesfondo": "./image/sfondocintura.jpg",
+                    "checkboxbottoni": true,
+                    "rispostebottoni": {
+                        "sbagliata1": "Abbasso il finestrino",
+                        "giusta": "Metto la cintura",
+                        "sbagliata2": "Chiedo a papà di mettere una canzone",
+                        "sbagliata3": "Salto sul sedile",
+                        "aiuto": "E' una cinta che ti può salvare la vita.",
+                        "incoraggiamento": "Oh, sembra proprio che la risposta che hai dato, non sia quella giusta. Se hai difficoltà puoi sempre guardare l'aiuto.",
+                        "immagineaiuto": "./image/cintura.jpg",
+                        "punteggio": "5"
+                    },
+                    "stato": "attiva",
+                    "id": 100120
+                },
+                {
+                    "domanda": "Sulla strada verso casa papà deve superare una grossa rotonda. Prima di percorrerla, però, vedete un cartello di obbligo che segnala la sua presenza. Che forma ha questo cartello?",
+                    "immaginesfondo": "./image/sfondorotonda.jpg",
+                    "checkboxbottoni": true,
+                    "rispostebottoni": {
+                        "sbagliata1": "Quadrato",
+                        "giusta": "Cerchio",
+                        "sbagliata2": "Triangolo",
+                        "sbagliata3": "Rettangolo",
+                        "aiuto": "Il segnale ha un colore blu con delle frecce all'interno.",
+                        "incoraggiamento": "Mio amico pedone a quanto pare la risposta che hai dato non è quella giusta...",
+                        "immagineaiuto": "./image/rotatoria.jpg",
+                        "punteggio": "1"
+                    },
+                    "stato": "attiva",
+                    "id": 100121
+                },
+                {
+                    "domanda": "Dopo aver percorso la rotonda senti un fischio che arriva dalla strada. Chi sarà mai a fare questo suono? E' il nostro amico vigile che, oltre ad usare il fischietto, tiene anche le braccia aperte. Cosa ci vuole dire il nostro amico vigile?",
+                    "immaginesfondo": "./image/sfondovigile.jpg",
+                    "checkboxbottoni": true,
+                    "rispostebottoni": {
+                        "sbagliata1": "Bisogna aumentare la velocità",
+                        "giusta": "Bisogna fermarsi",
+                        "sbagliata2": "Bisogna girare a sinistra",
+                        "sbagliata3": "Bisogna girare a destra",
+                        "aiuto": "Il vigile ti sta dicendo che non si può attraversare la strada.",
+                        "incoraggiamento": "Caro amico pedone la risposta che hai dato non è quella corretta... Vorrei ricordati che puoi sempre visualizzare l'aiuto, se ne hai bisogno.",
+                        "punteggio": "3"
+                    },
+                    "stato": "attiva",
+                    "id": 100122
+                },
+                {
+                    "domanda": "Stiamo per arrivare a casa e vicino alla tua scuola è presente un cartello che ci indica la presenza di bambini. Questo cartello ha la forma di un triangolo, cosa ci indica?",
+                    "immaginesfondo": "./image/sfondoscuola.jpg",
+                    "checkboxbottoni": true,
+                    "rispostebottoni": {
+                        "sbagliata1": "Divieto",
+                        "giusta": "Pericolo",
+                        "sbagliata2": "Obbligo",
+                        "sbagliata3": "Indicazione",
+                        "aiuto": "Il segnale che ha la forma di un triangolo ci dice che dobbiamo fare attenzione a qualcosa...",
+                        "incoraggiamento": "Caspiterina, sembra proprio che la risposta inserita non sia quella giusta... Guarda pure l'aiuto, se sei in difficoltà!",
+                        "immagineaiuto": "./image/pericolobimbi.jpg",
+                        "punteggio": "3"
+                    },
+                    "stato": "attiva",
+                    "id": 100123
+                },
+                {
+                    "domanda": "Congratulazioni amico pedone! Finalmente sei tornato a casa con mamma e papà, imparando nuove cose sui segnali stradali e su come ci si comporta sulla strada. Abbiamo inoltre conosciuto l'amico vigile che ti ha assegnato la spilla di Miglior Pedone! Alla prossima passeggiata!",
+                    "checkboxnorisposta": true,
+                    "avanti": "Avanti",
+                    "stato": "attiva",
+                    "id": 100124
+                }
+            ],
+            "stato": "attiva",
+            "id": 10031
+        }
+    ],
+    "nomestoria": "ilBravoPedone",
+    "id": 20
+}

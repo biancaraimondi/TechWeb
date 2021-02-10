@@ -1,0 +1,18 @@
+{
+    "storie": [
+        {
+            "id": 20,
+            "nome": "ilBravoPedone",
+            "accessibile": false,
+            "eta": "eta1",
+            "stato": "pubblicata"
+        },
+        {
+            "id": 21,
+            "nome": "ilSistemaSolare",
+            "accessibile": false,
+            "eta": "eta2",
+            "stato": "pubblicata"
+        }
+    ]
+}

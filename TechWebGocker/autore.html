@@ -1,0 +1,831 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="DC.Creator" content="Bianca Raimondi, Martina Ceccarelli Canali, Cristina Volpicella">
+<meta name="DC.Language" content="it">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+
+<title>Ambiente Autore</title>
+	
+<!-- inclusione librerie bootstrap, jquery e cytoscape -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">	
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.17.1/cytoscape.min.js" integrity="sha512-dR5Qb5zIoRodLJCkh0InsAi/uyP1Pd3lMAliXEdv5ol71k2qCwWFS9N18LIGH9MQuAPWu3adPyww5SK2deReog==" crossorigin="anonymous"></script>
+
+<!-- inclusione funzioni js -->
+<script type="text/javascript" src="autore.js"></script>
+	
+<!-- inclusione foglio di stile -->
+<link rel="stylesheet" href="autore.css">
+	
+<!-- inclusione icona pagina-->
+<link rel="icon" type="image/png" sizes="16x16" href="icon/logow.png">
+		
+</head>
+<body>
+	
+<!-- intestazione pagina ambiente autore -->
+<nav class="navbar navbar-light">
+	<span class="navbar-text">
+	<img src="icon/logow.png" alt="logo progetto M&M Mistero al Museo" id="logoprogetto"/>
+	</span>
+	<span class="navbar-text">
+	<h2 id="titolopagina">Ambiente Autore</h2>
+	</span>
+</nav>
+<br>
+	
+<!-- contenitore contenuto pagina -->	
+<div class="container-fluid" >
+	<div class="row" id="row1">
+		
+		<!-- contenitore storie archiviate -->
+		<div class="col-sm-4 col-md-4 col-lg-4" id="storiaarc">
+			<h2><center> Storie Archiviate </center></h2>
+			<br>
+			<div class="row" id="pulsantisa">
+				&nbsp;
+				<button type="button" id="crea" class="btn">Crea una nuova storia</button>
+				&nbsp; 
+				<button class="btn btn-secondary dropdown-toggle" type="button" id="azionearchivio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Azioni</button>
+				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton"><a class="dropdown-item" href="#" id="modificastoria">Modifica Storia</a>
+					<a class="dropdown-item" href="#" data-target="#finestraeliminaS" id="eliminastoria">Elimina Storia</a>
+					<a class="dropdown-item" href="#" id="duplicastoria">Duplica Storia</a>
+					<a class="dropdown-item" href="#" id="pubblicastoria">Pubblica Storia</a>
+				</div>
+				&nbsp;
+				<button type="button" class="btn btn-secondary" id="grafostoria" data-target="#finestragrafo">Grafo Storia</button>
+			</div>
+			<div class="row">&nbsp;
+			<input type="file" id="caricajson" accept="application/JSON" onChange="readFile(this)" hidden/>
+			<label class="btn btn-secondary" id="labelcaricajson" for="caricajson">Carica Storia</label>&nbsp;
+			<button type="button" class="btn btn-secondary" id="salvastoria">Salva Storia</button>
+			</div>
+			<br>
+	
+			<!-- Elenco storie archiviate -->
+			<div id="storiearchiviate" class="history">
+				<!-- storie inserite dinamicamente -->
+			</div>
+		</div>
+
+		<br><br><br><br>
+
+		<!-- linea rossa separazione -->	
+		<div class="lineaverticale"></div>
+
+		<!-- contenitore crea storia nascosto -->
+		<label id="titolo1"><h4> &nbsp;&nbsp; Crea una storia<br> &nbsp;&nbsp; oppure seleziona una storia archiviata per visualizzare le missioni associate.</h4></label>
+		<div id="messageerrorfunction"></div>
+		<div class="col-sm col-md col-lg" id="formattivita" hidden>
+			<div id="form-row">
+				<div class="form-group col">
+					<h2>Creazione nuova storia</h2>
+					<br>
+					<h3>Titolo Storia:</h3><br>
+					<input type="text" class="form-control" id="titolostoriacrea" placeholder="Titolo Storia" name="titolostoria" value=""> 
+					<br>
+					<h6>Accessibile? &nbsp; <input type="checkbox" id="accessibile" name="accessibile"></h6>
+					<br>
+					<h6>Fascia età storia: &nbsp;</h6>
+					<div class="input-group mb-3">
+				  		<select class="custom-select" id="creaetastoria">
+							<option value="eta1">7-10 anni</option>
+							<option value="eta2">11-14 anni</option>
+							<option value="eta3">15-18 anni</option>
+				  		</select>
+					</div>
+					<br>
+					<div id="messageerror"></div>
+					<br>
+					<button type="button" id="salva" class="btn">Salva</button> 
+					<button type="button" id="annullacrea" class="btn btn-secondary">Annulla</button>
+				</div>
+			</div>
+		</div>
+		
+		<!-- contenitore modifica storia nascosto -->
+		<div class="col-sm col-md col-lg" id="formmodifica" hidden>
+			<div id="form-row1">
+				<div class="form-group col">
+					<h2>Modifica storia</h2>
+					<br>
+					<h3>Titolo Storia:</h3><br>
+					<input type="text" class="form-control" id="titolostoriamod" placeholder="Titolo Storia" value="">
+					<br>
+					<h6>Accessibile? &nbsp; <input type="checkbox" id="accessibilemodifica"></h6>
+					<br>
+					<h6>Fascia età storia: &nbsp;</h6>
+					<div class="input-group mb-3">
+				  		<select class="custom-select" id="modificaetastoria">
+							<option value="eta1">7-10 anni</option>
+							<option value="eta2">11-14 anni</option>
+							<option value="eta3">15-18 anni</option>
+				  		</select>
+					</div>
+					<br>
+					<div id="messageerrormod"></div>
+					<br>
+					<br>
+					<button type="button" id="salvamodifica" class="btn">Salva Modifica</button> 
+					<button type="button" id="annullamod" class="btn btn-secondary">Annulla</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row" id="row2">
+		
+		<!-- contenitore storia pubblicate -->
+		<div class="col-sm-4 col-md-4 col-lg-4" id="storiapub">
+			<br>	
+			<h2><center> Storie Pubblicate </center></h2>
+			<br>
+			<div class="row" id="pulsantisp">
+				&nbsp;
+				<button type="button" class="btn btn-secondary" id="archiviastoria">Archivia Storia</button>
+			</div>
+			<br>
+			<div id="storiepubblicate" class="historya">
+			<!-- storie inserite dinamicamente -->
+			</div>
+		</div>
+		
+		<!-- linea rossa separazione -->		
+		<div class="lineaverticale"></div>
+		
+		<!-- contenitore missioni -->
+		<div class="col-sm col-md col-lg" id="missioni">	
+			<br>
+			<h2><center> Missioni </center></h2>
+			<br>
+			<div class="row" id="pulsantimissioni">
+			&nbsp;
+			<button type="button" class="btn btn-primary btn-sm" id="nuovamissione" data-target="#finestramissione">Crea nuova missione</button>&nbsp;
+				
+				
+			<button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="azionemissione" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Azioni</button>
+				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+					<a class="dropdown-item" href="#" data-target="#finestramodificamissione" id="modificamissione">Modifica Missione</a>
+					<a class="dropdown-item" href="#" data-target="#finestraeliminamis" id="eliminamissione">Elimina Missione</a>
+					<a class="dropdown-item" href="#" data-target="#finestracopiamissione" id="copiamissione">Copia Missione</a>
+					<a class="dropdown-item" href="#" data-target="#finestraspostamissione" id="spostamissione">Sposta Missione</a>
+					<a class="dropdown-item" href="#" data-target="#finestraattivamissione" id="attivamissione">Attiva Missione</a>
+					<a class="dropdown-item" href="#" data-target="#finestradisattivamissione" id="disattivamissione">Disattiva Missione</a>
+				</div>	
+			</div>
+			<br>
+			<div id="errormission"></div><br>
+			<!-- contenitore singole missioni -->	
+			<div id="elencomissioni">
+				<!-- create in modo dinamico -->
+			</div>	
+		</div>
+		
+		<!-- linea rossa separazione -->		
+		<div class="lineaverticale"></div>
+
+		<!-- contenitore attività -->
+		<div class="col-sm col-md col-lg" id="attivita">	
+			<br>     
+			<h2><center> Attività </center></h2><br>
+			<div class="row" id="pulsantiattivita">
+			&nbsp;
+			<button type="button" class="btn btn-primary btn-sm" data-target="#finestraattivita" id="nuovaattivita">Crea nuova attività</button>&nbsp;
+				
+				
+			<button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="azioneattivita" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Azioni</button>
+				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+					<a class="dropdown-item" href="#" data-target="#finestramodificaattivita" id="modificaattivita">Modifica Attività</a>
+					<a class="dropdown-item" href="#" data-target="#finestraeliminaatt" id="eliminaattivita">Elimina Attività</a>
+					<a class="dropdown-item" href="#" data-target="#finestracopiattivita" id="copiaattivita">Copia Attività</a>
+					<a class="dropdown-item" href="#" data-target="#finestraspostaattivita" id="spostaattivita">Sposta Attività</a>
+					<a class="dropdown-item" href="#" data-target="#finestraattivaattivita" id="attivaattivita">Attiva Attività</a>
+					<a class="dropdown-item" href="#" data-target="#finestradisattivaattivita" id="disattivaattivita">Disattiva Attività</a>
+				</div>		
+				
+			</div>
+			<br>
+			<div id="errorattivita"></div><br>
+			<!-- contenitore singole attività -->
+			<div id="elencoattivita">
+				<!-- create in modo dinamico -->
+			</div>	
+		</div>
+	</div>
+
+	<!-- finestra creazione nuova attività -->
+	<div class="modal fade bd-example-modal-xl" id="finestraattivita" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-xl" role="document">
+			<div class="modal-content">
+				<form id="newActivityForm" method="post" enctype="multipart/form-data" name="formAttivita" onsubmit="validateForm(event)">
+					<div class="modal-header">
+						<h3 class="modal-title" id="creanuovaatt">Attività</h3>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<h6>Sfondo: </h6>
+						<div>
+							<input type="file" id="sfondo" name="background" accept=".jpg">
+						</div>
+						<hr>
+						<h6>Domanda: </h6>
+						<input class="form-control" type="text" placeholder="Domanda Attività" id="domandaattivita">
+						<br>
+						<div class="form-check form-check-inline">
+  							<input class="form-check-input" name="exampleRadios" type="radio" id="checkboxrisposte" value="option1" onclick="check()">
+  							<label class="form-check-label" for="checkboxrisposte">Selezionami, se vuoi inserire le risposte con i bottoni.</label>
+						</div><br>
+						<div class="form-check form-check-inline">
+  							<input class="form-check-input" name="exampleRadios" type="radio" id="checkboxcampo" value="option2" onclick="check()">
+  							<label class="form-check-label" for="checkboxcampo">Selezionami, se vuoi che l'utente digiti manualmente la risposta e che venga valutata dall'ambiente valutatore.</label>
+						</div><br>
+						<div class="form-check form-check-inline">
+  							<input class="form-check-input" name="exampleRadios" type="radio" id="checkboxcampoauto" value="option3" onclick="check()">
+  							<label class="form-check-label" for="checkboxcampoauto">Selezionami, se vuoi che l'utente digiti manualmente la risposta e che venga valutata automaticamente.</label>
+						</div><br>
+						<div class="form-check form-check-inline">
+  							<input class="form-check-input" name="exampleRadios" type="radio" id="checkboxfoto" value="option4" onclick="check()">
+  							<label class="form-check-label" for="checkboxfoto">Selezionami, se vuoi che l'utente risponda con una foto.</label>
+						</div><br>
+						<div class="form-check form-check-inline">
+  							<input class="form-check-input" name="exampleRadios" type="radio" id="checkboxniente" value="option5" onclick="check()" checked>
+  							<label class="form-check-label" for="checkboxniente">Selezionami, se non vuoi inserire le risposte.</label>
+						</div>
+						<hr>
+						<h6>Risposte Pulsanti:</h6>
+						<div class="form-row">
+							<div class="col">
+								<input type="text" class="form-control" placeholder="Risposta Corretta" id="rispostacorretta" disabled>
+							</div>
+							<div class="col">
+								<input type="text" class="form-control" placeholder="Risposta Sbagliata 1" id="rispostasbagliata1" disabled>
+							</div>					
+						</div>
+						<div class="form-row">
+							<div class="col">
+								<input type="text" class="form-control" placeholder="Risposta Sbagliata 2" id="rispostasbagliata2" disabled>
+							</div>
+							<div class="col">
+								<input type="text" class="form-control" placeholder="Risposta Sbagliata 3" id="rispostasbagliata3" disabled>
+							</div>					
+						</div>
+						<br>
+						<div class="form-group">
+							 <label for="punteggio"><h6>Punteggio Risposta Corretta:</h6></label>
+							<select class="form-control" id="punteggio" disabled>
+							  <option value="1">1</option>
+							  <option value="2">2</option>
+							  <option value="3">3</option>
+							  <option value="4">4</option>
+							  <option value="5">5</option>
+							</select>
+						  </div>
+						
+						<h6>Risposta Manuale: </h6>
+						<input class="form-control" type="text" placeholder="Risposta Manuale" id="rispostamanuale" disabled>
+						<br>
+						<h6>Aiuto: </h6>
+						<input class="form-control" type="text" placeholder="Aiuto Risposta" id="aiutorisposta" disabled><br>
+						<h6>Aiuto con immagine: </h6>
+						<div>
+							<input type="file" id="aiutoimmagine" name="helpimage" accept=".jpg" disabled>
+						</div>
+						<br>
+						<h6>In caso di risposta sbagliata: </h6>
+						<textarea class="form-control" id="messaggiorispostasbagliata" rows="3" placeholder="Messaggio risposta sbagliata" disabled></textarea>
+						<br>
+					</div>
+					<div id="messageerrattivita"></div>
+					<br>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annullaat">Annulla</button>
+						<button type="submit" class="btn btn-primary" id="salvaat">Salva</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<!-- finestra modifica attività -->
+	<div class="modal fade bd-example-modal-xl" id="finestramodificaattivita" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-xl" role="document">
+			<div class="modal-content">
+				<form id="modifyActivityForm" method="post" enctype="multipart/form-data" name="formModificaAttivita" onsubmit="validateModifyForm(event)">
+					<div class="modal-header">
+						<h3 class="modal-title" id="modificanuovaatt">Modifica Attività</h3>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<h6>Sfondo: </h6>
+						<div>
+							<input type="file" id="modificasfondo" name="background" accept=".jpg">
+						</div>
+						<br>
+						<div id="sfondocaricato"></div>
+						<hr>
+						<h6>Domanda: </h6>
+						<input class="form-control" type="text" placeholder="Domanda Attività" id="moddomandaattivita">
+						<br>
+						<div class="form-check form-check-inline">
+  							<input class="form-check-input" name="exampleRadios" type="radio" id="modcheckboxrisposte" value="option1" onclick="check()">
+  							<label class="form-check-label" for="modcheckboxrisposte">Selezionami, se vuoi inserire le risposte con i pulsanti.</label>
+						</div><br>
+						<div class="form-check form-check-inline">
+  							<input class="form-check-input" name="exampleRadios" type="radio" id="modcheckboxcampo" value="option2" onclick="check()">
+  							<label class="form-check-label" for="modcheckboxcampo">Selezionami, se vuoi che l'utente digiti manualmente la risposta e che venga valutata dall'ambiente valutatore.</label>
+						</div><br>
+						<div class="form-check form-check-inline">
+  							<input class="form-check-input" name="exampleRadios" type="radio" id="modcheckboxcampoauto" value="option3" onclick="check()">
+  							<label class="form-check-label" for="modcheckboxcampoauto">Selezionami, se vuoi che l'utente digiti manualmente la risposta e che venga valutata automaticamente.</label>
+						</div><br>
+						<div class="form-check form-check-inline">
+  							<input class="form-check-input" name="exampleRadios" type="radio" id="modcheckboxfoto" value="option4" onclick="check()">
+  							<label class="form-check-label" for="checkboxfoto">Selezionami, se vuoi che l'utente risponda con una foto.</label>
+						</div><br>
+						<div class="form-check form-check-inline">
+  							<input class="form-check-input" name="exampleRadios" type="radio" id="modcheckboxniente" value="option5" onclick="check()" checked >
+  							<label class="form-check-label" for="modcheckboxniente">Selezionami, se non vuoi inserire le risposte.</label>
+						</div>
+						<hr>
+						<h6>Risposte Pulsanti: </h6>
+						<div class="form-row">
+							<div class="col">
+								<input type="text" class="form-control" placeholder="Risposta Corretta" id="modrispostacorretta"  disabled>
+							</div>
+							<div class="col">
+								<input type="text" class="form-control" placeholder="Risposta Sbagliata 1" id="modrispostasbagliata1" disabled>
+							</div>					
+						</div>
+						<div class="form-row">
+							<div class="col">
+								<input type="text" class="form-control" placeholder="Risposta Sbagliata 2" id="modrispostasbagliata2" disabled>
+							</div>
+							<div class="col">
+								<input type="text" class="form-control" placeholder="Risposta Sbagliata 3" id="modrispostasbagliata3" disabled>
+							</div>					
+						</div>
+						<br>
+						 <div class="form-group">
+							 <label for="modpunteggio"><h6>Punteggio Risposta Corretta:</h6></label>
+							<select class="form-control" id="modpunteggio" disabled>
+							  <option value="1">1</option>
+							  <option value="2">2</option>
+							  <option value="3">3</option>
+							  <option value="4">4</option>
+							  <option value="5">5</option>
+							</select>
+						  </div>
+						
+						<h6>Risposta Manuale: </h6>
+						<input class="form-control" type="text" placeholder="Risposta Manuale" id="modrispostamanuale" disabled>
+						<br>
+						<h6>Aiuto: </h6>
+						<input class="form-control" type="text" placeholder="Aiuto Risposta" id="modaiutorisposta" disabled><br>
+						<h6>Aiuto con immagine: </h6>
+						<div>
+							<input type="file" id="modificaaiutoimmagine" name="helpimage" accept=".jpg" disabled>
+							<br>
+						</div>
+						<br>
+						<div id="imgaiutocaricato"></div>
+						<br>
+						<h6>In caso di risposta sbagliata: </h6>
+						<textarea class="form-control" id="modmessaggiorispostasbagliata" rows="3" placeholder="Messaggio risposta sbagliata" disabled></textarea>
+						<br>
+					</div>
+					<div id="messageerrmodattivita"></div>
+					<br>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annullamodat">Annulla</button>
+						<button type="submit" class="btn btn-primary" id="salvamodat">Salva</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<!-- contenitore crea nuova missione -->
+	<div class="modal fade bd-example-modal-xl" id="finestramissione" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3 class="modal-title" id="creanuovamis">Missione</h3>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<h5>Titolo Missione: </h5> 
+					<input class="form-control" type="text" placeholder="Titolo Missione" id="titolomissione">
+					<br>
+					<div id="messageerrormissione"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annullamissione">Annulla</button>
+					<button type="button" class="btn btn-primary" id="salvamissione">Salva</button>
+				</div>
+			</div>
+		</div>
+	</div>	
+	
+	<!-- contenitore modifica missione -->
+	<div class="modal fade bd-example-modal-xl" id="finestramodificamissione" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3 class="modal-title" id="modificamis">Modifica missione</h3>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<h5>Titolo Missione: </h5> <input class="form-control" type="text" placeholder="Titolo Missione" id="modtitolomissione" ><br>
+					<div id="modmessageerrormissione"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annullamodmis">Annulla</button>
+					<button type="button" class="btn btn-primary" id="salvamodmis">Salva Modifica</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- finestra conferma eliminazione attività -->
+	<div class="modal fade" id="finestraeliminaatt" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel1">Elimina Attività</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					Sei sicuro di voler eliminare l'attività?
+				</div>
+				<div id="messageerroractivitydelete"></div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annullaatt">Annulla</button>
+					<button type="button" class="btn btn-primary" id="confermaeliminaatt">Conferma</button>
+				</div>
+			</div>
+		</div>
+	</div>	
+	
+	<!-- finestra conferma eliminazione missione-->
+	<div class="modal fade" id="finestraeliminamis" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel3">Elimina Missione</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					Sei sicuro di voler eliminare la missione?
+				</div>
+				<div id="messageerrormissiondelete"></div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annullaeliminamis">Annulla</button>
+					<button type="button" class="btn btn-primary" id="confermaeliminamis">Conferma</button>
+				</div>
+			</div>
+		</div>
+	</div>	
+
+	<!-- finestra conferma eliminazione storia -->
+	<div class="modal fade" id="finestraeliminaS" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Elimina Storia Archiviata</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					Sei sicuro di voler eliminare definitivamente la storia?
+				</div>
+				<div id="messageerrorstorydelete"></div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annulla">Annulla</button>
+					<button type="button" class="btn btn-primary" id="confermaelimina" data-dismiss="modal">Conferma</button>
+				</div>
+			</div>
+		</div>
+	</div>	
+	
+	<div class="modal fade" id="finestraspostamissione" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Sposta Missione</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" id="listastorie">
+					<i>Per visualizzare le storie, seleziona una singola storia dall'elenco delle storie archiviate.</i>
+					<br><br>
+					<i>Seleziona la storia per spostare la missione.</i><br>
+					<select class="custom-select" id="storiedisponibili" aria-label="Lista Missioni">
+				  </select>
+					<br><br>
+					<div id="errormissionmove"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annullasposta">Annulla</button>
+					<button type="button" class="btn btn-primary" id="confermasposta" data-dismiss="modal">Conferma Spostamento</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="finestracopiamissione" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Copia Missione</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" id="listastoriedisp">
+					<i>Per visualizzare le storie, seleziona una singola storia dall'elenco delle storie archiviate.</i>
+					<br><br>
+					<i>Seleziona la storia per copiare la missione.</i> <br> 
+					<select class="custom-select" id="listastoriedisponibili" aria-label="Lista Missioni">
+				  </select>
+					<br><br>
+					<div id="errormissioncopy"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annullacopia">Annulla</button>
+					<button type="button" class="btn btn-primary" id="confermacopia" data-dismiss="modal">Conferma Copia</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="finestraspostaattivita" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Sposta Attività</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" id="listamissioni">
+					<i>Per visualizzare le storie e le missioni, seleziona una singola storia dall'elenco delle storie archiviate ed una missione dall'elenco delle missioni.</i>
+					<br><br> <br>
+					<i>Seleziona la storia e la missione per spostare l'attività.</i><br><br>
+					<h6>Elenco Storie Disponibili:</h6>
+					<select class="custom-select" id="elencostoriedisp" aria-label="Lista Storie">
+				  </select>
+					<br><br>
+					<div id="errorestorymove"></div>
+					<br>
+					<h6>Elenco Missioni Disponibili:</h6>
+					<select class="custom-select" id="listamissionidisp" aria-label="Lista Missioni">
+				  </select>
+					<br><br>
+				<div id="erroreattivitamove"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annullaspostaatt">Annulla</button>
+					<button type="button" class="btn btn-primary" id="confermaspostaatt" data-dismiss="modal">Conferma Spostamento</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="finestracopiattivita" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Copia Attivita</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" id="copia">
+					<i>Per visualizzare le storie e le missioni, seleziona una singola storia dall'elenco delle storie archiviate ed una missione dall'elenco delle missioni.</i>
+					<br><br> <br>
+					<i>Seleziona la storia e la missione per copiare l'attività.</i> <br> <br>
+					<h6>Elenco Storie Disponibili:</h6>
+					<select class="custom-select" id="elencostorie" aria-label="Lista Storie">
+				  </select>
+					<br><br>
+				<div id="errorestorycopy"></div>
+					<br>
+					<h6>Elenco Missioni Disponibili:</h6>
+					<select class="custom-select" id="listamissionidisponibili" aria-label="Lista Missioni">
+				  </select>
+					<br><br>
+				<div id="erroreattivitacopy"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annullacopiamiss">Annulla</button>
+					<button type="button" class="btn btn-primary" id="confermacopiaattivita" data-dismiss="modal">Conferma Copia</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="finestraattivamissione" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Attiva Missione</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" id="listamissattivare">
+					<i>Per visualizzare le missioni, seleziona una singola storia dall'elenco delle storie archiviate.</i>
+					<br><br>
+					<i>Seleziona la missione che vuoi attivare.</i><br>
+					<select class="custom-select" id="listamissioniattivare" aria-label="Lista Missioni da Attivare">
+				  </select>
+					<br><br>
+					<div id="errormissionactivity"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annullaattivamissione">Annulla</button>
+					<button type="button" class="btn btn-primary" id="confermaattivamissione" data-dismiss="modal">Attiva Missione</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="finestradisattivamissione" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Disattiva Missione</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" id="listamissdisattivare">
+					<i>Per visualizzare le missioni, seleziona una singola storia dall'elenco delle storie archiviate.</i>
+					<br><br>
+					<i>Seleziona la missione che vuoi disattivare.</i><br>
+					<select class="custom-select" id="listamissionidisattivare" aria-label="Lista Missioni">
+				  </select>
+					<br><br>
+					<div id="errormissiondisactivity"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annulladisattiva">Annulla</button>
+					<button type="button" class="btn btn-primary" id="confermadisattiva" data-dismiss="modal">Disattiva Missione</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="finestraattivaattivita" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Attiva Attività</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" id="listaattattivare">
+					<i>Per visualizzare le storie e le missioni, seleziona una singola storia dall'elenco delle storie archiviate ed una missione dall'elenco delle missioni.</i>
+					<br><br>
+					<i>Seleziona l'attività che vuoi attivare.</i><br>
+					<select class="custom-select" id="listaattivitaattivare" aria-label="Lista Missioni da Attivare" size="10">
+				  </select>
+					<br><br>
+					<div id="erroractiveactivity"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annullaattivaattivita">Annulla</button>
+					<button type="button" class="btn btn-primary" id="confermaattivaattivita" data-dismiss="modal">Attiva Attività</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="finestradisattivaattivita" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Disattiva Attività</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" id="listaattdisattivare">
+					<i>Per visualizzare le storie e le missioni, seleziona una singola storia dall'elenco delle storie archiviate ed una missione dall'elenco delle missioni.</i>
+					<br><br>
+					<i>Seleziona l'attività che vuoi disattivare.</i><br>
+					<select class="custom-select" id="listaattivitadisattivare" aria-label="Lista Attività" size="10">
+				  </select>
+					<br><br>
+					<div id="erroractivitydisable"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal" id="annulladisattivaatt">Annulla</button>
+					<button type="button" class="btn btn-primary" id="confermadisattivaatt" data-dismiss="modal">Disattiva Attività</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="finestraistruzioni" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<h5 class="modal-title" id="titolobenvenuto">Istruzioni Ambiente Autore</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			  <span aria-hidden="true">&times;</span>
+			</button>
+		  </div>
+		  <div class="modal-body">
+			In questa pagina potrai effettuare una serie di operazioni sulle storie, sulle missioni e sulle attività: <br><br>
+			  Storie:<br>
+			  - Creare una nuova storia.<br>
+			  - Modificare una storia.<br>
+			  - Eliminare una storia.<br>
+			  - Pubblicare una storia.<br>
+			  - Archiviare una storia.
+			  <br><br>
+			  Missioni: <br>
+			  - Creare una nuova missione.<br>
+			  - Modificare una missione.<br>
+			  - Eliminare una missione.<br>
+			  - Copiare una missione.<br>
+			  - Spostare una missione.<br>
+			  - Attivare/Disattivare una missione.<br>
+			  <br>
+			  Attività: <br>
+			  - Creare una nuova attività.<br>
+			  - Modificare una attività.<br>
+			  - Eliminare una attività.<br>
+			  - Copiare una attività.<br>
+			  - Spostare una attività.<br>
+			  - Attivare/Disattivare una attività.<br>
+			  <br>
+			 Per poter visualizzare le missioni associate alle storie, dovrai cliccare su una storia archiviata.<br>
+			 Mentre per visualizzare le attività associate ad una missione, dovrai cliccare su una storia archiviata, e successivamente su una missione. 
+
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	
+	<div class="modal fade bd-example-modal-xl" id="finestragrafo" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-xl" role="document">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<h5 class="modal-title" id="titolografo">Grafo Storia</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			  <span aria-hidden="true">&times;</span>
+			</button>
+		  </div>
+		  <div class="modal-body" id="bodygrafo">
+			  <div id="grafo">
+		  </div>
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	
+</div>
+<br>
+	
+<!-- navbar inferiore -->	
+<footer>
+	<nav class="navbar fixed-bottom">
+		<button class="navbar-toggler" type="button" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" id="backhome">
+		Torna alla pagina principale
+		</button>
+		<button class="navbar-toggler" type="button" data-target="#finestraistruzioni" data-toggle="modal" id="istruzioni">
+		Istruzioni
+		</button>
+	</nav>
+</footer>
+</body>
+</html>
