@@ -332,6 +332,244 @@
             "idmissione": 10032,
             "nomestoria": "ilSistemaSolare",
             "nomemissione": "Alla scoperta del Sistema Solare"
+        },
+        {
+            "checkboxnorisposta": true,
+            "domanda": "Ciao! State per affrontare una nuova sfida nei posti più disparati dell'Europa. Il vostro amico Marco insieme alla vostra amica Giada hanno scelto di cominciare il viaggio prendendo l'aereo da Bologna e decidendo di non farvi sapere la destinazione. Vi hanno detto solo che visiterete insieme le 10 città più belle e caratteristiche dell'Europa spostandovi tra di esse con il treno! Sali sul primo volo e goditi questo interrail!",
+            "avanti": "Avanti",
+            "stato": "attiva",
+            "id": 100151,
+            "idstoria": 25,
+            "idmissione": 10040,
+            "nomestoria": "Interrail",
+            "nomemissione": "Raggiungete il Big Ben"
+        },
+        {
+            "checkboxbottoni": true,
+            "domanda": "Siete appena atterrati dopo un volo pieno di turbolenze, siete stanchi e già sentite la mancanza di casa. Cercate un posto dove dormire in centro città vicino a Las Ramblas! Secondo voi in che città vi trovate?",
+            "immaginesfondo": "./image/Barcellona.jpg",
+            "rispostebottoni": {
+                "sbagliata1": "Roma",
+                "giusta": "Barcellona",
+                "sbagliata2": "Firenze",
+                "sbagliata3": "Oslo",
+                "incoraggiamento": "Mmmh, anche se siete stanchi provate a cambiare la vostra risposta",
+                "aiuto": "Marco vi ha appena detto che dall'aereo è riuscito a vedere la Sagrada Familia!",
+                "punteggio": "3"
+            },
+            "stato": "attiva",
+            "id": 100152,
+            "idstoria": 25,
+            "idmissione": 10040,
+            "nomestoria": "Interrail",
+            "nomemissione": "Raggiungete il Big Ben"
+        },
+        {
+            "checkboxbottoni": true,
+            "domanda": "Alla fine avete dormito proprio in centro città e il giorno seguente avete deciso di pranzare al famoso mercato de La Boqueria. Marco ha scoperto di essere leggermente intollerante alle fragole e dato il suo mal di stomaco avete deciso di passare il pomeriggio in hotel a rilassarvi in sauna. Il giorno seguente avete preso il treno per una nuova città e, appena scesi, Giada ha esclamato: 'bonjour a toute la France!' dopo aver visto un magnifico tramonto dietro la Torre Eiffel. A voi non piace un granchè il suono di quella lingua e quindi quasi annoiati capite subito dove vi trovate",
+            "immaginesfondo": "./image/Parigi.jpg",
+            "rispostebottoni": {
+                "sbagliata1": "Valencia",
+                "giusta": "Parigi",
+                "sbagliata2": "Venezia",
+                "sbagliata3": "Marsiglia",
+                "incoraggiamento": "In questa città sono famose le baguette, provate a cambiare la vostra risposta",
+                "aiuto": "Giada ha appena visto passare una signora con il basco, e ha escalamato: 'J'adore Paris!'",
+                "punteggio": "4"
+            },
+            "stato": "attiva",
+            "id": 100153,
+            "idstoria": 25,
+            "idmissione": 10040,
+            "nomestoria": "Interrail",
+            "nomemissione": "Raggiungete il Big Ben"
+        },
+        {
+            "checkboxcampoauto": true,
+            "domanda": "Finalmente avete terminato i giorni nella città dell'amore, e voi non vedete l'ora di partire per la nuova città. Prima di salire sull'Eurostar - il famoso treno che viaggia sott'acqua - notate che c'è da mostrare i documenti per poter passare la dogana inglese. Mentre siete in fila senti Marco e Giada organizzare il giorno seguente per andare a visitare il Big Ben. Siete felicissimi, quella città era proprio nella vostra lista delle cose da fare almento una volta nella vita! Di che città stanno parlando i vostri amici?",
+            "immaginesfondo": "./image/Londra.jpg",
+            "camporisposta": "londra",
+            "stato": "attiva",
+            "id": 100154,
+            "idstoria": 25,
+            "idmissione": 10040,
+            "nomestoria": "Interrail",
+            "nomemissione": "Raggiungete il Big Ben"
+        },
+        {
+            "checkboxnorisposta": true,
+            "domanda": "Il Big Ben è davvero altissimo! Non ve l'aspettavate! Continuate il vostro viaggio e vi renderete conto di quanti altri posti stupendi esistono di cui non eravate a conoscenza",
+            "avanti": "Avanti",
+            "stato": "attiva",
+            "id": 100155,
+            "idstoria": 25,
+            "idmissione": 10040,
+            "nomestoria": "Interrail",
+            "nomemissione": "Raggiungete il Big Ben"
+        },
+        {
+            "checkboxnorisposta": true,
+            "domanda": "A malincuore è ora di lasciare la vostra amata città. Siete tristi, e durante il viaggio in treno i vostri amici per tirarvi su di morale cominciano a darvi indizi sulla nuova meta.",
+            "avanti": "Avanti",
+            "stato": "attiva",
+            "id": 100156,
+            "idstoria": 25,
+            "idmissione": 10041,
+            "nomestoria": "Interrail",
+            "nomemissione": "Raggiungete Alexanderplatz"
+        },
+        {
+            "checkboxbottoni": true,
+            "domanda": "Marco non vede l'ora di andare a visitare il museo di van Gogh e Giada è superfelice perchè finalmente vedrà per la prima volta tutte le sue amate star del cinema in miniatura nel famoso museo delle cere. Dopo questa affermazione vi illuminate e mentre l'Eurostar passa in mezzo ai campi pieni di tulipani cominciate ad organizzare assieme a loro le giornate seguenti. Qual è questa famosa città di cui tutti dicono assomigliare a Venezia?",
+            "immaginesfondo": "./image/Amsterdam.jpg",
+            "rispostebottoni": {
+                "sbagliata1": "Milano",
+                "giusta": "Amsterdam",
+                "sbagliata2": "Monaco",
+                "sbagliata3": "Bruxelles",
+                "incoraggiamento": "Qui in città è pieno di ragazzi che utilizzano la bici, dovremmo cominciare ad utilizzarla un po' di più anche noi in Italia. Provate a cambiare la vostra risposta",
+                "aiuto": "Giada è contrariata all'idea di passare nel quartiere a luci rosse",
+                "punteggio": "1"
+            },
+            "stato": "attiva",
+            "id": 100157,
+            "idstoria": 25,
+            "idmissione": 10041,
+            "nomestoria": "Interrail",
+            "nomemissione": "Raggiungete Alexanderplatz"
+        },
+        {
+            "checkboxbottoni": true,
+            "domanda": "Dopo questi giorni trascorsi freneticamente Marco vi rivela che il giorno seguente alle 4 del mattino dovete prendere il prossimo treno. Il viaggio durerà più di 12 ore e voi al solo pensiero siete già stanchi. L'indomani mattina con le borse sotto agli occhi vi recate in stazione, ma nel mentre vi accorgete che il treno è in ritardo. Giada per la stanchezza comincia a litigare con Marco, e voi non sapete come risolvere la situazione. Appena arriva il treno decidete di mettervi ad ascoltare musica rilassante con gli auricolari. Finite per addormentarti, e proprio quando stavate facendo un sogno bellissimo vi sentite toccare una spalla. Aprite gli occhi e notate il controllore che chiedendovi di mostrargli il biglietto esclama - Next station is Tivoli Gardens! -. Vi riprendete subito per l'euforia del parco divertimenti. Siete proprio felici che i vostri amici vi abbiano portato a: ",
+            "immaginesfondo": "./image/Copenaghen.jpg",
+            "rispostebottoni": {
+                "sbagliata1": "Francoforte",
+                "giusta": "Copenaghen",
+                "sbagliata2": "Madrid",
+                "sbagliata3": "Zagabria",
+                "incoraggiamento": "Dietro l'angolo c'è il famoso quartiere di Cristiania. Provate a cambiare la vostra risposta",
+                "aiuto": "La statua della Sirenetta è la principale attrazione di questa città",
+                "punteggio": "5"
+            },
+            "stato": "attiva",
+            "id": 100158,
+            "idstoria": 25,
+            "idmissione": 10041,
+            "nomestoria": "Interrail",
+            "nomemissione": "Raggiungete Alexanderplatz"
+        },
+        {
+            "checkboxbottoni": true,
+            "domanda": "Partite per il prossimo viaggio e scoprite che il treno deve oltrepassare un pezzo di mar Baltico. Il treno sale su un traghetto e voi recandovi in poppa riuscite ad intravedere due delfini che stanno seguendo le onde causate dal motore del traghetto. Che vista meravigliosa! Il traghetto continua la rotta verso la Germania. Marco aveva proposto questa meta per visitare Alexanderplatz.",
+            "immaginesfondo": "./image/Berlino.jpg",
+            "rispostebottoni": {
+                "sbagliata1": "Cracovia",
+                "giusta": "Berlino",
+                "sbagliata2": "Dresda",
+                "sbagliata3": "Amburgo",
+                "incoraggiamento": "Sul muro che fu costruito sono presenti dei bellissimi murales",
+                "aiuto": "Negli anni della guerra fredda in questa città è stato costruito un famoso muro",
+                "punteggio": "3"
+            },
+            "stato": "attiva",
+            "id": 100159,
+            "idstoria": 25,
+            "idmissione": 10041,
+            "nomestoria": "Interrail",
+            "nomemissione": "Raggiungete Alexanderplatz"
+        },
+        {
+            "checkboxnorisposta": true,
+            "domanda": "Dopo aver comprato una scorta di pretzel la vostra destinazione cambia...",
+            "avanti": "Avanti",
+            "stato": "attiva",
+            "id": 100160,
+            "idstoria": 25,
+            "idmissione": 10041,
+            "nomestoria": "Interrail",
+            "nomemissione": "Raggiungete Alexanderplatz"
+        },
+        {
+            "checkboxnorisposta": true,
+            "domanda": "Siete passati per tantissimi luoghi famosi, e forse quello che vi aspetta non sarà ancora di vostra conoscenza. Continuate questa esperienza per acculturarvi sempre di più!",
+            "avanti": "Avanti",
+            "stato": "attiva",
+            "id": 100161,
+            "idstoria": 25,
+            "idmissione": 10042,
+            "nomestoria": "Interrail",
+            "nomemissione": "Ritorno a casa"
+        },
+        {
+            "checkboxbottoni": true,
+            "domanda": "Arrivati nel centro storico Marco si mette a fotografare il famoso orologio astronomico mentre Giada, appena tornata da una camminata, vi mostra una foto che ha fatto alla casa danzante. Intuite il nome di questa città solo dopo questa foto. Dove vi hanno portato i tuoi amici questa volta?",
+            "immaginesfondo": "./image/Praga.jpg",
+            "rispostebottoni": {
+                "sbagliata1": "Stoccolma",
+                "giusta": "Praga",
+                "sbagliata2": "Varsavia",
+                "sbagliata3": "Brno",
+                "incoraggiamento": "E' vicino a Brno, forza riprovateci",
+                "aiuto": "In questa città i turisti vanno sempre a visitare Ponte Carlo",
+                "punteggio": "3"
+            },
+            "stato": "attiva",
+            "id": 100162,
+            "idstoria": 25,
+            "idmissione": 10042,
+            "nomestoria": "Interrail",
+            "nomemissione": "Ritorno a casa"
+        },
+        {
+            "checkboxbottoni": true,
+            "domanda": "Partite con il prossimo treno per visitare uno dei 'paesi dell'est'. Questo posto meraviglioso è attraversato dal Danubio, e proprio sulle sue sponde è stata fatta l'opera 'scarpe sulle rive del Danubio'. Vi trovate a ..?",
+            "immaginesfondo": "./image/Budapest.jpg",
+            "rispostebottoni": {
+                "sbagliata1": "Bratislava",
+                "giusta": "Budapest",
+                "sbagliata2": "Salisburgo",
+                "sbagliata3": "Trieste",
+                "incoraggiamento": "La parte della città chiamata Buda conta diverse colline da cui si può ammirare tutta la città",
+                "aiuto": "Giada vi ha portati a mangiare il famoso Gulash",
+                "punteggio": "4"
+            },
+            "stato": "attiva",
+            "id": 100163,
+            "idstoria": 25,
+            "idmissione": 10042,
+            "nomestoria": "Interrail",
+            "nomemissione": "Ritorno a casa"
+        },
+        {
+            "checkboxbottoni": true,
+            "domanda": "Il treno per la prossima città è davvero pieno, neanche il controllore riesce a passare tra i vagoni. Per fortuna il viaggio dura poco, ed in un lampo arrivate nella capitale austriaca.",
+            "immaginesfondo": "./image/Vienna.jpg",
+            "rispostebottoni": {
+                "sbagliata1": "Roma",
+                "giusta": "Vienna",
+                "sbagliata2": "Anversa",
+                "sbagliata3": "Dublino",
+                "incoraggiamento": "E' la città di Mozart, forza riprovateci",
+                "aiuto": "Avete portato Marco e Giada a bere un ottimo succo di mela",
+                "punteggio": "5"
+            },
+            "stato": "attiva",
+            "id": 100164,
+            "idstoria": 25,
+            "idmissione": 10042,
+            "nomestoria": "Interrail",
+            "nomemissione": "Ritorno a casa"
+        },
+        {
+            "checkboxnorisposta": true,
+            "domanda": "Complimenti! Siete riusciti a trovare un treno diretto per tornare a casa e a concludere uno dei viaggi più belli da fare nella vita! D'ora in poi potrete dare consigli a tutti i vostri amici e condivere con loro l'esperienza (Mi raccomando, continuate a studiare l'inglese!)",
+            "avanti": "Avanti",
+            "stato": "attiva",
+            "id": 100165,
+            "idstoria": 25,
+            "idmissione": 10042,
+            "nomestoria": "Interrail",
+            "nomemissione": "Ritorno a casa"
         }
     ]
 }

@@ -435,7 +435,7 @@ app.post("/autore/newStory", function(req,res){
 		return;
 	}
 	
-	fs.appendFile(__dirname + "/" + newStory.nome + '.json', JSON.stringify({"accessibile":newStory.accessibile,"eta":newStory.eta,"missioni":[]}, null, 4), (err) => { 
+	fs.appendFile(__dirname + "/" + newStory.nome + '.json', JSON.stringify({"nomestoria":newStory.nome,"accessibile":newStory.accessibile,"eta":newStory.eta,"missioni":[]}, null, 4), (err) => { 
   		if (err) {
 			console.log(err);
 			res.status(500).send('Non è stata aggiunta la nuova storia nel file della singola storia');

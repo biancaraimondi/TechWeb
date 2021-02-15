@@ -14,7 +14,7 @@ input[type='radio']:enabled:hover {
     box-shadow:0 0 5px 0px orange inset;
 }
 
-input[type='radio']:before { /*all'interno del radio button viene creato un sottile spazio bianco*/
+input[type='radio']:before { /*prima del radio button viene creato un sottile spazio bianco*/
     content:'';
     display:block;
     width:60%;

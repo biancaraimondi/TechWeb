@@ -13,6 +13,13 @@
             "accessibile": false,
             "eta": "eta2",
             "stato": "pubblicata"
+        },
+        {
+            "id": 25,
+            "nome": "Interrail",
+            "accessibile": true,
+            "eta": "eta3",
+            "stato": "pubblicata"
         }
     ]
 }

@@ -59,6 +59,7 @@ $(document).ready(function () {
         document.getElementById('bottoneChat').hidden = false;
         document.getElementById('nomeUtenteErrato').hidden = true;
         nomeGiocatore = document.getElementById('nomeGiocatore').value;
+        nomeGiocatore = nomeGiocatore.replaceAll(" ", "");
         document.getElementById('nomeGiocatore').value = "";
         socket.emit('connesso', nomeGiocatore, 'player');
 
@@ -134,7 +135,7 @@ $(document).ready(function () {
         cambiaPagina('primaPagina.html');
     });
     
-    //Gestione fotocamera from https://www.npmjs.com/package/webcam-easy
+    //Gestione fotocamera from https://www.npmjs.com/package/webcam-easy e https://github.com/bensonruan/webcam-easy
     $('#bottoneFoto').click(function(){
         webcam.start()
            .then(result =>{
@@ -170,7 +171,6 @@ $(document).ready(function () {
         //facingMode = user - fotocamera frontale
         //facingMode = environment - fotocamera posteriore
         webcam._facingMode = (webcam._facingMode == 'user')? 'environment': 'user'; //Se modalità user allora passa all'environment, altrimenti modalità user
-        //webcam._webcamElement.style.transform = "";
         webcam.selectCamera();
         webcam.start();
         
@@ -290,6 +290,7 @@ $(document).ready(function () {
         }
         else{ //Se il campo risposta contiene un valore allora la risposta testuale sarà valutata automaticamente dal server
             var rispostaCorretta = storia.missioni[i].attivita[j].camporisposta;
+            rispostaCorretta = rispostaCorretta.toLowerCase();
             socket.emit('black-box', domanda, risposta, rispostaCorretta, nomeGiocatore);
         }
         cambioAttivita();
@@ -499,10 +500,7 @@ $(document).ready(function () {
     function matchMediaQuery(x) {
       if (x.matches) { //If media query matches
           document.body.style.background = "url('"+storia.missioni[i].attivita[j].immaginesfondo+"') no-repeat fixed";
-          var altezzaPagina = document.getElementById('contenitorePagina').height; // 120px
-          //var len = altezzaPagina.length; // 4
-          //var altezzaDefinitiva = altezzaPagina.substring(0, len-2); // 120
-          //document.body.style.height = altezzaDefinitiva + "px"; // 120px
+          var altezzaPagina = document.getElementById('contenitorePagina').height;
           document.body.style.height = altezzaPagina; 
           document.body.style.backgroundSize = "cover";
           document.body.style.backgroundPosition = "center center";
@@ -516,8 +514,6 @@ $(document).ready(function () {
     }
 
     var x = window.matchMedia("(max-width: 415px)");
-    //matchMediaQuery(x); //Call listener function at run time
-    //x.addListener(matchMediaQuery); //Attach listener function on state changes
     
     //-- Funzione per cambiare attività
     function cambioAttivita(){
@@ -596,6 +592,9 @@ $(document).ready(function () {
                 document.getElementById('footer').hidden = true;
                 document.getElementById('campoAvanti').hidden = true;
                 document.getElementById('bottoneChat').hidden = true;
+                document.getElementById('campoFoto').hidden = true;
+                document.getElementById('campoTextArea').hidden = true;
+                document.body.style.background = "white";
                 document.getElementById('domanda').innerHTML = "Complimenti! Hai terminato con successo la storia. Sotto potrai vedere visualizzate tutte le tue valutazioni che prima erano in attesa di una valutazione. Quando tutte le tue risposte saranno state valutate potrai inviare i tuoi dati riassuntivi attraverso l'apposito bottone in basso a sinistra.";
                 inserisciMargine = true; //Settato solo per la prima volta che chiamo visualizzaValutazioni
                 visualizzaValutazioni();

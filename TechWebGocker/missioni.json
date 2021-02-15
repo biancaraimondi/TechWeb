@@ -20,6 +20,27 @@
             "idstoria": 21,
             "nomestoria": "ilSistemaSolare",
             "stato": "attiva"
+        },
+        {
+            "id": 10040,
+            "nome": "Raggiungete il Big Ben",
+            "idstoria": 25,
+            "nomestoria": "Interrail",
+            "stato": "attiva"
+        },
+        {
+            "id": 10041,
+            "nome": "Raggiungete Alexanderplatz",
+            "idstoria": 25,
+            "nomestoria": "Interrail",
+            "stato": "attiva"
+        },
+        {
+            "id": 10042,
+            "nome": "Ritorno a casa",
+            "idstoria": 25,
+            "nomestoria": "Interrail",
+            "stato": "attiva"
         }
     ]
 }
