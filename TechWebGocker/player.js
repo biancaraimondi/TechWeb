@@ -30,7 +30,7 @@ $(document).ready(function () {
     ]*/
     var inserisciMargine;
     var punteggio = 0.0;
-    var punteggioIntermedio = 0.0;
+    var punteggioIntermedio = 0.0; //Assume il punteggio che ha ogni attività
     var punteggioTotale = 0;
     let picture;
     const webcamElement = document.getElementById('webcam');
@@ -82,7 +82,7 @@ $(document).ready(function () {
                     if (storia.missioni[z].stato == "attiva"){
                         for(var y=0; y<storia.missioni[z].attivita.length; y++){
                             if(storia.missioni[z].attivita[y].stato == "attiva"){
-                                contatoreAttivita++;
+                                contatoreAttivita++; //Viene incrementato ogni volta che c'è un'attività attiva
                             }
                         }
                     }
